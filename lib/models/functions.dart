@@ -16,21 +16,22 @@ import 'package:flutter/rendering.dart';
 
 class Functions {
   /// For Confirmation Page => Taking Summary
-  Future<Uint8List> capturePng(GlobalKey globalKey) async {
-    RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
-
-    if (boundary.debugNeedsPaint) {
-      print("Waiting for boundary to be painted.");
-      await Future.delayed(const Duration(milliseconds: 20));
-      return capturePng(globalKey);
-    }
-    var image = await boundary.toImage();
-    var byteData = await image.toByteData(format: ImageByteFormat.png);
-    return byteData.buffer.asUint8List();
-  }
+  // Future<Uint8List> capturePng(GlobalKey globalKey) async {
+  //   RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
+  //
+  //   if (boundary.debugNeedsPaint) {
+  //     print("Waiting for boundary to be painted.");
+  //     await Future.delayed(const Duration(milliseconds: 20));
+  //     return capturePng(globalKey);
+  //   }
+  //   var image = await boundary.toImage();
+  //   var byteData = await image.toByteData(format: ImageByteFormat.png);
+  //   return byteData.buffer.asUint8List();
+  // }
 
   decideColor(context) {
-    Gender selectedGender = Provider.of<GenderSelection>(context, listen: false).currentGender[0];
+    Gender selectedGender =
+        Provider.of<GenderSelection>(context, listen: false).currentGender[0];
     if (selectedGender == Gender.female) {
       return LinearGradient(
         begin: Alignment.centerLeft,
@@ -90,6 +91,7 @@ class Functions {
     }
   }
 
+  /// TODO - fixes needed.
   titleLength({String inputName, TextStyle textStyle, int ctrlLength}) {
     if (inputName.length >= ctrlLength) {
       return Marquee(
@@ -139,45 +141,41 @@ class Functions {
     );
   }
 
-///takes an image from camera and adds it to the list
+  ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
     File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
+        source: ImageSource.camera, imageQuality: 50);
 
-    if(image!=null){
-      if(Provider.of<Login>(context, listen: false).isManager){
-        Provider.of<BusinessAndUserData>(context, listen: false).addImage(
-            ImageListItem(file:image, isFile:true, covered:true)
-        );
-      }else{
-        Provider.of<BusinessAndUserData>(context, listen: false).setUserImage(image);
+    if (image != null) {
+      if (Provider.of<Login>(context, listen: false).isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .addImage(ImageListItem(file: image, isFile: true, covered: true));
+      } else {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .setUserImage(image);
       }
     }
-
-
   }
 
   ///takes an image from gallery and adds it to the list
   imgFromGallery(context) async {
-    File image = await  ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50
-    );
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50);
 
-    if(image!=null){
-      if(Provider.of<Login>(context, listen: false).isManager){
-        Provider.of<BusinessAndUserData>(context, listen: false).addImage(
-            ImageListItem(file:image, isFile:true, covered:true)
-        );
-      }else{
-        Provider.of<BusinessAndUserData>(context, listen: false).setUserImage(image);
+    if (image != null) {
+      if (Provider.of<Login>(context, listen: false).isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .addImage(ImageListItem(file: image, isFile: true, covered: true));
+      } else {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .setUserImage(image);
       }
     }
   }
 
   void showPicker(context) {
     showModalBottomSheet(
-      backgroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
         context: context,
         builder: (BuildContext bc) {
           return CircularParent(
@@ -206,7 +204,11 @@ class Functions {
               ],
             ),
           );
-        }
-    );
+        });
+  }
+
+  /// seems fine rn.
+  String fixURL (String url) {
+    return url.replaceAll(' ', '-');
   }
 }

@@ -1,3 +1,4 @@
+import 'package:ayarla/models/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
@@ -203,6 +204,11 @@ class _WelcomePageState extends State<WelcomePage>
               TextButton(
                   onPressed: () {
                     getToken();
+                  },
+                  child: Text("getToken")),
+              TextButton(
+                  onPressed: () {
+                    print(Functions().fixURL(' h h h '));
                   },
                   child: Text("getToken")),
               // !check

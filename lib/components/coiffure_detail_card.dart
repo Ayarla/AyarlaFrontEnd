@@ -98,6 +98,7 @@ class _CoiffureDetailCardState extends State<CoiffureDetailCard> {
   @override
   Widget build(BuildContext context) {
     int total = Provider.of<AppointmentData>(context, listen: true).total;
+
     return Container(
       child: ListView(
         controller: _photoController,
