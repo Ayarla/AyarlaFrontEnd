@@ -1,4 +1,3 @@
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
@@ -9,10 +8,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../notif.dart';
 
-
 class WelcomePage extends StatefulWidget {
   static const String id = "WelcomePage";
-
 
   @override
   _WelcomePageState createState() => _WelcomePageState();
@@ -50,11 +47,12 @@ class _WelcomePageState extends State<WelcomePage>
   }
 
   Future getToken() async {
-    final String _url = 'https://ayarlawebhost20210410115100.azurewebsites.net/api/TokenAuth/Authenticate';
+    final String _url =
+        'https://ayarlawebhost20210410115100.azurewebsites.net/api/TokenAuth/Authenticate';
     Map data = {
-        "userNameOrEmailAddress": "admin",
-        "password": "123qwe",
-        "rememberClient": true
+      "userNameOrEmailAddress": "admin",
+      "password": "123qwe",
+      "rememberClient": true
     };
     var body = json.encode(data);
 
@@ -77,12 +75,12 @@ class _WelcomePageState extends State<WelcomePage>
       // var error = jsonDecode(response.body)['error']['message'];
       // print(error);
     }
-
   }
 
   /// Create User
   Future createUser() async {
-    final String _url = 'https://ayarlawebhost20210410115100.azurewebsites.net/api/services/app/User/Create';
+    final String _url =
+        'https://ayarlawebhost20210410115100.azurewebsites.net/api/services/app/User/Create';
 
     Map data = {
       "userName": "hellasdoguys",
@@ -235,42 +233,37 @@ class _WelcomePageState extends State<WelcomePage>
               SizedBox(height: 20),
               UI.generalLogo,
               SizedBox(height: 30),
-              DelayedDisplay(
-                delay: Duration(seconds: 1),
-                child: Text(
-                  "Yeni Nesil, Akıllı Randevu Danışmanı",
-                  textAlign: TextAlign.center,
-                  style: kTitleStyle,
-                ),
+
+              Text(
+                "Yeni Nesil, Akıllı Randevu Danışmanı",
+                textAlign: TextAlign.center,
+                style: kTitleStyle,
               ),
               SizedBox(
                 height: 15,
               ),
-              DelayedDisplay(
-                delay: Duration(seconds: 2),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-                  child: MenuSection(
-                    Row(
-                      children: [
-                        // Icon(icon: buttonBehavior(isSelected)),
-                        Container(
-                          // width: MediaQuery.of(context).size.width / 3,
-                          child: Text(
-                            'Kuaför Randevumu Ayarla',
-                            style: kTextStyle.copyWith(color: Colors.white),
-                          ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                child: MenuSection(
+                  Row(
+                    children: [
+                      // Icon(icon: buttonBehavior(isSelected)),
+                      Container(
+                        // width: MediaQuery.of(context).size.width / 3,
+                        child: Text(
+                          'Kuaför Randevumu Ayarla',
+                          style: kTextStyle.copyWith(color: Colors.white),
                         ),
-                      ],
-                    ),
-                    Colors.white,
-                    Colors.white,
-                    [
-                      MenuItemData(label: 'Kadın'),
-                      MenuItemData(label: 'Erkek'),
-                      MenuItemData(label: 'Unisex'),
+                      ),
                     ],
                   ),
+                  Colors.white,
+                  Colors.white,
+                  [
+                    MenuItemData(label: 'Kadın'),
+                    MenuItemData(label: 'Erkek'),
+                    MenuItemData(label: 'Unisex'),
+                  ],
                 ),
               ),
             ],

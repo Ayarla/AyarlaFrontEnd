@@ -1,3 +1,4 @@
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -170,24 +171,22 @@ class _SectionState extends State<MenuSection>
                                 return GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
+                                    Routers.router.navigateTo(context, "AramaSayfası");
                                     if (item.label == 'Kadın') {
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.female);
-                                      Navigator.pushNamed(
-                                          context, SearchPage.id);
+                                      Routers.router.navigateTo(context, "AramaSayfası");
                                     } else if (item.label == 'Erkek') {
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.male);
-                                      Navigator.pushNamed(
-                                          context, SearchPage.id);
+                                      Routers.router.navigateTo(context, "AramaSayfası");
                                     } else {
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.unisex);
-                                      Navigator.pushNamed(
-                                          context, SearchPage.id);
+                                      Routers.router.navigateTo(context, "AramaSayfası");
                                     }
                                   },
                                   child: Row(

@@ -31,18 +31,18 @@ class DynamicLinkService {
       if (deepLink != null) {
         if (deepLink.queryParameters.containsKey('id')) {
           String id = deepLink.queryParameters['id'];
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => CoiffureDetailPage(uniqueId: id),
-            ),
-          );
+          // Navigator.of(context).push(
+            // MaterialPageRoute(
+            //   builder: (context) => CoiffureDetailPage(uniqueId: id),
+            // ),
+          // );
         }
       }
-      FirebaseDynamicLinks.instance.onLink(
-          onSuccess: (PendingDynamicLinkData dynamicLink) async {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => CoiffureDetailPage()));
-      });
+      // FirebaseDynamicLinks.instance.onLink(
+      //     onSuccess: (PendingDynamicLinkData dynamicLink) async {
+      //   Navigator.of(context).push(
+      //       MaterialPageRoute(builder: (context) => CoiffureDetailPage()));
+      // });
     } catch (e) {
       print(e.toString());
     }

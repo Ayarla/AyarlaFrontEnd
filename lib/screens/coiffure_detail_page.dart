@@ -10,13 +10,9 @@ import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/components/coiffure_detail_card.dart';
 
 class CoiffureDetailPage extends StatelessWidget {
-  static String id = "safgb";
-
   final CoiffureModel coiffureModel;
-  final String uniqueId;
-  CoiffureDetailPage({this.coiffureModel, this.uniqueId});
-
-  Functions functions = Functions();
+  final String name;
+  CoiffureDetailPage({this.coiffureModel, this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -29,23 +25,14 @@ class CoiffureDetailPage extends StatelessWidget {
         title: Container(
           height: 30,
           width: double.infinity,
-          child: functions.titleLength(
+          child: Functions().titleLength(
               inputName: coiffureModel.name,
-              // coiffureModel.name ??
-              //     Provider.of<AppointmentData>(context, listen: false)
-              //         .coiffureList
-              //         .singleWhere(
-              //             (element) => element.uniqueId == uniqueId)
-              //         .name,
               textStyle: kTitleStyle.copyWith(color: Colors.white),
               ctrlLength: 20),
         ),
       ).build(context),
       body: CoiffureDetailCard(
-        coiffureModel: coiffureModel ??
-            Provider.of<AppointmentData>(context, listen: false)
-                .coiffureList
-                .singleWhere((element) => element.uniqueId == uniqueId),
+        coiffureModel: coiffureModel,
       ),
       floatingActionButton: total != 0
           ? Row(
@@ -57,7 +44,7 @@ class CoiffureDetailPage extends StatelessWidget {
                     width: MediaQuery.of(context).size.width -
                         3 * (MediaQuery.of(context).size.width / 6),
                     decoration: BoxDecoration(
-                      gradient: functions.decideColor(context),
+                      gradient: Functions().decideColor(context),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: FloatingActionButton(
@@ -93,7 +80,7 @@ class CoiffureDetailPage extends StatelessWidget {
                 Container(
                   height: MediaQuery.of(context).size.width / 7.5,
                   decoration: BoxDecoration(
-                    gradient: functions.decideColor(context),
+                    gradient: Functions().decideColor(context),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   width: MediaQuery.of(context).size.width / 3,

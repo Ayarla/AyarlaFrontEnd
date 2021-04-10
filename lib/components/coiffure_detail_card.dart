@@ -279,10 +279,10 @@ class _CoiffureDetailCardState extends State<CoiffureDetailCard> {
                   "Hakkında",
                   style: kTitleStyle,
                 ),
-                RatingRow(
-                  number: widget.coiffureModel.star,
-                  comment: widget.coiffureModel.comments,
-                ),
+                // RatingRow(
+                //   number: widget.coiffureModel.star,
+                //   comment: widget.coiffureModel.comments,
+                // ),
 
                 /// Location
                 Row(

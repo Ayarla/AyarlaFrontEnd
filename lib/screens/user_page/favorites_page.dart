@@ -79,15 +79,15 @@ class _FavoritesPageState extends State<FavoritesPage>
                 actionExtentRatio: 0.25,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CoiffureDetailPage(
-                          coiffureModel: localList[index],
-                          uniqueId: localList[index].uniqueId,
-                        ),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => CoiffureDetailPage(
+                    //       coiffureModel: localList[index],
+                    //       uniqueId: localList[index].uniqueId,
+                    //     ),
+                    //   ),
+                    // );
                   },
                   child: Card(
                     elevation: 5,

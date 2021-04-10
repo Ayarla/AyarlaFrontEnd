@@ -417,10 +417,10 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                         "Hakkında",
                         style: kTitleStyle,
                       ),
-                      RatingRow(
-                        number: 3,
-                        comment: 150,
-                      ),
+                      // RatingRow(
+                      //   number: 3,
+                      //   comment: 150,
+                      // ),
 
                       /// Location
                       Row(

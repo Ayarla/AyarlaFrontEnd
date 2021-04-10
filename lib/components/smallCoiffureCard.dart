@@ -1,3 +1,4 @@
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/coiffure_detail_page.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/constants/router.dart';
 
 class SmallCoiffureCard extends StatefulWidget {
   final coiffureModel;
@@ -17,18 +19,26 @@ class SmallCoiffureCard extends StatefulWidget {
 }
 
 class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        // Routers.router
+        //     .navigateTo(context, "/Isletme/:${widget.coiffureModel.name}");
+        // routeSettings: RouteSettings(
+        //   name: "/Isletme/:${widget.coiffureModel.name}",
+        //   arguments: CoiffureDetailPage(
+        //       coiffureModel: widget.coiffureModel, name: widget.coiffureModel.name),
+        // ));
+
+        Routers.router.navigateTo(
           context,
-          MaterialPageRoute(
-            builder: (context) => CoiffureDetailPage(
-              coiffureModel: widget.coiffureModel,
-              uniqueId: widget.coiffureModel.uniqueId,
-            ),
+          "/Isletme/:name",
+          routeSettings: RouteSettings(
+            name: "/Isletme/:${widget.coiffureModel.name.toString()}",
+            arguments: CoiffureDetailPage(
+                coiffureModel: widget.coiffureModel,
+                name: widget.coiffureModel.name),
           ),
         );
       },
