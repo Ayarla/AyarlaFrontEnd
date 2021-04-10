@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:randevudemo/constants/constants.dart';
-import 'package:randevudemo/models/functions.dart';
+import 'package:ayarla/constants/constants.dart';
+import 'package:ayarla/models/functions.dart';
 
 ///class'a eklemeler yapılabilir
 class FloatingButton extends StatelessWidget {

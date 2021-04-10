@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "586280234586",
+    "firebase_url": "https://ayarla-d0e20-default-rtdb.firebaseio.com",
+    "project_id": "ayarla-d0e20",
+    "storage_bucket": "ayarla-d0e20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586280234586:android:43c43748fdb64f49a5b263",
+        "android_client_info": {
+          "package_name": "ayarla.ayarla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586280234586-si6ankmmtrakjomba1lb961g29j6opsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUmodBtv7DUdtuCR0FbXc-_OYBOriT7b4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586280234586-si6ankmmtrakjomba1lb961g29j6opsi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "586280234586-he5sb50ck6206cuk5haum6sqig8dvt82.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Ayarla.ayarlademo",
+                "app_store_id": "962194608"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586280234586:android:c6d8153930284510a5b263",
+        "android_client_info": {
+          "package_name": "com.nilsu.randevudemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586280234586-si6ankmmtrakjomba1lb961g29j6opsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUmodBtv7DUdtuCR0FbXc-_OYBOriT7b4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586280234586-si6ankmmtrakjomba1lb961g29j6opsi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "586280234586-he5sb50ck6206cuk5haum6sqig8dvt82.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Ayarla.ayarlademo",
+                "app_store_id": "962194608"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

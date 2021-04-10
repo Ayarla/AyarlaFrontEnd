@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:randevudemo/constants/constants.dart';
+import 'package:ayarla/constants/constants.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class RatingRow extends StatelessWidget {

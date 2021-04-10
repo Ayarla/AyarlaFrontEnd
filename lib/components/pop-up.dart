@@ -3,12 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:randevudemo/constants/constants.dart';
-import 'package:randevudemo/models/functions.dart';
-import 'package:randevudemo/screens/confirmation_page.dart';
-import 'package:randevudemo/screens/privacy_policy_page.dart';
-import 'package:randevudemo/screens/search_page.dart';
-import 'package:randevudemo/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/constants/constants.dart';
+import 'package:ayarla/models/functions.dart';
+import 'package:ayarla/screens/confirmation_page.dart';
+import 'package:ayarla/screens/privacy_policy_page.dart';
+import 'package:ayarla/screens/search_page.dart';
+import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:provider/provider.dart';
 
 class PopUp {

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:randevudemo/constants/constants.dart';
+import 'package:ayarla/constants/constants.dart';
 
 class ManagerScreenButton extends StatelessWidget {
   final Widget icon;

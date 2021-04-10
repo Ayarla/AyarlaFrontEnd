@@ -1,113 +1,148 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ayarla/screens/coiffure_detail_page.dart';
+import 'package:ayarla/screens/comments_page.dart';
+import 'package:ayarla/screens/gallery_page.dart';
+import 'package:ayarla/screens/loading_screen.dart';
+import 'package:ayarla/screens/manager_screens/business_info_page.dart';
+import 'package:ayarla/screens/manager_screens/employee_management.dart';
+import 'package:ayarla/screens/manager_screens/employee_page.dart';
+import 'package:ayarla/screens/manager_screens/employee_work_page.dart';
+import 'package:ayarla/screens/manager_screens/manager_home.dart';
+import 'package:ayarla/screens/manager_screens/manager_notes.dart';
+import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
+import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
+import 'package:ayarla/screens/search_page.dart';
+import 'package:ayarla/screens/user_page/appontments_page.dart';
+import 'package:ayarla/screens/user_page/edit_profile_page.dart';
+import 'package:ayarla/screens/user_page/favorites_page.dart';
+import 'package:ayarla/screens/user_page/past_appointments_page.dart';
+import 'package:ayarla/screens/user_page/user_page.dart';
+import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
+import 'package:ayarla/virtual_data_base/dynamic_links_service.dart';
+import 'package:ayarla/virtual_data_base/genderSelection.dart';
+import 'package:ayarla/virtual_data_base/login.dart';
+import 'components/googleMap.dart';
+import 'screens/welcome_page.dart';
+import 'screens/confirmation_page.dart';
+import 'screens/coiffure_detail_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+
 
 void main() {
+  Provider.debugCheckInvalidValueType = null;
+
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp>
+
+    /// for dynamic link
+    with
+        WidgetsBindingObserver {
+  final DynamicLinkService _dynamicLinkService = DynamicLinkService();
+  Timer _timerLink;
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+  FirebaseAnalyticsObserver(analytics: analytics);
+
+  /// dynamic link
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _timerLink = new Timer(
+        const Duration(milliseconds: 1000),
+        () {
+          _dynamicLinkService.retrieveDynamicLink(context);
+        },
+      );
+    }
+  }
+
+  /// dynamic link
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    if (_timerLink != null) {
+      _timerLink.cancel();
+    }
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    /// dynamic link
+    WidgetsBinding.instance.addObserver(this);
+    // analytics.setCurrentScreen(screenName: "/home/my-view");
+    super.initState();
+
+  }
+  void tryEvent() {
+    analytics.logEvent(
+        name: 'deneme',
+        parameters: {'hey': 0, 'ho': 'asd'});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    final theme = ThemeData(
+      highlightColor: Colors.white.withOpacity(0.25),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        splashColor: Colors.white.withOpacity(0.25),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
-  }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppointmentData>(
+            create: (context) => AppointmentData()),
+        ChangeNotifierProvider<GenderSelection>(
+            create: (context) => GenderSelection()),
+        ChangeNotifierProvider<Login>(create: (context) => Login()),
+        ChangeNotifierProvider<BusinessAndUserData>(
+            create: (context) => BusinessAndUserData()),
+      ],
+      child: MaterialApp(
+        theme: theme,
+        debugShowCheckedModeBanner: false,
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        /// General route definitions that are defined in "this" MaterialApp.
+        initialRoute: LoadingScreen.id,
+        routes: {
+          LoadingScreen.id: (context) => LoadingScreen(),
+          WelcomePage.id: (context) => WelcomePage(),
+          CoiffureDetailPage.id: (context) => CoiffureDetailPage(),
+          // CalenderPage.id: (context) => CalenderPage(),
+          ConfirmationPage.id: (context) => ConfirmationPage(),
+          SearchPage.id: (context) => SearchPage(),
+          GalleryPage.id: (context) => GalleryPage(),
+          CommentsPage.id: (context) => CommentsPage(),
+          UserPage.id: (context) => UserPage(),
+          ManagerHome.id: (context) => ManagerHome(),
+          EmployeePage.id: (context) => EmployeePage(),
+          EmployeeWorkPage.id: (context) => EmployeeWorkPage(),
+          EmployeeManagement.id: (context) => EmployeeManagement(),
+          BusinessInfoPage.id: (context) => BusinessInfoPage(),
+          FavoritesPage.id: (context) => FavoritesPage(),
+          AppointmentsPage.id: (context) => AppointmentsPage(),
+          PastAppointmentsPage.id: (context) => PastAppointmentsPage(),
+          EditProfilePage.id: (context) => EditProfilePage(),
+          ManagerNotesPage.id: (context) => ManagerNotesPage(),
+          ManagerNotes.id: (context) => ManagerNotes(),
+          ManagerSendMessage.id: (context) => ManagerSendMessage(),
+          GoogleMapSample.id: (context) => GoogleMapSample()
+        },
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "To-ggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

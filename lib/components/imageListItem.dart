@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:randevudemo/constants/constants.dart';
+import 'package:ayarla/constants/constants.dart';
 
 class ImageListItem extends StatelessWidget {
   final String image;

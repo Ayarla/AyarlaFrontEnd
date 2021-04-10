@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:randevudemo/virtual_data_base/businessOrUser_data.dart';
+import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 
 
 class MapSample extends StatefulWidget {
