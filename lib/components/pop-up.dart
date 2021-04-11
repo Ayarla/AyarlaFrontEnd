@@ -150,7 +150,7 @@ class PopUp {
                   if (!isMember) {
                     passwordFieldDialog(context: context);
                   } else {
-                    Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+                    // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                     Navigator.pushNamed(context, ConfirmationPage.id);
                     Provider.of<AppointmentData>(context, listen: false).confirmation();
                   }
@@ -565,7 +565,7 @@ class PopUp {
                       style: kSmallTextStyle.copyWith(color: Colors.red, fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+                      // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                       Navigator.pushNamed(context, ConfirmationPage.id);
                       Provider.of<AppointmentData>(context, listen: false).confirmation();
                     },
@@ -584,7 +584,7 @@ class PopUp {
                       if (checkBox) {
                         if (_formKey.currentState.validate()) {
                           /// TODO kayit olmayi burada yapacagiz
-                          Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+                          // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                           Navigator.pushNamed(context, ConfirmationPage.id);
                           Provider.of<AppointmentData>(context, listen: false).confirmation();
 

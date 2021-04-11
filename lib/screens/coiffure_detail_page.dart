@@ -20,9 +20,9 @@ class CoiffureDetailPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(
-        showIconButton: true,
         gradient: Functions().decideColor(context),
         title: Container(
+          /// TODO
           height: 30,
           width: double.infinity,
           child: Functions().titleLength(
@@ -31,9 +31,7 @@ class CoiffureDetailPage extends StatelessWidget {
               ctrlLength: 20),
         ),
       ).build(context),
-      body: CoiffureDetailCard(
-        coiffureModel: coiffureModel,
-      ),
+      body: CoiffureDetailCard(coiffureModel: coiffureModel),
       floatingActionButton: total != 0
           ? Row(
               children: [

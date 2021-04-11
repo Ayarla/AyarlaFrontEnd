@@ -7,11 +7,9 @@ import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/coiffure_detail_page.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import 'package:ayarla/constants/router.dart';
 
 class SmallCoiffureCard extends StatefulWidget {
   final coiffureModel;
-
   SmallCoiffureCard({this.coiffureModel});
 
   @override
@@ -21,16 +19,9 @@ class SmallCoiffureCard extends StatefulWidget {
 class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        // Routers.router
-        //     .navigateTo(context, "/Isletme/:${widget.coiffureModel.name}");
-        // routeSettings: RouteSettings(
-        //   name: "/Isletme/:${widget.coiffureModel.name}",
-        //   arguments: CoiffureDetailPage(
-        //       coiffureModel: widget.coiffureModel, name: widget.coiffureModel.name),
-        // ));
-
         Routers.router.navigateTo(
           context,
           "/Isletme/:name",
@@ -43,7 +34,11 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
         );
       },
       child: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+        padding: EdgeInsets.only(
+          left: size.width / 15,
+          right: size.width / 15,
+          bottom: 20,
+        ),
         child: Stack(
           children: [
             cardBody(context),
@@ -91,20 +86,18 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
           BoxShadow(
             color: Colors.grey.withOpacity(0.6),
             offset: const Offset(4, 4),
-            blurRadius: 15,
+            blurRadius: 20,
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
         child: Container(
           color: Colors.white,
           child: Column(
             children: <Widget>[
               _cardImage(),
-              CardInfo(
-                coiffureModel: widget.coiffureModel,
-              ),
+              CardInfo(coiffureModel: widget.coiffureModel),
             ],
           ),
         ),
@@ -125,7 +118,6 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
 
 class CardInfo extends StatelessWidget {
   final coiffureModel;
-
   CardInfo({this.coiffureModel});
 
   @override

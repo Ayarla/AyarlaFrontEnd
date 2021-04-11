@@ -9,7 +9,7 @@ class ImageListItem extends StatelessWidget {
   final File file;
   final bool covered;
   final bool isFile;
-/// isFile koşulu imageLisİtem kullanılan yerlere eklenilecek
+/// isFile koşulu imageListItem kullanılan yerlere eklenilecek
 
   ImageListItem({this.image,this.covered,this.isFile,this.file});
 
@@ -27,3 +27,18 @@ class ImageListItem extends StatelessWidget {
     );
   }
 }
+
+
+// List<Widget> generateImageTiles(screenSize) {
+//   return images
+//       .map(
+//         (element) => ClipRRect(
+//       borderRadius: BorderRadius.circular(8.0),
+//       child: Image.asset(
+//         element,
+//         fit: BoxFit.cover,
+//       ),
+//     ),
+//   )
+//       .toList();
+//

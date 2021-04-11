@@ -1,6 +1,6 @@
 import 'package:ayarla/components/imageListItem.dart';
 
-List<ImageListItem> pages = [
+List<ImageListItem> images = [
   ImageListItem(
     image: "assets/kuafor_0.png",
     covered: true,

@@ -81,7 +81,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           padding: EdgeInsets.only(left: 10),
           icon: isConfirmed ? Icon(Icons.home, color: Colors.white, size: 40.0) : BackButton(),
           onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+            // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
           },
         ),
         title: Center(

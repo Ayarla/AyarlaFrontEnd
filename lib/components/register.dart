@@ -88,11 +88,11 @@ class _RegisterState extends State<Register> {
           leading: FlatButton(
             child: Icon(Icons.home, color: Colors.white, size: 40.0),
             onPressed: () {
-              Navigator.popUntil(
-                  context,
-                  ModalRoute.withName(
-                      SearchPage.id
-                  ));
+              // Navigator.popUntil(
+              //     context,
+              //     ModalRoute.withName(
+              //         SearchPage.id
+              //     ));
             },
           ),
           title: Center(
