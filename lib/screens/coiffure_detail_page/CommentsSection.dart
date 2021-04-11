@@ -9,6 +9,7 @@ class CommentsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return CarouselSlider(
       options: CarouselOptions(
         height: 300,
@@ -17,9 +18,11 @@ class CommentsSection extends StatelessWidget {
         // autoPlay: true,
       ),
       items: [1, 2, 3].map((i) {
+        print(size.width);
         return Builder(
           builder: (BuildContext context) {
             return ListView(
+              padding: EdgeInsets.symmetric(horizontal: size.width / 35),
               physics: BouncingScrollPhysics(),
               children: [
                 Comment(
@@ -31,9 +34,7 @@ class CommentsSection extends StatelessWidget {
                   like: 5,
                   dislike: 0,
                 ),
-                Divider(
-                  thickness: 1,
-                ),
+                Divider(thickness: 1),
                 Comment(
                   name: 'Nixu',
                   rating: 2,
@@ -49,9 +50,7 @@ class CommentsSection extends StatelessWidget {
                   like: 9,
                   dislike: 4,
                 ),
-                Divider(
-                  thickness: 1,
-                ),
+                Divider(thickness: 1),
                 Comment(
                   name: 'Bahadır İren',
                   rating: 3,

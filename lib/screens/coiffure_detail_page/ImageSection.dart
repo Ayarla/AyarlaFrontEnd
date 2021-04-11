@@ -3,18 +3,15 @@ import 'package:ayarla/components/imageListItem.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class ImageSection extends StatelessWidget {
-  const ImageSection({
-    Key key,
-    @required List<ImageListItem> pages,
-    @required int currentPage,
-  })  : _pages = pages,
-        _currentPage = currentPage,
-        super(key: key);
+class ImageSection extends StatefulWidget {
+  final List<ImageListItem> pages;
+  ImageSection({@required this.pages});
+  @override
+  _ImageSectionState createState() => _ImageSectionState();
+}
 
-  final List<ImageListItem> _pages;
-  final int _currentPage;
-
+class _ImageSectionState extends State<ImageSection> {
+  int _currentPage = 0;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -23,149 +20,22 @@ class ImageSection extends StatelessWidget {
         ResponsiveWidget(
             smallScreen: Padding(
               padding: const EdgeInsets.all(0.0),
-              child: GestureDetector(
-                child: CarouselSlider(
-                  items: _pages
-                      .map(
-                        (element) => ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Image.asset(
-                            element.image,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  options: CarouselOptions(
-                    viewportFraction: 1,
-                    autoPlayInterval: Duration(seconds: 6),
-                    autoPlay: true,
-                    enableInfiniteScroll: true,
-                    aspectRatio: 1.6,
-                    // onPageChanged: (index, reason) {
-                    //   setState(() {
-                    //     _currentPage = index;
-                    //   });
-                    // }),
-                  ),
-                ),
-              ),
+              child: imageBody(),
             ),
             mediumScreen: Padding(
               padding: EdgeInsets.only(
                   left: size.width / 10, right: size.width / 10),
-              child: GestureDetector(
-                child: CarouselSlider(
-                  items: _pages
-                      .map(
-                        (element) => ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Image.asset(
-                            element.image,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  options: CarouselOptions(
-                    viewportFraction: 1,
-                    autoPlayInterval: Duration(seconds: 6),
-                    autoPlay: true,
-                    enableInfiniteScroll: true,
-                    aspectRatio: 1.6,
-                    // onPageChanged: (index, reason) {
-                    //   setState(() {
-                    //     _currentPage = index;
-                    //   });
-                    // }),
-                  ),
-                ),
-              ),
+              child: imageBody(),
             ),
             largeScreen: Padding(
               padding:
                   EdgeInsets.only(left: size.width / 5, right: size.width / 5),
-              child: GestureDetector(
-                child: CarouselSlider(
-                  items: _pages
-                      .map(
-                        (element) => ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Image.asset(
-                            element.image,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  options: CarouselOptions(
-                    viewportFraction: 1,
-                    autoPlayInterval: Duration(seconds: 6),
-                    autoPlay: true,
-                    enableInfiniteScroll: true,
-                    aspectRatio: 1.6,
-                    // onPageChanged: (index, reason) {
-                    //   setState(() {
-                    //     _currentPage = index;
-                    //   });
-                    // }),
-                  ),
-                ),
-              ),
+              child: imageBody(),
             )),
-
-        // GestureDetector(
-        //   child: Container(
-        //     decoration: kCardShadow,
-        //     child: ClipRRect(
-        //       borderRadius:
-        //           const BorderRadius.all(Radius.circular(8.0)),
-        //       child: CarouselSlider(
-        //         items: _pages,
-        //         options: CarouselOptions(
-        //             viewportFraction: 1,
-        //             autoPlayInterval:
-        //                 Duration(seconds: 6),
-        //             autoPlay: true,
-        //             enableInfiniteScroll: false,
-        //             aspectRatio: 1.6,
-        //             onPageChanged: (index, reason) {
-        //               setState(() {
-        //                 _currentPage = index;
-        //               });
-        //             }),
-        //       ),
-        //     ),
-        //   ),
-        //
-        //   // onTap: () {
-        //   //   Navigator.push(
-        //   //     context,
-        //   //     MaterialPageRoute(
-        //   //       builder: (context) =>
-        //   //           GalleryPage(index: _currentPage),
-        //   //     ),
-        //   //   );
-        //   // },
-        //
-        //   ///stops passing the pages automatically
-        //   onLongPress: () {
-        //     setState(() {
-        //       pressed = true;
-        //     });
-        //   },
-        //   onLongPressUp: () {
-        //     setState(() {
-        //       pressed = false;
-        //     });
-        //   },
-        // ),
-
-        /// dot indicator
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: _pages.map((url) {
-            int index = _pages.indexOf(url);
+          children: widget.pages.map((url) {
+            int index = widget.pages.indexOf(url);
             return Container(
               width: 8.0,
               height: 8.0,
@@ -180,6 +50,36 @@ class ImageSection extends StatelessWidget {
           }).toList(),
         ),
       ],
+    );
+  }
+
+  GestureDetector imageBody() {
+    return GestureDetector(
+      child: CarouselSlider(
+        items: widget.pages
+            .map(
+              (element) => ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image.asset(
+                  element.image,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            )
+            .toList(),
+        options: CarouselOptions(
+          viewportFraction: 1,
+          autoPlayInterval: Duration(seconds: 6),
+          autoPlay: true,
+          enableInfiniteScroll: true,
+          aspectRatio: 1.6,
+          onPageChanged: (index, reason) {
+            setState(() {
+              _currentPage = index;
+            });
+          },
+        ),
+      ),
     );
   }
 }

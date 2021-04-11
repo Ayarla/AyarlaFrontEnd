@@ -234,7 +234,6 @@ class _WelcomePageState extends State<WelcomePage>
               SizedBox(height: 20),
               UI.generalLogo,
               SizedBox(height: 30),
-
               Text(
                 "Yeni Nesil, Akıllı Randevu Danışmanı",
                 textAlign: TextAlign.center,

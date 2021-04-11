@@ -83,6 +83,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
   /// ORDERING SHEET
   _orderSheet(context) {
+    final size = MediaQuery.of(context).size;
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
@@ -95,20 +96,17 @@ class _CommentsPageState extends State<CommentsPage> {
             padding: EdgeInsets.all(20),
             physics: BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 5,
-                  ),
-                  functions.createTitle(context, orderings[index]),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        child: Center(
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width / 10),
+                child: Column(
+                  children: [
+                    SizedBox(height: 5),
+                    functions.createTitle(context, orderings[index]),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
                           child: FittedBox(
                             fit: BoxFit.cover,
                             child: Text(
@@ -116,60 +114,56 @@ class _CommentsPageState extends State<CommentsPage> {
                               style: kSmallTextStyle,
                             ),
                           ),
+                          onPressed: () {
+                            setState(() {
+                              if (index == 0) {
+                                generatingList
+                                    .sort((a, b) => a.rating.compareTo(b.rating));
+                              } else if (index == 1) {
+                                generatingList
+                                    .sort((a, b) => a.like.compareTo(b.like));
+                              } else if (index == 2) {
+                                generatingList
+                                    .sort((a, b) => a.date.compareTo(b.date));
+                              }
+                            });
+                            Navigator.pop(context);
+                          },
                         ),
-                        onPressed: () {
-                          setState(() {
-                            if (index == 0) {
-                              generatingList
-                                  .sort((a, b) => a.rating.compareTo(b.rating));
-                            } else if (index == 1) {
-                              generatingList
-                                  .sort((a, b) => a.like.compareTo(b.like));
-                            }  else if (index == 2) {
-                              generatingList
-                                  .sort((a, b) => a.date.compareTo(b.date));
-                            }
-                          });
-                          Navigator.pop(context);
-                        },
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      TextButton(
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.cover,
+                        SizedBox(width: 20),
+                        TextButton(
+                          child: Center(
                             child: Text(
                               'Çoktan Aza',
                               style: kSmallTextStyle,
                             ),
                           ),
+                          onPressed: () {
+                            setState(() {
+                              if (index == 0) {
+                                generatingList
+                                    .sort((b, a) => a.rating.compareTo(b.rating));
+                              } else if (index == 1) {
+                                generatingList
+                                    .sort((b, a) => a.like.compareTo(b.like));
+                              } else if (index == 2) {
+                                generatingList
+                                    .sort((b, a) => a.date.compareTo(b.date));
+                              }
+                            });
+                            Navigator.pop(context);
+                          },
                         ),
-                        onPressed: () {
-                          setState(() {
-                            if (index == 0) {
-                              generatingList
-                                  .sort((b, a) => a.rating.compareTo(b.rating));
-                            } else if (index == 1) {
-                              generatingList
-                                  .sort((b, a) => a.like.compareTo(b.like));
-                            } else if (index == 2) {
-                              generatingList
-                                  .sort((b, a) => a.date.compareTo(b.date));
-                            }
-                          });
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               );
             },
             separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                thickness: 1,
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width / 10),
+                child: Divider(thickness: 1),
               );
             },
             itemCount: orderings.length,

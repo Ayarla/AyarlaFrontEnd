@@ -67,8 +67,8 @@ class _SectionState extends State<MenuSection>
     super.dispose();
   }
 
-  /// Whenever a tap is detected, toggle a change in the state and move the animation forward
-  /// or backwards depending on the initial status.
+  /// Whenever a tap is detected, toggle a change in the state and move the
+  /// animation forward or backwards depending on the initial status.
   _toggleExpand() {
     setState(() {
       _isExpanded = !_isExpanded;

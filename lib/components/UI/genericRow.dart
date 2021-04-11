@@ -24,23 +24,20 @@ class GenericRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(padding ?? 0.0),
-      child: Card(
-        shape: roundedShape,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              leading ?? Container(),
-              useFirstSpacer ?? false
-                  ? Spacer()
-                  : SizedBox(width: spaceBetween ?? 15),
-              body ?? Container(),
-              useSecondSpacer ?? false
-                  ? Spacer()
-                  : SizedBox(width: spaceBetween ?? 15),
-              trailing ?? Container(),
-            ],
-          ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            leading ?? Container(),
+            useFirstSpacer ?? false
+                ? Spacer()
+                : SizedBox(width: spaceBetween ?? 15),
+            body ?? Container(),
+            useSecondSpacer ?? false
+                ? Spacer()
+                : SizedBox(width: spaceBetween ?? 15),
+            trailing ?? Container(),
+          ],
         ),
       ),
     );

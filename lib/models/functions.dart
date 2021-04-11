@@ -121,20 +121,19 @@ class Functions {
     final size = MediaQuery.of(context).size;
     Functions functions = Functions();
     return Container(
-      padding: EdgeInsets.all(5),
-      width: size.width / 1.5,
+      padding: EdgeInsets.symmetric(horizontal: size.width / 10),
       decoration: BoxDecoration(
         gradient: functions.decideColor(context),
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-      ),
-      child: Center(
-        child: FittedBox(
-          fit: BoxFit.cover,
-          child: Text(
-            title,
-            style: kTitleStyle.copyWith(color: Colors.white),
+        borderRadius: BorderRadius.all(Radius.circular(15))),
+      child: Padding(
+        padding: EdgeInsets.all(5.0),
+        child: Center(
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: Text(
+              title,
+              style: kTitleStyle.copyWith(color: Colors.white),
+            ),
           ),
         ),
       ),
