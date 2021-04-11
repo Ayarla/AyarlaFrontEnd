@@ -235,13 +235,14 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
         floatingActionButton: isChanged
             ? FloatingButton(
                 text: 'Kaydet',
-                function: () {
+                onPressed: () {
                   setState(() {
                     // isSaved = true;
                     isChanged = false;
                   });
                 },
-                isGradient: true)
+                // isGradient: true,
+        )
             : null,
         appBar: DefaultAppBar(
                 title: Text("Kuaför Adı",
