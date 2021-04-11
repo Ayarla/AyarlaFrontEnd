@@ -1,11 +1,11 @@
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'file:///C:/Users/fatih/AndroidStudioProjects/ayarla/lib/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 

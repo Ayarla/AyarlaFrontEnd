@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -16,35 +17,103 @@ class ImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        GestureDetector(
-          child: CarouselSlider(
-            items: _pages
-                .map(
-                  (element) => ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image.asset(
-                  element.image,
-                  fit: BoxFit.cover,
+        ResponsiveWidget(
+            smallScreen: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: GestureDetector(
+                child: CarouselSlider(
+                  items: _pages
+                      .map(
+                        (element) => ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image.asset(
+                            element.image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  options: CarouselOptions(
+                    viewportFraction: 1,
+                    autoPlayInterval: Duration(seconds: 6),
+                    autoPlay: true,
+                    enableInfiniteScroll: true,
+                    aspectRatio: 1.6,
+                    // onPageChanged: (index, reason) {
+                    //   setState(() {
+                    //     _currentPage = index;
+                    //   });
+                    // }),
+                  ),
                 ),
               ),
-            )
-                .toList(),
-            options: CarouselOptions(
-              viewportFraction: 1,
-              autoPlayInterval: Duration(seconds: 6),
-              autoPlay: true,
-              enableInfiniteScroll: false,
-              aspectRatio: 1.6,
-              // onPageChanged: (index, reason) {
-              //   setState(() {
-              //     _currentPage = index;
-              //   });
-              // }),
             ),
-          ),
-        ),
+            mediumScreen: Padding(
+              padding: EdgeInsets.only(
+                  left: size.width / 10, right: size.width / 10),
+              child: GestureDetector(
+                child: CarouselSlider(
+                  items: _pages
+                      .map(
+                        (element) => ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image.asset(
+                            element.image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  options: CarouselOptions(
+                    viewportFraction: 1,
+                    autoPlayInterval: Duration(seconds: 6),
+                    autoPlay: true,
+                    enableInfiniteScroll: true,
+                    aspectRatio: 1.6,
+                    // onPageChanged: (index, reason) {
+                    //   setState(() {
+                    //     _currentPage = index;
+                    //   });
+                    // }),
+                  ),
+                ),
+              ),
+            ),
+            largeScreen: Padding(
+              padding:
+                  EdgeInsets.only(left: size.width / 5, right: size.width / 5),
+              child: GestureDetector(
+                child: CarouselSlider(
+                  items: _pages
+                      .map(
+                        (element) => ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image.asset(
+                            element.image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  options: CarouselOptions(
+                    viewportFraction: 1,
+                    autoPlayInterval: Duration(seconds: 6),
+                    autoPlay: true,
+                    enableInfiniteScroll: true,
+                    aspectRatio: 1.6,
+                    // onPageChanged: (index, reason) {
+                    //   setState(() {
+                    //     _currentPage = index;
+                    //   });
+                    // }),
+                  ),
+                ),
+              ),
+            )),
+
         // GestureDetector(
         //   child: Container(
         //     decoration: kCardShadow,
@@ -56,7 +125,7 @@ class ImageSection extends StatelessWidget {
         //         options: CarouselOptions(
         //             viewportFraction: 1,
         //             autoPlayInterval:
-        //                 Duration(seconds: autoChangeSeconds),
+        //                 Duration(seconds: 6),
         //             autoPlay: true,
         //             enableInfiniteScroll: false,
         //             aspectRatio: 1.6,

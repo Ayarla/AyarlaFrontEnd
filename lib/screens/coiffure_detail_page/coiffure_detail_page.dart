@@ -1,6 +1,4 @@
-import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/UI/genericRow.dart';
-import 'package:ayarla/components/comment.dart';
 import 'package:ayarla/components/floatingButton.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/overScroll.dart';
@@ -15,21 +13,16 @@ import 'package:ayarla/screens/coiffure_detail_page/ImageSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/RatingRow.dart';
 import 'package:ayarla/screens/coiffure_detail_page/SmallLocationSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/WorkingHoursSection.dart';
-import 'package:ayarla/screens/coiffure_detail_page/employee_row.dart';
-import 'package:ayarla/virtual_data_base/dynamic_links_service.dart';
+import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/coiffeurModel.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CoiffureDetailPage extends StatefulWidget {
   final CoiffureModel coiffureModel;
@@ -41,15 +34,12 @@ class CoiffureDetailPage extends StatefulWidget {
 }
 
 class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
-  bool pressed = false;
   int _currentPage = 0;
-  int autoChangeSeconds = 6;
   String firstHalf;
   String secondHalf;
   bool flag = true;
   bool leftArrow = false;
   String text;
-  bool isClicked = false;
 
   final List<ImageListItem> _pages = images;
   final ScrollController _scrollControllerEmployee = ScrollController();
@@ -101,23 +91,20 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
       appBar: DefaultAppBar(
         gradient: Functions().decideColor(context),
         title: TextOverFlowHandler(
-          child: Text(widget.coiffureModel.name,
-              style: kTitleStyle.copyWith(color: Colors.white)),
-        ),
+            child: Text(widget.coiffureModel.name,
+                style: kTitleStyle.copyWith(color: Colors.white))),
       ).build(context),
-      body: ListView(
-        shrinkWrap: true,
-        controller: _photoController,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(
-                bottom: 16.0,
-                left: size.width / 30,
-                right: size.width / 30,
-                top: 16.0),
-            child: Wrap(
-              spacing: 10,
-              runSpacing: 10,
+      body: OverScroll(
+        child: Padding(
+          padding: EdgeInsets.only(
+              bottom: 16.0,
+              left: size.width / 30,
+              right: size.width / 30,
+              top: 16.0),
+          child: OverScroll(
+            child: ListView(
+              shrinkWrap: true,
+              controller: _photoController,
               children: <Widget>[
                 ImageSection(pages: _pages, currentPage: _currentPage),
 
@@ -366,16 +353,16 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                 //     clickable: false,
                 //   ),
                 // ),
+                /// create enough space for map
+                total != 0
+                    ? SizedBox(height: MediaQuery.of(context).size.width / 7)
+                    : SizedBox(height: 0),
               ],
             ),
           ),
-
-          /// create enough space for map
-          total != 0
-              ? SizedBox(height: MediaQuery.of(context).size.width / 7)
-              : SizedBox(height: 0),
-        ],
+        ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: total != 0
           ? Row(
               children: [

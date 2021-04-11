@@ -1,32 +1,9 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/fatih/AndroidStudioProjects/ayarla/lib/screens/coiffure_detail_page/coiffure_detail_page.dart';
-import 'package:ayarla/screens/comments_page.dart';
-import 'package:ayarla/screens/gallery_page.dart';
-import 'package:ayarla/screens/loading_screen.dart';
-import 'package:ayarla/screens/manager_screens/business_info_page.dart';
-import 'package:ayarla/screens/manager_screens/employee_management.dart';
-import 'package:ayarla/screens/manager_screens/employee_page.dart';
-import 'package:ayarla/screens/manager_screens/employee_work_page.dart';
-import 'package:ayarla/screens/manager_screens/manager_home.dart';
-import 'package:ayarla/screens/manager_screens/manager_notes.dart';
-import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
-import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
-import 'package:ayarla/screens/search_page.dart';
-import 'package:ayarla/screens/user_page/appontments_page.dart';
-import 'package:ayarla/screens/user_page/edit_profile_page.dart';
-import 'package:ayarla/screens/user_page/favorites_page.dart';
-import 'package:ayarla/screens/user_page/past_appointments_page.dart';
-import 'package:ayarla/screens/user_page/user_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:ayarla/virtual_data_base/genderSelection.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
-import 'components/googleMap.dart';
-import 'screens/welcome_page.dart';
-import 'screens/confirmation_page.dart';
-import 'screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'constants/router.dart';
 
 void main() {

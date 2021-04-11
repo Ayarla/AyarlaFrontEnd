@@ -78,7 +78,6 @@ class _CommentsPageState extends State<CommentsPage> {
   List orderings = [
     'Yıldıza göre sırala',
     'Beğeniye göre sırala',
-    'Dislike a göre sırala',
     'Tarihe göre sırala',
   ];
 
@@ -126,10 +125,7 @@ class _CommentsPageState extends State<CommentsPage> {
                             } else if (index == 1) {
                               generatingList
                                   .sort((a, b) => a.like.compareTo(b.like));
-                            } else if (index == 2) {
-                              generatingList.sort(
-                                  (a, b) => a.dislike.compareTo(b.dislike));
-                            } else if (index == 3) {
+                            }  else if (index == 2) {
                               generatingList
                                   .sort((a, b) => a.date.compareTo(b.date));
                             }
@@ -159,9 +155,6 @@ class _CommentsPageState extends State<CommentsPage> {
                               generatingList
                                   .sort((b, a) => a.like.compareTo(b.like));
                             } else if (index == 2) {
-                              generatingList.sort(
-                                  (b, a) => a.dislike.compareTo(b.dislike));
-                            } else if (index == 3) {
                               generatingList
                                   .sort((b, a) => a.date.compareTo(b.date));
                             }
