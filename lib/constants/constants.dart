@@ -51,6 +51,9 @@ const kCardShadow = BoxDecoration(
   color: Color(0xFFE5EBEE),
 );
 
+const roundedShape = RoundedRectangleBorder(
+borderRadius: BorderRadius.all(Radius.circular(20)));
+
 enum Directions {
   top,
   bottom,

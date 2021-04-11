@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/screens/user_page/user_page.dart';
 import 'circularParent.dart';
 import 'filter&order.dart';

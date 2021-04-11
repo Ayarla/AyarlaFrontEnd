@@ -1,4 +1,5 @@
-import 'package:ayarla/components/UI/managerScreenButton.dart';
+import 'package:ayarla/components/UI/genericIconButton.dart';
+import 'package:ayarla/components/UI/genericRow.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -47,9 +48,6 @@ class _CoiffureDetailCardState extends State<CoiffureDetailCard> {
   initState() {
     super.initState();
 
-    /// Getting the coiffure name for appbar.
-    Provider.of<AppointmentData>(context, listen: false)
-        .setName(widget.coiffureModel.name);
     text = '${widget.coiffureModel.text}';
 
     if (text.length > 90) {
@@ -114,100 +112,85 @@ class _CoiffureDetailCardState extends State<CoiffureDetailCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 40,
-                        icon: Icon(
-                          Icons.call,
-                          color: Colors.green,
-                        ),
-                        onPressed: () {
-                          launch("tel://${widget.coiffureModel.telephone}");
-                        },
-                      ),
-                      Text(
-                        "Ara",
-                        style: kSmallTextStyle.copyWith(color: Colors.green),
-                      ),
-                    ],
+                  GenericIconButton(
+                    iconContext: Icon(
+                      Icons.call,
+                      color: Colors.green,
+                      size: 40,
+                    ),
+                    onPressed: () {
+                      launch("tel://${widget.coiffureModel.telephone}");
+                    },
+                    text: "Ara",
+                    textStyle: kSmallTextStyle.copyWith(color: Colors.green),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        iconSize: 40,
-                        icon: Icon(
+                  GenericIconButton(
+                    iconContext: Icon(
+                      Provider.of<AppointmentData>(context, listen: false)
+                              .favorites
+                              .contains(widget.coiffureModel)
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        if (Provider.of<AppointmentData>(context, listen: false)
+                                .myState !=
+                            null) {
                           Provider.of<AppointmentData>(context, listen: false)
-                                  .favorites
-                                  .contains(widget.coiffureModel)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: Colors.red,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            if (Provider.of<AppointmentData>(context,
-                                        listen: false)
-                                    .myState !=
-                                null) {
-                              Provider.of<AppointmentData>(context,
-                                      listen: false)
-                                  .myState
-                                  .setState(() {});
-                            }
-                            Provider.of<AppointmentData>(context, listen: false)
-                                .setOrChangeFav(widget.coiffureModel);
-                          });
-                        },
-                      ),
-                      Text(
-                        "Favori",
-                        style: kSmallTextStyle.copyWith(color: Colors.red),
-                      ),
-                    ],
+                              .myState
+                              .setState(() {});
+                        }
+                        Provider.of<AppointmentData>(context, listen: false)
+                            .setOrChangeFav(widget.coiffureModel);
+                      });
+                    },
+                    text: "Favori",
+                    textStyle: kSmallTextStyle.copyWith(color: Colors.red),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      FutureBuilder<Uri>(
-                          future: _dynamicLinkService
-                              .createDynamicLink(widget.coiffureModel.uniqueId),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              Uri uri = snapshot.data;
-                              return IconButton(
-                                iconSize: 40,
-                                icon: Icon(
-                                  Icons.ios_share,
-                                  color: Colors.blue,
-                                ),
-                                onPressed: () {
-                                  Share.share(
-                                    uri.toString(),
-
-                                    /// subject for email
-                                    subject: widget.coiffureModel.name,
-                                  );
-                                },
-                              );
-                            } else {
-                              return Container();
-                            }
-                          }),
-                      Text(
-                        "Paylaş",
-                        style: kSmallTextStyle.copyWith(color: Colors.blue),
-                      ),
-                    ],
-                  ),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: <Widget>[
+                  //     FutureBuilder<Uri>(
+                  //         future: _dynamicLinkService
+                  //             .createDynamicLink(widget.coiffureModel.uniqueId),
+                  //         builder: (context, snapshot) {
+                  //           if (snapshot.hasData) {
+                  //             Uri uri = snapshot.data;
+                  //             return IconButton(
+                  //               iconSize: 40,
+                  //               icon: Icon(
+                  //                 Icons.ios_share,
+                  //                 color: Colors.blue,
+                  //               ),
+                  //               onPressed: () {
+                  //                 Share.share(
+                  //                   uri.toString(),
+                  //
+                  //                   /// subject for email
+                  //                   subject: widget.coiffureModel.name,
+                  //                 );
+                  //               },
+                  //             );
+                  //           } else {
+                  //             return Container();
+                  //           }
+                  //         }),
+                  //     Text(
+                  //       "Paylaş",
+                  //       style: kSmallTextStyle.copyWith(color: Colors.blue),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
 
               /// Ratings
               Text("Hakkında", style: kTitleStyle),
-              RatingRow(rating: widget.coiffureModel.star.toInt(),
+              RatingRow(
+                  rating: widget.coiffureModel.star.toInt(),
                   commentNumber: widget.coiffureModel.comments.toString()),
 
               /// Location
@@ -293,301 +276,194 @@ class _CoiffureDetailCardState extends State<CoiffureDetailCard> {
                   for (ServiceModel x
                       in Provider.of<AppointmentData>(context, listen: false)
                           .fullTimeServices)
-                    Card(
-                      elevation: 10,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  child: x.name.length >= 17
-                                      ? FittedBox(
-                                          fit: BoxFit.cover,
-                                          child: Text(x.name,
-                                              style: kTextStyle.copyWith(
-                                                  fontWeight:
-                                                      FontWeight.normal)),
-                                        )
-                                      : Text(x.name,
-                                          style: kTextStyle.copyWith(
-                                              fontWeight: FontWeight.normal)),
-                                ),
-                                Spacer(),
-                                Container(
-                                  child: "${x.price} TL".length >= 9
-                                      ? FittedBox(
-                                          fit: BoxFit.cover,
-                                          child: Text(
-                                            "${x.price} TL",
-                                            style: kTextStyle.copyWith(
-                                                fontWeight: FontWeight.normal),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                        )
-                                      : Text(
-                                          "${x.price} TL",
-                                          style: kTextStyle.copyWith(
-                                              fontWeight: FontWeight.normal),
-                                          textAlign: TextAlign.end,
-                                        ),
-                                ),
-                                Spacer(),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 7,
-                                  height: MediaQuery.of(context).size.width / 7,
-                                  child: IconButton(
-                                    color: Colors.black,
-                                    onPressed: () {
-                                      /// Add or subtract Service and calculate
-                                      /// price
-                                      setState(() {
-                                        Provider.of<AppointmentData>(context,
-                                                listen: false)
-                                            .changeSelectedService(
-                                                findIndex(x));
-                                      });
-                                      Provider.of<AppointmentData>(context,
-                                              listen: false)
-                                          .calculateTotalPrice();
-                                    },
-                                    icon: Icon(
-                                      Provider.of<AppointmentData>(context,
-                                                  listen: true)
-                                              .fullTimeServices[findIndex(x)]
-                                              .selected
-                                          ? Icons.remove
-                                          : Icons.add,
-                                      size: 25,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            /// opens the employee row if service selected
-                            if (x.selected)
-                              Stack(children: [
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.width / 5.3,
-                                  child: ListView.builder(
-                                      itemCount: Provider.of<AppointmentData>(
-                                              context,
-                                              listen: true)
-                                          .fullTimeServices[findIndex(x)]
-                                          .employees
-                                          .length,
-                                      scrollDirection: Axis.horizontal,
-
-                                      ///controller hizmete özel olmalı !!!
-                                      ///controller: _scrollControllerServices,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return FlatButton(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              gradient: Provider.of<
-                                                              AppointmentData>(
-                                                          context,
-                                                          listen: true)
-                                                      .fullTimeServices[
-                                                          findIndex(x)]
-                                                      .employees[index]
-                                                      .selected
-                                                  ? Provider.of<AppointmentData>(
-                                                                  context,
-                                                                  listen: true)
-                                                              .fullTimeServices[
-                                                                  findIndex(x)]
-                                                              .employees[index]
-                                                              .gender ==
-                                                          "female"
-                                                      ? LinearGradient(
-                                                          begin: Alignment
-                                                              .centerLeft,
-                                                          end: Alignment
-                                                              .centerRight,
-                                                          colors: [
-                                                            Color(0xFFffa7ca),
-                                                            Color(0xFFca7799)
-                                                          ],
-                                                        )
-                                                      : LinearGradient(
-                                                          begin: Alignment
-                                                              .centerLeft,
-                                                          end: Alignment
-                                                              .centerRight,
-                                                          colors: [
-                                                            Color(0xFF40ace1),
-                                                            Color(0xFF3f6eb6)
-                                                          ],
-                                                        )
-                                                  : null,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0,
-                                                      vertical: 4.0),
-                                              child: Container(
-                                                width: 90,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      child: Image(
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height /
-                                                            20,
-                                                        image: AssetImage(
-                                                          Provider.of<AppointmentData>(
-                                                                  context,
-                                                                  listen: true)
-                                                              .fullTimeServices[
-                                                                  findIndex(x)]
-                                                              .employees[index]
-                                                              .image,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Spacer(),
-                                                    FittedBox(
-                                                        child: Text(
-                                                          Provider.of<AppointmentData>(
-                                                                  context,
-                                                                  listen: true)
-                                                              .fullTimeServices[
-                                                                  findIndex(x)]
-                                                              .employees[index]
-                                                              .name,
-                                                          style: kSmallTextStyle
-                                                              .copyWith(
-                                                            color: Provider.of<
-                                                                            AppointmentData>(
-                                                                        context,
-                                                                        listen:
-                                                                            true)
-                                                                    .fullTimeServices[
-                                                                        findIndex(
-                                                                            x)]
-                                                                    .employees[
-                                                                        index]
-                                                                    .selected
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                          ),
-                                                        ),
-                                                        fit: BoxFit.cover)
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            Provider.of<AppointmentData>(
-                                                    context,
-                                                    listen: false)
-                                                .changeSelectedEmployee(
-                                                    findIndex(x), index);
-                                          },
-                                        );
-                                      }),
-                                ),
-                                Positioned(
-                                  right: 0,
-                                  top: 10,
-                                  child: Icon(!leftArrow
-                                      ? Icons.keyboard_arrow_right
-                                      : Icons.keyboard_arrow_left),
-                                )
-                              ]),
-                          ],
+                    GenericRow(
+                      leading: Text(x.name,
+                          style: kTextStyle.copyWith(
+                              fontWeight: FontWeight.normal)),
+                      useFirstSpacer: true,
+                      body: Row(
+                        children: [
+                          Text(x.price.toString(),
+                              style: kTextStyle.copyWith(
+                                  fontWeight: FontWeight.normal)),
+                          Text(" ₺", style: TextStyle(fontSize: 20)),
+                        ],
+                      ),
+                      spaceBetween: 20,
+                      trailing: IconButton(
+                        color: Colors.black,
+                        onPressed: () {
+                          /// Add or subtract Service and calculate
+                          /// price
+                          setState(() {
+                            Provider.of<AppointmentData>(context, listen: false)
+                                .changeSelectedService(findIndex(x));
+                          });
+                          Provider.of<AppointmentData>(context, listen: false)
+                              .calculateTotalPrice();
+                        },
+                        icon: Icon(
+                          Provider.of<AppointmentData>(context, listen: true)
+                                  .fullTimeServices[findIndex(x)]
+                                  .selected
+                              ? Icons.remove
+                              : Icons.add,
+                          size: 25,
                         ),
                       ),
                     ),
                 ],
               ),
-
+              // x.selected ?
+              //   Stack(children: [
+              //     Container(
+              //       height:
+              //           MediaQuery.of(context).size.width / 5.3,
+              //       child: ListView.builder(
+              //           itemCount: Provider.of<AppointmentData>(
+              //                   context,
+              //                   listen: true)
+              //               .fullTimeServices[findIndex(x)]
+              //               .employees
+              //               .length,
+              //           scrollDirection: Axis.horizontal,
+              //
+              //           ///controller hizmete özel olmalı !!!
+              //           ///controller: _scrollControllerServices,
+              //           itemBuilder:
+              //               (BuildContext context, int index) {
+              //             return FlatButton(
+              //               child: Container(
+              //                 decoration: BoxDecoration(
+              //                   gradient: Provider.of<
+              //                                   AppointmentData>(
+              //                               context,
+              //                               listen: true)
+              //                           .fullTimeServices[
+              //                               findIndex(x)]
+              //                           .employees[index]
+              //                           .selected
+              //                       ? Provider.of<AppointmentData>(
+              //                                       context,
+              //                                       listen: true)
+              //                                   .fullTimeServices[
+              //                                       findIndex(x)]
+              //                                   .employees[index]
+              //                                   .gender ==
+              //                               "female"
+              //                           ? LinearGradient(
+              //                               begin: Alignment
+              //                                   .centerLeft,
+              //                               end: Alignment
+              //                                   .centerRight,
+              //                               colors: [
+              //                                 Color(0xFFffa7ca),
+              //                                 Color(0xFFca7799)
+              //                               ],
+              //                             )
+              //                           : LinearGradient(
+              //                               begin: Alignment
+              //                                   .centerLeft,
+              //                               end: Alignment
+              //                                   .centerRight,
+              //                               colors: [
+              //                                 Color(0xFF40ace1),
+              //                                 Color(0xFF3f6eb6)
+              //                               ],
+              //                             )
+              //                       : null,
+              //                   borderRadius:
+              //                       BorderRadius.circular(10),
+              //                 ),
+              //                 child: Padding(
+              //                   padding:
+              //                       const EdgeInsets.symmetric(
+              //                           horizontal: 8.0,
+              //                           vertical: 4.0),
+              //                   child: Container(
+              //                     width: 90,
+              //                     child: Column(
+              //                       mainAxisAlignment:
+              //                           MainAxisAlignment.center,
+              //                       children: [
+              //                         ClipRRect(
+              //                           borderRadius:
+              //                               BorderRadius.circular(
+              //                                   10),
+              //                           child: Image(
+              //                             height: MediaQuery.of(
+              //                                         context)
+              //                                     .size
+              //                                     .height /
+              //                                 20,
+              //                             image: AssetImage(
+              //                               Provider.of<AppointmentData>(
+              //                                       context,
+              //                                       listen: true)
+              //                                   .fullTimeServices[
+              //                                       findIndex(x)]
+              //                                   .employees[index]
+              //                                   .image,
+              //                             ),
+              //                           ),
+              //                         ),
+              //                         Spacer(),
+              //                         FittedBox(
+              //                             child: Text(
+              //                               Provider.of<AppointmentData>(
+              //                                       context,
+              //                                       listen: true)
+              //                                   .fullTimeServices[
+              //                                       findIndex(x)]
+              //                                   .employees[index]
+              //                                   .name,
+              //                               style: kSmallTextStyle
+              //                                   .copyWith(
+              //                                 color: Provider.of<
+              //                                                 AppointmentData>(
+              //                                             context,
+              //                                             listen:
+              //                                                 true)
+              //                                         .fullTimeServices[
+              //                                             findIndex(
+              //                                                 x)]
+              //                                         .employees[
+              //                                             index]
+              //                                         .selected
+              //                                     ? Colors.white
+              //                                     : Colors.black,
+              //                               ),
+              //                             ),
+              //                             fit: BoxFit.cover)
+              //                       ],
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //               onPressed: () {
+              //                 Provider.of<AppointmentData>(
+              //                         context,
+              //                         listen: false)
+              //                     .changeSelectedEmployee(
+              //                         findIndex(x), index);
+              //               },
+              //             );
+              //           }),
+              //     ),
+              //     Positioned(
+              //       right: 0,
+              //       top: 10,
+              //       child: Icon(!leftArrow
+              //           ? Icons.keyboard_arrow_right
+              //           : Icons.keyboard_arrow_left),
+              //     )
+              //   ])
+              //     : null
               ///EmployeeList row
               Text('Personeller', style: kTextStyle),
               SizedBox(height: 10),
-              Stack(
-                children: [
-                  Container(
-                      height: MediaQuery.of(context).size.width / 5.5,
-                      child: OverScroll(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                            itemCount: Provider.of<AppointmentData>(context,
-                                    listen: true)
-                                .employeesList
-                                .length,
-                            scrollDirection: Axis.horizontal,
-                            controller: _scrollControllerEmployee,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  width: 90,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              20,
-                                          image: AssetImage(
-                                            Provider.of<AppointmentData>(
-                                                    context,
-                                                    listen: true)
-                                                .employeesList[index]
-                                                .image,
-                                          ),
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      FittedBox(
-                                        fit: BoxFit.cover,
-                                        child: Text(
-                                          Provider.of<AppointmentData>(context,
-                                                  listen: true)
-                                              .employeesList[index]
-                                              .name,
-                                          style: kSmallTextStyle.copyWith(
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
-                      )),
-                  Positioned(
-                    right: 0,
-                    top: 10,
-                    child: Icon(!leftArrow
-                        ? Icons.keyboard_arrow_right
-                        : Icons.keyboard_arrow_left),
-                  ),
-                ],
-              ),
+
+              _EmployeeRow(size: size, leftArrow: leftArrow),
 
               /// Yorumlar
               Row(
@@ -722,6 +598,54 @@ class _CoiffureDetailCardState extends State<CoiffureDetailCard> {
   }
 }
 
+class _EmployeeRow extends StatelessWidget {
+  const _EmployeeRow({
+    Key key,
+    @required this.size,
+    @required this.leftArrow,
+  }) : super(key: key);
+
+  final Size size;
+  final bool leftArrow;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size.width,
+      height: 100,
+      child: OverScroll(
+        child: ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          children: [
+            for (EmployeeModel x
+                in Provider.of<AppointmentData>(context, listen: true)
+                    .employeesList)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: GenericIconButton(
+                  iconContext: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image(
+                      height: 40,
+                      image: AssetImage(x.image),
+                    ),
+                  ),
+                  text: x.name,
+                  textStyle: kSmallTextStyle.copyWith(color: Colors.black),
+                  spaceBetween: 15,
+                ),
+              ),
+            Icon(!leftArrow
+                ? Icons.keyboard_arrow_right
+                : Icons.keyboard_arrow_left),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class RatingRow extends StatelessWidget {
   final String commentNumber;
   final int rating;
@@ -730,7 +654,7 @@ class RatingRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       children: <Widget>[
         for (int i = 0; i < rating; i++)
           Icon(

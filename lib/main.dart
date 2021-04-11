@@ -1,7 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ayarla/screens/coiffure_detail_page.dart';
+import 'file:///C:/Users/fatih/AndroidStudioProjects/ayarla/lib/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:ayarla/screens/comments_page.dart';
 import 'package:ayarla/screens/gallery_page.dart';
 import 'package:ayarla/screens/loading_screen.dart';
@@ -26,7 +26,7 @@ import 'package:ayarla/virtual_data_base/login.dart';
 import 'components/googleMap.dart';
 import 'screens/welcome_page.dart';
 import 'screens/confirmation_page.dart';
-import 'screens/coiffure_detail_page.dart';
+import 'screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'constants/router.dart';
 
 void main() {

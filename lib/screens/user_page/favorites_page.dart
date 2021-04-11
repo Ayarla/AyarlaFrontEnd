@@ -10,7 +10,7 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/coiffeurModel.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import '../coiffure_detail_page.dart';
+import '../coiffure_detail_page/coiffure_detail_page.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const id = 'FavoritesPage';

@@ -11,7 +11,7 @@ import 'package:ayarla/screens/confirmation_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_home.dart';
 import 'package:ayarla/screens/user_page/favorites_page.dart';
 import 'package:ayarla/screens/user_page/user_page.dart';
-import 'package:ayarla/screens/coiffure_detail_page.dart';
+import 'file:///C:/Users/fatih/AndroidStudioProjects/ayarla/lib/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:ayarla/screens/loading_screen.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/screens/welcome_page.dart';

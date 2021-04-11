@@ -380,7 +380,7 @@ class AppointmentData extends ChangeNotifier {
   }
 
   ///Stores selected information about appointment
-  ///=> coiffure_detail_page
+  ///=> screens.coiffure_detail_page
   ///=> 'Saati Belirle' button
 
   List<AppointmentInfo> servicesAndEmployees = [];

@@ -1,10 +1,11 @@
+import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/coiffure_detail_page.dart';
+import 'file:///C:/Users/fatih/AndroidStudioProjects/ayarla/lib/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
@@ -127,20 +128,18 @@ class CardInfo extends StatelessWidget {
         Expanded(
           child: Container(
             child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
+              padding: EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   /// name
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 1),
-                    height: 30,
-                    child: Functions().titleLength(
-                        inputName: coiffureModel.name,
-                        textStyle: kTextStyle,
-                        ctrlLength: 20),
+                  TextOverFlowHandler(
+                    child: Text(
+                      coiffureModel.name,
+                      style: kTextStyle,
+                    ),
                   ),
+                  SizedBox(height: 5),
 
                   /// First line
                   Row(

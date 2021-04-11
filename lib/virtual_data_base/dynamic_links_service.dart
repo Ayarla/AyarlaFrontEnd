@@ -1,6 +1,6 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import '../screens/coiffure_detail_page.dart';
+import '../screens/coiffure_detail_page/coiffure_detail_page.dart';
 
 class DynamicLinkService {
   Future<Uri> createDynamicLink(String id) async {
