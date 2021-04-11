@@ -64,32 +64,32 @@ class _ManagerHomeState extends State<ManagerHome> {
                               icon: UI.homeIcon,
                               color: Colors.white.withOpacity(.4),
                               text: 'İşletmem',
-                              routeID: BusinessInfoPage.id),
+                              route: "/Isletmem"),
                           ManagerScreenButton(
                               icon: UI.employeesIcon,
                               color: Colors.white.withOpacity(.4),
                               text: 'Çalışanlarım',
-                              routeID: EmployeeManagement.id),
+                              route: "/Çalışanlarım"),
                           ManagerScreenButton(
                               icon: UI.calenderIcon,
                               color: Colors.white.withOpacity(.4),
                               text: 'Ayarlarım',
-                              routeID: EmployeePage.id),
+                              route: EmployeePage.id),
                           ManagerScreenButton(
                               icon: UI.notesIcon,
                               color: Colors.white.withOpacity(.4),
                               text: 'Notlarım',
-                              routeID: ManagerNotesPage.id),
+                              route: ManagerNotesPage.id),
                           ManagerScreenButton(
                               icon: UI.messageIcon,
                               color: Colors.white.withOpacity(.4),
                               text: 'Mesajlaşma',
-                              routeID: ManagerSendMessage.id),
+                              route: ManagerSendMessage.id),
                           ManagerScreenButton(
                               icon: UI.notificationIcon,
                               color: Colors.white.withOpacity(.4),
                               text: 'Randevu Hatırlatma',
-                              routeID: ManagerSendMessage.id),
+                              route: ManagerSendMessage.id),
                         ]))
               ]),
             )),

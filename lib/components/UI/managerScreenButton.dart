@@ -1,17 +1,18 @@
 import 'dart:ui';
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 
 class ManagerScreenButton extends StatelessWidget {
   final Widget icon;
   final String text;
-  final String routeID;
+  final String route;
   final Color color;
 
   /// • For [opacity] use [Colors.xxx.withOpacity()],
   ///
   /// [opacity] must be between 0.0 and 1.0
-  ManagerScreenButton({this.icon, this.text, this.routeID, this.color});
+  ManagerScreenButton({this.icon, this.text, this.route, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class ManagerScreenButton extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.pushNamed(context, routeID);
+        // Navigator.pushNamed(context, routeID);
+        Routers.router.navigateTo(context, route);
       },
     );
   }

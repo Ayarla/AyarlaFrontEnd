@@ -138,12 +138,13 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UserMessagePage(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => UserMessagePage(),
+                          //   ),
+                          // );
+                          Routers.router.navigateTo(context, '/Mesajlarım');
                         },
                         child: Row(
                           children: [
@@ -164,7 +165,8 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, AppointmentsPage.id);
+                          // Navigator.pushNamed(context, AppointmentsPage.id);
+                          Routers.router.navigateTo(context, '/Randevularım');
                         },
                         child: Row(
                           children: [
@@ -186,7 +188,8 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, PastAppointmentsPage.id);
+                          // Navigator.pushNamed(context, PastAppointmentsPage.id);
+                          Routers.router.navigateTo(context, '/GeçmişRandevularım');
                         },
                         child: Row(
                           children: [
@@ -207,7 +210,8 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, EditProfilePage.id);
+                          // Navigator.pushNamed(context, EditProfilePage.id);
+                          Routers.router.navigateTo(context, '/ProfilimiDüzenle');
                         },
                         child: Row(
                           children: [
@@ -265,7 +269,8 @@ class _UserPageState extends State<UserPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, ManagerHome.id);
+                  // Navigator.pushNamed(context, ManagerHome.id);
+                  Routers.router.navigateTo(context, "YöneticiAnasayfa");
                   Provider.of<Login>(context, listen: false).loggedInManager();
 
                   ///TODO check and push somewhere
