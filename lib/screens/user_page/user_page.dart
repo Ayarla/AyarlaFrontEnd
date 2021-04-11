@@ -1,3 +1,4 @@
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -115,7 +116,7 @@ class _UserPageState extends State<UserPage> {
 
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, FavoritesPage.id);
+                          Routers.router.navigateTo(context, "Favorilerim");
                         },
                         child: Row(
                           children: [

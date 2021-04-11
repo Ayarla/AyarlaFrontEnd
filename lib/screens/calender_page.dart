@@ -1,4 +1,5 @@
 import 'package:ayarla/components/calendar/calendar.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -321,7 +322,8 @@ class _CalenderPageState extends State<CalenderPage> {
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   onPressed: () {
-                    Navigator.pushNamed(context, ConfirmationPage.id);
+                    // Navigator.pushNamed(context, ConfirmationPage.id);
+                    Routers.router.navigateTo(context, "/OnaySayfası");
                   },
                   label: FittedBox(
                     fit: BoxFit.cover,

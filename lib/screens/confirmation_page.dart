@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -303,8 +304,10 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                     ///TODO profildeki mail adresine mail gonderilecek
                     //    Provider.of<AppointmentData>(context, listen: false).formMail= // profildeki mail gelecek
                     //    Provider.of<AppointmentData>(context, listen: false).printPngBytes();
-                    Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                    Navigator.pushNamed(context, ConfirmationPage.id);
+                    // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+                    // Routers.router.pop(context, "/AramaSayfası");
+                    Routers.router.navigateTo(context, "/OnaySayfası");
+                    // Navigator.pushNamed(context, ConfirmationPage.id);
                     Provider.of<AppointmentData>(context, listen: false).confirmation();
                   }
 

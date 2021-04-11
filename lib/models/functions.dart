@@ -207,8 +207,9 @@ class Functions {
         });
   }
 
-  /// seems fine rn.
-  String fixURL (String url) {
-    return url.replaceAll(' ', '-');
-  }
+
+}
+/// seems fine rn.
+String fixURL (String url) {
+  return url.replaceAll(' ', '-');
 }

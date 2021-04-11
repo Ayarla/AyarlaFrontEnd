@@ -1,3 +1,4 @@
+import 'package:ayarla/constants/router.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,8 +76,9 @@ class DefaultAppBar extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserPage()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => UserPage()));
+                Routers.router.navigateTo(context, "KullanıcıSayfası");
                 },
               )
 

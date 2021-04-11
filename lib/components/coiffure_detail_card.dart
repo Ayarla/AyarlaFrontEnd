@@ -1,3 +1,4 @@
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
@@ -700,7 +701,8 @@ class _CoiffureDetailCardState extends State<CoiffureDetailCard> {
                           style: kTextStyle.copyWith(
                               fontSize: 12, color: Colors.blue)),
                       onPressed: () {
-                        Navigator.pushNamed(context, CommentsPage.id);
+                        // Navigator.pushNamed(context, CommentsPage.id);
+                      Routers.router.navigateTo(context, "Isletme/:name/Yorumlar");
                       },
                     )
                   ],

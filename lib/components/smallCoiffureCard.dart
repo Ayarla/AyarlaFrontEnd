@@ -35,7 +35,7 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
           context,
           "/Isletme/:name",
           routeSettings: RouteSettings(
-            name: "/Isletme/${Functions().fixURL(widget.coiffureModel.name.toString())}",
+            name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}",
             arguments: CoiffureDetailPage(
                 coiffureModel: widget.coiffureModel,
                 name: widget.coiffureModel.name),

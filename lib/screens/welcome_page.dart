@@ -206,11 +206,6 @@ class _WelcomePageState extends State<WelcomePage>
                     getToken();
                   },
                   child: Text("getToken")),
-              TextButton(
-                  onPressed: () {
-                    print(Functions().fixURL(' h h h '));
-                  },
-                  child: Text("getToken")),
               // !check
               //     ? SizedBox()
               //     : Row(
