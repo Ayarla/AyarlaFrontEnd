@@ -164,17 +164,17 @@ class _SectionState extends State<MenuSection>
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.female);
-                                      Routers.router.navigateTo(context, "/AramaSayfası");
+                                      Routers.router.navigateTo(context, "/AramaSayfasi");
                                     } else if (item.label == 'Erkek') {
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.male);
-                                      Routers.router.navigateTo(context, "/AramaSayfası");
+                                      Routers.router.navigateTo(context, "/AramaSayfasi");
                                     } else {
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.unisex);
-                                      Routers.router.navigateTo(context, "/AramaSayfası");
+                                      Routers.router.navigateTo(context, "/AramaSayfasi");
                                     }
                                   },
                                   child: Row(

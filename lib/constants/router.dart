@@ -75,7 +75,6 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           PastAppointmentsPage());
 
-
   /// Manager Pages
   static Handler _managerHome = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
@@ -97,24 +96,23 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ManagerSendMessage());
 
-
   static void setupRouter() {
     router.define("/", handler: _loadingPage);
     router.define("/Hosgeldiniz", handler: _welcomePage);
-    router.define("/AramaSayfası", handler: _searchPage);
+    router.define("/AramaSayfasi", handler: _searchPage);
     router.define("/Isletme/:name", handler: _detailPage);
     router.define("/Isletme/:name/Yorumlar", handler: _commentsPage);
-    router.define("/OnaySayfası", handler: _confirmationPage);
-    router.define("/KullanıcıSayfası", handler: _userPage);
+    router.define("/OnaySayfasi", handler: _confirmationPage);
+    router.define("/KullaniciSayfasi", handler: _userPage);
     router.define("/Favorilerim", handler: _favoritesPage);
-    router.define("/Randevularım", handler: _appointmentsPage);
-    router.define("/Mesajlarım", handler: _userMessagePage);
-    router.define("/GeçmişRandevularım", handler: _pastAppointmentPage);
-    router.define("/ProfilimiDüzenle", handler: _editProfilePage);
-    router.define("/YöneticiAnasayfa", handler: _managerHome);
+    router.define("/Randevularim", handler: _appointmentsPage);
+    router.define("/Mesajlarim", handler: _userMessagePage);
+    router.define("/GeçmisRandevularim", handler: _pastAppointmentPage);
+    router.define("/ProfilimiDuzenle", handler: _editProfilePage);
+    router.define("/YoneticiAnasayfasi", handler: _managerHome);
     router.define("/Isletmem", handler: _businessInfoPage);
-    router.define("/Çalışanlarım", handler: _employeeManagement);
-    router.define("/Notlarım", handler: _managerNotesPage);
+    router.define("/Calisanlarim", handler: _employeeManagement);
+    router.define("/Notlarim", handler: _managerNotesPage);
     router.define("/MesajYolla", handler: _managerSendMessagePage);
   }
 }

@@ -17,6 +17,7 @@ import 'package:ayarla/screens/coiffure_detail_page/ServicesSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/SmallLocationSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/WorkingHoursSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
+import 'package:ayarla/screens/comments_page.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,8 +132,16 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                         style: kTextStyle.copyWith(
                             fontSize: 12, color: Colors.blue)),
                     onPressed: () {
-                      Routers.router
-                          .navigateTo(context, "Isletme/:name/Yorumlar");
+                      // Routers.router
+                      //     .navigateTo(context, "Isletme/:name/Yorumlar");
+                      Routers.router.navigateTo(
+                        context,
+                        "/Isletme/:name/Yorumlar",
+                        routeSettings: RouteSettings(
+                          name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}/Yorumlar",
+                          arguments: CommentsPage(),
+                        ),
+                      );
                     },
                   )
                 ],
