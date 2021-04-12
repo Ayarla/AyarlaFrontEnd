@@ -92,13 +92,13 @@ class _SectionState extends State<MenuSection>
     if (isSelected == true) {
       return Icon(
         Icons.remove_circle_outline,
-        size: 30,
+        // size: 30,
         color: Colors.white,
       );
     } else if (isSelected == false) {
       return Icon(
         Icons.add_circle_outline,
-        size: 30,
+        // size: 30,
         color: Colors.white,
       );
     }
@@ -117,11 +117,9 @@ class _SectionState extends State<MenuSection>
         },
         child: Center(
           child: Container(
-              // height: 300,
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(.3),
                 borderRadius: BorderRadius.circular(10.0),
-                // color: widget.backgroundColor
               ),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
@@ -130,17 +128,11 @@ class _SectionState extends State<MenuSection>
                       Positioned(
                         left: -20,
                         top: 0,
-                        child: Image.asset(
-                          // 'assets/banner.png',
-                          'assets/new/cfr2.png',
-                          fit: BoxFit.fill,
-                          // scale: 2.1,
-                        ),
+                        child: Image.asset('assets/new/cfr2.png', scale: 0.8),
                       ),
                       Column(children: <Widget>[
                         Container(
                             height: 100.0,
-                            // alignment: Alignment.bottomCenter,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -150,9 +142,7 @@ class _SectionState extends State<MenuSection>
                                   margin: EdgeInsets.only(left: 0, bottom: 40),
                                 ),
                                 buttonBehavior(isSelected),
-                                SizedBox(
-                                  width: 3,
-                                ),
+                                SizedBox(width: 3),
                                 widget.title,
                                 // style: kSmallTitleStyle,
                               ],
@@ -162,7 +152,6 @@ class _SectionState extends State<MenuSection>
                           axis: Axis.vertical,
                           sizeFactor: _sizeAnimation,
                           child: Container(
-                            // width: size.width / 3,
                             child: Padding(
                               padding: EdgeInsets.only(
                                   left: 56.0, right: 20.0, top: 10.0),
@@ -171,22 +160,21 @@ class _SectionState extends State<MenuSection>
                                 return GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
-                                    Routers.router.navigateTo(context, "AramaSayfası");
                                     if (item.label == 'Kadın') {
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.female);
-                                      Routers.router.navigateTo(context, "AramaSayfası");
+                                      Routers.router.navigateTo(context, "/AramaSayfası");
                                     } else if (item.label == 'Erkek') {
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.male);
-                                      Routers.router.navigateTo(context, "AramaSayfası");
+                                      Routers.router.navigateTo(context, "/AramaSayfası");
                                     } else {
                                       Provider.of<GenderSelection>(context,
                                               listen: false)
                                           .selectGender(Gender.unisex);
-                                      Routers.router.navigateTo(context, "AramaSayfası");
+                                      Routers.router.navigateTo(context, "/AramaSayfası");
                                     }
                                   },
                                   child: Row(
@@ -195,7 +183,6 @@ class _SectionState extends State<MenuSection>
                                       children: [
                                         SizedBox(width: 20),
                                         Container(
-                                          // width: size.width / 2.5,
                                           margin: EdgeInsets.only(bottom: 14.0),
                                           child: Text(
                                             item.label,

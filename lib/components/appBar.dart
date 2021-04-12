@@ -1,10 +1,10 @@
+import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/user_page/user_page.dart';
 import 'circularParent.dart';
 import 'filter&order.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
@@ -77,7 +77,7 @@ class DefaultAppBar extends StatelessWidget {
                 onPressed: () {
                   // Navigator.push(context,
                   //     MaterialPageRoute(builder: (context) => UserPage()));
-                Routers.router.navigateTo(context, "KullanıcıSayfası");
+                  Routers.router.navigateTo(context, "/KullanıcıSayfası");
                 },
               )
 
@@ -101,8 +101,8 @@ class InvisibleBackButton extends StatelessWidget {
 
 class SearchAppBar extends StatefulWidget {
   final Function onChanged;
-
-  SearchAppBar({this.onChanged});
+  final MediaQueryData mediaQueryData;
+  SearchAppBar({this.onChanged, this.mediaQueryData});
   @override
   _SearchAppBarState createState() => _SearchAppBarState();
 }
@@ -110,9 +110,12 @@ class SearchAppBar extends StatefulWidget {
 class _SearchAppBarState extends State<SearchAppBar> {
   @override
   Widget build(BuildContext context) {
+    // final size = MediaQuery.of(context).size;
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: 180.0,
+      expandedHeight: widget.mediaQueryData.size.width / 2.7,
+      collapsedHeight: widget.mediaQueryData.size.width / 8,
+      toolbarHeight: widget.mediaQueryData.size.width / 8.2,
       floating: false,
       pinned: true,
       snap: false,
@@ -120,26 +123,23 @@ class _SearchAppBarState extends State<SearchAppBar> {
       elevation: 0,
       title: Row(
         children: [
-          BackButton(color: Colors.white),
-          SizedBox(width: 10),
-          UI.appBarTitleCustomer,
+          IconButton(
+              icon: Icon(Icons.arrow_back_sharp,
+                  size: widget.mediaQueryData.size.width / 20),
+              onPressed: () => Routers.router.pop(context)),
+          SizedBox(width: widget.mediaQueryData.size.width / 100),
+          UI.AppBarTitleCustomer(),
           Spacer(),
-          FittedBox(
-            fit: BoxFit.cover,
-            child: IconButton(
-              padding: EdgeInsets.all(0),
-              icon: Icon(
-                Icons.account_circle,
-                color: Colors.white,
-                size: 50.0,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UserPage()));
-              },
+          IconButton(
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.white,
+              size: widget.mediaQueryData.size.width / 12,
             ),
+            onPressed: () {
+              Routers.router.navigateTo(context, "/KullanıcıSayfası");
+            },
           ),
-          SizedBox(width: 10),
         ],
       ),
       flexibleSpace: CircularParent(
@@ -158,27 +158,38 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 child: Column(
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.only(top: 70.0, left: 16, right: 16),
-                      child: TextField(
-                        textCapitalization: TextCapitalization.words,
-                        autofocus: false,
-                        autocorrect: false,
-                        focusNode: FocusNode(canRequestFocus: false),
-                        onChanged: widget.onChanged,
-                        style: kSmallTextStyle.copyWith(fontSize: 12),
-                        decoration: InputDecoration(
-                          hintText: "Lütfen işletme adı veya kodu giriniz",
-                          hintStyle: kSmallTextStyle.copyWith(
-                            color: Colors.grey.withOpacity(0.8),
-                            fontSize: 12,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(25.0),
+                      padding: EdgeInsets.only(
+                        top: widget.mediaQueryData.size.width / 7,
+                        left: widget.mediaQueryData.size.width / 20,
+                        right: widget.mediaQueryData.size.width / 20,
+                        bottom: widget.mediaQueryData.size.width / 120,
+                      ),
+                      child: SizedBox(
+                        height: widget.mediaQueryData.size.width / 9,
+                        width: widget.mediaQueryData.size.width / 1.05,
+                        child: TextField(
+                          textCapitalization: TextCapitalization.words,
+                          autofocus: false,
+                          autocorrect: false,
+                          focusNode: FocusNode(canRequestFocus: false),
+                          textAlignVertical: TextAlignVertical.bottom,
+                          onChanged: widget.onChanged,
+                          style: kSmallTextStyle.copyWith(
+                              fontSize: widget.mediaQueryData.size.width / 30),
+                          decoration: InputDecoration(
+                            hintText: "Lütfen işletme adı veya kodu giriniz",
+                            hintStyle: kSmallTextStyle.copyWith(
+                              color: Colors.grey.withOpacity(0.8),
+                              fontSize: widget.mediaQueryData.size.width / 30,
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            prefixIcon: Icon(Icons.search,
+                                size: widget.mediaQueryData.size.width / 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(25.0),
+                              ),
                             ),
                           ),
                         ),

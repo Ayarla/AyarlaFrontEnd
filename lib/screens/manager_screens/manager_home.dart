@@ -56,42 +56,42 @@ class _ManagerHomeState extends State<ManagerHome> {
                         mainAxisSpacing: 10,
                         crossAxisCount: 2,
                         children: <Widget>[
-                          GenericIconButton(
-                              iconContext: UI.homeIcon,
-                              color: Colors.white.withOpacity(.4),
-                              text: 'İşletmem',
-                              onPressed: () => Routers.router
-                                  .navigateTo(context, "/Isletmem")),
-                          GenericIconButton(
-                              iconContext: UI.employeesIcon,
-                              color: Colors.white.withOpacity(.4),
-                              text: 'Çalışanlarım',
-                              onPressed: () => Routers.router
-                                  .navigateTo(context, "/Çalışanlarım")),
-                          GenericIconButton(
-                            iconContext: UI.calenderIcon,
-                            color: Colors.white.withOpacity(.4),
-                            text: 'Ayarlarım',
-                            // onPressed: EmployeePage.id,
-                          ),
-                          GenericIconButton(
-                            iconContext: UI.notesIcon,
-                            color: Colors.white.withOpacity(.4),
-                            text: 'Notlarım',
-                            // onPressed: ManagerNotesPage.id,
-                          ),
-                          GenericIconButton(
-                            iconContext: UI.messageIcon,
-                            color: Colors.white.withOpacity(.4),
-                            text: 'Mesajlaşma',
-                            // onPressed: ManagerSendMessage.id,
-                          ),
-                          GenericIconButton(
-                            iconContext: UI.notificationIcon,
-                            color: Colors.white.withOpacity(.4),
-                            text: 'Randevu Hatırlatma',
-                            // onPressed: ManagerSendMessage.id,
-                          ),
+                          // GenericIconButton(
+                          //     iconContext: UI.homeIcon,
+                          //     color: Colors.white.withOpacity(.4),
+                          //     text: 'İşletmem',
+                          //     onPressed: () => Routers.router
+                          //         .navigateTo(context, "/Isletmem")),
+                          // GenericIconButton(
+                          //     iconContext: UI.employeesIcon,
+                          //     color: Colors.white.withOpacity(.4),
+                          //     text: 'Çalışanlarım',
+                          //     onPressed: () => Routers.router
+                          //         .navigateTo(context, "/Çalışanlarım")),
+                          // GenericIconButton(
+                          //   iconContext: UI.calenderIcon,
+                          //   color: Colors.white.withOpacity(.4),
+                          //   text: 'Ayarlarım',
+                          //   // onPressed: EmployeePage.id,
+                          // ),
+                          // GenericIconButton(
+                          //   iconContext: UI.notesIcon,
+                          //   color: Colors.white.withOpacity(.4),
+                          //   text: 'Notlarım',
+                          //   // onPressed: ManagerNotesPage.id,
+                          // ),
+                          // GenericIconButton(
+                          //   iconContext: UI.messageIcon,
+                          //   color: Colors.white.withOpacity(.4),
+                          //   text: 'Mesajlaşma',
+                          //   // onPressed: ManagerSendMessage.id,
+                          // ),
+                          // GenericIconButton(
+                          //   iconContext: UI.notificationIcon,
+                          //   color: Colors.white.withOpacity(.4),
+                          //   text: 'Randevu Hatırlatma',
+                          //   // onPressed: ManagerSendMessage.id,
+                          // ),
                         ]))
               ]),
             )),

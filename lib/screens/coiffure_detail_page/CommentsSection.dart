@@ -18,7 +18,6 @@ class CommentsSection extends StatelessWidget {
         // autoPlay: true,
       ),
       items: [1, 2, 3].map((i) {
-        print(size.width);
         return Builder(
           builder: (BuildContext context) {
             return ListView(

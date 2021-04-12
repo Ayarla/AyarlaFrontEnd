@@ -1,5 +1,8 @@
 import 'package:ayarla/screens/manager_screens/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
+import 'package:ayarla/screens/manager_screens/manager_notes.dart';
+import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
+import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 import 'package:ayarla/screens/user_page/appontments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/message_page.dart';
@@ -86,6 +89,14 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           EmployeeManagement());
 
+  static Handler _managerNotesPage = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          ManagerNotesPage());
+
+  static Handler _managerSendMessagePage = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          ManagerSendMessage());
+
 
   static void setupRouter() {
     router.define("/", handler: _loadingPage);
@@ -103,5 +114,7 @@ class Routers {
     router.define("/YöneticiAnasayfa", handler: _managerHome);
     router.define("/Isletmem", handler: _businessInfoPage);
     router.define("/Çalışanlarım", handler: _employeeManagement);
+    router.define("/Notlarım", handler: _managerNotesPage);
+    router.define("/MesajYolla", handler: _managerSendMessagePage);
   }
 }

@@ -58,6 +58,7 @@ class SearchPageState extends State<SearchPage> {
 
                   /// Known issue - Need fix for entering wrong name.
                 },
+                mediaQueryData: MediaQuery.of(context),
               ),
             ];
           },

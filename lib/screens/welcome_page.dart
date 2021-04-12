@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -165,11 +166,11 @@ class _WelcomePageState extends State<WelcomePage>
 
   @override
   Widget build(BuildContext context) {
-    // bool check = Provider.of<Login>(context, listen: true).holder;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(
-        title: UI.appBarTitleCustomer,
+        title: UI.AppBarTitleCustomer(),
         color: Color(0xFF90a4ae).withOpacity(0.4),
         showBackButton: false,
       ).build(context),
@@ -196,41 +197,8 @@ class _WelcomePageState extends State<WelcomePage>
               //       deleteUser(38.toString());
               //     },
               //     child: Text('sil')),
-              TextButton(
-                  onPressed: () {
-                    createUser();
-                  },
-                  child: Text("olustur")),
-              TextButton(
-                  onPressed: () {
-                    getToken();
-                  },
-                  child: Text("getToken")),
-              // !check
-              //     ? SizedBox()
-              //     : Row(
-              //         mainAxisAlignment: MainAxisAlignment.end,
-              //         children: [
-              //           Padding(
-              //             padding: EdgeInsets.only(right: 30),
-              //             child: GestureDetector(
-              //               onTap: () {
-              //                 Navigator.pushNamed(context, UserPage.id);
-              //               },
-              //               child: IconButton(
-              //                 icon: Icon(
-              //                   Icons.account_circle,
-              //                   // color: Colors.blueGrey.shade900,
-              //                   color: Color(0xFF2d3b4a),
-              //                   // color: Color(0xFF838383),
-              //                   // color: Colors.white70,
-              //                   size: 50.0,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
+              TextButton(onPressed: () => createUser(), child: Text("olustur")),
+              TextButton(onPressed: () => getToken(), child: Text("getToken")),
               SizedBox(height: 20),
               UI.generalLogo,
               SizedBox(height: 30),
@@ -239,31 +207,74 @@ class _WelcomePageState extends State<WelcomePage>
                 textAlign: TextAlign.center,
                 style: kTitleStyle,
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-                child: MenuSection(
-                  Row(
-                    children: [
-                      // Icon(icon: buttonBehavior(isSelected)),
-                      Container(
-                        // width: MediaQuery.of(context).size.width / 3,
-                        child: Text(
-                          'Kuaför Randevumu Ayarla',
-                          style: kTextStyle.copyWith(color: Colors.white),
-                        ),
-                      ),
+              SizedBox(height: 15),
+              ResponsiveWidget(
+                smallScreen: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: size.width / 50, vertical: 10),
+                  child: MenuSection(
+                    FittedBox(
+                      fit: BoxFit.cover,
+                      child: Text('Kuaför Randevumu Ayarla',
+                          style: kTextStylewoSize
+                          // .copyWith(fontSize: 30 * size.aspectRatio),
+                          ),
+                    ),
+                    Colors.white,
+                    Colors.white,
+                    [
+                      MenuItemData(label: 'Kadın'),
+                      MenuItemData(label: 'Erkek'),
+                      MenuItemData(label: 'Unisex'),
                     ],
                   ),
-                  Colors.white,
-                  Colors.white,
-                  [
-                    MenuItemData(label: 'Kadın'),
-                    MenuItemData(label: 'Erkek'),
-                    MenuItemData(label: 'Unisex'),
-                  ],
+                ),
+                mediumScreen: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: size.width / 6, vertical: 10),
+                  child: MenuSection(
+                    Row(
+                      children: [
+                        Container(
+                          child: Text(
+                            'Kuaför Randevumu Ayarla',
+                            style: kTextStyle.copyWith(
+                                color: Colors.white, fontSize: size.width / 30),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Colors.white,
+                    Colors.white,
+                    [
+                      MenuItemData(label: 'Kadın'),
+                      MenuItemData(label: 'Erkek'),
+                      MenuItemData(label: 'Unisex'),
+                    ],
+                  ),
+                ),
+                largeScreen: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: size.width / 3.5, vertical: 10),
+                  child: MenuSection(
+                    Row(
+                      children: [
+                        Container(
+                          child: Text(
+                            'Kuaför Randevumu Ayarla',
+                            style: kTextStyle.copyWith(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Colors.white,
+                    Colors.white,
+                    [
+                      MenuItemData(label: 'Kadın'),
+                      MenuItemData(label: 'Erkek'),
+                      MenuItemData(label: 'Unisex'),
+                    ],
+                  ),
                 ),
               ),
             ],

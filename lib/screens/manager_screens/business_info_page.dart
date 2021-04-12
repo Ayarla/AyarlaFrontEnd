@@ -9,7 +9,6 @@ import 'package:ayarla/components/floatingButton.dart';
 import 'package:ayarla/components/googleMap.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/overScroll.dart';
-import 'package:ayarla/components/rating_row.dart';
 import 'package:ayarla/components/timeDropdown.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/employeeAndService.dart';

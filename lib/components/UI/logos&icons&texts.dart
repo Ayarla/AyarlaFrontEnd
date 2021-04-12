@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ayarla/components/UI/linearGradientMask.dart';
@@ -74,34 +75,34 @@ Widget settingsIcon = LinearGradientMask(
 
 Widget maleUserIcon = LinearGradientMask(
     child: SvgPicture.asset(
-      'assets/icons/icon_user_male.svg',
-      width: 35,
-      color: Colors.white,
-    ));
+  'assets/icons/icon_user_male.svg',
+  width: 35,
+  color: Colors.white,
+));
 
 Widget femaleUserIcon = LinearGradientMask(
     child: SvgPicture.asset(
-      'assets/icons/icon_user_female.svg',
-      width: 35,
-      color: Colors.white,
-    ));
+  'assets/icons/icon_user_female.svg',
+  width: 35,
+  color: Colors.white,
+));
 
 Widget addUserIcon = LinearGradientMask(
     child: SvgPicture.asset(
-      'assets/icons/icon_add_user.svg',
-      width: 35,
-      color: Colors.white,
-    ));
+  'assets/icons/icon_add_user.svg',
+  width: 35,
+  color: Colors.white,
+));
 
 class HeartIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LinearGradientMask(
         child: SvgPicture.asset(
-          'assets/icons/icon_heart.svg',
-          width: 30,
-          color: Colors.white,
-        ));
+      'assets/icons/icon_heart.svg',
+      width: 30,
+      color: Colors.white,
+    ));
   }
 }
 
@@ -120,28 +121,63 @@ Widget searchIcon = LinearGradientMask(
 ));
 
 /// APPBAR TEXTS
-Container appBarTitleCustomer = Container(
-  // width: MediaQuery.of(context).size.width / 2,
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      FittedBox(
-        fit: BoxFit.cover,
-        child: Text(
-          "Merhaba Nilsu",
-          style: kTitleStyle.copyWith(color: Colors.white),
+class AppBarTitleCustomer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return ResponsiveWidget(
+      smallScreen: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Merhaba Nilsu",
+              style: kTitleStyle.copyWith(
+                  color: Colors.white, fontSize: size.width / 28),
+            ),
+            Text(
+              "Haydi randevunu ayarlayalım!",
+              // style: kSmallTextStyle,
+              style: kSmallTextStyle.copyWith(fontSize: size.width / 30),
+            )
+          ],
         ),
       ),
-      FittedBox(
-        fit: BoxFit.cover,
-        child: Text(
-          "Haydi randevunu ayarlayalım!",
-          style: kSmallTextStyle,
+      mediumScreen: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Merhaba Nilsu",
+              style: kTitleStyle.copyWith(color: Colors.white),
+            ),
+            Text(
+              "Haydi randevunu ayarlayalım!",
+              // style: kSmallTextStyle,
+              style: kSmallTextStyle,
+            )
+          ],
         ),
-      )
-    ],
-  ),
-);
+      ),
+      largeScreen: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Merhaba Nilsu",
+              style: kTitleStyle.copyWith(color: Colors.white),
+            ),
+            Text(
+              "Haydi randevunu ayarlayalım!",
+              // style: kSmallTextStyle,
+              style: kSmallTextStyle,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 Row appBarTitleManager = Row(
   mainAxisAlignment: MainAxisAlignment.start,
@@ -152,16 +188,18 @@ Row appBarTitleManager = Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FittedBox(
-            fit: BoxFit.cover,
+            fit: BoxFit.scaleDown,
             child: Text(
               "Merhaba Nilsu",
+              // style: kTextStylewoSize,
               style: kTitleStyle.copyWith(color: Colors.white),
             ),
           ),
           FittedBox(
-            fit: BoxFit.cover,
+            fit: BoxFit.scaleDown,
             child: Text(
               "Haydi işletmeni ayarlayalım!",
+              // style: kTextStylewoSize,
               style: kSmallTextStyle.copyWith(color: Colors.white),
             ),
           )

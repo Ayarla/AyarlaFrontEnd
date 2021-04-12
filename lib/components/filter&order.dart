@@ -97,7 +97,7 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
           radius: 20,
           direction: Directions.top,
           color: Colors.white,
-          child: ListView(
+          child: Wrap(
             children: [
               SizedBox(height: 10),
 
@@ -125,8 +125,8 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                   ),
                 ),
                 onPressed: () {
-                  var ancestralState = context
-                      .findAncestorStateOfType<SearchPageState>();
+                  var ancestralState =
+                      context.findAncestorStateOfType<SearchPageState>();
                   ancestralState.setState(() {});
 
                   setState(() {
@@ -154,8 +154,8 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                   ),
                 ),
                 onPressed: () {
-                  var ancestralState = context
-                      .findAncestorStateOfType<SearchPageState>();
+                  var ancestralState =
+                      context.findAncestorStateOfType<SearchPageState>();
                   ancestralState.setState(() {});
                   setState(() {
                     Provider.of<AppointmentData>(context, listen: false)
@@ -178,16 +178,22 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
           child: Row(children: [
-            Icon(Icons.filter_alt_outlined, color: Colors.white),
-            SizedBox(width: 5),
+            Icon(
+              Icons.filter_alt_outlined,
+              color: Colors.white,
+              size: size.width / 20,
+            ),
+            SizedBox(width: size.width / 100),
             Text(
               'Filtrele',
-              style: kSmallTextStyle.copyWith(color: Colors.white),
+              style: kSmallTextStyle.copyWith(
+                  color: Colors.white, fontSize: size.width / 30),
             ),
           ]),
           onPressed: () {
@@ -196,14 +202,15 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
             });
           },
         ),
-        SizedBox(width: 10),
+        SizedBox(width: size.width / 50),
         TextButton(
           child: Row(children: [
-            Icon(Icons.sort, color: Colors.white),
-            SizedBox(width: 5),
+            Icon(Icons.sort, color: Colors.white, size: size.width / 20),
+            SizedBox(width: size.width / 100),
             Text(
               'Sırala',
-              style: kSmallTextStyle.copyWith(color: Colors.white),
+              style: kSmallTextStyle.copyWith(
+                  color: Colors.white, fontSize: size.width / 30),
             ),
           ]),
           onPressed: () {
