@@ -1,5 +1,8 @@
 import 'dart:math';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:ayarla/models/userModel.dart';
+import 'package:ayarla/webService/webFunctions.dart';
+// import 'package:firebase/firebase.dart';
+// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:mailer/mailer.dart';
 // import 'package:mailer/smtp_server.dart';
@@ -580,7 +583,7 @@ class AppointmentData extends ChangeNotifier {
       "İsim": "Silver Hair Studio Bekir Özdemir & Emre Barış Çakır"
     }, 0)
   ];
-  DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+  // DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
   Future<List> getAllCoiffures() async {
   //   //TODO - dataSnapShot is not used
@@ -593,6 +596,23 @@ class AppointmentData extends ChangeNotifier {
   //   }
   //   return coiffureList;
   }
+
+  List userList = [];
+  Future<List> getAllUsers() async {
+    userList.clear();
+    var getAllReturnList = await getAll();
+    for(int i = 0; i < getAllReturnList.length ; i++) {
+      userList.add(UserModel.fromJson(getAllReturnList[i], i));
+    }
+
+    for (UserModel x in userList) {
+      print('${x.fullName} : ${x.id}');
+    }
+    return userList;
+  }
+
+
+
 
   finalDate() {
     notifyListeners();

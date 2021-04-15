@@ -1,14 +1,11 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
-import 'package:ayarla/models/functions.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/menuItem.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import '../notif.dart';
 
 class WelcomePage extends StatefulWidget {
   static const String id = "WelcomePage";
@@ -22,132 +19,6 @@ class _WelcomePageState extends State<WelcomePage>
   AnimationController animationController;
   Animation<double> animation;
   ScrollController myController;
-  final String _userToken = "";
-  final String _adminToken = "";
-  // final String _accountToken = '';
-
-  /// Delete User from database
-  Future deleteUser(String id) async {
-    final String _url = 'http://localhost:21021/api/services/app/User/Delete';
-    http.Response response = await http.delete(
-      '$_url?Id=$id',
-      headers: <String, String>{
-        'Authorization': _adminToken,
-        'Content-type': 'application/json; charset=utf-8',
-      },
-    );
-    if (response.statusCode == 200) {
-      String data = response.body;
-      print('kullanici silindi');
-      return jsonEncode(data);
-    } else {
-      /// server error message
-      var error = jsonDecode(response.body)['error']['message'];
-      print(response.statusCode);
-      print(error);
-    }
-  }
-
-  Future getToken() async {
-    final String _url =
-        'https://ayarlawebhost20210410115100.azurewebsites.net/api/TokenAuth/Authenticate';
-    Map data = {
-      "userNameOrEmailAddress": "admin",
-      "password": "123qwe",
-      "rememberClient": true
-    };
-    var body = json.encode(data);
-
-    http.Response response = await http.post(_url,
-        headers: <String, String>{
-          'Authorization': _adminToken,
-          'Content-type': 'application/json; charset=utf-8',
-        },
-        body: body);
-    var adminToken = jsonDecode(response.body)['result']['accessToken'];
-    print(adminToken);
-
-    if (response.statusCode == 200) {
-      String data = response.body;
-      print('Token Çekildi!');
-      return jsonEncode(data);
-    } else {
-      /// server error message
-      print(response.statusCode);
-      // var error = jsonDecode(response.body)['error']['message'];
-      // print(error);
-    }
-  }
-
-  /// Create User
-  Future createUser() async {
-    final String _url =
-        'https://ayarlawebhost20210410115100.azurewebsites.net/api/services/app/User/Create';
-
-    Map data = {
-      "userName": "hellasdoguys",
-      "name": "azönceolmuştuşiasdmdiolmuyo",
-      "surname": "fatihasaasdsdd34",
-      "emailAddress": "hellogasduyss@gmail.com",
-      "isActive": true,
-      "roleNames": ["User"],
-      "password": "1234aadsfsaasddssdsgfsdf"
-    };
-
-    var body = json.encode(data);
-
-    http.Response response = await http.post(_url,
-        headers: <String, String>{
-          'Authorization': _adminToken,
-          'Content-type': 'application/json; charset=utf-8',
-        },
-        body: body);
-
-    if (response.statusCode == 200) {
-      String data = response.body;
-      print('kullanici olusturuldu');
-      return jsonEncode(data);
-    } else {
-      /// server error message
-      print(response.statusCode);
-      // var error = jsonDecode(response.body)['error']['message'];
-      // print(error);
-    }
-  }
-
-  // Future userUpdate() async {
-  //   final String _url = 'http://localhost:21021/api/services/app/User/Update';
-  //
-  //   Map data = {
-  //     "userName": "string",
-  //     "name": "string",
-  //     "surname": "string",
-  //     "emailAddress": "user@example.com",
-  //     "isActive": true,
-  //     "fullName": "string",
-  //     "lastLoginTime": "2021-03-06T18:07:37.910Z",
-  //     "creationTime": "2021-03-06T18:07:37.910Z",
-  //     "roleNames": ["string"],
-  //     "password": "string",
-  //   };
-  //   var body = json.encode(data);
-  //   http.Response response = await http.put(_url,
-  //       headers: <String, String>{
-  //         'Authorization': _userToken,
-  //         'Content-type': 'application/json; charset=utf-8',
-  //       },
-  //       body: body);
-  //   if (response.statusCode == 200) {
-  //     String data = response.body;
-  //     print('kullanici guncellendi');
-  //     return jsonEncode(data);
-  //   } else {
-  //     /// server error message
-  //     var error = jsonDecode(response.body)['error']['message'];
-  //     print(response.statusCode);
-  //     print(error);
-  //   }
-  // }
 
   @override
   void initState() {
@@ -186,19 +57,6 @@ class _WelcomePageState extends State<WelcomePage>
           child: ListView(
             controller: myController,
             children: <Widget>[
-              // TextButton(
-              //     onPressed: () {
-              //       userUpdate();
-              //     },
-              //     child: Text('guncelle')),
-              // TextButton(
-              //     onPressed: () {
-              //       /// TODO id dynamic olmali
-              //       deleteUser(38.toString());
-              //     },
-              //     child: Text('sil')),
-              TextButton(onPressed: () => createUser(), child: Text("olustur")),
-              TextButton(onPressed: () => getToken(), child: Text("getToken")),
               SizedBox(height: 20),
               UI.generalLogo,
               SizedBox(height: 30),
@@ -215,11 +73,10 @@ class _WelcomePageState extends State<WelcomePage>
                   child: MenuSection(
                     FittedBox(
                       fit: BoxFit.cover,
-                      child: Text(
-                        'Kuaför Randevumu Ayarla',
-                        style: kTextStylewoSize
-                            // .copyWith(fontSize: 30 * size.aspectRatio),
-                      ),
+                      child: Text('Kuaför Randevumu Ayarla',
+                          style: kTextStylewoSize
+                          // .copyWith(fontSize: 30 * size.aspectRatio),
+                          ),
                     ),
                     Colors.white,
                     Colors.white,
@@ -239,8 +96,8 @@ class _WelcomePageState extends State<WelcomePage>
                         Container(
                           child: Text(
                             'Kuaför Randevumu Ayarla',
-                            style: kTextStyle.copyWith(color: Colors.white,
-                            fontSize: size.width / 30),
+                            style: kTextStyle.copyWith(
+                                color: Colors.white, fontSize: size.width / 30),
                           ),
                         ),
                       ],
@@ -278,6 +135,10 @@ class _WelcomePageState extends State<WelcomePage>
                   ),
                 ),
               ),
+              TextButton(
+                  child: Text('debug'),
+                  onPressed: () =>
+                      Routers.router.navigateTo(context, "/WebServisleri")),
             ],
           ),
         ),

@@ -40,12 +40,16 @@ dependencies:
   syncfusion_flutter_sliders: ^19.1.55-beta
   fluro: ^1.7.8
   #firebase imports
-  firebase: ^7.3.3
   firebase_database: ^6.0.0
+  firebase: ^7.3.3
 #  firebase_messaging: ^8.0.0-dev.15
   firebase_dynamic_links: ^0.5.1
   firebase_core: ^0.7.0
 #  firebase_analytics: ^7.0.0
+  #map
+  mapbox_gl: ^0.0.1
+  mapbox_search: ^2.1.0
+  mapbox_search_flutter: any
 
 dev_dependencies:
   flutter_test:

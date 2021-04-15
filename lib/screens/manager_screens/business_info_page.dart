@@ -1,3 +1,5 @@
+import 'package:ayarla/components/map/mapBox.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -993,8 +995,9 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                               padding: const EdgeInsets.symmetric(horizontal: 60.0),
                               child: OutlinedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, GoogleMapSample.id);
+                                  // Navigator.pushNamed(
+                                  //     context, MapBox.id);
+                                  Routers.router.navigateTo(context, "/Harita");
                                 },
                                 style: ButtonStyle(
                                   padding: MaterialStateProperty.all(

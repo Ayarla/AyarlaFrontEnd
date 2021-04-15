@@ -1,3 +1,4 @@
+import 'package:ayarla/components/map/mapBox.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes.dart';
@@ -7,6 +8,7 @@ import 'package:ayarla/screens/user_page/appontments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/message_page.dart';
 import 'package:ayarla/screens/user_page/past_appointments_page.dart';
+import 'package:ayarla/webService/view_webFunctions.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/screens/comments_page.dart';
@@ -96,6 +98,15 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ManagerSendMessage());
 
+  static Handler _mapBox = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          MapBox());
+
+  /// WebServices
+  static Handler _webServicePage = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          ViewWebFunctions());
+
   static void setupRouter() {
     router.define("/", handler: _loadingPage);
     router.define("/Hosgeldiniz", handler: _welcomePage);
@@ -114,5 +125,7 @@ class Routers {
     router.define("/Calisanlarim", handler: _employeeManagement);
     router.define("/Notlarim", handler: _managerNotesPage);
     router.define("/MesajYolla", handler: _managerSendMessagePage);
+    router.define("/Harita", handler: _mapBox);
+    router.define("/WebServisleri", handler: _webServicePage);
   }
 }
