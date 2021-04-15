@@ -92,7 +92,7 @@ class SearchPageState extends State<SearchPage> {
               ),
               largeScreen: ListView.builder (
                 shrinkWrap: true,
-                padding: EdgeInsets.only(top: 20, left: size.width / 5, right: size.width / 5),
+                padding: EdgeInsets.only(top: 20, left: size.width / 8, right: size.width / 8),
                 itemCount: Provider.of<AppointmentData>(context, listen: true)
                     .currentList
                     .length,

@@ -215,10 +215,11 @@ class _WelcomePageState extends State<WelcomePage>
                   child: MenuSection(
                     FittedBox(
                       fit: BoxFit.cover,
-                      child: Text('Kuaför Randevumu Ayarla',
-                          style: kTextStylewoSize
-                          // .copyWith(fontSize: 30 * size.aspectRatio),
-                          ),
+                      child: Text(
+                        'Kuaför Randevumu Ayarla',
+                        style: kTextStylewoSize
+                            // .copyWith(fontSize: 30 * size.aspectRatio),
+                      ),
                     ),
                     Colors.white,
                     Colors.white,
@@ -238,8 +239,8 @@ class _WelcomePageState extends State<WelcomePage>
                         Container(
                           child: Text(
                             'Kuaför Randevumu Ayarla',
-                            style: kTextStyle.copyWith(
-                                color: Colors.white, fontSize: size.width / 30),
+                            style: kTextStyle.copyWith(color: Colors.white,
+                            fontSize: size.width / 30),
                           ),
                         ),
                       ],

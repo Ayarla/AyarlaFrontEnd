@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
@@ -182,35 +183,74 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextButton(
-          child: Row(children: [
-            Icon(
-              Icons.filter_alt_outlined,
-              color: Colors.white,
-              size: size.width / 20,
-            ),
-            SizedBox(width: size.width / 100),
-            Text(
-              'Filtrele',
-              style: kSmallTextStyle.copyWith(
-                  color: Colors.white, fontSize: size.width / 30),
-            ),
-          ]),
-          onPressed: () {
-            setState(() {
-              // _filterSheet(context);
-            });
-          },
+        ResponsiveWidget(
+          smallScreen: TextButton(
+            child: Row(children: [
+              Icon(
+                Icons.filter_alt_outlined,
+                color: Colors.white,
+                size: size.width / 20,
+              ),
+              SizedBox(width: size.width / 100),
+              Text(
+                'Filtrele',
+                style: kSmallTextStyle.copyWith(
+                    color: Colors.white, fontSize: size.width / 30),
+              ),
+            ]),
+            onPressed: () {
+              setState(() {
+                // _filterSheet(context);
+              });
+            },
+          ),
+          mediumScreen: TextButton(
+            child: Row(children: [
+              Icon(
+                Icons.filter_alt_outlined,
+                color: Colors.white,
+              ),
+              SizedBox(width: 5),
+              Text(
+                'Filtrele',
+                style: kSmallTextStyle.copyWith(color: Colors.white),
+              ),
+            ]),
+            onPressed: () {
+              setState(() {
+                // _filterSheet(context);
+              });
+            },
+          ),
+          largeScreen: TextButton(
+            child: Row(children: [
+              Icon(
+                Icons.filter_alt_outlined,
+                color: Colors.white,
+              ),
+              SizedBox(width: 5),
+              Text(
+                'Filtrele',
+                style: kSmallTextStyle.copyWith(
+                    color: Colors.white),
+              ),
+            ]),
+            onPressed: () {
+              setState(() {
+                // _filterSheet(context);
+              });
+            },
+          ),
         ),
-        SizedBox(width: size.width / 50),
+        SizedBox(width: 5),
         TextButton(
           child: Row(children: [
-            Icon(Icons.sort, color: Colors.white, size: size.width / 20),
-            SizedBox(width: size.width / 100),
+            Icon(Icons.sort, color: Colors.white),
+            SizedBox(width:5),
             Text(
               'Sırala',
               style: kSmallTextStyle.copyWith(
-                  color: Colors.white, fontSize: size.width / 30),
+                  color: Colors.white),
             ),
           ]),
           onPressed: () {

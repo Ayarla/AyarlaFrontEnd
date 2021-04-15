@@ -38,8 +38,8 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
       },
       child: Padding(
         padding: EdgeInsets.only(
-          left: size.width / 15,
-          right: size.width / 15,
+          left: 20,
+          right: 20,
           bottom: 20,
         ),
         child: Stack(
@@ -64,15 +64,35 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                         .setOrChangeFav(widget.coiffureModel);
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Provider.of<AppointmentData>(context, listen: true)
-                              .favorites
-                              .contains(widget.coiffureModel)
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: Colors.red,
-                      size: size.width / 17,
+                    padding: EdgeInsets.all(10),
+                    child: ResponsiveWidget(
+                      smallScreen: Icon(
+                        Provider.of<AppointmentData>(context, listen: true)
+                                .favorites
+                                .contains(widget.coiffureModel)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                        size: size.width / 17,
+                      ),
+                      mediumScreen: Icon(
+                        Provider.of<AppointmentData>(context, listen: true)
+                            .favorites
+                            .contains(widget.coiffureModel)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                        // size: size.width / 17,
+                      ),
+                      largeScreen: Icon(
+                        Provider.of<AppointmentData>(context, listen: true)
+                            .favorites
+                            .contains(widget.coiffureModel)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                        // size: size.width / 17,
+                      ),
                     ),
                   ),
                 ),
@@ -255,7 +275,7 @@ class CardInfo extends StatelessWidget {
             child: Container(
               child: Padding(
                 padding:
-                    EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
+                EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -263,9 +283,7 @@ class CardInfo extends StatelessWidget {
                     TextOverFlowHandler(
                       child: Text(
                         coiffureModel.name,
-                        style: kTextStyle,
-                        // style: kTextStyle.copyWith(fontSize: size.width / 20),
-                      ),
+                        style: kTextStyle),
                     ),
                     SizedBox(height: 5),
 
@@ -281,30 +299,18 @@ class CardInfo extends StatelessWidget {
                         SizedBox(width: 7),
                         Padding(
                           padding: EdgeInsets.only(top: 1.0),
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text(
-                              '${coiffureModel.city}, ${coiffureModel.district}',
-                              style: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                                // style: kSmallTextStyle.copyWith(
-                                //   color: Colors.grey.withOpacity(0.8),
-                                //   fontSize: size.width / 30,
-                              ),
+                          child: Text(
+                            '${coiffureModel.city}, ${coiffureModel.district}',
+                            style: kSmallTextStyle.copyWith(
+                              color: Colors.grey.withOpacity(0.8),
+                              fontSize: 12,
                             ),
                           ),
                         ),
                         Spacer(),
-                        FittedBox(
-                          fit: BoxFit.cover,
-                          child: Text(
-                            '${coiffureModel.time}',
-                            style: kTextStyle.copyWith(fontSize: 14),
-                            // style: kSmallTextStyle.copyWith(
-                            //   color: Colors.grey.withOpacity(0.8),
-                            //   fontSize: size.width / 30,
-                            // ),
-                          ),
+                        Text(
+                          '${coiffureModel.time}',
+                          style: kTextStyle.copyWith(fontSize: 14),
                         ),
                         SizedBox(width: 1),
                       ],
@@ -337,7 +343,7 @@ class CardInfo extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text:
-                                      ' (${coiffureModel.comments} değerlendirme)',
+                                  ' (${coiffureModel.comments} değerlendirme)',
                                   style: kSmallTextStyle.copyWith(
                                       color: Colors.grey.withOpacity(0.8),
                                       fontSize: 12),
@@ -392,7 +398,6 @@ class CardInfo extends StatelessWidget {
                       child: Text(
                         coiffureModel.name,
                         style: kTextStyle,
-                        // style: kTextStyle.copyWith(fontSize: size.width / 20),
                       ),
                     ),
                     SizedBox(height: 5),
@@ -409,30 +414,18 @@ class CardInfo extends StatelessWidget {
                         SizedBox(width: 7),
                         Padding(
                           padding: EdgeInsets.only(top: 1.0),
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text(
-                              '${coiffureModel.city}, ${coiffureModel.district}',
-                              style: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                                // style: kSmallTextStyle.copyWith(
-                                //   color: Colors.grey.withOpacity(0.8),
-                                //   fontSize: size.width / 30,
-                              ),
+                          child: Text(
+                            '${coiffureModel.city}, ${coiffureModel.district}',
+                            style: kSmallTextStyle.copyWith(
+                              color: Colors.grey.withOpacity(0.8),
+                              fontSize: 12,
                             ),
                           ),
                         ),
                         Spacer(),
-                        FittedBox(
-                          fit: BoxFit.cover,
-                          child: Text(
-                            '${coiffureModel.time}',
-                            style: kTextStyle.copyWith(fontSize: 14),
-                            // style: kSmallTextStyle.copyWith(
-                            //   color: Colors.grey.withOpacity(0.8),
-                            //   fontSize: size.width / 30,
-                            // ),
-                          ),
+                        Text(
+                          '${coiffureModel.time}',
+                          style: kTextStyle.copyWith(fontSize: 14),
                         ),
                         SizedBox(width: 1),
                       ],
@@ -458,10 +451,6 @@ class CardInfo extends StatelessWidget {
                                   style: kSmallTextStyle.copyWith(
                                     color: Colors.grey.withOpacity(0.8),
                                   ),
-                                  // style: kSmallTextStyle.copyWith(
-                                  //   color: Colors.grey.withOpacity(0.8),
-                                  //   fontSize: size.width / 30,
-                                  // ),
                                 ),
                                 TextSpan(
                                   text:
@@ -469,10 +458,6 @@ class CardInfo extends StatelessWidget {
                                   style: kSmallTextStyle.copyWith(
                                       color: Colors.grey.withOpacity(0.8),
                                       fontSize: 12),
-                                  // style: kSmallTextStyle.copyWith(
-                                  //   color: Colors.grey.withOpacity(0.8),
-                                  //   fontSize: size.width / 35,
-                                  // ),
                                 ),
                               ],
                             ),
@@ -488,10 +473,6 @@ class CardInfo extends StatelessWidget {
                               style: kSmallTextStyle.copyWith(
                                 color: Colors.grey.withOpacity(0.8),
                               ),
-                              // style: kSmallTextStyle.copyWith(
-                              //   color: Colors.grey.withOpacity(0.8),
-                              //   fontSize: size.width / 35,
-                              // ),
                             ),
                           ),
                         ),
