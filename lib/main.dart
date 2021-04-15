@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'file:///C:/Users/Nilsu/AndroidStudioProjects/AyarlaFrontEnd/lib/components/map/mapBox.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/screens/coiffure_detail_page.dart';
@@ -140,7 +141,8 @@ class _MyAppState extends State<MyApp>
           ManagerNotesPage.id: (context) => ManagerNotesPage(),
           ManagerNotes.id: (context) => ManagerNotes(),
           ManagerSendMessage.id: (context) => ManagerSendMessage(),
-          GoogleMapSample.id: (context) => GoogleMapSample()
+          GoogleMapSample.id: (context) => GoogleMapSample(),
+          MapBox.id: (context) => MapBox()
         },
       ),
     );
