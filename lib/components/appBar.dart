@@ -75,9 +75,7 @@ class DefaultAppBar extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => UserPage()));
-                  Routers.router.navigateTo(context, "/KullanıcıSayfası");
+                  Routers.router.navigateTo(context, "/KullaniciSayfasi");
                 },
               )
 
@@ -100,9 +98,10 @@ class InvisibleBackButton extends StatelessWidget {
 }
 
 class SearchAppBar extends StatefulWidget {
-  final Function onChanged;
+  final Widget title;
   final MediaQueryData mediaQueryData;
-  SearchAppBar({this.onChanged, this.mediaQueryData});
+  final Function onChanged;
+  SearchAppBar({this.title, this.mediaQueryData, this.onChanged});
   @override
   _SearchAppBarState createState() => _SearchAppBarState();
 }
@@ -112,12 +111,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: widget.mediaQueryData.size.width < 479 ?
-      widget.mediaQueryData.size.width / 2.7 : 170,
-      collapsedHeight: widget.mediaQueryData.size.width < 479 ?
-      widget.mediaQueryData.size.width / 8 : 70,
-      toolbarHeight: widget.mediaQueryData.size.width < 479 ?
-       widget.mediaQueryData.size.width / 8.2 : 60,
+      expandedHeight: widget.mediaQueryData.size.width < 479
+          ? widget.mediaQueryData.size.width / 2.7
+          : 170,
+      collapsedHeight: widget.mediaQueryData.size.width < 479
+          ? widget.mediaQueryData.size.width / 8
+          : 70,
+      toolbarHeight: widget.mediaQueryData.size.width < 479
+          ? widget.mediaQueryData.size.width / 8.2
+          : 60,
       // expandedHeight: 180,
       // collapsedHeight: 70,
       floating: false,
@@ -140,7 +142,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 onPressed: () => Routers.router.pop(context)),
           ),
           SizedBox(width: widget.mediaQueryData.size.width / 100),
-          UI.AppBarTitleCustomer(),
+          // UI.AppBarTitleCustomer(size: widget.mediaQueryData.size.width),
+          widget.title,
           Spacer(),
           ResponsiveWidget(
             smallScreen: IconButton(
@@ -155,14 +158,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
             ),
             mediumScreen: IconButton(
                 icon: Icon(Icons.account_circle, size: 36),
-                onPressed: () => Routers.router.pop(context)),
+                onPressed: () =>
+                    Routers.router.navigateTo(context, "/KullaniciSayfasi")),
             largeScreen: IconButton(
                 icon: Icon(Icons.account_circle, size: 36),
-                onPressed: () => Routers.router.pop(context)),
+                onPressed: () =>
+                    Routers.router.navigateTo(context, "/KullaniciSayfasi")),
           ),
         ],
       ),
-      // title: UI.AppBarTitleCustomer(),
       flexibleSpace: CircularParent(
         radius: 20,
         direction: Directions.bottom,
@@ -241,8 +245,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                           decoration: InputDecoration(
                             hintText: "Lütfen işletme adı veya kodu giriniz",
                             hintStyle: kSmallTextStyle.copyWith(
-                              color: Colors.grey.withOpacity(0.8)
-                            ),
+                                color: Colors.grey.withOpacity(0.8)),
                             filled: true,
                             fillColor: Colors.white,
                             prefixIcon: Icon(Icons.search),
@@ -277,8 +280,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                           decoration: InputDecoration(
                             hintText: "Lütfen işletme adı veya kodu giriniz",
                             hintStyle: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8)
-                            ),
+                                color: Colors.grey.withOpacity(0.8)),
                             filled: true,
                             fillColor: Colors.white,
                             prefixIcon: Icon(Icons.search),

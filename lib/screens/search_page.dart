@@ -8,7 +8,7 @@ import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/smallCoiffureCard.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/models/functions.dart';
-
+import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 class SearchPage extends StatefulWidget {
   // static const id = 'SearchPage';
 
@@ -42,6 +42,7 @@ class SearchPageState extends State<SearchPage> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SearchAppBar(
+                title: UI.AppBarTitleCustomer(),
                 onChanged: (value) {
                   setState(() {
                     if (value.isNotEmpty) {

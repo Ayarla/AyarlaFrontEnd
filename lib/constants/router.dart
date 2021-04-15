@@ -107,7 +107,7 @@ class Routers {
     router.define("/Favorilerim", handler: _favoritesPage);
     router.define("/Randevularim", handler: _appointmentsPage);
     router.define("/Mesajlarim", handler: _userMessagePage);
-    router.define("/GeçmisRandevularim", handler: _pastAppointmentPage);
+    router.define("/GecmisRandevularim", handler: _pastAppointmentPage);
     router.define("/ProfilimiDuzenle", handler: _editProfilePage);
     router.define("/YoneticiAnasayfasi", handler: _managerHome);
     router.define("/Isletmem", handler: _businessInfoPage);

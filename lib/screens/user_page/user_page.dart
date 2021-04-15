@@ -132,13 +132,7 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => UserMessagePage(),
-                          //   ),
-                          // );
-                          Routers.router.navigateTo(context, '/Mesajlarım');
+                          Routers.router.navigateTo(context, '/Mesajlarim');
                         },
                         child: Row(
                           children: [
@@ -160,7 +154,7 @@ class _UserPageState extends State<UserPage> {
                       GestureDetector(
                         onTap: () {
                           // Navigator.pushNamed(context, AppointmentsPage.id);
-                          Routers.router.navigateTo(context, '/Randevularım');
+                          Routers.router.navigateTo(context, '/Randevularim');
                         },
                         child: Row(
                           children: [
@@ -183,7 +177,7 @@ class _UserPageState extends State<UserPage> {
                       GestureDetector(
                         onTap: () {
                           // Navigator.pushNamed(context, PastAppointmentsPage.id);
-                          Routers.router.navigateTo(context, '/GeçmişRandevularım');
+                          Routers.router.navigateTo(context, '/GecmisRandevularim');
                         },
                         child: Row(
                           children: [
@@ -204,8 +198,7 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.pushNamed(context, EditProfilePage.id);
-                          Routers.router.navigateTo(context, '/ProfilimiDüzenle');
+                          Routers.router.navigateTo(context, '/ProfilimiDuzenle');
                         },
                         child: Row(
                           children: [
@@ -264,7 +257,7 @@ class _UserPageState extends State<UserPage> {
               TextButton(
                 onPressed: () {
                   // Navigator.pushNamed(context, ManagerHome.id);
-                  Routers.router.navigateTo(context, "YöneticiAnasayfa");
+                  Routers.router.navigateTo(context, "YoneticiAnasayfasi");
                   Provider.of<Login>(context, listen: false).loggedInManager();
 
                   ///TODO check and push somewhere

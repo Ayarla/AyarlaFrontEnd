@@ -125,7 +125,6 @@ class AppBarTitleCustomer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // print(size.width);
     return ResponsiveWidget(
       smallScreen: Container(
         child: Column(
@@ -153,7 +152,6 @@ class AppBarTitleCustomer extends StatelessWidget {
             ),
             Text(
               "Haydi randevunu ayarlayalım!",
-              // style: kSmallTextStyle,
               style: kSmallTextStyle,
             )
           ],
@@ -169,7 +167,6 @@ class AppBarTitleCustomer extends StatelessWidget {
             ),
             Text(
               "Haydi randevunu ayarlayalım!",
-              // style: kSmallTextStyle,
               style: kSmallTextStyle,
             )
           ],

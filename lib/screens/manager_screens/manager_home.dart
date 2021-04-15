@@ -5,6 +5,7 @@ import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ManagerHome extends StatefulWidget {
   static const String id = "ManagerHome";
@@ -16,6 +17,11 @@ class ManagerHome extends StatefulWidget {
 class _ManagerHomeState extends State<ManagerHome> {
   @override
   Widget build(BuildContext context) {
+    Widget bo = SvgPicture.asset(
+      'assets/icons/icon_home.svg',
+      width: 70,
+      color: Colors.black,
+    );
     final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -56,12 +62,14 @@ class _ManagerHomeState extends State<ManagerHome> {
                         mainAxisSpacing: 10,
                         crossAxisCount: 2,
                         children: <Widget>[
-                          // GenericIconButton(
-                          //     iconContext: UI.homeIcon,
-                          //     color: Colors.white.withOpacity(.4),
-                          //     text: 'İşletmem',
-                          //     onPressed: () => Routers.router
-                          //         .navigateTo(context, "/Isletmem")),
+                          GenericIconButton(
+                              // iconContext: UI.homeIcon,
+                              // iconContext: Icon(Icons.home),
+                              iconContext: bo,
+                              color: Colors.white.withOpacity(.4),
+                              text: 'İşletmem',
+                              onPressed: () => Routers.router
+                                  .navigateTo(context, "/Isletmem")),
                           // GenericIconButton(
                           //     iconContext: UI.employeesIcon,
                           //     color: Colors.white.withOpacity(.4),
