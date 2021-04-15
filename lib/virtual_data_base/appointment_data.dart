@@ -586,22 +586,22 @@ class AppointmentData extends ChangeNotifier {
   // DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
   Future<List> getAllCoiffures() async {
-  //   //TODO - dataSnapShot is not used
-  //   DataSnapshot dataSnapshot = await databaseReference.once();
-  //   for (int i = 0; i <= 10; i++) {
-  //     databaseReference.child('$i').onValue.listen((event) {
-  //       coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
-  //       print('Data received successfully!');
-  //     });
-  //   }
-  //   return coiffureList;
+    //   //TODO - dataSnapShot is not used
+    //   DataSnapshot dataSnapshot = await databaseReference.once();
+    //   for (int i = 0; i <= 10; i++) {
+    //     databaseReference.child('$i').onValue.listen((event) {
+    //       coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
+    //       print('Data received successfully!');
+    //     });
+    //   }
+    //   return coiffureList;
   }
 
   List userList = [];
   Future<List> getAllUsers() async {
     userList.clear();
     var getAllReturnList = await getAll();
-    for(int i = 0; i < getAllReturnList.length ; i++) {
+    for (int i = 0; i < getAllReturnList.length; i++) {
       userList.add(UserModel.fromJson(getAllReturnList[i], i));
     }
 
@@ -610,9 +610,6 @@ class AppointmentData extends ChangeNotifier {
     }
     return userList;
   }
-
-
-
 
   finalDate() {
     notifyListeners();

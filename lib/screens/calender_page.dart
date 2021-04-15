@@ -322,8 +322,7 @@ class _CalenderPageState extends State<CalenderPage> {
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   onPressed: () {
-                    // Navigator.pushNamed(context, ConfirmationPage.id);
-                    Routers.router.navigateTo(context, "/OnaySayfası");
+                    Routers.router.navigateTo(context, "/OnaySayfasi");
                   },
                   label: FittedBox(
                     fit: BoxFit.cover,

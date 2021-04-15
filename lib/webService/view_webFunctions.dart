@@ -1,3 +1,4 @@
+import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +17,12 @@ class ViewWebFunctions extends StatelessWidget {
         TextButton(
             onPressed: () {
               print(Provider.of<AppointmentData>(context, listen: false)
-                  .userList[2].id);
+                  .userList[2]
+                  .id);
               deleteUser(Provider.of<AppointmentData>(context, listen: false)
-                  .userList[2].id.toString());
+                  .userList[2]
+                  .id
+                  .toString());
             },
             child: Text('sil')),
         TextButton(onPressed: () => createUser(), child: Text("olustur")),
@@ -28,11 +32,13 @@ class ViewWebFunctions extends StatelessWidget {
             onPressed: () {
               Provider.of<AppointmentData>(context, listen: false)
                   .getAllUsers();
-              // print(Provider.of<AppointmentData>(context, listen: false)
-              //     .userList[0]
-              //     .name);
             },
             child: Text("getAll")),
+        SizedBox(height: 30),
+        TextButton(
+          child: Text('kayıt popup'),
+          onPressed: () => Routers.router.navigateTo(context, "/KayitSayfasi"),
+        )
       ],
     );
   }

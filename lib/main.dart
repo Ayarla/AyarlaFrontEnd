@@ -4,11 +4,13 @@ import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:ayarla/virtual_data_base/genderSelection.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'constants/router.dart';
 
 void main() {
   Provider.debugCheckInvalidValueType = null;
   Routers.setupRouter();
+  setPathUrlStrategy();
   runApp(MyApp());
 }
 

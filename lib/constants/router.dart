@@ -4,6 +4,8 @@ import 'package:ayarla/screens/manager_screens/employee_management.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
+import 'package:ayarla/screens/popUpScreens/registrationPopUp.dart';
+import 'package:ayarla/screens/registrationPage.dart';
 import 'package:ayarla/screens/user_page/appontments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/message_page.dart';
@@ -107,6 +109,16 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ViewWebFunctions());
 
+  /// REg
+   static Handler _regPopUp = Handler(
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+            ViewWebFunctions());
+
+   static Handler _regPage = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          RegistrationPage());
+
+
   static void setupRouter() {
     router.define("/", handler: _loadingPage);
     router.define("/Hosgeldiniz", handler: _welcomePage);
@@ -127,5 +139,7 @@ class Routers {
     router.define("/MesajYolla", handler: _managerSendMessagePage);
     router.define("/Harita", handler: _mapBox);
     router.define("/WebServisleri", handler: _webServicePage);
+    router.define("/KayitPopUp", handler: _regPopUp);
+    router.define("/KayitSayfasi", handler: _regPage);
   }
 }
