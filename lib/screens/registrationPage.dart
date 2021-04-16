@@ -5,6 +5,7 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () => RegistrationPopUp(), child: Text('Kayıt'));
+        onPressed: () => RegistrationPopUp().mailFieldDialog(context: context),
+        child: Text('Kayıt'));
   }
 }

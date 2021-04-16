@@ -7,34 +7,7 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/menuItem.dart';
 import 'package:ayarla/constants/constants.dart';
 
-class WelcomePage extends StatefulWidget {
-  static const String id = "WelcomePage";
-
-  @override
-  _WelcomePageState createState() => _WelcomePageState();
-}
-
-class _WelcomePageState extends State<WelcomePage>
-    with SingleTickerProviderStateMixin {
-  AnimationController animationController;
-  Animation<double> animation;
-  ScrollController myController;
-
-  @override
-  void initState() {
-    super.initState();
-    myController = ScrollController();
-    animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 350),
-    );
-    animation = CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeIn,
-    );
-    // PushNotificationsManager();
-  }
-
+class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -55,16 +28,12 @@ class _WelcomePageState extends State<WelcomePage>
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: ListView(
-            controller: myController,
             children: <Widget>[
               SizedBox(height: 20),
               UI.generalLogo,
               SizedBox(height: 30),
-              Text(
-                "Yeni Nesil, Akıllı Randevu Danışmanı",
-                textAlign: TextAlign.center,
-                style: kTitleStyle,
-              ),
+              Text("Yeni Nesil, Akıllı Randevu Danışmanı",
+                  textAlign: TextAlign.center, style: kTitleStyle),
               SizedBox(height: 15),
               ResponsiveWidget(
                 smallScreen: Padding(

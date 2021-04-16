@@ -59,8 +59,8 @@ const kCardShadow = BoxDecoration(
   color: Color(0xFFE5EBEE),
 );
 
-const roundedShape = RoundedRectangleBorder(
-borderRadius: BorderRadius.all(Radius.circular(20)));
+const roundedShape =
+    RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)));
 
 enum Directions {
   top,
@@ -70,3 +70,27 @@ enum Directions {
   all,
   none,
 }
+List month = [
+  "Ocak",
+  "Şubat",
+  "Mart",
+  "Nisan",
+  "Mayıs",
+  "Haziran",
+  "Temmuz",
+  "Ağustos",
+  "Eylül",
+  "Ekim",
+  "Kasım",
+  "Aralık"
+];
+
+List week = [
+  "Pazartesi",
+  "Salı",
+  "Çarşamba",
+  "Perşembe",
+  "Cuma",
+  "Cumartesi",
+  "Pazar"
+];

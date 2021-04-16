@@ -255,7 +255,6 @@ class _CommentsPageState extends State<CommentsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppBar(
-          showIconButton: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

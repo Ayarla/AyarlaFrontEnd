@@ -151,7 +151,7 @@ class PopUp {
                     passwordFieldDialog(context: context);
                   } else {
                     // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                    Navigator.pushNamed(context, ConfirmationPage.id);
+                    // Navigator.pushNamed(context, ConfirmationPage.id);
                     Provider.of<AppointmentData>(context, listen: false).confirmation();
                   }
                 }
@@ -566,7 +566,7 @@ class PopUp {
                     ),
                     onPressed: () {
                       // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                      Navigator.pushNamed(context, ConfirmationPage.id);
+                      // Navigator.pushNamed(context, ConfirmationPage.id);
                       Provider.of<AppointmentData>(context, listen: false).confirmation();
                     },
                   ),
@@ -585,7 +585,7 @@ class PopUp {
                         if (_formKey.currentState.validate()) {
                           /// TODO kayit olmayi burada yapacagiz
                           // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                          Navigator.pushNamed(context, ConfirmationPage.id);
+                          // Navigator.pushNamed(context, ConfirmationPage.id);
                           Provider.of<AppointmentData>(context, listen: false).confirmation();
 
                           print(_phoneNumber);

@@ -1,3 +1,6 @@
+import 'package:ayarla/components/UI/smallButtons.dart';
+import 'package:ayarla/components/circularParent.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/confirmation_page.dart';
-import 'package:ayarla/screens/privacy_policy_page.dart';
-import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,7 @@ class RegistrationPopUp {
   List<String> holder3 = [];
   String last = "";
   String dateTime = "";
+  bool checkBox = false;
 
   mailFieldDialog({BuildContext context}) {
     final _formKey = GlobalKey<FormState>();
@@ -116,46 +118,24 @@ class RegistrationPopUp {
             ),
           ),
           actions: <Widget>[
-            FlatButton(
-              child: Text(
-                'İptal',
-                style: kSmallTextStyle.copyWith(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () {
-                _typedMail = '';
-                Navigator.pop(context);
-              },
-            ),
-            FlatButton(
-              child: Text(
-                'Onayla',
-                style: kSmallTextStyle.copyWith(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () async {
-                ///TODO eger kullanici kayit yaptirirsa burada yazilan mail kullanicin profiline eklenecek
-                if (_formKey.currentState.validate()) {
+            CancelButton(),
+            AcceptButton(acceptCondition: () {
+              if (_formKey.currentState.validate()) {
+                Provider.of<AppointmentData>(context, listen: false)
+                    .sendMail2(_typedMail);
+                if (!isMember) {
+                  passwordFieldDialog(context: context);
+                } else {
                   Provider.of<AppointmentData>(context, listen: false)
-                      .sendMail2(_typedMail);
-                  if (!isMember) {
-                    passwordFieldDialog(context: context);
-                  } else {
-                    // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                    Navigator.pushNamed(context, ConfirmationPage.id);
-                    Provider.of<AppointmentData>(context, listen: false)
-                        .confirmation();
-                  }
+                      .confirmation();
+                  Routers.router.navigateTo(context, "/OnaySayfasi");
                 }
+              }
 
-                /// mail yollamadan gecis icin
-                passwordFieldDialog(context: context);
-              },
-            ),
+              /// mail yollamadan gecis icin
+              Routers.router.navigateTo(context, "/OnaySayfasi");
+            }),
+            SizedBox(width: 5),
           ],
         );
       },
@@ -174,9 +154,7 @@ class RegistrationPopUp {
           padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
           child: Column(
             children: <Widget>[
-              Text(
-                'Ayarla Gizlilik sozlesmesi',
-              ),
+              Text('Ayarla Gizlilik sozlesmesi'),
               SizedBox(height: 10),
               Text(
                   'sfhjskfjaksfhksafhjsahfjkshfksahdkfdskafksahfjkshagsgaskgkskagksadkgasgbsakjgfbskbfsjb'),
@@ -187,12 +165,10 @@ class RegistrationPopUp {
           padding: EdgeInsets.only(left: 32.0),
           child: Row(
             children: <Widget>[
-              Container(
-                width: size.width - 4 * (size.width / 6),
-                decoration: BoxDecoration(
-                  gradient: functions.decideColor(context),
-                  borderRadius: BorderRadius.circular(15),
-                ),
+              CircularParent(
+                direction: Directions.all,
+                radius: 20,
+                gradient: functions.decideColor(context),
                 child: FloatingActionButton.extended(
                   elevation: 0,
                   backgroundColor: Colors.transparent,
@@ -200,30 +176,16 @@ class RegistrationPopUp {
                     setState(() {
                       checkBox = false;
                     });
-
-                    Navigator.pop(context);
+                    Routers.router.pop(context);
                   },
-                  label: FittedBox(
-                    fit: BoxFit.cover,
-                    child: Icon(
-                      FontAwesomeIcons.ban,
-                      size: 35,
-                    ),
-
-                    // child: Icon(
-                    //   Icons.ca,
-                    //   size: 40,
-                    // ),
-                  ),
+                  label: Icon(FontAwesomeIcons.ban, size: 35),
                 ),
               ),
               Spacer(),
-              Container(
-                width: size.width - 4 * (size.width / 6),
-                decoration: BoxDecoration(
-                  gradient: functions.decideColor(context),
-                  borderRadius: BorderRadius.circular(15),
-                ),
+              CircularParent(
+                radius: 20,
+                direction: Directions.all,
+                gradient: functions.decideColor(context),
                 child: FloatingActionButton.extended(
                   elevation: 0,
                   backgroundColor: Colors.transparent,
@@ -231,15 +193,9 @@ class RegistrationPopUp {
                     setState(() {
                       checkBox = true;
                     });
-                    Navigator.pop(context);
+                    Routers.router.pop(context);
                   },
-                  label: FittedBox(
-                    fit: BoxFit.cover,
-                    child: Icon(
-                      FontAwesomeIcons.check,
-                      size: 35,
-                    ),
-                  ),
+                  label: Icon(FontAwesomeIcons.check, size: 35),
                 ),
               ),
             ],
@@ -254,7 +210,6 @@ class RegistrationPopUp {
   String _name;
   String _surname;
   String _phoneNumber;
-  bool checkBox = false;
 
   passwordFieldDialog({BuildContext context}) {
     final _formKey = GlobalKey<FormState>();
@@ -277,11 +232,9 @@ class RegistrationPopUp {
                   ),
                 ),
                 title: Center(
-                  child: Text(
-                    'Mail Gönderildi',
-                    style: kSmallTitleStyle,
-                  ),
-                ),
+                    child: Text(
+                        'Devam Etmek İçin Mailinize Gelen Şifreyi Giriniz',
+                        style: kSmallTitleStyle)),
                 content: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
@@ -290,7 +243,8 @@ class RegistrationPopUp {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
-                            'Kaydınızı tamamlayabilir ya da kayıt olmadan devam edebilirsin.',
+                            'Kaydınızı tamamlayabilir ya da kayıt olmadan '
+                            'devam edebilirsin.',
                             textAlign: TextAlign.start,
                             style: kSmallTextStyle,
                           ),
@@ -328,9 +282,7 @@ class RegistrationPopUp {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
+                        SizedBox(height: 5.0),
 
                         /// Surname Field
                         TextFormField(
@@ -364,9 +316,7 @@ class RegistrationPopUp {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
+                        SizedBox(height: 20.0),
 
                         /// Password Field
                         TextFormField(
@@ -374,7 +324,7 @@ class RegistrationPopUp {
                             if (_typed.isEmpty) {
                               return 'Boş Bırakılamaz';
                             } else if (_typed.length < 6) {
-                              return 'Şifre en az 6 karakter içermelidir';
+                              return 'Şifre 6 karakter içermelidir';
                             } else if (_typedPasswordCheck != _typed &&
                                 _typedPasswordCheck != '') {
                               return 'Şifreler birbiri ile uyuşmuyor';
@@ -406,9 +356,7 @@ class RegistrationPopUp {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 5.0,
-                        ),
+                        SizedBox(height: 5.0),
 
                         /// Password Check Field
                         TextFormField(
@@ -416,7 +364,7 @@ class RegistrationPopUp {
                             if (_typed.isEmpty) {
                               return 'Boş Bırakılamaz';
                             } else if (_typed.length < 6) {
-                              return 'Şifre en az 6 karakter içermelidir';
+                              return 'Şifre 6 karakter içermelidir';
                             } else if (_typedPassword != _typed &&
                                 _typedPassword != '') {
                               return 'Şifreler birbiri ile uyuşmuyor';
@@ -447,9 +395,7 @@ class RegistrationPopUp {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
+                        SizedBox(height: 20.0),
 
                         /// Phone Number Field
                         TextFormField(
@@ -517,8 +463,8 @@ class RegistrationPopUp {
                                       ),
                                       children: [
                                         TextSpan(
-                                          text:
-                                              'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
+                                          text: 'Ayarla Gizlilik ve Kullanıcı '
+                                              'Sözleşmesi`ni',
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
                                               /// Privacy Policy ModalBottomSheet
@@ -550,9 +496,7 @@ class RegistrationPopUp {
                                                 TextDecoration.underline,
                                           ),
                                         ),
-                                        TextSpan(
-                                          text: ' okudum, onaylıyorum.',
-                                        ),
+                                        TextSpan(text: ' okudum, onaylıyorum.'),
                                       ],
                                     ),
                                   ),
@@ -566,10 +510,7 @@ class RegistrationPopUp {
                   ),
                 ),
                 actions: <Widget>[
-                  FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    padding:
-                        EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
+                  TextButton(
                     child: Text(
                       'Kayıt Olmadan Devam',
                       style: kSmallTextStyle.copyWith(
@@ -577,15 +518,12 @@ class RegistrationPopUp {
                     ),
                     onPressed: () {
                       // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                      Navigator.pushNamed(context, ConfirmationPage.id);
+                      // Navigator.pushNamed(context, ConfirmationPage.id);
                       Provider.of<AppointmentData>(context, listen: false)
                           .confirmation();
                     },
                   ),
-                  FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    padding:
-                        EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
+                  TextButton(
                     child: Text(
                       checkBox
                           ? 'Kayıt Ol ve Devam'
@@ -599,8 +537,7 @@ class RegistrationPopUp {
                       if (checkBox) {
                         if (_formKey.currentState.validate()) {
                           /// TODO kayit olmayi burada yapacagiz
-                          // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                          Navigator.pushNamed(context, ConfirmationPage.id);
+                          // Routers.router
                           Provider.of<AppointmentData>(context, listen: false)
                               .confirmation();
 

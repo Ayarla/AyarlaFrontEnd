@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class LoadingScreen extends StatefulWidget {
-  static const id = 'LoadingScreen';
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -23,7 +21,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    /// THE PLACE WE FETCH ALL COIFFURE LIST.
     Provider.of<AppointmentData>(context, listen: false).getAllCoiffures();
     return Container(
       color: Color(0xFFeceff1),

@@ -12,7 +12,6 @@ import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class SmallCoiffureCard extends StatefulWidget {
   final coiffureModel;
-
   SmallCoiffureCard({this.coiffureModel});
 
   @override
