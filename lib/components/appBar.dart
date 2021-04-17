@@ -125,44 +125,53 @@ class _SearchAppBarState extends State<SearchAppBar> {
       snap: false,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title: Row(
-        children: [
-          ResponsiveWidget(
-            smallScreen: IconButton(
-                icon: Icon(Icons.arrow_back_sharp,
-                    size: widget.mediaQueryData.size.width / 20),
-                onPressed: () => Routers.router.pop(context)),
-            mediumScreen: IconButton(
-                icon: Icon(Icons.arrow_back_sharp, size: 24),
-                onPressed: () => Routers.router.pop(context)),
-            largeScreen: IconButton(
-                icon: Icon(Icons.arrow_back_sharp, size: 24),
-                onPressed: () => Routers.router.pop(context)),
-          ),
-          SizedBox(width: widget.mediaQueryData.size.width / 100),
-          widget.title,
-          Spacer(),
-          ResponsiveWidget(
-            smallScreen: IconButton(
-              icon: Icon(
+      title: SizedBox(
+        width: widget.mediaQueryData.size.width,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ResponsiveWidget(
+              smallScreen: SizedBox(
+                width: widget.mediaQueryData.size.width - 150,
+                child: IconButton(
+                    icon: Icon(Icons.arrow_back_sharp,
+                        size: widget.mediaQueryData.size.width / 100),
+                    onPressed: () => Routers.router.pop(context)),
+              ),
+              mediumScreen: IconButton(
+                  icon: Icon(Icons.arrow_back_sharp, size: 24),
+                  onPressed: () => Routers.router.pop(context)),
+              largeScreen: IconButton(
+                  icon: Icon(Icons.arrow_back_sharp, size: 24),
+                  onPressed: () => Routers.router.pop(context)),
+            ),
+            SizedBox(width: widget.mediaQueryData.size.width / 100),
+            SizedBox(
+                width: widget.mediaQueryData.size.width - 150,
+                child: widget.title),
+            Spacer(),
+            ResponsiveWidget(
+              smallScreen: Icon(
                 Icons.account_circle,
                 color: Colors.white,
-                size: widget.mediaQueryData.size.width / 12,
+                size: widget.mediaQueryData.size.width / 20,
               ),
-              onPressed: () {
-                Routers.router.navigateTo(context, "/KullaniciSayfasi");
-              },
+              // onPressed: () {
+              //   Routers.router.navigateTo(context, "/KullaniciSayfasi");
+              // },
+              mediumScreen: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+                size: 36,
+              ),
+              largeScreen: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+                size: 36,
+              ),
             ),
-            mediumScreen: IconButton(
-                icon: Icon(Icons.account_circle, size: 36),
-                onPressed: () =>
-                    Routers.router.navigateTo(context, "/KullaniciSayfasi")),
-            largeScreen: IconButton(
-                icon: Icon(Icons.account_circle, size: 36),
-                onPressed: () =>
-                    Routers.router.navigateTo(context, "/KullaniciSayfasi")),
-          ),
-        ],
+          ],
+        ),
       ),
       flexibleSpace: CircularParent(
         radius: 30,

@@ -36,11 +36,7 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
         );
       },
       child: Padding(
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 20,
-        ),
+        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
         child: Stack(
           children: [
             cardBody(context),
@@ -147,7 +143,6 @@ class CardInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
     return Row(
       children: <Widget>[
         Expanded(
@@ -159,10 +154,10 @@ class CardInfo extends StatelessWidget {
                 children: <Widget>[
                   /// name
                   TextOverFlowHandler(
-                    child: Text(coiffureModel.name,
-                        style: kTextStyle.copyWith(
-                            fontSize: 20,
-                        ),),
+                    child: Text(
+                      coiffureModel.name,
+                      style: kTextStyle.copyWith(fontSize: 20),
+                    ),
                   ),
                   SizedBox(height: 5),
 
@@ -190,8 +185,7 @@ class CardInfo extends StatelessWidget {
                       Spacer(),
                       Text(
                         '${coiffureModel.time}',
-                        style: kTextStyle.copyWith(
-                       fontSize: 13),
+                        style: kTextStyle.copyWith(fontSize: 13),
                       ),
                       SizedBox(width: 1),
                     ],
@@ -220,8 +214,7 @@ class CardInfo extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text:
-                                    ' (${coiffureModel.comments} yorum)',
+                                text: ' (${coiffureModel.comments} yorum)',
                                 style: kSmallTextStyle.copyWith(
                                   color: Colors.grey.withOpacity(0.8),
                                   fontSize: 13,

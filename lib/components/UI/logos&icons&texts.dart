@@ -133,11 +133,13 @@ class AppBarTitleCustomer extends StatelessWidget {
             Text(
               "Merhaba Nilsu",
               style: kTitleStyle.copyWith(
-                  color: Colors.white, fontSize: size.width / 28),
+                  color: Colors.white,
+                  fontSize: size.width / 28),
             ),
             Text(
               "Haydi randevunu ayarlayalım!",
-              style: kSmallTextStyle.copyWith(fontSize: size.width / 30),
+              style: kSmallTextStyle.copyWith(
+                  fontSize: size.width / 30),
             )
           ],
         ),
@@ -175,6 +177,22 @@ class AppBarTitleCustomer extends StatelessWidget {
     );
   }
 }
+
+Container appBarTitleCustomer = Container(
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Merhaba Nilsu",
+        style: kTitleStyle.copyWith(color: Colors.white),
+      ),
+      Text(
+        "Haydi randevunu ayarlayalım!",
+        style: kSmallTextStyle,
+      )
+    ],
+  ),
+);
 
 Row appBarTitleManager = Row(
   mainAxisAlignment: MainAxisAlignment.start,
