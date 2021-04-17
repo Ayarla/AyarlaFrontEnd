@@ -45,36 +45,20 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
   String text;
 
   final List<ImageListItem> _pages = images;
-  final ScrollController _scrollControllerEmployee = ScrollController();
   final ScrollController _photoController = ScrollController();
 
   @override
   void initState() {
     text = '${widget.coiffureModel.text}';
 
-    if (text.length > 90) {
-      firstHalf = text.substring(0, 90);
-      secondHalf = text.substring(90, text.length);
+    if (text.length > 200) {
+      firstHalf = text.substring(0, 200);
+      secondHalf = text.substring(200, text.length);
     } else {
       firstHalf = text;
       secondHalf = "";
     }
 
-    /// checking whether the arrow of the employee row of employee section
-    /// reaches the max scroll extent.
-    _scrollControllerEmployee.addListener(() {
-      if (_scrollControllerEmployee.position.pixels ==
-          _scrollControllerEmployee.position.maxScrollExtent) {
-        setState(() {
-          leftArrow = true;
-        });
-      } else if (_scrollControllerEmployee.position.pixels ==
-          _scrollControllerEmployee.position.minScrollExtent) {
-        setState(() {
-          leftArrow = false;
-        });
-      }
-    });
     super.initState();
   }
 
@@ -132,13 +116,12 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                         style: kTextStyle.copyWith(
                             fontSize: 12, color: Colors.blue)),
                     onPressed: () {
-                      // Routers.router
-                      //     .navigateTo(context, "Isletme/:name/Yorumlar");
                       Routers.router.navigateTo(
                         context,
                         "/Isletme/:name/Yorumlar",
                         routeSettings: RouteSettings(
-                          name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}/Yorumlar",
+                          name:
+                              "/Isletme/${fixURL(widget.coiffureModel.name.toString())}/Yorumlar",
                           arguments: CommentsPage(),
                         ),
                       );

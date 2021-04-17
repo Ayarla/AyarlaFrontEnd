@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/router.dart';
@@ -20,6 +21,17 @@ class RegistrationPopUp {
   String last = "";
   String dateTime = "";
   bool checkBox = false;
+
+  createPassword(String typedMail) {
+    String initialPassword = "${typedMail[0]}${typedMail[1]}";
+    Random random = Random();
+    for (int i = initialPassword.length; i < 6; i++) {
+      var randomNumber = random.nextInt(10);
+      initialPassword += "$randomNumber";
+    }
+    print(initialPassword);
+    return initialPassword;
+  }
 
   mailFieldDialog({BuildContext context}) {
     final _formKey = GlobalKey<FormState>();
@@ -119,6 +131,7 @@ class RegistrationPopUp {
           actions: <Widget>[
             CancelButton(),
             AcceptButton(acceptCondition: () {
+              createPassword(_typedMail);
               if (_formKey.currentState.validate()) {
                 Provider.of<AppointmentData>(context, listen: false)
                     .sendMail2(_typedMail);
@@ -132,7 +145,7 @@ class RegistrationPopUp {
               }
 
               /// mail yollamadan gecis icin
-              Routers.router.navigateTo(context, "/OnaySayfasi");
+              // Routers.router.navigateTo(context, "/OnaySayfasi");
             }),
             SizedBox(width: 5),
           ],
