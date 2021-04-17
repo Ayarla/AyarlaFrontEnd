@@ -1,6 +1,7 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,6 @@ class MenuSection2 extends StatefulWidget {
   final Color accentColor;
   final List menuOptions;
   final int serviceIndex;
-  // final String assetId;
 
   MenuSection2({
     this.title,
@@ -157,45 +157,46 @@ class _SectionState extends State<MenuSection2>
                             sizeFactor: _sizeAnimation,
                             child: Container(
                               height: 80,
-                              // width: 150,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 5,
-                                itemBuilder: (BuildContext bc, int index) {
-                                  return GenericIconButton(
-                                    iconContext: Container(
-                                      padding: EdgeInsets.only(top: 5),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image(
-                                              height: 40,
-                                              image: AssetImage(
-                                                Provider.of<AppointmentData>(
-                                                        context,
-                                                        listen: true)
-                                                    .employeesList[index]
-                                                    .image,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    text: Provider.of<AppointmentData>(context,
-                                            listen: true)
-                                        .employeesList[index]
-                                        .name,
-                                    onPressed: () {
-                                      setState(() {});
-                                    },
-                                  );
-                                },
-                              ),
+                              // child: ListView.builder(
+                              //   scrollDirection: Axis.horizontal,
+                              //   itemCount: 5,
+                              //   itemBuilder: (BuildContext bc, int index) {
+                              //     return GenericIconButton(
+                              //       iconContext: Container(
+                              //         padding: EdgeInsets.only(top: 5),
+                              //         child: Column(
+                              //           mainAxisAlignment:
+                              //               MainAxisAlignment.center,
+                              //           children: [
+                              //             ClipRRect(
+                              //               borderRadius:
+                              //                   BorderRadius.circular(10),
+                              //               child: Image(
+                              //                 height: 40,
+                              //                 image: AssetImage(
+                              //                   Provider.of<AppointmentData>(
+                              //                           context,
+                              //                           listen: true)
+                              //                       .employeesList[index]
+                              //                       .image,
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       ),
+                              //       text: Provider.of<AppointmentData>(context,
+                              //               listen: true)
+                              //           .employeesList[index]
+                              //           .name,
+                              //       onPressed: () {
+                              //         setState(() {});
+                              //       },
+                              //     );
+                              //   },
+                              // ),
+                              child: EmployeeRow(
+                                  size: MediaQuery.of(context).size),
                             ),
                           ),
                         ]),

@@ -10,11 +10,9 @@ class EmployeeRow extends StatelessWidget {
   const EmployeeRow({
     Key key,
     @required this.size,
-    @required this.leftArrow,
   }) : super(key: key);
 
   final Size size;
-  final bool leftArrow;
 
   @override
   Widget build(BuildContext context) {

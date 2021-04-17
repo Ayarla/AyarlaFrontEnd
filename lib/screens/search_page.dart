@@ -66,45 +66,52 @@ class SearchPageState extends State<SearchPage> {
           child: ResponsiveWidget(
             smallScreen: ListView.builder(
               shrinkWrap: true,
+              padding: EdgeInsets.only(
+                  top: 20, left: size.width / 20, right: size.width / 20),
+              itemCount: Provider.of<AppointmentData>(context, listen: true)
+                  .currentList
+                  .length,
+              itemBuilder: (BuildContext context, int index) {
+                return SmallCoiffureCard(
+                    coiffureModel:
+                        Provider.of<AppointmentData>(context, listen: true)
+                            .currentList[index]);
+              },
+            ),
+            mediumScreen: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, childAspectRatio: 1.35),
               padding: EdgeInsets.only(top: 20),
               itemCount: Provider.of<AppointmentData>(context, listen: true)
                   .currentList
                   .length,
               itemBuilder: (BuildContext context, int index) {
-                return SmallCoiffureCard(
-                    coiffureModel:
-                        Provider.of<AppointmentData>(context, listen: true)
-                            .currentList[index]);
-              },
-            ),
-            mediumScreen: ListView.builder(
-              shrinkWrap: true,
-              padding: EdgeInsets.only(
-                  top: 20, left: size.width / 10, right: size.width / 10),
-              itemCount: Provider.of<AppointmentData>(context, listen: true)
-                  .currentList
-                  .length,
-              itemBuilder: (BuildContext context, int index) {
-                return SmallCoiffureCard(
-                    coiffureModel:
-                        Provider.of<AppointmentData>(context, listen: true)
-                            .currentList[index]);
+                return Wrap(
+                  children: [
+                    SmallCoiffureCard(
+                        coiffureModel:
+                            Provider.of<AppointmentData>(context, listen: true)
+                                .currentList[index]),
+                  ],
+                );
               },
             ),
             largeScreen: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3),
-              shrinkWrap: true,
-              padding: EdgeInsets.only(
-                  top: 20),
+                  crossAxisCount: 3, childAspectRatio: 1.4),
+              padding: EdgeInsets.only(top: 20),
               itemCount: Provider.of<AppointmentData>(context, listen: true)
                   .currentList
                   .length,
               itemBuilder: (BuildContext context, int index) {
-                return SmallCoiffureCard(
-                    coiffureModel:
-                        Provider.of<AppointmentData>(context, listen: true)
-                            .currentList[index]);
+                return Wrap(
+                  children: [
+                    SmallCoiffureCard(
+                        coiffureModel:
+                            Provider.of<AppointmentData>(context, listen: true)
+                                .currentList[index]),
+                  ],
+                );
               },
             ),
           ),

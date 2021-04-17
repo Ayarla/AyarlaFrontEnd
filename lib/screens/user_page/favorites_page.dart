@@ -10,7 +10,6 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/coiffeurModel.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import '../coiffure_detail_page/coiffure_detail_page.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const id = 'FavoritesPage';
@@ -23,8 +22,9 @@ class _FavoritesPageState extends State<FavoritesPage>
     with SingleTickerProviderStateMixin {
   Functions functions = Functions();
   List localList = [];
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
-  void deleteUser(int index, CoiffureModel coiffureModel) {
+  void removeFavorite(int index, CoiffureModel coiffureModel) {
     localList.removeAt(index);
     _listKey.currentState.removeItem(
       index,
@@ -55,10 +55,9 @@ class _FavoritesPageState extends State<FavoritesPage>
     super.initState();
   }
 
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: DefaultAppBar(
         title: UI.appBarTitleFavorites,
@@ -79,13 +78,14 @@ class _FavoritesPageState extends State<FavoritesPage>
                 actionExtentRatio: 0.25,
                 child: GestureDetector(
                   onTap: () {
-                    // Navigator.push(
+                    // Routers.router.navigateTo(
                     //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => CoiffureDetailPage(
-                    //       coiffureModel: localList[index],
-                    //       uniqueId: localList[index].uniqueId,
-                    //     ),
+                    //   "/Isletme/:name",
+                    //   routeSettings: RouteSettings(
+                    //     name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}",
+                    //     arguments: CoiffureDetailPage(
+                    //         coiffureModel: widget.coiffureModel,
+                    //         name: widget.coiffureModel.name),
                     //   ),
                     // );
                   },
@@ -98,7 +98,7 @@ class _FavoritesPageState extends State<FavoritesPage>
                 ),
                 actions: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding: EdgeInsets.all(8),
                     child: CircularParent(
                       radius: 20,
                       direction: Directions.all,
@@ -112,7 +112,7 @@ class _FavoritesPageState extends State<FavoritesPage>
                                 .myState
                                 .setState(() {});
                             setState(() {
-                              deleteUser(index, localList[index]);
+                              removeFavorite(index, localList[index]);
                             });
                           }),
                     ),

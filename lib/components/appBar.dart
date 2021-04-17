@@ -111,17 +111,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: widget.mediaQueryData.size.width < 479
-          ? widget.mediaQueryData.size.width / 2.7
+      expandedHeight: widget.mediaQueryData.size.width < 700
+          ? widget.mediaQueryData.size.width / 3.5
           : 170,
-      collapsedHeight: widget.mediaQueryData.size.width < 479
-          ? widget.mediaQueryData.size.width / 8
+      collapsedHeight: widget.mediaQueryData.size.width < 700
+          ? widget.mediaQueryData.size.width / 9.5
           : 70,
-      toolbarHeight: widget.mediaQueryData.size.width < 479
-          ? widget.mediaQueryData.size.width / 8.2
+      toolbarHeight: widget.mediaQueryData.size.width < 700
+          ? widget.mediaQueryData.size.width / 9.7
           : 60,
-      // expandedHeight: 180,
-      // collapsedHeight: 70,
       floating: false,
       pinned: true,
       snap: false,
@@ -142,7 +140,6 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 onPressed: () => Routers.router.pop(context)),
           ),
           SizedBox(width: widget.mediaQueryData.size.width / 100),
-          // UI.AppBarTitleCustomer(size: widget.mediaQueryData.size.width),
           widget.title,
           Spacer(),
           ResponsiveWidget(
@@ -168,7 +165,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
         ],
       ),
       flexibleSpace: CircularParent(
-        radius: 20,
+        radius: 30,
         direction: Directions.bottom,
         gradient: Functions().decideColor(context),
         child: FlexibleSpaceBar(
@@ -185,14 +182,12 @@ class _SearchAppBarState extends State<SearchAppBar> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                          top: widget.mediaQueryData.size.width / 7,
-                          left: widget.mediaQueryData.size.width / 20,
-                          right: widget.mediaQueryData.size.width / 20,
-                          bottom: widget.mediaQueryData.size.width / 120,
+                          top: widget.mediaQueryData.size.width / 9,
+                          bottom: widget.mediaQueryData.size.width / 130,
                         ),
                         child: SizedBox(
-                          height: widget.mediaQueryData.size.width / 9,
-                          width: widget.mediaQueryData.size.width / 1.05,
+                          height: widget.mediaQueryData.size.width / 11,
+                          width: widget.mediaQueryData.size.width / 1.06,
                           child: TextField(
                             textCapitalization: TextCapitalization.words,
                             autofocus: false,
@@ -207,12 +202,12 @@ class _SearchAppBarState extends State<SearchAppBar> {
                               hintText: "Lütfen işletme adı veya kodu giriniz",
                               hintStyle: kSmallTextStyle.copyWith(
                                 color: Colors.grey.withOpacity(0.8),
-                                fontSize: widget.mediaQueryData.size.width / 30,
+                                fontSize: widget.mediaQueryData.size.width / 35,
                               ),
                               filled: true,
                               fillColor: Colors.white,
                               prefixIcon: Icon(Icons.search,
-                                  size: widget.mediaQueryData.size.width / 20),
+                                  size: widget.mediaQueryData.size.width / 25),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(25.0),

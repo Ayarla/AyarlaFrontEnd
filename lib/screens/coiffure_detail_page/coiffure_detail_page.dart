@@ -122,7 +122,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
               ServicesSection(),
               Text('Personeller', style: kTextStyle),
               SizedBox(height: 10),
-              EmployeeRow(size: size, leftArrow: leftArrow),
+              EmployeeRow(size: size),
               Row(
                 children: [
                   Text('Yorumlar', style: kTextStyle),
