@@ -123,61 +123,29 @@ class _SearchAppBarState extends State<SearchAppBar> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ResponsiveWidget(
-              smallScreen: SizedBox(
-                width: widget.mediaQueryData.size.width - 150,
-                child: IconButton(
-                    icon: Icon(Icons.arrow_back_sharp,
-                        size: widget.mediaQueryData.size.width / 100),
-                    onPressed: () => Routers.router.pop(context)),
-              ),
-              mediumScreen: IconButton(
-                  icon: Icon(Icons.arrow_back_sharp, size: 24),
-                  onPressed: () => Routers.router.pop(context)),
-              largeScreen: IconButton(
-                  icon: Icon(Icons.arrow_back_sharp, size: 24),
-                  onPressed: () => Routers.router.pop(context)),
-            ),
+            IconButton(
+                icon: Icon(Icons.arrow_back_sharp,
+                    size: widget.mediaQueryData.size.width < 700
+                        ? widget.mediaQueryData.size.width / 20
+                        : 24),
+                onPressed: () => Routers.router.pop(context)),
             SizedBox(width: widget.mediaQueryData.size.width / 85),
             SizedBox(
                 width: widget.mediaQueryData.size.width - 150,
                 child: widget.title),
             Spacer(),
-            ResponsiveWidget(
-              smallScreen: GestureDetector(
+            GestureDetector(
                 child: NotificationBadge(
                   child: Icon(
                     Icons.account_circle,
                     color: Colors.white,
-                    size: widget.mediaQueryData.size.width / 23,
+                    size: widget.mediaQueryData.size.width < 700
+                        ? widget.mediaQueryData.size.width / 15
+                        : 36,
                   ),
                 ),
                 onTap: () =>
-                    Routers.router.navigateTo(context, "/KullaniciSayfasi"),
-              ),
-              mediumScreen: GestureDetector(
-                child: NotificationBadge(
-                  child: Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                    size: 36,
-                  ),
-                ),
-                onTap: () =>
-                    Routers.router.navigateTo(context, "/KullaniciSayfasi"),
-              ),
-              largeScreen: GestureDetector(
-                child: NotificationBadge(
-                  child: Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                    size: 36,
-                  ),
-                ),
-                onTap: () =>
-                    Routers.router.navigateTo(context, "/KullaniciSayfasi"),
-              ),
-            ),
+                    Routers.router.navigateTo(context, "/KullaniciSayfasi")),
           ],
         ),
       ),
@@ -204,7 +172,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         ),
                         child: SizedBox(
                           height: widget.mediaQueryData.size.width / 11,
-                          width: widget.mediaQueryData.size.width / 1.06,
+                          width: widget.mediaQueryData.size.width / 1.08,
                           child: TextField(
                             textCapitalization: TextCapitalization.words,
                             autofocus: false,
@@ -242,8 +210,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                       Padding(
                         padding: EdgeInsets.only(
                           top: 70,
-                          left: 10,
-                          right: 10,
+                          left: 20,
+                          right: 20,
                           bottom: 10,
                         ),
                         child: TextField(
@@ -277,8 +245,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                       Padding(
                         padding: EdgeInsets.only(
                           top: 70,
-                          left: 10,
-                          right: 10,
+                          left: 20,
+                          right: 20,
                           bottom: 10,
                         ),
                         child: TextField(

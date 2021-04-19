@@ -198,9 +198,9 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                           .currentList
                           .sort((a, b) => a.star.compareTo(b.star));
                       Provider.of<AppointmentData>(context, listen: false)
-                          .setList(
-                              Provider.of<AppointmentData>(context, listen: false)
-                                  .currentList);
+                          .setList(Provider.of<AppointmentData>(context,
+                                  listen: false)
+                              .currentList);
                     });
                     Navigator.pop(context);
                   },
@@ -223,9 +223,9 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                           .currentList
                           .sort((b, a) => a.star.compareTo(b.star));
                       Provider.of<AppointmentData>(context, listen: false)
-                          .setList(
-                              Provider.of<AppointmentData>(context, listen: false)
-                                  .currentList);
+                          .setList(Provider.of<AppointmentData>(context,
+                                  listen: false)
+                              .currentList);
                     });
                     Navigator.pop(context);
                   },
@@ -236,9 +236,7 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
           mediumScreen: Align(
             alignment: Alignment.bottomCenter,
             child: ConstrainedBox(
-              constraints: BoxConstraints(
-                  maxWidth: size.width / 1.5
-              ),
+              constraints: BoxConstraints(maxWidth: size.width / 1.5),
               child: CircularParent(
                 radius: 20,
                 direction: Directions.top,
@@ -251,7 +249,8 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                     Center(
                       child: FittedBox(
                         fit: BoxFit.cover,
-                        child: Text('Yıldıza göre sırala', style: kSmallTitleStyle),
+                        child: Text('Yıldıza göre sırala',
+                            style: kSmallTitleStyle),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -266,7 +265,7 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                       ),
                       onPressed: () {
                         var ancestralState =
-                        context.findAncestorStateOfType<SearchPageState>();
+                            context.findAncestorStateOfType<SearchPageState>();
                         ancestralState.setState(() {});
 
                         setState(() {
@@ -274,8 +273,8 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                               .currentList
                               .sort((a, b) => a.star.compareTo(b.star));
                           Provider.of<AppointmentData>(context, listen: false)
-                              .setList(
-                              Provider.of<AppointmentData>(context, listen: false)
+                              .setList(Provider.of<AppointmentData>(context,
+                                      listen: false)
                                   .currentList);
                         });
                         Navigator.pop(context);
@@ -292,15 +291,15 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                       ),
                       onPressed: () {
                         var ancestralState =
-                        context.findAncestorStateOfType<SearchPageState>();
+                            context.findAncestorStateOfType<SearchPageState>();
                         ancestralState.setState(() {});
                         setState(() {
                           Provider.of<AppointmentData>(context, listen: false)
                               .currentList
                               .sort((b, a) => a.star.compareTo(b.star));
                           Provider.of<AppointmentData>(context, listen: false)
-                              .setList(
-                              Provider.of<AppointmentData>(context, listen: false)
+                              .setList(Provider.of<AppointmentData>(context,
+                                      listen: false)
                                   .currentList);
                         });
                         Navigator.pop(context);
@@ -314,9 +313,7 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
           largeScreen: Align(
             alignment: Alignment.bottomCenter,
             child: ConstrainedBox(
-              constraints: BoxConstraints(
-                  maxWidth: size.width / 1.5
-              ),
+              constraints: BoxConstraints(maxWidth: size.width / 1.5),
               child: CircularParent(
                 radius: 20,
                 direction: Directions.top,
@@ -329,7 +326,8 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                     Center(
                       child: FittedBox(
                         fit: BoxFit.cover,
-                        child: Text('Yıldıza göre sırala', style: kSmallTitleStyle),
+                        child: Text('Yıldıza göre sırala',
+                            style: kSmallTitleStyle),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -344,7 +342,7 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                       ),
                       onPressed: () {
                         var ancestralState =
-                        context.findAncestorStateOfType<SearchPageState>();
+                            context.findAncestorStateOfType<SearchPageState>();
                         ancestralState.setState(() {});
 
                         setState(() {
@@ -352,8 +350,8 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                               .currentList
                               .sort((a, b) => a.star.compareTo(b.star));
                           Provider.of<AppointmentData>(context, listen: false)
-                              .setList(
-                              Provider.of<AppointmentData>(context, listen: false)
+                              .setList(Provider.of<AppointmentData>(context,
+                                      listen: false)
                                   .currentList);
                         });
                         Navigator.pop(context);
@@ -370,15 +368,15 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                       ),
                       onPressed: () {
                         var ancestralState =
-                        context.findAncestorStateOfType<SearchPageState>();
+                            context.findAncestorStateOfType<SearchPageState>();
                         ancestralState.setState(() {});
                         setState(() {
                           Provider.of<AppointmentData>(context, listen: false)
                               .currentList
                               .sort((b, a) => a.star.compareTo(b.star));
                           Provider.of<AppointmentData>(context, listen: false)
-                              .setList(
-                              Provider.of<AppointmentData>(context, listen: false)
+                              .setList(Provider.of<AppointmentData>(context,
+                                      listen: false)
                                   .currentList);
                         });
                         Navigator.pop(context);
@@ -400,63 +398,37 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ResponsiveWidget(
-          smallScreen: TextButton(
-            child: Row(children: [
-              Icon(Icons.filter_alt_outlined,
-                  color: Colors.white, size: (size.width - 100) / 20),
-              SizedBox(width: size.width / 100),
-              Text(
-                'Filtrele',
-                style: kSmallTextStyle.copyWith(
-                    color: Colors.white, fontSize: (size.width - 100) / 30),
-              ),
-            ]),
-            onPressed: () {
-              setState(() {
-                _filterSheet(context);
-              });
-            },
-          ),
-          mediumScreen: TextButton(
-            child: Row(children: [
-              Icon(Icons.filter_alt_outlined, color: Colors.white),
-              SizedBox(width: 5),
-              Text(
-                'Filtrele',
-                style: kSmallTextStyle.copyWith(color: Colors.white),
-              ),
-            ]),
-            onPressed: () {
-              setState(() {
-                _filterSheet(context);
-              });
-            },
-          ),
-          largeScreen: TextButton(
-            child: Row(children: [
-              Icon(Icons.filter_alt_outlined, color: Colors.white),
-              SizedBox(width: 5),
-              Text(
-                'Filtrele',
-                style: kSmallTextStyle.copyWith(color: Colors.white),
-              ),
-            ]),
-            onPressed: () {
-              setState(() {
-                _filterSheet(context);
-              });
-            },
-          ),
-        ),
-        SizedBox(width: 5),
         TextButton(
           child: Row(children: [
-            Icon(Icons.sort, color: Colors.white),
+            Icon(Icons.filter_alt_outlined,
+                color: Colors.white,
+                size: size.width < 700 ? size.width / 25 : 25),
+            SizedBox(width: 5),
+            Text(
+              'Filtrele',
+              style: kSmallTextStyle.copyWith(
+                  color: Colors.white,
+                  fontSize: size.width < 700 ? size.width / 35 : 18),
+            ),
+          ]),
+          onPressed: () {
+            setState(() {
+              _filterSheet(context);
+            });
+          },
+        ),
+        SizedBox(width: 20),
+        TextButton(
+          child: Row(children: [
+            Icon(Icons.sort,
+                color: Colors.white,
+                size: size.width < 700 ? size.width / 25 : 25),
             SizedBox(width: 5),
             Text(
               'Sırala',
-              style: kSmallTextStyle.copyWith(color: Colors.white),
+              style: kSmallTextStyle.copyWith(
+                  color: Colors.white,
+                  fontSize: size.width < 700 ? size.width / 35 : 18),
             ),
           ]),
           onPressed: () {
