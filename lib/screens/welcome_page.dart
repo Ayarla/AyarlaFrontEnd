@@ -7,6 +7,13 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/menuItem.dart';
 import 'package:ayarla/constants/constants.dart';
 
+/// TODO - bitir 
+/// filter sheet
+/// sheetlerin dizayn ve boyut ayarlaması responsive
+/// aramanın son ayarları responsive design ile
+/// kayıt olma popup ayarı
+///
+
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

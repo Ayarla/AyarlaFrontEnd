@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/genderSelection.dart';
 
 class MenuItemData {

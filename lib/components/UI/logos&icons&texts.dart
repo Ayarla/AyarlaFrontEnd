@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ayarla/components/UI/linearGradientMask.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/functions.dart';
 
 /// GENERAL LOGO
 Container generalLogo = Container(
@@ -214,7 +213,6 @@ Row appBarTitleManager = Row(
             fit: BoxFit.scaleDown,
             child: Text(
               "Haydi işletmeni ayarlayalım!",
-              // style: kTextStylewoSize,
               style: kSmallTextStyle.copyWith(color: Colors.white),
             ),
           )
@@ -225,15 +223,5 @@ Row appBarTitleManager = Row(
 );
 
 Row appBarTitleFavorites = Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    Container(
-      child: Functions().titleLength(
-          inputName: "Favorilerim",
-          textStyle: kTitleStyle.copyWith(
-              color: Colors.white, letterSpacing: 2, fontSize: 25),
-          ctrlLength: 20),
-    ),
-    Container(),
-  ],
+
 );

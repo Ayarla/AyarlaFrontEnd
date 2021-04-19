@@ -1,12 +1,8 @@
-import 'package:ayarla/components/UI/genericRow.dart';
-import 'package:ayarla/components/UI/menuItemv2.dart';
 import 'package:ayarla/components/floatingButton.dart';
 import 'package:ayarla/components/imageListItem.dart';
-import 'package:ayarla/components/menuItem.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
-import 'package:ayarla/models/employeeAndService.dart';
 import 'package:ayarla/screens/coiffure_detail_page/AboutSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ContactSection.dart';

@@ -7,7 +7,6 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'circularParent.dart';
 import 'filter&order.dart';
-import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 
 class DefaultAppBar extends StatelessWidget {
   final Widget title;
@@ -112,11 +111,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       expandedHeight: widget.mediaQueryData.size.width < 700
-          ? widget.mediaQueryData.size.width / 3.5
+          ? widget.mediaQueryData.size.width / 3.2
           : 170,
       collapsedHeight: widget.mediaQueryData.size.width < 700
           ? widget.mediaQueryData.size.width / 9.5
-          : 70,
+          : 60,
       toolbarHeight: widget.mediaQueryData.size.width < 700
           ? widget.mediaQueryData.size.width / 9.7
           : 60,
@@ -145,29 +144,38 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   icon: Icon(Icons.arrow_back_sharp, size: 24),
                   onPressed: () => Routers.router.pop(context)),
             ),
-            SizedBox(width: widget.mediaQueryData.size.width / 100),
+            SizedBox(width: widget.mediaQueryData.size.width / 85),
             SizedBox(
                 width: widget.mediaQueryData.size.width - 150,
                 child: widget.title),
             Spacer(),
             ResponsiveWidget(
-              smallScreen: Icon(
-                Icons.account_circle,
-                color: Colors.white,
-                size: widget.mediaQueryData.size.width / 20,
+              smallScreen: GestureDetector(
+                child: Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                  size: widget.mediaQueryData.size.width / 23,
+                ),
+                onTap: () =>
+                    Routers.router.navigateTo(context, "/KullaniciSayfasi"),
               ),
-              // onPressed: () {
-              //   Routers.router.navigateTo(context, "/KullaniciSayfasi");
-              // },
-              mediumScreen: Icon(
-                Icons.account_circle,
-                color: Colors.white,
-                size: 36,
+              mediumScreen: GestureDetector(
+                child: Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                  size: 36,
+                ),
+                onTap: () =>
+                    Routers.router.navigateTo(context, "/KullaniciSayfasi"),
               ),
-              largeScreen: Icon(
-                Icons.account_circle,
-                color: Colors.white,
-                size: 36,
+              largeScreen: GestureDetector(
+                child: Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                  size: 36,
+                ),
+                onTap: () =>
+                    Routers.router.navigateTo(context, "/KullaniciSayfasi"),
               ),
             ),
           ],

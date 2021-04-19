@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/Appointment.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/confirmation_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class CalenderPage extends StatefulWidget {

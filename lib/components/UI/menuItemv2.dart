@@ -1,5 +1,3 @@
-import 'package:ayarla/components/UI/genericIconButton.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/employeeAndService.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
@@ -7,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/virtual_data_base/genderSelection.dart';
+
 
 class MenuItemData2 {
   String label;

@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -28,45 +29,143 @@ class _CommentsPageState extends State<CommentsPage> {
       builder: (BuildContext bc) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setModalState) {
-            /// Create your own context and state setter for bottom sheet.
-            return CircularParent(
-              radius: 20,
-              direction: Directions.top,
-              color: Colors.white,
-              child: ListView(
-                padding: EdgeInsets.all(20),
-                physics: BouncingScrollPhysics(),
-                children: [
-                  /// ACC TO STARS
-                  functions.createTitle(context, 'Yıldıza göre filtrele'),
-                  SizedBox(
-                    height: 10,
+            final size = MediaQuery.of(context).size;
+            return ResponsiveWidget(
+              smallScreen: CircularParent(
+                radius: 20,
+                direction: Directions.top,
+                color: Colors.white,
+                child: ListView(
+                  padding: EdgeInsets.all(20),
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    /// ACC TO STARS
+                    functions.createTitle(context, 'Yıldıza göre filtrele'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SfSlider(
+                      min: 0.0,
+                      max: 5.0,
+                      value: _filterValue,
+                      interval: 1,
+                      showTicks: true,
+                      showLabels: true,
+                      tooltipShape: SfRectangularTooltipShape(),
+                      minorTicksPerInterval: 2,
+                      onChanged: (dynamic value) {
+                        generatingList =
+                            Provider.of<AppointmentData>(context, listen: false)
+                                .currentList2;
+                        List returnList = generatingList;
+                        setModalState(() {
+                          _filterValue = value;
+                        });
+                        setState(() {
+                          generatingList = returnList
+                              .where((element) => element.rating >= value)
+                              .toList();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              mediumScreen: Align(
+                alignment: Alignment.bottomCenter,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: size.width / 1.5),
+                  child: CircularParent(
+                    radius: 20,
+                    direction: Directions.top,
+                    color: Colors.white,
+                    child: ListView(
+                      padding: EdgeInsets.all(20),
+                      physics: BouncingScrollPhysics(),
+                      children: [
+                        /// ACC TO STARS
+                        functions.createTitle(
+                            context, 'Yıldıza göre filtrele'),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SfSlider(
+                          min: 0.0,
+                          max: 5.0,
+                          value: _filterValue,
+                          interval: 1,
+                          showTicks: true,
+                          showLabels: true,
+                          tooltipShape: SfRectangularTooltipShape(),
+                          minorTicksPerInterval: 2,
+                          onChanged: (dynamic value) {
+                            generatingList = Provider.of<AppointmentData>(
+                                    context,
+                                    listen: false)
+                                .currentList2;
+                            List returnList = generatingList;
+                            setModalState(() {
+                              _filterValue = value;
+                            });
+                            setState(() {
+                              generatingList = returnList
+                                  .where((element) => element.rating >= value)
+                                  .toList();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  SfSlider(
-                    min: 0.0,
-                    max: 5.0,
-                    value: _filterValue,
-                    interval: 1,
-                    showTicks: true,
-                    showLabels: true,
-                    tooltipShape: SfRectangularTooltipShape(),
-                    minorTicksPerInterval: 2,
-                    onChanged: (dynamic value) {
-                      generatingList =
-                          Provider.of<AppointmentData>(context, listen: false)
-                              .currentList2;
-                      List returnList = generatingList;
-                      setModalState(() {
-                        _filterValue = value;
-                      });
-                      setState(() {
-                        generatingList = returnList
-                            .where((element) => element.rating >= value)
-                            .toList();
-                      });
-                    },
+                ),
+              ),
+              largeScreen:  Align(
+                alignment: Alignment.bottomCenter,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: size.width / 1.5),
+                  child: CircularParent(
+                    radius: 20,
+                    direction: Directions.top,
+                    color: Colors.white,
+                    child: ListView(
+                      padding: EdgeInsets.all(20),
+                      physics: BouncingScrollPhysics(),
+                      children: [
+                        /// ACC TO STARS
+                        functions.createTitle(
+                            context, 'Yıldıza göre filtrele'),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SfSlider(
+                          min: 0.0,
+                          max: 5.0,
+                          value: _filterValue,
+                          interval: 1,
+                          showTicks: true,
+                          showLabels: true,
+                          tooltipShape: SfRectangularTooltipShape(),
+                          minorTicksPerInterval: 2,
+                          onChanged: (dynamic value) {
+                            generatingList = Provider.of<AppointmentData>(
+                                context,
+                                listen: false)
+                                .currentList2;
+                            List returnList = generatingList;
+                            setModalState(() {
+                              _filterValue = value;
+                            });
+                            setState(() {
+                              generatingList = returnList
+                                  .where((element) => element.rating >= value)
+                                  .toList();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
             );
           },
@@ -88,17 +187,16 @@ class _CommentsPageState extends State<CommentsPage> {
       backgroundColor: Colors.transparent,
       context: context,
       builder: (BuildContext bc) {
-        return CircularParent(
-          color: Colors.white,
-          radius: 20,
-          direction: Directions.top,
-          child: ListView.separated(
-            padding: EdgeInsets.all(20),
-            physics: BouncingScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width / 10),
-                child: Column(
+        return ResponsiveWidget(
+          smallScreen: CircularParent(
+            color: Colors.white,
+            radius: 20,
+            direction: Directions.top,
+            child: ListView.separated(
+              padding: EdgeInsets.all(20),
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
                   children: [
                     SizedBox(height: 5),
                     functions.createTitle(context, orderings[index]),
@@ -108,17 +206,14 @@ class _CommentsPageState extends State<CommentsPage> {
                       children: [
                         TextButton(
                           child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text(
-                              'Azdan Çoka',
-                              style: kSmallTextStyle,
-                            ),
-                          ),
+                              fit: BoxFit.cover,
+                              child:
+                                  Text('Azdan Çoka', style: kSmallTextStyle)),
                           onPressed: () {
                             setState(() {
                               if (index == 0) {
-                                generatingList
-                                    .sort((a, b) => a.rating.compareTo(b.rating));
+                                generatingList.sort(
+                                    (a, b) => a.rating.compareTo(b.rating));
                               } else if (index == 1) {
                                 generatingList
                                     .sort((a, b) => a.like.compareTo(b.like));
@@ -130,19 +225,17 @@ class _CommentsPageState extends State<CommentsPage> {
                             Navigator.pop(context);
                           },
                         ),
+                        Icon(Icons.arrow_circle_down_rounded),
                         SizedBox(width: 20),
                         TextButton(
                           child: Center(
-                            child: Text(
-                              'Çoktan Aza',
-                              style: kSmallTextStyle,
-                            ),
-                          ),
+                              child:
+                                  Text('Çoktan Aza', style: kSmallTextStyle)),
                           onPressed: () {
                             setState(() {
                               if (index == 0) {
-                                generatingList
-                                    .sort((b, a) => a.rating.compareTo(b.rating));
+                                generatingList.sort(
+                                    (b, a) => a.rating.compareTo(b.rating));
                               } else if (index == 1) {
                                 generatingList
                                     .sort((b, a) => a.like.compareTo(b.like));
@@ -154,19 +247,182 @@ class _CommentsPageState extends State<CommentsPage> {
                             Navigator.pop(context);
                           },
                         ),
+                        Icon(Icons.arrow_circle_up_rounded),
                       ],
                     ),
                   ],
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width / 10),
+                  child: Divider(thickness: 1),
+                );
+              },
+              itemCount: orderings.length,
+            ),
+          ),
+          mediumScreen: Align(
+            alignment: Alignment.bottomCenter,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: size.width / 2),
+              child: CircularParent(
+                color: Colors.white,
+                radius: 20,
+                direction: Directions.top,
+                child: ListView.separated(
+                  padding: EdgeInsets.all(20),
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        SizedBox(height: 5),
+                        functions.createTitle(context, orderings[index]),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text('Azdan Çoka',
+                                      style: kSmallTextStyle)),
+                              onPressed: () {
+                                setState(() {
+                                  if (index == 0) {
+                                    generatingList.sort((a, b) =>
+                                        a.rating.compareTo(b.rating));
+                                  } else if (index == 1) {
+                                    generatingList.sort(
+                                        (a, b) => a.like.compareTo(b.like));
+                                  } else if (index == 2) {
+                                    generatingList.sort(
+                                        (a, b) => a.date.compareTo(b.date));
+                                  }
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
+                            Icon(Icons.arrow_circle_down_rounded),
+                            SizedBox(width: 20),
+                            TextButton(
+                              child: Center(
+                                  child: Text('Çoktan Aza',
+                                      style: kSmallTextStyle)),
+                              onPressed: () {
+                                setState(() {
+                                  if (index == 0) {
+                                    generatingList.sort((b, a) =>
+                                        a.rating.compareTo(b.rating));
+                                  } else if (index == 1) {
+                                    generatingList.sort(
+                                        (b, a) => a.like.compareTo(b.like));
+                                  } else if (index == 2) {
+                                    generatingList.sort(
+                                        (b, a) => a.date.compareTo(b.date));
+                                  }
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
+                            Icon(Icons.arrow_circle_up_rounded),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width / 10),
+                      child: Divider(thickness: 1),
+                    );
+                  },
+                  itemCount: orderings.length,
                 ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width / 10),
-                child: Divider(thickness: 1),
-              );
-            },
-            itemCount: orderings.length,
+              ),
+            ),
+          ),
+          largeScreen: Align(
+            alignment: Alignment.bottomCenter,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: size.width / 2),
+              child: CircularParent(
+                color: Colors.white,
+                radius: 20,
+                direction: Directions.top,
+                child: ListView.separated(
+                  padding: EdgeInsets.all(20),
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        SizedBox(height: 5),
+                        functions.createTitle(context, orderings[index]),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text('Azdan Çoka',
+                                      style: kSmallTextStyle)),
+                              onPressed: () {
+                                setState(() {
+                                  if (index == 0) {
+                                    generatingList.sort((a, b) =>
+                                        a.rating.compareTo(b.rating));
+                                  } else if (index == 1) {
+                                    generatingList.sort(
+                                        (a, b) => a.like.compareTo(b.like));
+                                  } else if (index == 2) {
+                                    generatingList.sort(
+                                        (a, b) => a.date.compareTo(b.date));
+                                  }
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
+                            Icon(Icons.arrow_circle_down_rounded),
+                            SizedBox(width: 20),
+                            TextButton(
+                              child: Center(
+                                  child: Text('Çoktan Aza',
+                                      style: kSmallTextStyle)),
+                              onPressed: () {
+                                setState(() {
+                                  if (index == 0) {
+                                    generatingList.sort((b, a) =>
+                                        a.rating.compareTo(b.rating));
+                                  } else if (index == 1) {
+                                    generatingList.sort(
+                                        (b, a) => a.like.compareTo(b.like));
+                                  } else if (index == 2) {
+                                    generatingList.sort(
+                                        (b, a) => a.date.compareTo(b.date));
+                                  }
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
+                            Icon(Icons.arrow_circle_up_rounded),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width / 10),
+                      child: Divider(thickness: 1),
+                    );
+                  },
+                  itemCount: orderings.length,
+                ),
+              ),
+            ),
           ),
         );
       },
@@ -256,41 +512,41 @@ class _CommentsPageState extends State<CommentsPage> {
     return Scaffold(
       appBar: DefaultAppBar(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                child: Row(children: [
-                  Icon(Icons.filter_alt_outlined, color: Colors.white),
-                  SizedBox(width: 5),
-                  Text(
-                    'Filtrele',
-                    style: kSmallTextStyle.copyWith(color: Colors.white),
-                  ),
-                ]),
-                onPressed: () {
-                  setState(() {
-                    _filterSheet(context);
-                  });
-                },
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            child: Row(children: [
+              Icon(Icons.filter_alt_outlined, color: Colors.white),
+              SizedBox(width: 5),
+              Text(
+                'Filtrele',
+                style: kSmallTextStyle.copyWith(color: Colors.white),
               ),
-              SizedBox(width: 10),
-              TextButton(
-                child: Row(children: [
-                  Icon(Icons.sort, color: Colors.white),
-                  SizedBox(width: 5),
-                  Text(
-                    'Sırala',
-                    style: kSmallTextStyle.copyWith(color: Colors.white),
-                  ),
-                ]),
-                onPressed: () {
-                  setState(() {
-                    _orderSheet(context);
-                  });
-                },
+            ]),
+            onPressed: () {
+              setState(() {
+                _filterSheet(context);
+              });
+            },
+          ),
+          SizedBox(width: 10),
+          TextButton(
+            child: Row(children: [
+              Icon(Icons.sort, color: Colors.white),
+              SizedBox(width: 5),
+              Text(
+                'Sırala',
+                style: kSmallTextStyle.copyWith(color: Colors.white),
               ),
-            ],
-          )).build(context),
+            ]),
+            onPressed: () {
+              setState(() {
+                _orderSheet(context);
+              });
+            },
+          ),
+        ],
+      )).build(context),
       body: ListView.separated(
         physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 20.0),

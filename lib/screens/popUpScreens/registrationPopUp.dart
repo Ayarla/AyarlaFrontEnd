@@ -49,9 +49,7 @@ class RegistrationPopUp {
         return AlertDialog(
           backgroundColor: Color(0xFFE5EBEE),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(25.0),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(25.0)),
           ),
           title: Column(
             children: [
@@ -238,10 +236,7 @@ class RegistrationPopUp {
                 actionsPadding: EdgeInsets.all(0),
                 backgroundColor: Color(0xFFE5EBEE),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(25.0),
-                  ),
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
                 title: Center(
                     child: Text(
                         'Devam Etmek İçin Mailinize Gelen Şifreyi Giriniz',

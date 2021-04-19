@@ -1,4 +1,3 @@
-import 'package:ayarla/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class GenericRow extends StatelessWidget {

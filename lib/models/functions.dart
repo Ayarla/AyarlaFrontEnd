@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
-import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/imageListItem.dart';
@@ -15,20 +13,6 @@ import '../virtual_data_base/genderSelection.dart';
 import 'package:flutter/rendering.dart';
 
 class Functions {
-  /// For Confirmation Page => Taking Summary
-  // Future<Uint8List> capturePng(GlobalKey globalKey) async {
-  //   RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
-  //
-  //   if (boundary.debugNeedsPaint) {
-  //     print("Waiting for boundary to be painted.");
-  //     await Future.delayed(const Duration(milliseconds: 20));
-  //     return capturePng(globalKey);
-  //   }
-  //   var image = await boundary.toImage();
-  //   var byteData = await image.toByteData(format: ImageByteFormat.png);
-  //   return byteData.buffer.asUint8List();
-  // }
-
   decideColor(context) {
     Gender selectedGender =
         Provider.of<GenderSelection>(context, listen: false).currentGender[0];
@@ -89,32 +73,6 @@ class Functions {
     } catch (e) {
       print(e);
     }
-  }
-
-  /// TODO - fixes needed.
-  titleLength({String inputName, TextStyle textStyle, int ctrlLength}) {
-    if (inputName.length >= ctrlLength) {
-      return Marquee(
-        text: inputName,
-        style: textStyle,
-        scrollAxis: Axis.horizontal,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        blankSpace: 20.0,
-        velocity: 60.0,
-        pauseAfterRound: Duration(seconds: 3),
-        startPadding: 0.0,
-        startAfter: Duration(seconds: 2),
-        accelerationDuration: Duration(seconds: 1),
-        accelerationCurve: Curves.linear,
-        decelerationDuration: Duration(milliseconds: 500),
-        decelerationCurve: Curves.easeOut,
-      );
-    } else
-      return Text(
-        inputName,
-        textAlign: TextAlign.left,
-        style: textStyle,
-      );
   }
 
   createTitle(BuildContext context, String title) {
@@ -208,7 +166,8 @@ class Functions {
 
 
 }
-/// seems fine rn.
+
+/// Fixes the coiffure detail page URL for web.
 String fixURL (String url) {
   return url.replaceAll(' ', '-');
 }
