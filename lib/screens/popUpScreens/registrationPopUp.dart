@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/virtual_data_base/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -44,13 +45,12 @@ class RegistrationPopUp {
 
     showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Color(0xFFE5EBEE),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(25.0))),
           title: Column(
             children: [
               Text('Randevu Onay',
@@ -143,7 +143,8 @@ class RegistrationPopUp {
               }
 
               /// mail yollamadan gecis icin
-              // Routers.router.navigateTo(context, "/OnaySayfasi");
+              passwordFieldDialog(context: context);
+              Provider.of<Login>(context).sendPasswordMail();
             }),
             SizedBox(width: 5),
           ],
@@ -365,42 +366,42 @@ class RegistrationPopUp {
                         SizedBox(height: 5.0),
 
                         /// Password Check Field
-                        TextFormField(
-                          validator: (_typed) {
-                            if (_typed.isEmpty) {
-                              return 'Boş Bırakılamaz';
-                            } else if (_typed.length < 6) {
-                              return 'Şifre 6 karakter içermelidir';
-                            } else if (_typedPassword != _typed &&
-                                _typedPassword != '') {
-                              return 'Şifreler birbiri ile uyuşmuyor';
-                            } else {
-                              return null;
-                            }
-                          },
-                          onChanged: (typed) {
-                            _typedPasswordCheck = typed;
-                          },
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.only(right: 15.0),
-                              child: Icon(
-                                Icons.vpn_key_outlined,
-                                size: 20.0,
-                              ),
-                            ),
-                            prefixIconConstraints: BoxConstraints(
-                              maxHeight: 20.0,
-                              maxWidth: 30.0,
-                            ),
-                            hintText: 'Şifrenizi Tekrar Giriniz',
-                            hintStyle: kSmallTextStyle.copyWith(
-                              color: Colors.grey.withOpacity(0.8),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
+                        // TextFormField(
+                        //   validator: (_typed) {
+                        //     if (_typed.isEmpty) {
+                        //       return 'Boş Bırakılamaz';
+                        //     } else if (_typed.length < 6) {
+                        //       return 'Şifre 6 karakter içermelidir';
+                        //     } else if (_typedPassword != _typed &&
+                        //         _typedPassword != '') {
+                        //       return 'Şifreler birbiri ile uyuşmuyor';
+                        //     } else {
+                        //       return null;
+                        //     }
+                        //   },
+                        //   onChanged: (typed) {
+                        //     _typedPasswordCheck = typed;
+                        //   },
+                        //   obscureText: true,
+                        //   decoration: InputDecoration(
+                        //     prefixIcon: Padding(
+                        //       padding: EdgeInsets.only(right: 15.0),
+                        //       child: Icon(
+                        //         Icons.vpn_key_outlined,
+                        //         size: 20.0,
+                        //       ),
+                        //     ),
+                        //     prefixIconConstraints: BoxConstraints(
+                        //       maxHeight: 20.0,
+                        //       maxWidth: 30.0,
+                        //     ),
+                        //     hintText: 'Şifrenizi Tekrar Giriniz',
+                        //     hintStyle: kSmallTextStyle.copyWith(
+                        //       color: Colors.grey.withOpacity(0.8),
+                        //       fontWeight: FontWeight.w400,
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(height: 20.0),
 
                         /// Phone Number Field

@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/notificationBadge.dart';
 import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:badges/badges.dart';
@@ -65,14 +66,7 @@ class DefaultAppBar extends StatelessWidget {
             ? IconButton(
                 padding: EdgeInsets.only(left: 10, right: 20),
                 iconSize: 35,
-                icon: Badge(
-                  badgeContent: Text('1',
-                      style: kSmallTextStyle.copyWith(color: Colors.white)),
-                  child: Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                  ),
-                ),
+                icon: NotificationBadge(),
                 onPressed: () {
                   Routers.router.navigateTo(context, "/KullaniciSayfasi");
                 },
@@ -151,28 +145,34 @@ class _SearchAppBarState extends State<SearchAppBar> {
             Spacer(),
             ResponsiveWidget(
               smallScreen: GestureDetector(
-                child: Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
-                  size: widget.mediaQueryData.size.width / 23,
+                child: NotificationBadge(
+                  child: Icon(
+                    Icons.account_circle,
+                    color: Colors.white,
+                    size: widget.mediaQueryData.size.width / 23,
+                  ),
                 ),
                 onTap: () =>
                     Routers.router.navigateTo(context, "/KullaniciSayfasi"),
               ),
               mediumScreen: GestureDetector(
-                child: Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
-                  size: 36,
+                child: NotificationBadge(
+                  child: Icon(
+                    Icons.account_circle,
+                    color: Colors.white,
+                    size: 36,
+                  ),
                 ),
                 onTap: () =>
                     Routers.router.navigateTo(context, "/KullaniciSayfasi"),
               ),
               largeScreen: GestureDetector(
-                child: Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
-                  size: 36,
+                child: NotificationBadge(
+                  child: Icon(
+                    Icons.account_circle,
+                    color: Colors.white,
+                    size: 36,
+                  ),
                 ),
                 onTap: () =>
                     Routers.router.navigateTo(context, "/KullaniciSayfasi"),
