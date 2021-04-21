@@ -51,6 +51,9 @@ dependencies:
   mapbox_gl: ^0.0.1
   mapbox_search: ^2.1.0
   mapbox_search_flutter: any
+#  premium packages
+  stories_for_flutter: ^0.1.8
+#  story: ^0.5.1
 
 dev_dependencies:
   flutter_test:

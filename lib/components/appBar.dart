@@ -1,7 +1,5 @@
 import 'package:ayarla/components/UI/notificationBadge.dart';
-import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/constants/router.dart';
-import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
@@ -19,6 +17,7 @@ class DefaultAppBar extends StatelessWidget {
   final bool showBackButton;
   final double titleSpacing;
   final Function backButtonFunction;
+  final bool centerTitle;
 
   /// In order to call this component on a tree use DefaultAppBar().build(context)
   ///
@@ -40,12 +39,14 @@ class DefaultAppBar extends StatelessWidget {
     this.titleSpacing,
     this.backButtonFunction,
     this.showBackButton,
+    this.centerTitle,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
+      centerTitle: centerTitle ?? false,
       backgroundColor: Colors.transparent,
       titleSpacing: titleSpacing ?? 0,
       flexibleSpace: CircularParent(
@@ -105,7 +106,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       expandedHeight: widget.mediaQueryData.size.width < 700
-          ? widget.mediaQueryData.size.width / 3.2
+          ? widget.mediaQueryData.size.width / 3.4
           : 170,
       collapsedHeight: widget.mediaQueryData.size.width < 700
           ? widget.mediaQueryData.size.width / 9.5
@@ -162,17 +163,55 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 direction: Directions.bottom,
                 color: Colors.white,
                 gradient: Functions().decideColor(context),
-                child: ResponsiveWidget(
-                  smallScreen: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: widget.mediaQueryData.size.width / 9,
-                          bottom: widget.mediaQueryData.size.width / 130,
-                        ),
-                        child: SizedBox(
-                          height: widget.mediaQueryData.size.width / 11,
-                          width: widget.mediaQueryData.size.width / 1.08,
+                child: Column(
+                  children: [
+                    widget.mediaQueryData.size.width < 700
+                        ? Padding(
+                            padding: EdgeInsets.only(
+                              top: widget.mediaQueryData.size.width / 10,
+                              bottom: widget.mediaQueryData.size.width / 150,
+                            ),
+                            child: SizedBox(
+                              height: widget.mediaQueryData.size.width / 11,
+                              width: widget.mediaQueryData.size.width / 1.08,
+                              child: TextField(
+                                textCapitalization: TextCapitalization.words,
+                                autofocus: false,
+                                autocorrect: false,
+                                focusNode: FocusNode(canRequestFocus: false),
+                                textAlignVertical: TextAlignVertical.bottom,
+                                onChanged: widget.onChanged,
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize:
+                                        widget.mediaQueryData.size.width / 30),
+                                decoration: InputDecoration(
+                                  hintText:
+                                      "Lütfen işletme adı veya kodu giriniz",
+                                  hintStyle: kSmallTextStyle.copyWith(
+                                    color: Colors.grey.withOpacity(0.8),
+                                    fontSize:
+                                        widget.mediaQueryData.size.width / 35,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.search,
+                                      size: widget.mediaQueryData.size.width /
+                                          25),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25.0)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Padding(
+                          padding: EdgeInsets.only(
+                            top: 70,
+                            left: 20,
+                            right: 20,
+                            bottom: 10,
+                          ),
                           child: TextField(
                             textCapitalization: TextCapitalization.words,
                             autofocus: false,
@@ -180,19 +219,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             focusNode: FocusNode(canRequestFocus: false),
                             textAlignVertical: TextAlignVertical.bottom,
                             onChanged: widget.onChanged,
-                            style: kSmallTextStyle.copyWith(
-                                fontSize:
-                                    widget.mediaQueryData.size.width / 30),
+                            style: kSmallTextStyle,
                             decoration: InputDecoration(
-                              hintText: "Lütfen işletme adı veya kodu giriniz",
+                              hintText:
+                                  "Lütfen işletme adı veya kodu giriniz",
                               hintStyle: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                                fontSize: widget.mediaQueryData.size.width / 35,
-                              ),
+                                  color: Colors.grey.withOpacity(0.8)),
                               filled: true,
                               fillColor: Colors.white,
-                              prefixIcon: Icon(Icons.search,
-                                  size: widget.mediaQueryData.size.width / 25),
+                              prefixIcon: Icon(Icons.search),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(25.0),
@@ -201,80 +236,12 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             ),
                           ),
                         ),
-                      ),
-                      FilterOrderRow(),
-                    ],
-                  ),
-                  mediumScreen: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 70,
-                          left: 20,
-                          right: 20,
-                          bottom: 10,
-                        ),
-                        child: TextField(
-                          textCapitalization: TextCapitalization.words,
-                          autofocus: false,
-                          autocorrect: false,
-                          focusNode: FocusNode(canRequestFocus: false),
-                          textAlignVertical: TextAlignVertical.bottom,
-                          onChanged: widget.onChanged,
-                          style: kSmallTextStyle,
-                          decoration: InputDecoration(
-                            hintText: "Lütfen işletme adı veya kodu giriniz",
-                            hintStyle: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8)),
-                            filled: true,
-                            fillColor: Colors.white,
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(25.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      FilterOrderRow(),
-                    ],
-                  ),
-                  largeScreen: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 70,
-                          left: 20,
-                          right: 20,
-                          bottom: 10,
-                        ),
-                        child: TextField(
-                          textCapitalization: TextCapitalization.words,
-                          autofocus: false,
-                          autocorrect: false,
-                          focusNode: FocusNode(canRequestFocus: false),
-                          textAlignVertical: TextAlignVertical.bottom,
-                          onChanged: widget.onChanged,
-                          style: kSmallTextStyle,
-                          decoration: InputDecoration(
-                            hintText: "Lütfen işletme adı veya kodu giriniz",
-                            hintStyle: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8)),
-                            filled: true,
-                            fillColor: Colors.white,
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(25.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      FilterOrderRow(),
-                    ],
-                  ),
+                    SizedBox(
+                        height: widget.mediaQueryData.size.width < 700
+                            ? widget.mediaQueryData.size.width / 700
+                            : 0),
+                    FilterOrderRow(),
+                  ],
                 ),
               ),
             ),

@@ -124,54 +124,22 @@ class AppBarTitleCustomer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return ResponsiveWidget(
-      smallScreen: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Merhaba Nilsu",
-              style: kTitleStyle.copyWith(
-                  color: Colors.white,
-                  fontSize: size.width / 34),
-            ),
-            Text(
-              "Haydi randevunu ayarlayalım!",
-              style: kSmallTextStyle.copyWith(
-                  fontSize: size.width / 37),
-            )
-          ],
-        ),
-      ),
-      mediumScreen: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Merhaba Nilsu",
-              style: kTitleStyle.copyWith(color: Colors.white),
-            ),
-            Text(
-              "Haydi randevunu ayarlayalım!",
-              style: kSmallTextStyle,
-            )
-          ],
-        ),
-      ),
-      largeScreen: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Merhaba Nilsu",
-              style: kTitleStyle.copyWith(color: Colors.white),
-            ),
-            Text(
-              "Haydi randevunu ayarlayalım!",
-              style: kSmallTextStyle,
-            )
-          ],
-        ),
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Merhaba Nilsu",
+            style: kTitleStyle.copyWith(
+                color: Colors.white,
+                fontSize: size.width < 700 ? size.width / 31.8 : 22),
+          ),
+          Text(
+            "Haydi randevunu ayarlayalım!",
+            style: kSmallTextStyle.copyWith(
+                fontSize: size.width < 700 ? size.width / 50 : 14),
+          )
+        ],
       ),
     );
   }
@@ -205,7 +173,6 @@ Row appBarTitleManager = Row(
             fit: BoxFit.scaleDown,
             child: Text(
               "Merhaba Nilsu",
-              // style: kTextStylewoSize,
               style: kTitleStyle.copyWith(color: Colors.white),
             ),
           ),
@@ -222,6 +189,17 @@ Row appBarTitleManager = Row(
   ],
 );
 
-Row appBarTitleFavorites = Row(
-
-);
+class AppBarTitleFavorites extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Center(
+        child: Text(
+          "Favorilerim",
+          style: kTitleStyle.copyWith(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}

@@ -143,6 +143,7 @@ class CardInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Row(
       children: <Widget>[
         Expanded(
@@ -173,12 +174,14 @@ class CardInfo extends StatelessWidget {
                       SizedBox(width: 7),
                       Padding(
                         padding: EdgeInsets.only(top: 1.0),
-                        child: Text(
-                          '${coiffureModel.city}, ${coiffureModel.district}',
-                          style: kSmallTextStyle.copyWith(
-                            color: Colors.grey.withOpacity(0.8),
-                            // fontSize: 12,
-                            fontSize: 13,
+                        child: TextOverFlowHandler(
+                          child: Text(
+                            '${coiffureModel.city}, ${coiffureModel.district}',
+                            style: kSmallTextStyle.copyWith(
+                              color: Colors.grey.withOpacity(0.8),
+                              // fontSize: 12,
+                              fontSize: 13,
+                            ),
                           ),
                         ),
                       ),
@@ -225,16 +228,18 @@ class CardInfo extends StatelessWidget {
                         ),
                       ),
                       Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          'Çalışma Saatleri',
-                          style: kSmallTextStyle.copyWith(
-                            color: Colors.grey.withOpacity(0.8),
-                            fontSize: 13,
-                          ),
-                        ),
-                      ),
+                      size.width < 340
+                          ? Container()
+                          : Padding(
+                              padding: EdgeInsets.only(top: 4.0),
+                              child: Text(
+                                'Çalışma Saatleri',
+                                style: kSmallTextStyle.copyWith(
+                                  color: Colors.grey.withOpacity(0.8),
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
                       SizedBox(width: 1),
                     ],
                   ),

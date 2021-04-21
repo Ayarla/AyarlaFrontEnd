@@ -11,15 +11,15 @@ void main() {
   Provider.debugCheckInvalidValueType = null;
   Routers.setupRouter();
   setPathUrlStrategy();
-  runApp(MyApp());
+  runApp(Ayarla());
 }
 
-class MyApp extends StatefulWidget {
+class Ayarla extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _AyarlaState createState() => _AyarlaState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _AyarlaState extends State<Ayarla> {
   @override
   void initState() {
     super.initState();

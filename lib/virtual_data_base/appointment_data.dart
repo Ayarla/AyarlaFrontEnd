@@ -1,11 +1,10 @@
 import 'dart:math';
 import 'package:ayarla/models/userModel.dart';
+import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/webService/webFunctions.dart';
 // import 'package:firebase/firebase.dart';
 // import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:mailer/mailer.dart';
-// import 'package:mailer/smtp_server.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:ayarla/models/Appointment.dart';
 import 'package:ayarla/models/coiffeurModel.dart';
@@ -668,72 +667,6 @@ class AppointmentData extends ChangeNotifier {
 
   String lastDate;
 
-  /// Send Mail
-  // Future sendMail(String recipients, var summary) async {
-  //   String username = 'ozet@ayarla.app';
-  //   String password = 'aa112233';
-  //   final smtpServer = new SmtpServer('smtp.yandex.com.tr',
-  //       username: username, password: password, port: 465, ignoreBadCertificate: false, ssl: true, allowInsecure: true);
-  //
-  //   List list2 = [];
-  //
-  //   /// Nice !
-  //   for (AppointmentInfo x in servicesAndEmployees) {
-  //     list2.add(x.service.toString());
-  //     // print(x.service);
-  //   }
-  //
-  //   /// Create our message.
-  //   final message = Message()
-  //     ..from = Address(username, 'Ayarla Ekibi')
-  //     ..recipients.add(recipients)
-  //     //><h1>Deneme maili</h1><img src='data:image/png;base64,$summary'>"
-  //     /// entered to the textField. THE CLIENT
-  //     ..subject = 'Randevu Talebi'
-  //     ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-  //     ..html = "<div style='width=33%'> $lastDate</div> <hr> "
-  //         "<div> ${servicesAndEmployees[0].employee} <br>  ${servicesAndEmployees[0].service} <br>  ${servicesAndEmployees[0].time}</div><hr>"
-  //         "<script> var x ='', i; for(i=0;i<2; i++) {x = x + list2[i];} document.getElementById('service').innerHTML = x;</script> <div id='service'> </div>";
-  //
-  //   /// border-style=outset;
-  //   final message2 = Message()
-  //     ..from = Address(username, 'Ayarla Ekibi')
-  //     ..recipients.add(username)
-  //
-  //     /// our mail. THE COIFFURE
-  //     //  ..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
-  //     //  ..bccRecipients.add(Address('bccAddress@example.com'))
-  //     ..subject = 'Randevu Talebi'
-  //     ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-  //     ..html = "<h1>Randevu Talebi</h1>\n<p>Hey! Randevunu Onayla, Reddet veya Yeni Bir "
-  //         "Saat Öner!</p>";
-  //
-  //   /// End of the messages
-  //
-  //   /// message send
-  //   try {
-  //     final sendReport = await send(message, smtpServer);
-  //     print('Message sent: ' + sendReport.toString());
-  //   } on MailerException catch (e) {
-  //     print('Message not sent.');
-  //     for (var p in e.problems) {
-  //       print('Problem: ${p.code}: ${p.msg}');
-  //     }
-  //   }
-  //
-  //   try {
-  //     final sendReport = await send(message2, smtpServer);
-  //     print('Message sent: ' + sendReport.toString());
-  //   } on MailerException catch (e) {
-  //     print('Message not sent.');
-  //     for (var p in e.problems) {
-  //       print('Problem: ${p.code}: ${p.msg}');
-  //     }
-  //   }
-  //
-  //   /// message send ends.
-  // }
-
   /// Send mail v2
   sendMail2(String recipients) {
     var options = new YandexSmtpOptions()
@@ -785,6 +718,7 @@ class AppointmentData extends ChangeNotifier {
         '<td align="right"> $total TL</td>'
         ' </tr>'
         '</table>'
+        '<div>AYARLA her gün genişleyen işletme ağı ile ve çok yakında randevu gerektiren diğer sektörlerde de benzer kullanıcı deneyimi ile hizmetinizde.</div>'
         '</div>'
         '</body>'
         '</html>';
@@ -849,7 +783,7 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
-  State myState;
+  State myState = SearchPage().createState();
 }
 
 class Notes {
