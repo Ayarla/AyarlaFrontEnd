@@ -1,3 +1,4 @@
+import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 
@@ -30,11 +31,11 @@ class FloatingButton extends StatelessWidget {
           gradient: gradient ?? null,
         ),
         child: Center(
-          child: Text(
-            text,
-            /// Denemede.
-            overflow: TextOverflow.clip,
-            style: kTextStyle.copyWith(color: Colors.white),
+          child: TextOverFlowHandler(
+            child: Text(
+              text,
+              style: kTextStyle.copyWith(color: Colors.white),
+            ),
           ),
         ),
       ),

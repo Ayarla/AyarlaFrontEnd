@@ -98,8 +98,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               style: kTitleStyle,
             ),
           ),
-
-          ///added some padding outside the card widget
           Padding(
             padding: EdgeInsets.all(6.0),
             child: Card(
@@ -235,29 +233,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           //   ),
           // ),
 
-          RatingDialog(
-            title: 'Kuaförü Değerlendirin',
-            message:
-                'Tap a star to set your rating. Add more description here if you want.',
-            image: Image(
-              image: AssetImage('assets/genel_logo.png'),
-              alignment: AlignmentDirectional.center,
-            ),
-            commentHint: 'Yorumunuzu buraya yazabilirsiniz',
-            submitButton: 'Gönder',
-            onCancelled: () => print('cancelled'),
-            onSubmitted: (response) {
-              print('rating: ${response.rating}, comment: ${response.comment}');
-
-              // TODO: add your own logic
-              if (response.rating < 3.0) {
-                // send their comments to your email or anywhere you wish
-                // ask the user to contact you instead of leaving a bad review
-              } else {
-                // _rateAndReviewApp();
-              }
-            },
-          ),
           SizedBox(height: 60),
         ],
       ),
