@@ -201,7 +201,6 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                                 .servicesAndEmployees);
                       },
                     );
-
                   },
                 ),
               ],
