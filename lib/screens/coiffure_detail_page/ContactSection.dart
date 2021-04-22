@@ -13,22 +13,32 @@ class ContactSection extends StatelessWidget {
     return Wrap(
       runSpacing: 10,
       children: [
-        Text('İletişim', style: kTextStyle),
+        Text('Adres', style: kTextStyle),
         Text(coiffureModel.address, style: kSmallTextStyle),
         SizedBox(height: 10),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text('Telefon: ', style: kSmallTextStyle),
-            Icon(Icons.call, size: 20, color: Colors.green),
+            Text('Telefon: ', style: kTextStyle),
+            Icon(Icons.call, color: Colors.green,),
             TextButton(
-              child: Text(
-                coiffureModel.telephone,
-                style: kSmallTextStyle.copyWith(color: Colors.blue),
-              ),
-              onPressed: () {
-                launch("tel://${coiffureModel.telephone}");
-              },
-            ),
+               child: Text(
+                 coiffureModel.telephone,
+                 style: kSmallTextStyle.copyWith(color: Colors.green),
+               ),
+               onPressed: () {
+                 launch("tel://${coiffureModel.telephone}");
+               },
+             ),
+           // TextButton(
+           //   child: Text(
+           //     coiffureModel.telephone,
+           //     style: kSmallTextStyle.copyWith(color: Colors.blue),
+           //   ),
+           //   onPressed: () {
+           //     launch("tel://${coiffureModel.telephone}");
+           //   },
+           // ),
           ],
         ),
       ],

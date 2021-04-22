@@ -1,4 +1,5 @@
 import 'package:ayarla/components/map/mapBox.dart';
+import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes.dart';
@@ -79,6 +80,9 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           PastAppointmentsPage());
 
+  static Handler _timeSelectionPage = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          CalenderPage());
   /// Manager Pages
   static Handler _managerHome = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
@@ -141,5 +145,6 @@ class Routers {
     router.define("/WebServisleri", handler: _webServicePage);
     router.define("/KayitPopUp", handler: _regPopUp);
     router.define("/KayitSayfasi", handler: _regPage);
+    router.define("/SaatSayfasi", handler: _timeSelectionPage);
   }
 }

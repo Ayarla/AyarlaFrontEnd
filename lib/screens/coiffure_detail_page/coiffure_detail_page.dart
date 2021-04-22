@@ -3,6 +3,8 @@ import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/coiffure_detail_page/AboutSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ContactSection.dart';
@@ -155,6 +157,32 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                 FloatingButton(
                   text: "Saati Belirle",
                   gradient: Functions().decideColor(context),
+                  onPressed: ()async{
+                    await Provider.of<AppointmentData>(context, listen: false)
+                        .getServicesWithEmployee();
+
+                    // Navigator.pushNamed(context, ConfirmationPage.id);
+                    showModalBottomSheet(
+                      enableDrag: false,
+                      isScrollControlled: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20.0),
+                        ),
+                      ),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CalenderPage(
+                            servicesAndEmployees:
+                            Provider.of<AppointmentData>(context,
+                                listen: true)
+                                .servicesAndEmployees);
+                      },
+                    );
+
+                  },
                 ),
               ],
             )

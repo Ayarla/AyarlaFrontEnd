@@ -11,12 +11,12 @@ class ServicesSection extends StatefulWidget {
 }
 
 class _ServicesSectionState extends State<ServicesSection> {
-  // /// returns the index of the service
-  // int findIndex(ServiceModel x) {
-  //   return Provider.of<AppointmentData>(context, listen: false)
-  //       .fullTimeServices
-  //       .indexOf(x);
-  // }
+  /// returns the index of the service
+  int findIndex(ServiceModel x) {
+    return Provider.of<AppointmentData>(context, listen: false)
+        .fullTimeServices
+        .indexOf(x);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,44 +27,45 @@ class _ServicesSectionState extends State<ServicesSection> {
         for (ServiceModel x
             in Provider.of<AppointmentData>(context, listen: false)
                 .fullTimeServices)
-          GestureDetector(
-            onTap: () {
-              print('hi');
-              setState(() {
-                Provider.of<AppointmentData>(context, listen: false)
-                    .calculateTotalPrice2(x.price);
-                x.selected = !x.selected;
-                print(
-                    Provider.of<AppointmentData>(context, listen: false).total);
-              });
-            },
-            child: MenuSection2(
-              title: Container(
-                width: size.width / 1.1,
-                height: 80,
-                child: Row(
-                  children: [
-                    SizedBox(width: 10),
-                    Text(x.name,
-                        style:
-                            kTextStyle.copyWith(fontWeight: FontWeight.normal)),
-                    Spacer(),
-                    Text(x.price.toString(),
-                        style:
-                            kTextStyle.copyWith(fontWeight: FontWeight.normal)),
-                    Text(" ₺", style: TextStyle(fontSize: 20)),
-                    SizedBox(width: 10),
-                    Icon(
-                      x.selected ? Icons.remove : Icons.add,
-                      size: 25,
-                    ),
-                    SizedBox(width: 10),
-                  ],
-                ),
+          MenuSection2(
+            title: Container(
+              width: size.width / 1.1,
+              height: 80,
+              child: Row(
+                children: [
+                  SizedBox(width: 10),
+                  Text(x.name,
+                      style:
+                          kTextStyle.copyWith(fontWeight: FontWeight.normal)),
+                  Spacer(),
+                  Text(x.price.toString(),
+                      style:
+                          kTextStyle.copyWith(fontWeight: FontWeight.normal)),
+                  Text(" ₺", style: TextStyle(fontSize: 20)),
+                  SizedBox(width: 10),
+                  IconButton(
+                    icon: Provider.of<AppointmentData>(context, listen: true)
+                            .fullTimeServices[findIndex(x)]
+                            .selected
+                        ? Icon(Icons.remove,size:25)
+                        : Icon(Icons.add,size:25),
+                    onPressed: (){
+                      Provider.of<AppointmentData>(
+                        context,
+                        listen: false)
+                        .changeSelectedService(findIndex(x));
+
+                      },
+                  ),
+                  SizedBox(width: 10),
+                ],
               ),
-              accentColor: Colors.white,
-              backgroundColor: Colors.white,
             ),
+            accentColor: Colors.white,
+            backgroundColor: Colors.white,
+            serviceIndex: Provider.of<AppointmentData>(context, listen: true)
+                .fullTimeServices
+                .indexOf(x),
           ),
       ],
     );
