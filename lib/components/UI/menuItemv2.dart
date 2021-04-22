@@ -44,7 +44,6 @@ class _SectionState extends State<MenuSection2>
   );
 
   Animation<double> _sizeAnimation;
-  bool _isExpanded = false;
 
   /// returns the index of the service
   int findIndex(ServiceModel x) {
@@ -71,11 +70,10 @@ class _SectionState extends State<MenuSection2>
 
     /// [_sizeAnimation] will interpolate using this curve - [Curves.fastOutSlowIn].
     _sizeAnimation = _sizeTween.animate(curve);
-    _controller.addListener(() {
-      setState(() {});
-    });
-  }
+    _controller.addListener(() {});
 
+
+  }
   @override
   dispose() {
     _controller.dispose();
@@ -86,19 +84,13 @@ class _SectionState extends State<MenuSection2>
   /// animation forward or backwards depending on the initial status.
   _toggleExpand() {
     setState(() {
-      _isExpanded = !_isExpanded;
-    });
-    switch (_sizeAnimation.status) {
-      case AnimationStatus.completed:
-        _controller.reverse();
-        break;
-      case AnimationStatus.dismissed:
+      if(Provider.of<AppointmentData>(context, listen: true)
+          .fullTimeServices[widget.serviceIndex].selected==true ){
         _controller.forward();
-        break;
-      case AnimationStatus.reverse:
-      case AnimationStatus.forward:
-        break;
-    }
+      }else{
+        _controller.reverse();
+      }
+    });
   }
 
   bool isSelected = false;
@@ -121,87 +113,99 @@ class _SectionState extends State<MenuSection2>
 
   @override
   Widget build(BuildContext context) {
+    _toggleExpand();
     final size = MediaQuery.of(context).size;
-    return GestureDetector(
-        onTap: () {
-          _toggleExpand();
-          if (isSelected == false) {
-            isSelected = true;
-          } else
-            isSelected = false;
-        },
-        child: Center(
-          child: Card(
-            shape: roundedShape,
-            elevation: 5,
-            child: Container(
-                // do not use height here.
-                // height: 50,
-                width: size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Column(children: <Widget>[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [widget.title],
-                          ),
-                          SizeTransition(
-                            axisAlignment: 0.0,
-                            axis: Axis.vertical,
-                            sizeFactor: _sizeAnimation,
-                            child: Container(
-                              height: 80,
-                              // width: 150,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 5,
-                                itemBuilder: (BuildContext bc, int index) {
-                                  return GenericIconButton(
-                                    iconContext: Container(
-                                      padding: EdgeInsets.only(top: 5),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image(
-                                              height: 40,
-                                              image: AssetImage(
-                                                Provider.of<AppointmentData>(
-                                                        context,
-                                                        listen: true)
-                                                    .employeesList[index]
-                                                    .image,
-                                              ),
+    return Center(
+      child: Card(
+        shape: roundedShape,
+        elevation: 5,
+        child: Container(
+            // do not use height here.
+            // height: 50,
+            width: size.width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Stack(
+                  children: <Widget>[
+                    Column(children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [widget.title],
+                      ),
+                      SizeTransition(
+                        axisAlignment: 0.0,
+                        axis: Axis.vertical,
+                        sizeFactor: _sizeAnimation,
+                        child: Container(
+                          height: 90,
+                          child: Row(
+                            children: [
+                              Icon(Icons.keyboard_arrow_left),
+                              Expanded(
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 5,
+                                  itemBuilder: (BuildContext bc, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal:4.0),
+                                      child: Container(
+                                        width: 100,
+                                        child: GenericIconButton(
+                                          color:Provider.of<AppointmentData>(context,
+                                              listen: true).fullTimeServices[widget.serviceIndex].employees[index].selected?
+                                              Colors.green:null,
+                                          iconContext: Container(
+                                            padding: EdgeInsets.only(top: 5),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Image(
+                                                    height: 40,
+                                                    image: AssetImage(
+                                                      Provider.of<AppointmentData>(
+                                                              context,
+                                                              listen: true)
+                                                          .employeesList[index]
+                                                          .image,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        ],
+                                          text: Provider.of<AppointmentData>(context,
+                                                  listen: true)
+                                              .employeesList[index]
+                                              .name,
+                                          onPressed: () {
+                                            setState(() {
+                                              Provider.of<AppointmentData>(context,
+                                                  listen: false).changeSelectedEmployee(widget.serviceIndex, index);
+                                            });
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                    text: Provider.of<AppointmentData>(context,
-                                            listen: true)
-                                        .employeesList[index]
-                                        .name,
-                                    onPressed: () {
-                                      setState(() {});
-                                    },
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
+                              Icon(Icons.keyboard_arrow_right),
+                            ],
                           ),
-                        ]),
-                      ],
-                    ))),
-          ),
-        ));
+                        ),
+                      ),
+                    ]),
+                  ],
+                ))),
+      ),
+    );
   }
 }

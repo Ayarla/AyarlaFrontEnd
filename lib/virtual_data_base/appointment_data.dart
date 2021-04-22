@@ -262,6 +262,7 @@ class AppointmentData extends ChangeNotifier {
   bool serviceSelected = false;
   changeSelectedService(int index) {
     fullTimeServices[index].selected = !fullTimeServices[index].selected;
+    calculateTotalPrice();
     notifyListeners();
   }
 

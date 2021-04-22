@@ -27,7 +27,7 @@ class GenericIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Card(
-        color: color ?? Colors.white,
+        color: color ?? Colors.transparent,
         shape: roundedShape,
         elevation: 0,
         child: Column(

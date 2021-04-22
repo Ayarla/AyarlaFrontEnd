@@ -176,6 +176,9 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                 FloatingButton(
                   text: "Saati Belirle",
                   gradient: Functions().decideColor(context),
+                  onPressed: (){
+                    ///TODO router for the next page
+                  },
                 ),
               ],
             )
