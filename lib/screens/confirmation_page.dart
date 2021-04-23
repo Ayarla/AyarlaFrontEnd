@@ -210,7 +210,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             ),
           ),
 
-          if (UniversalPlatform.isWeb)
+          if (UniversalPlatform.isWeb && isConfirmed == true)
             Container(
               height: 300,
               child: ListView(
