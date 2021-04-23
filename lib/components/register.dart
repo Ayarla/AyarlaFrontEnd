@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/search_page.dart';
 import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
@@ -88,11 +87,11 @@ class _RegisterState extends State<Register> {
           leading: FlatButton(
             child: Icon(Icons.home, color: Colors.white, size: 40.0),
             onPressed: () {
-              Navigator.popUntil(
-                  context,
-                  ModalRoute.withName(
-                      SearchPage.id
-                  ));
+              // Navigator.popUntil(
+              //     context,
+              //     ModalRoute.withName(
+              //         SearchPage.id
+              //     ));
             },
           ),
           title: Center(

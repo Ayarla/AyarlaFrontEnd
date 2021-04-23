@@ -1,3 +1,4 @@
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -6,12 +7,6 @@ import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/authentication_page.dart';
-import 'package:ayarla/screens/manager_screens/manager_home.dart';
-import 'package:ayarla/screens/user_page/appontments_page.dart';
-import 'package:ayarla/screens/user_page/edit_profile_page.dart';
-import 'package:ayarla/screens/user_page/favorites_page.dart';
-import 'package:ayarla/screens/user_page/message_page.dart';
-import 'package:ayarla/screens/user_page/past_appointments_page.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
@@ -115,7 +110,7 @@ class _UserPageState extends State<UserPage> {
 
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, FavoritesPage.id);
+                          Routers.router.navigateTo(context, "Favorilerim");
                         },
                         child: Row(
                           children: [
@@ -137,12 +132,7 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UserMessagePage(),
-                            ),
-                          );
+                          Routers.router.navigateTo(context, '/Mesajlarim');
                         },
                         child: Row(
                           children: [
@@ -163,7 +153,8 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, AppointmentsPage.id);
+                          // Navigator.pushNamed(context, AppointmentsPage.id);
+                          Routers.router.navigateTo(context, '/Randevularim');
                         },
                         child: Row(
                           children: [
@@ -185,7 +176,8 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, PastAppointmentsPage.id);
+                          // Navigator.pushNamed(context, PastAppointmentsPage.id);
+                          Routers.router.navigateTo(context, '/GecmisRandevularim');
                         },
                         child: Row(
                           children: [
@@ -206,7 +198,7 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, EditProfilePage.id);
+                          Routers.router.navigateTo(context, '/ProfilimiDuzenle');
                         },
                         child: Row(
                           children: [
@@ -264,7 +256,8 @@ class _UserPageState extends State<UserPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, ManagerHome.id);
+                  // Navigator.pushNamed(context, ManagerHome.id);
+                  Routers.router.navigateTo(context, "YoneticiAnasayfasi");
                   Provider.of<Login>(context, listen: false).loggedInManager();
 
                   ///TODO check and push somewhere

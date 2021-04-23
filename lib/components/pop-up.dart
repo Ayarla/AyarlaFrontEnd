@@ -5,9 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/confirmation_page.dart';
-import 'package:ayarla/screens/privacy_policy_page.dart';
-import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:provider/provider.dart';
 
@@ -150,8 +147,8 @@ class PopUp {
                   if (!isMember) {
                     passwordFieldDialog(context: context);
                   } else {
-                    Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                    Navigator.pushNamed(context, ConfirmationPage.id);
+                    // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+                    // Navigator.pushNamed(context, ConfirmationPage.id);
                     Provider.of<AppointmentData>(context, listen: false).confirmation();
                   }
                 }
@@ -565,8 +562,8 @@ class PopUp {
                       style: kSmallTextStyle.copyWith(color: Colors.red, fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                      Navigator.pushNamed(context, ConfirmationPage.id);
+                      // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+                      // Navigator.pushNamed(context, ConfirmationPage.id);
                       Provider.of<AppointmentData>(context, listen: false).confirmation();
                     },
                   ),
@@ -584,8 +581,8 @@ class PopUp {
                       if (checkBox) {
                         if (_formKey.currentState.validate()) {
                           /// TODO kayit olmayi burada yapacagiz
-                          Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                          Navigator.pushNamed(context, ConfirmationPage.id);
+                          // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+                          // Navigator.pushNamed(context, ConfirmationPage.id);
                           Provider.of<AppointmentData>(context, listen: false).confirmation();
 
                           print(_phoneNumber);

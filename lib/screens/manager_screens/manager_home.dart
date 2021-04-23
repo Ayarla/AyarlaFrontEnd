@@ -1,14 +1,11 @@
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
-import 'package:ayarla/components/UI/managerScreenButton.dart';
+import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/screens/manager_screens/business_info_page.dart';
-import 'package:ayarla/screens/manager_screens/employee_page.dart';
-import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
-import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
-import 'employee_management.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ManagerHome extends StatefulWidget {
   static const String id = "ManagerHome";
@@ -20,6 +17,11 @@ class ManagerHome extends StatefulWidget {
 class _ManagerHomeState extends State<ManagerHome> {
   @override
   Widget build(BuildContext context) {
+    Widget bo = SvgPicture.asset(
+      'assets/icons/icon_home.svg',
+      width: 70,
+      color: Colors.black,
+    );
     final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -60,36 +62,44 @@ class _ManagerHomeState extends State<ManagerHome> {
                         mainAxisSpacing: 10,
                         crossAxisCount: 2,
                         children: <Widget>[
-                          ManagerScreenButton(
-                              icon: UI.homeIcon,
+                          GenericIconButton(
+                              // iconContext: UI.homeIcon,
+                              // iconContext: Icon(Icons.home),
+                              iconContext: bo,
                               color: Colors.white.withOpacity(.4),
                               text: 'İşletmem',
-                              routeID: BusinessInfoPage.id),
-                          ManagerScreenButton(
-                              icon: UI.employeesIcon,
-                              color: Colors.white.withOpacity(.4),
-                              text: 'Çalışanlarım',
-                              routeID: EmployeeManagement.id),
-                          ManagerScreenButton(
-                              icon: UI.calenderIcon,
-                              color: Colors.white.withOpacity(.4),
-                              text: 'Ayarlarım',
-                              routeID: EmployeePage.id),
-                          ManagerScreenButton(
-                              icon: UI.notesIcon,
-                              color: Colors.white.withOpacity(.4),
-                              text: 'Notlarım',
-                              routeID: ManagerNotesPage.id),
-                          ManagerScreenButton(
-                              icon: UI.messageIcon,
-                              color: Colors.white.withOpacity(.4),
-                              text: 'Mesajlaşma',
-                              routeID: ManagerSendMessage.id),
-                          ManagerScreenButton(
-                              icon: UI.notificationIcon,
-                              color: Colors.white.withOpacity(.4),
-                              text: 'Randevu Hatırlatma',
-                              routeID: ManagerSendMessage.id),
+                              onPressed: () => Routers.router
+                                  .navigateTo(context, "/Isletmem")),
+                          // GenericIconButton(
+                          //     iconContext: UI.employeesIcon,
+                          //     color: Colors.white.withOpacity(.4),
+                          //     text: 'Çalışanlarım',
+                          //     onPressed: () => Routers.router
+                          //         .navigateTo(context, "/Çalışanlarım")),
+                          // GenericIconButton(
+                          //   iconContext: UI.calenderIcon,
+                          //   color: Colors.white.withOpacity(.4),
+                          //   text: 'Ayarlarım',
+                          //   // onPressed: EmployeePage.id,
+                          // ),
+                          // GenericIconButton(
+                          //   iconContext: UI.notesIcon,
+                          //   color: Colors.white.withOpacity(.4),
+                          //   text: 'Notlarım',
+                          //   // onPressed: ManagerNotesPage.id,
+                          // ),
+                          // GenericIconButton(
+                          //   iconContext: UI.messageIcon,
+                          //   color: Colors.white.withOpacity(.4),
+                          //   text: 'Mesajlaşma',
+                          //   // onPressed: ManagerSendMessage.id,
+                          // ),
+                          // GenericIconButton(
+                          //   iconContext: UI.notificationIcon,
+                          //   color: Colors.white.withOpacity(.4),
+                          //   text: 'Randevu Hatırlatma',
+                          //   // onPressed: ManagerSendMessage.id,
+                          // ),
                         ]))
               ]),
             )),

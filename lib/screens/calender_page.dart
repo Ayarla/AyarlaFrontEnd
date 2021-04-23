@@ -1,11 +1,11 @@
 import 'package:ayarla/components/calendar/calendar.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/Appointment.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/confirmation_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class CalenderPage extends StatefulWidget {
@@ -321,7 +321,7 @@ class _CalenderPageState extends State<CalenderPage> {
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   onPressed: () {
-                    Navigator.pushNamed(context, ConfirmationPage.id);
+                    Routers.router.navigateTo(context, "/OnaySayfasi");
                   },
                   label: FittedBox(
                     fit: BoxFit.cover,

@@ -35,10 +35,7 @@ class Comment extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: kSmallTextStyle,
-                ),
+                Text(name, style: kSmallTextStyle),
                 Row(
                   children: <Widget>[
                     for (int i = 0; i < rating; i++)
@@ -64,13 +61,8 @@ class Comment extends StatelessWidget {
         ),
         SizedBox(height: 5),
         Padding(
-          padding: EdgeInsets.only(left: 45),
-          child: Text(
-            comment,
-            style: kSmallTextStyle,
-          ),
-        ),
-        // SizedBox(height: 5,),
+            padding: EdgeInsets.only(left: 45),
+            child: Text(comment, style: kSmallTextStyle)),
         _voting(),
       ],
     );
@@ -81,36 +73,22 @@ class Comment extends StatelessWidget {
       children: [
         SizedBox(width: 35),
         IconButton(
-          icon: Icon(
-            FontAwesomeIcons.thumbsUp,
-            size: 20,
-            color: Colors.lightGreen,
-          ),
-          padding: EdgeInsets.all(0),
+          icon: Icon(FontAwesomeIcons.thumbsUp,
+              size: 20, color: Colors.lightGreen),
           onPressed: () {
             ///
           },
         ),
-        Text(
-          like.toString(),
-          style: kSmallTextStyle,
-        ),
+        Text(like.toString(), style: kSmallTextStyle),
         SizedBox(width: 10),
         IconButton(
-          icon: Icon(
-            FontAwesomeIcons.thumbsDown,
-            size: 20,
-            color: Colors.redAccent,
-          ),
-          padding: EdgeInsets.all(0),
+          icon: Icon(FontAwesomeIcons.thumbsDown,
+              size: 20, color: Colors.redAccent),
           onPressed: () {
             ///
           },
         ),
-        Text(
-          dislike.toString(),
-          style: kSmallTextStyle,
-        ),
+        Text(dislike.toString(), style: kSmallTextStyle),
       ],
     );
   }

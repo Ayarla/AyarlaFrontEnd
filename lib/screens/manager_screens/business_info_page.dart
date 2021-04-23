@@ -1,3 +1,5 @@
+import 'package:ayarla/components/map/mapBox.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import 'package:ayarla/components/floatingButton.dart';
 import 'package:ayarla/components/googleMap.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/overScroll.dart';
-import 'package:ayarla/components/rating_row.dart';
 import 'package:ayarla/components/timeDropdown.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/employeeAndService.dart';
@@ -235,13 +236,14 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
         floatingActionButton: isChanged
             ? FloatingButton(
                 text: 'Kaydet',
-                function: () {
+                onPressed: () {
                   setState(() {
                     // isSaved = true;
                     isChanged = false;
                   });
                 },
-                isGradient: true)
+                // isGradient: true,
+        )
             : null,
         appBar: DefaultAppBar(
                 title: Text("Kuaför Adı",
@@ -417,10 +419,10 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                         "Hakkında",
                         style: kTitleStyle,
                       ),
-                      RatingRow(
-                        number: 3,
-                        comment: 150,
-                      ),
+                      // RatingRow(
+                      //   number: 3,
+                      //   comment: 150,
+                      // ),
 
                       /// Location
                       Row(
@@ -993,8 +995,9 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                               padding: const EdgeInsets.symmetric(horizontal: 60.0),
                               child: OutlinedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, GoogleMapSample.id);
+                                  // Navigator.pushNamed(
+                                  //     context, MapBox.id);
+                                  Routers.router.navigateTo(context, "/Harita");
                                 },
                                 style: ButtonStyle(
                                   padding: MaterialStateProperty.all(

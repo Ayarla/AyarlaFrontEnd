@@ -10,7 +10,6 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/coiffeurModel.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import '../coiffure_detail_page.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const id = 'FavoritesPage';
@@ -23,8 +22,9 @@ class _FavoritesPageState extends State<FavoritesPage>
     with SingleTickerProviderStateMixin {
   Functions functions = Functions();
   List localList = [];
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
-  void deleteUser(int index, CoiffureModel coiffureModel) {
+  void removeFavorite(int index, CoiffureModel coiffureModel) {
     localList.removeAt(index);
     _listKey.currentState.removeItem(
       index,
@@ -55,15 +55,15 @@ class _FavoritesPageState extends State<FavoritesPage>
     super.initState();
   }
 
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: DefaultAppBar(
-        title: UI.appBarTitleFavorites,
+        title: UI.AppBarTitleFavorites(),
         gradient: functions.decideColor(context),
         showIconButton: false,
+        centerTitle: true,
       ).build(context),
       body: OverScroll(
         child: AnimatedList(
@@ -74,67 +74,105 @@ class _FavoritesPageState extends State<FavoritesPage>
               (BuildContext buildContext, int index, Animation animation) {
             return FadeTransition(
               opacity: animation,
-              child: Slidable(
-                actionPane: SlidableDrawerActionPane(),
-                actionExtentRatio: 0.25,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CoiffureDetailPage(
-                          coiffureModel: localList[index],
-                          uniqueId: localList[index].uniqueId,
+              child: size.width < 700
+                  ? Slidable(
+                      actionPane: SlidableDrawerActionPane(),
+                      actionExtentRatio: 0.25,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Routers.router.navigateTo(
+                          //   context,
+                          //   "/Isletme/:name",
+                          //   routeSettings: RouteSettings(
+                          //     name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}",
+                          //     arguments: CoiffureDetailPage(
+                          //         coiffureModel: widget.coiffureModel,
+                          //         name: widget.coiffureModel.name),
+                          //   ),
+                          // );
+                        },
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          child: CardInfo(coiffureModel: localList[index]),
                         ),
                       ),
-                    );
-                  },
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: CardInfo(coiffureModel: localList[index]),
-                  ),
-                ),
-                actions: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: CircularParent(
-                      radius: 20,
-                      direction: Directions.all,
-                      color: Colors.red,
-                      child: IconSlideAction(
-                          caption: 'Kaldır',
-                          color: Colors.transparent,
-                          icon: Icons.delete,
-                          onTap: () {
-                            Provider.of<AppointmentData>(context, listen: false)
-                                .myState
-                                .setState(() {});
-                            setState(() {
-                              deleteUser(index, localList[index]);
-                            });
-                          }),
-                    ),
-                  ),
-                ],
-                secondaryActions: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: CircularParent(
-                      radius: 20,
-                      direction: Directions.all,
-                      color: Colors.indigo,
-                      child: IconSlideAction(
-                        caption: 'Paylaş',
-                        color: Colors.transparent,
-                        icon: Icons.share,
-                        // onTap: () => _showSnackBar('More'),
+                      actions: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(8),
+                          child: CircularParent(
+                            radius: 20,
+                            direction: Directions.all,
+                            color: Colors.red,
+                            child: IconSlideAction(
+                                caption: 'Kaldır',
+                                color: Colors.transparent,
+                                icon: Icons.delete,
+                                onTap: () {
+                                  if (Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .myState
+                                      .mounted) {
+                                    Provider.of<AppointmentData>(context,
+                                            listen: false)
+                                        .myState
+                                        .setState(() {});
+                                  }
+                                  setState(() {
+                                    removeFavorite(index, localList[index]);
+                                  });
+                                }),
+                          ),
+                        ),
+                      ],
+                      secondaryActions: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: CircularParent(
+                            radius: 20,
+                            direction: Directions.all,
+                            color: Colors.indigo,
+                            child: IconSlideAction(
+                              caption: 'Paylaş',
+                              color: Colors.transparent,
+                              icon: Icons.share,
+                              // onTap: () => _showSnackBar('More'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : SizedBox(
+                      width: size.width,
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              // Routers.router.navigateTo(
+                              //   context,
+                              //   "/Isletme/:name",
+                              //   routeSettings: RouteSettings(
+                              //     name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}",
+                              //     arguments: CoiffureDetailPage(
+                              //         coiffureModel: widget.coiffureModel,
+                              //         name: widget.coiffureModel.name),
+                              //   ),
+                              // );
+                            },
+                            child: SizedBox(
+                              width: size.width / 1.2,
+                              child: Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: CardInfo(coiffureModel: localList[index]),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
             );
           },
         ),

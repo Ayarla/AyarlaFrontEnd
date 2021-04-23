@@ -1,8 +1,10 @@
 import 'dart:math';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:ayarla/models/userModel.dart';
+import 'package:ayarla/screens/search_page.dart';
+import 'package:ayarla/webService/webFunctions.dart';
+// import 'package:firebase/firebase.dart';
+// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:mailer/mailer.dart';
-// import 'package:mailer/smtp_server.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:ayarla/models/Appointment.dart';
 import 'package:ayarla/models/coiffeurModel.dart';
@@ -318,6 +320,12 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
+  calculateTotalPrice2(int price) {
+    total += price;
+    print(total);
+    notifyListeners();
+  }
+
   ///Chooses the selected employee and discards the others
   ///=> used in coiffure_detail card
   changeSelectedEmployee(int serviceIndex, int index) {
@@ -380,7 +388,7 @@ class AppointmentData extends ChangeNotifier {
   }
 
   ///Stores selected information about appointment
-  ///=> coiffure_detail_page
+  ///=> screens.coiffure_detail_page
   ///=> 'Saati Belirle' button
 
   List<AppointmentInfo> servicesAndEmployees = [];
@@ -578,20 +586,79 @@ class AppointmentData extends ChangeNotifier {
       "İl": "İstanbul",
       "İlçe": "Kadıköy",
       "İsim": "Silver Hair Studio Bekir Özdemir & Emre Barış Çakır"
-    }, 0)
+    }, 0),
+    CoiffureModel.fromJson({
+      "Adres": "Bağdat Cad. No:157/1 Selamiçeşme Köşemiz Apt.",
+      "Cinsiyet": "Kadın",
+      "Değerl": 591,
+      "Hakkında":
+          "Mesleğine 1985 yılında Nişantaşı Mehmet Hüseyin Salonlarında başlayan Bekir Özdemir, kariyerini en iyi yıllarını bu salonlarında sürdürdü. Bu süreçte önde gelen modacıların defilelerinde, çekimlerinde ve şovlarında saç, makyaj ve kostüm üzerine stil danışmanlığı ve uygulamacılığı yaptı.1999 Loreal tropy ulusal renk kupasını en güzel kızılı ile bu başarı hak etti. Aynı sene içerinde paristeki bir çok kuaför dergisinde sergilenen kızılı Paris'te büyük beğeni topladı.Bu büyük başarıdan sonra pariste 1 sene en iyi kuaförlerle çalışarak bir çok yenilik ve tecrübe kazandı. 2008 yılında dünyada 1 numaralı kesim eğitimi uzmanı olan Toni&Guy Academy de 6 aylık zorlu maratonunu üstün başarıyla tamamlayarak Toni&Guy Academy sertifikasını almaya hak kazAndı. Çeşitli tarihlerde İzmir, Denizli ve Ege Bölgesi nde kalabalık kuaför topluluklarına eğitimlere katıldı. Her sene sonunda paris e giderek büyük fuarlara katıldı, yeni saç ve makyaj stillerini inceleyerek, kendini sürekli geliştirdi. Eğitimci, uygulamacı, girişimci ve yenilikçi kimliği ile Bekir Özdemir ve bu doğrultuda, kendi oluşturup eğittiği ekibi ile yeni markaları SİLVER Kuaför ile hizmete devam ediyor. Bunun yanı sıra farklı makas tekniklerini kullanararak yıkanmış,taranamayan,yıpranmış,röfle ve ombreli saçları özel tekniklerle temizleyen bir saç teknolojisini Türkiye'de ilk ve tek kullanan saç akademisidir. Bu teknik sonrasında saçlarınızda dökülme duruyor,kırıklar yok oluyor,parlaklığı ve hacimlenmesi artıyor,güçsüz saçlarınızın yüksek derecede volumlendiğini hissediyorsunuz. Resimlerimizi incelediğinizde güçsüz ve taranamayan saçlarınızın uygulanan teknik sonrasında nasıl canlandığını net olarak göreceksiniz. Sizi Bekir Özdemir'in tecrübelerinden faydalanmanız için Bağdat Caddesi'ndeki salonumuza davet ediyoruz. Emre Barış Çakır baba mesleği olan kuaförlüğe erken yaşlarda başladı,küçükken en büyük hayali yaratıcı ve başarılı bir kuaför olmaktı,bir taraftan eğitim hayatına devam ederken diğer taraftan da hayalinin peşinden koşmaya başladı,askerlik sürecine kadar 5 yıl Bağdat Caddesinde Burhan Kuaför'de çalışmaya devam etti.Askerlik sonrasında hayallerini mesleki deneyimi ile birleştiren Emre yönünü yükseklere doğru çevirdi,Sırasıyla Toprak Şeker,Creative 216 gibi sektörün önemli lokomotiflerinden olan işletmelerde çalıştı.Bu süreçte yurt içi ve yurt dışında önemli kesim ve renklendirme eğitimlerine katılıp dünya yeni saç modasını yakından takip etti,Şimdi ise sektörün duayen isimlerinden olan Bekir Özdemir'le yeni bir birlikteliğe imza atan Emre Barış Çakır büyük aşkı olan renklendirme tekniklerini siz değerli müşterilerini yeni salonunda ağırlamaktan büyük bir gurur ve mutluluk duyuyor. Siz değerli hanımlar işini aşk ile yapan bu iki önemli sanatçının koltuğuna oturmak için salonumuza davetlisiniz.",
+      "Ort Fiyat": 100,
+      "Saatler": "09:00-19:00",
+      "Telefon": "(0850) 303 61 86",
+      "UniqueId": "15222",
+      "Yıldız": 4.9,
+      "İl": "İstanbul",
+      "İlçe": "Kadıköy",
+      "İsim": "Silver Hair Studio Bekir Özdemir & Emre Barış Çakır"
+    }, 0),
+    CoiffureModel.fromJson({
+      "Adres": "Bağdat Cad. No:157/1 Selamiçeşme Köşemiz Apt.",
+      "Cinsiyet": "Kadın",
+      "Değerl": 591,
+      "Hakkında":
+          "Mesleğine 1985 yılında Nişantaşı Mehmet Hüseyin Salonlarında başlayan Bekir Özdemir, kariyerini en iyi yıllarını bu salonlarında sürdürdü. Bu süreçte önde gelen modacıların defilelerinde, çekimlerinde ve şovlarında saç, makyaj ve kostüm üzerine stil danışmanlığı ve uygulamacılığı yaptı.1999 Loreal tropy ulusal renk kupasını en güzel kızılı ile bu başarı hak etti. Aynı sene içerinde paristeki bir çok kuaför dergisinde sergilenen kızılı Paris'te büyük beğeni topladı.Bu büyük başarıdan sonra pariste 1 sene en iyi kuaförlerle çalışarak bir çok yenilik ve tecrübe kazandı. 2008 yılında dünyada 1 numaralı kesim eğitimi uzmanı olan Toni&Guy Academy de 6 aylık zorlu maratonunu üstün başarıyla tamamlayarak Toni&Guy Academy sertifikasını almaya hak kazAndı. Çeşitli tarihlerde İzmir, Denizli ve Ege Bölgesi nde kalabalık kuaför topluluklarına eğitimlere katıldı. Her sene sonunda paris e giderek büyük fuarlara katıldı, yeni saç ve makyaj stillerini inceleyerek, kendini sürekli geliştirdi. Eğitimci, uygulamacı, girişimci ve yenilikçi kimliği ile Bekir Özdemir ve bu doğrultuda, kendi oluşturup eğittiği ekibi ile yeni markaları SİLVER Kuaför ile hizmete devam ediyor. Bunun yanı sıra farklı makas tekniklerini kullanararak yıkanmış,taranamayan,yıpranmış,röfle ve ombreli saçları özel tekniklerle temizleyen bir saç teknolojisini Türkiye'de ilk ve tek kullanan saç akademisidir. Bu teknik sonrasında saçlarınızda dökülme duruyor,kırıklar yok oluyor,parlaklığı ve hacimlenmesi artıyor,güçsüz saçlarınızın yüksek derecede volumlendiğini hissediyorsunuz. Resimlerimizi incelediğinizde güçsüz ve taranamayan saçlarınızın uygulanan teknik sonrasında nasıl canlandığını net olarak göreceksiniz. Sizi Bekir Özdemir'in tecrübelerinden faydalanmanız için Bağdat Caddesi'ndeki salonumuza davet ediyoruz. Emre Barış Çakır baba mesleği olan kuaförlüğe erken yaşlarda başladı,küçükken en büyük hayali yaratıcı ve başarılı bir kuaför olmaktı,bir taraftan eğitim hayatına devam ederken diğer taraftan da hayalinin peşinden koşmaya başladı,askerlik sürecine kadar 5 yıl Bağdat Caddesinde Burhan Kuaför'de çalışmaya devam etti.Askerlik sonrasında hayallerini mesleki deneyimi ile birleştiren Emre yönünü yükseklere doğru çevirdi,Sırasıyla Toprak Şeker,Creative 216 gibi sektörün önemli lokomotiflerinden olan işletmelerde çalıştı.Bu süreçte yurt içi ve yurt dışında önemli kesim ve renklendirme eğitimlerine katılıp dünya yeni saç modasını yakından takip etti,Şimdi ise sektörün duayen isimlerinden olan Bekir Özdemir'le yeni bir birlikteliğe imza atan Emre Barış Çakır büyük aşkı olan renklendirme tekniklerini siz değerli müşterilerini yeni salonunda ağırlamaktan büyük bir gurur ve mutluluk duyuyor. Siz değerli hanımlar işini aşk ile yapan bu iki önemli sanatçının koltuğuna oturmak için salonumuza davetlisiniz.",
+      "Ort Fiyat": 100,
+      "Saatler": "09:00-19:00",
+      "Telefon": "(0850) 303 61 86",
+      "UniqueId": "15222",
+      "Yıldız": 4.9,
+      "İl": "İstanbul",
+      "İlçe": "Kadıköy",
+      "İsim": "Silver Hair Studio Bekir Özdemir & Emre Barış Çakır"
+    }, 0),
+    CoiffureModel.fromJson({
+      "Adres": "Bağdat Cad. No:157/1 Selamiçeşme Köşemiz Apt.",
+      "Cinsiyet": "Kadın",
+      "Değerl": 591,
+      "Hakkında":
+      "Mesleğine 1985 yılında Nişantaşı Mehmet Hüseyin Salonlarında başlayan Bekir Özdemir, kariyerini en iyi yıllarını bu salonlarında sürdürdü. Bu süreçte önde gelen modacıların defilelerinde, çekimlerinde ve şovlarında saç, makyaj ve kostüm üzerine stil danışmanlığı ve uygulamacılığı yaptı.1999 Loreal tropy ulusal renk kupasını en güzel kızılı ile bu başarı hak etti. Aynı sene içerinde paristeki bir çok kuaför dergisinde sergilenen kızılı Paris'te büyük beğeni topladı.Bu büyük başarıdan sonra pariste 1 sene en iyi kuaförlerle çalışarak bir çok yenilik ve tecrübe kazandı. 2008 yılında dünyada 1 numaralı kesim eğitimi uzmanı olan Toni&Guy Academy de 6 aylık zorlu maratonunu üstün başarıyla tamamlayarak Toni&Guy Academy sertifikasını almaya hak kazAndı. Çeşitli tarihlerde İzmir, Denizli ve Ege Bölgesi nde kalabalık kuaför topluluklarına eğitimlere katıldı. Her sene sonunda paris e giderek büyük fuarlara katıldı, yeni saç ve makyaj stillerini inceleyerek, kendini sürekli geliştirdi. Eğitimci, uygulamacı, girişimci ve yenilikçi kimliği ile Bekir Özdemir ve bu doğrultuda, kendi oluşturup eğittiği ekibi ile yeni markaları SİLVER Kuaför ile hizmete devam ediyor. Bunun yanı sıra farklı makas tekniklerini kullanararak yıkanmış,taranamayan,yıpranmış,röfle ve ombreli saçları özel tekniklerle temizleyen bir saç teknolojisini Türkiye'de ilk ve tek kullanan saç akademisidir. Bu teknik sonrasında saçlarınızda dökülme duruyor,kırıklar yok oluyor,parlaklığı ve hacimlenmesi artıyor,güçsüz saçlarınızın yüksek derecede volumlendiğini hissediyorsunuz. Resimlerimizi incelediğinizde güçsüz ve taranamayan saçlarınızın uygulanan teknik sonrasında nasıl canlandığını net olarak göreceksiniz. Sizi Bekir Özdemir'in tecrübelerinden faydalanmanız için Bağdat Caddesi'ndeki salonumuza davet ediyoruz. Emre Barış Çakır baba mesleği olan kuaförlüğe erken yaşlarda başladı,küçükken en büyük hayali yaratıcı ve başarılı bir kuaför olmaktı,bir taraftan eğitim hayatına devam ederken diğer taraftan da hayalinin peşinden koşmaya başladı,askerlik sürecine kadar 5 yıl Bağdat Caddesinde Burhan Kuaför'de çalışmaya devam etti.Askerlik sonrasında hayallerini mesleki deneyimi ile birleştiren Emre yönünü yükseklere doğru çevirdi,Sırasıyla Toprak Şeker,Creative 216 gibi sektörün önemli lokomotiflerinden olan işletmelerde çalıştı.Bu süreçte yurt içi ve yurt dışında önemli kesim ve renklendirme eğitimlerine katılıp dünya yeni saç modasını yakından takip etti,Şimdi ise sektörün duayen isimlerinden olan Bekir Özdemir'le yeni bir birlikteliğe imza atan Emre Barış Çakır büyük aşkı olan renklendirme tekniklerini siz değerli müşterilerini yeni salonunda ağırlamaktan büyük bir gurur ve mutluluk duyuyor. Siz değerli hanımlar işini aşk ile yapan bu iki önemli sanatçının koltuğuna oturmak için salonumuza davetlisiniz.",
+      "Ort Fiyat": 100,
+      "Saatler": "09:00-19:00",
+      "Telefon": "(0850) 303 61 86",
+      "UniqueId": "15222",
+      "Yıldız": 4.9,
+      "İl": "İstanbul",
+      "İlçe": "Kadıköy",
+      "İsim": "Silver Hair Studio Bekir Özdemir & Emre Barış Çakır"
+    }, 0),
   ];
-  DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+  // DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
   Future<List> getAllCoiffures() async {
-    //TODO - dataSnapShot is not used
-    DataSnapshot dataSnapshot = await databaseReference.once();
-    for (int i = 0; i <= 10; i++) {
-      databaseReference.child('$i').onValue.listen((event) {
-        coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
-        print('Data received successfully!');
-      });
+    //   //TODO - dataSnapShot is not used
+    //   DataSnapshot dataSnapshot = await databaseReference.once();
+    //   for (int i = 0; i <= 10; i++) {
+    //     databaseReference.child('$i').onValue.listen((event) {
+    //       coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
+    //       print('Data received successfully!');
+    //     });
+    //   }
+    //   return coiffureList;
+  }
+
+  List userList = [];
+  Future<List> getAllUsers() async {
+    userList.clear();
+    var getAllReturnList = await getAll();
+    for (int i = 0; i < getAllReturnList.length; i++) {
+      userList.add(UserModel.fromJson(getAllReturnList[i], i));
     }
-    return coiffureList;
+
+    for (UserModel x in userList) {
+      print('${x.fullName} : ${x.id}');
+    }
+    return userList;
   }
 
   finalDate() {
@@ -599,72 +666,6 @@ class AppointmentData extends ChangeNotifier {
   }
 
   String lastDate;
-
-  /// Send Mail
-  // Future sendMail(String recipients, var summary) async {
-  //   String username = 'ozet@ayarla.app';
-  //   String password = 'aa112233';
-  //   final smtpServer = new SmtpServer('smtp.yandex.com.tr',
-  //       username: username, password: password, port: 465, ignoreBadCertificate: false, ssl: true, allowInsecure: true);
-  //
-  //   List list2 = [];
-  //
-  //   /// Nice !
-  //   for (AppointmentInfo x in servicesAndEmployees) {
-  //     list2.add(x.service.toString());
-  //     // print(x.service);
-  //   }
-  //
-  //   /// Create our message.
-  //   final message = Message()
-  //     ..from = Address(username, 'Ayarla Ekibi')
-  //     ..recipients.add(recipients)
-  //     //><h1>Deneme maili</h1><img src='data:image/png;base64,$summary'>"
-  //     /// entered to the textField. THE CLIENT
-  //     ..subject = 'Randevu Talebi'
-  //     ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-  //     ..html = "<div style='width=33%'> $lastDate</div> <hr> "
-  //         "<div> ${servicesAndEmployees[0].employee} <br>  ${servicesAndEmployees[0].service} <br>  ${servicesAndEmployees[0].time}</div><hr>"
-  //         "<script> var x ='', i; for(i=0;i<2; i++) {x = x + list2[i];} document.getElementById('service').innerHTML = x;</script> <div id='service'> </div>";
-  //
-  //   /// border-style=outset;
-  //   final message2 = Message()
-  //     ..from = Address(username, 'Ayarla Ekibi')
-  //     ..recipients.add(username)
-  //
-  //     /// our mail. THE COIFFURE
-  //     //  ..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
-  //     //  ..bccRecipients.add(Address('bccAddress@example.com'))
-  //     ..subject = 'Randevu Talebi'
-  //     ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-  //     ..html = "<h1>Randevu Talebi</h1>\n<p>Hey! Randevunu Onayla, Reddet veya Yeni Bir "
-  //         "Saat Öner!</p>";
-  //
-  //   /// End of the messages
-  //
-  //   /// message send
-  //   try {
-  //     final sendReport = await send(message, smtpServer);
-  //     print('Message sent: ' + sendReport.toString());
-  //   } on MailerException catch (e) {
-  //     print('Message not sent.');
-  //     for (var p in e.problems) {
-  //       print('Problem: ${p.code}: ${p.msg}');
-  //     }
-  //   }
-  //
-  //   try {
-  //     final sendReport = await send(message2, smtpServer);
-  //     print('Message sent: ' + sendReport.toString());
-  //   } on MailerException catch (e) {
-  //     print('Message not sent.');
-  //     for (var p in e.problems) {
-  //       print('Problem: ${p.code}: ${p.msg}');
-  //     }
-  //   }
-  //
-  //   /// message send ends.
-  // }
 
   /// Send mail v2
   sendMail2(String recipients) {
@@ -717,6 +718,7 @@ class AppointmentData extends ChangeNotifier {
         '<td align="right"> $total TL</td>'
         ' </tr>'
         '</table>'
+        '<div>AYARLA her gün genişleyen işletme ağı ile ve çok yakında randevu gerektiren diğer sektörlerde de benzer kullanıcı deneyimi ile hizmetinizde.</div>'
         '</div>'
         '</body>'
         '</html>';
@@ -781,7 +783,7 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
-  State myState;
+  State myState = SearchPage().createState();
 }
 
 class Notes {

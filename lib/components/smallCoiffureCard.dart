@@ -1,15 +1,17 @@
+import 'package:ayarla/components/UI/responsiveWidget.dart';
+import 'package:ayarla/components/textOverFlowHandler.dart';
+import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/coiffure_detail_page.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class SmallCoiffureCard extends StatefulWidget {
   final coiffureModel;
-
   SmallCoiffureCard({this.coiffureModel});
 
   @override
@@ -17,18 +19,19 @@ class SmallCoiffureCard extends StatefulWidget {
 }
 
 class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Routers.router.navigateTo(
           context,
-          MaterialPageRoute(
-            builder: (context) => CoiffureDetailPage(
-              coiffureModel: widget.coiffureModel,
-              uniqueId: widget.coiffureModel.uniqueId,
-            ),
+          "/Isletme/:name",
+          routeSettings: RouteSettings(
+            name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}",
+            arguments: CoiffureDetailPage(
+                coiffureModel: widget.coiffureModel,
+                name: widget.coiffureModel.name),
           ),
         );
       },
@@ -56,14 +59,37 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                         .setOrChangeFav(widget.coiffureModel);
                   },
                   child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                          Provider.of<AppointmentData>(context, listen: true)
-                                  .favorites
-                                  .contains(widget.coiffureModel)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: Colors.red)),
+                    padding: EdgeInsets.all(7),
+                    child: ResponsiveWidget(
+                      smallScreen: Icon(
+                        Provider.of<AppointmentData>(context, listen: true)
+                                .favorites
+                                .contains(widget.coiffureModel)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                        size: size.width / 25,
+                      ),
+                      mediumScreen: Icon(
+                        Provider.of<AppointmentData>(context, listen: true)
+                                .favorites
+                                .contains(widget.coiffureModel)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                        // size: size.width / 17,
+                      ),
+                      largeScreen: Icon(
+                        Provider.of<AppointmentData>(context, listen: true)
+                                .favorites
+                                .contains(widget.coiffureModel)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                        // size: size.width / 17,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             )
@@ -81,20 +107,18 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
           BoxShadow(
             color: Colors.grey.withOpacity(0.6),
             offset: const Offset(4, 4),
-            blurRadius: 15,
+            blurRadius: 20,
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
         child: Container(
           color: Colors.white,
           child: Column(
             children: <Widget>[
               _cardImage(),
-              CardInfo(
-                coiffureModel: widget.coiffureModel,
-              ),
+              CardInfo(coiffureModel: widget.coiffureModel),
             ],
           ),
         ),
@@ -115,30 +139,28 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
 
 class CardInfo extends StatelessWidget {
   final coiffureModel;
-
   CardInfo({this.coiffureModel});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Row(
       children: <Widget>[
         Expanded(
           child: Container(
             child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
+              padding: EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   /// name
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 1),
-                    height: 30,
-                    child: Functions().titleLength(
-                        inputName: coiffureModel.name,
-                        textStyle: kTextStyle,
-                        ctrlLength: 20),
+                  TextOverFlowHandler(
+                    child: Text(
+                      coiffureModel.name,
+                      style: kTextStyle.copyWith(fontSize: 20),
+                    ),
                   ),
+                  SizedBox(height: 5),
 
                   /// First line
                   Row(
@@ -152,25 +174,21 @@ class CardInfo extends StatelessWidget {
                       SizedBox(width: 7),
                       Padding(
                         padding: EdgeInsets.only(top: 1.0),
-                        child: FittedBox(
-                          fit: BoxFit.cover,
+                        child: TextOverFlowHandler(
                           child: Text(
                             '${coiffureModel.city}, ${coiffureModel.district}',
                             style: kSmallTextStyle.copyWith(
                               color: Colors.grey.withOpacity(0.8),
+                              // fontSize: 12,
+                              fontSize: 13,
                             ),
                           ),
                         ),
                       ),
                       Spacer(),
-                      FittedBox(
-                        fit: BoxFit.cover,
-                        child: Text(
-                          '${coiffureModel.time}',
-                          style: kTextStyle.copyWith(
-                            fontSize: 14,
-                          ),
-                        ),
+                      Text(
+                        '${coiffureModel.time}',
+                        style: kTextStyle.copyWith(fontSize: 13),
                       ),
                       SizedBox(width: 1),
                     ],
@@ -187,7 +205,7 @@ class CardInfo extends StatelessWidget {
                       ),
                       SizedBox(width: 4),
                       Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
+                        padding: EdgeInsets.only(top: 4.0),
                         child: RichText(
                           text: TextSpan(
                             children: [
@@ -195,32 +213,33 @@ class CardInfo extends StatelessWidget {
                                 text: '${coiffureModel.star}',
                                 style: kSmallTextStyle.copyWith(
                                   color: Colors.grey.withOpacity(0.8),
+                                  fontSize: 13,
                                 ),
                               ),
                               TextSpan(
-                                text:
-                                    ' (${coiffureModel.comments} değerlendirme)',
+                                text: ' (${coiffureModel.comments} yorum)',
                                 style: kSmallTextStyle.copyWith(
-                                    color: Colors.grey.withOpacity(0.8),
-                                    fontSize: 12),
+                                  color: Colors.grey.withOpacity(0.8),
+                                  fontSize: 13,
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
                       Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: Text(
-                            'Çalışma Saatleri',
-                            style: kSmallTextStyle.copyWith(
-                              color: Colors.grey.withOpacity(0.8),
+                      size.width < 340
+                          ? Container()
+                          : Padding(
+                              padding: EdgeInsets.only(top: 4.0),
+                              child: Text(
+                                'Çalışma Saatleri',
+                                style: kSmallTextStyle.copyWith(
+                                  color: Colors.grey.withOpacity(0.8),
+                                  fontSize: 13,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
                       SizedBox(width: 1),
                     ],
                   ),

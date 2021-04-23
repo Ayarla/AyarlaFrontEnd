@@ -24,10 +24,16 @@ const kTextStyle = TextStyle(
   letterSpacing: 1,
 );
 
+const kTextStylewoSize = TextStyle(
+  // fontSize: 20.0,
+  color: Colors.white,
+  fontWeight: FontWeight.w900,
+  fontFamily: 'Round_Regular',
+  letterSpacing: 1,
+);
+
 const kSmallTextStyle = TextStyle(
   fontSize: 14,
-  //color: Colors.grey.withOpacity(0.8),
-  // fontWeight: FontWeight.w900,
   fontWeight: FontWeight.normal,
   fontFamily: 'Round_Regular',
   letterSpacing: 1,
@@ -51,6 +57,9 @@ const kCardShadow = BoxDecoration(
   color: Color(0xFFE5EBEE),
 );
 
+const roundedShape =
+    RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)));
+
 enum Directions {
   top,
   bottom,
@@ -59,3 +68,27 @@ enum Directions {
   all,
   none,
 }
+List month = [
+  "Ocak",
+  "Şubat",
+  "Mart",
+  "Nisan",
+  "Mayıs",
+  "Haziran",
+  "Temmuz",
+  "Ağustos",
+  "Eylül",
+  "Ekim",
+  "Kasım",
+  "Aralık"
+];
+
+List week = [
+  "Pazartesi",
+  "Salı",
+  "Çarşamba",
+  "Perşembe",
+  "Cuma",
+  "Cumartesi",
+  "Pazar"
+];

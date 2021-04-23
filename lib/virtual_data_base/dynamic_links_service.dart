@@ -1,6 +1,5 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import '../screens/coiffure_detail_page.dart';
 
 class DynamicLinkService {
   Future<Uri> createDynamicLink(String id) async {
@@ -31,18 +30,18 @@ class DynamicLinkService {
       if (deepLink != null) {
         if (deepLink.queryParameters.containsKey('id')) {
           String id = deepLink.queryParameters['id'];
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => CoiffureDetailPage(uniqueId: id),
-            ),
-          );
+          // Navigator.of(context).push(
+            // MaterialPageRoute(
+            //   builder: (context) => CoiffureDetailPage(uniqueId: id),
+            // ),
+          // );
         }
       }
-      FirebaseDynamicLinks.instance.onLink(
-          onSuccess: (PendingDynamicLinkData dynamicLink) async {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => CoiffureDetailPage()));
-      });
+      // FirebaseDynamicLinks.instance.onLink(
+      //     onSuccess: (PendingDynamicLinkData dynamicLink) async {
+      //   Navigator.of(context).push(
+      //       MaterialPageRoute(builder: (context) => CoiffureDetailPage()));
+      // });
     } catch (e) {
       print(e.toString());
     }
