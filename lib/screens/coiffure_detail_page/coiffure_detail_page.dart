@@ -2,6 +2,7 @@ import 'package:ayarla/components/UI/genericRow.dart';
 import 'package:ayarla/components/UI/menuItemv2.dart';
 import 'package:ayarla/components/floatingButton.dart';
 import 'package:ayarla/components/imageListItem.dart';
+import 'package:ayarla/components/map/coiffeurMap.dart';
 import 'package:ayarla/components/menuItem.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
@@ -151,12 +152,12 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
               ContactSection(coiffureModel: widget.coiffureModel),
 
               /// Map
-              // Container(
-              //   height: 320,
-              //   child: MapSample(
-              //     clickable: false,
-              //   ),
-              // ),
+               Container(
+                 height: 320,
+                 child: CoiffeurMap(
+                   enableScroll: false,
+                 ),
+               ),
               /// create enough space for map
               total != 0
                   ? SizedBox(height: MediaQuery.of(context).size.width / 7)

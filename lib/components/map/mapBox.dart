@@ -1,3 +1,4 @@
+import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/functions.dart';
@@ -7,7 +8,7 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:mapbox_search_flutter/mapbox_search_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../circularParent.dart';
+
 class MapBox extends StatefulWidget {
   static const id = 'MapBoxSample';
 
