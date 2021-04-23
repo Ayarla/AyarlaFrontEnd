@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:ayarla/components/map/coiffeurMap.dart';
 import 'package:ayarla/components/UI/hover_button.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
@@ -239,25 +240,25 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             ),
 
           /// Google Maps integration
-          // Padding(
-          //   padding: EdgeInsets.all(10.0),
-          //   child: Container(
-          //     height: 300,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.all(Radius.circular(16.0)),
-          //       boxShadow: <BoxShadow>[
-          //         BoxShadow(
-          //           color: Colors.grey.withOpacity(0.6),
-          //           offset: Offset(4, 4),
-          //           blurRadius: 15,
-          //         ),
-          //       ],
-          //     ),
-          //     child: MapSample(
-          //       clickable: true,
-          //     ),
-          //   ),
-          // ),
+           Padding(
+             padding: EdgeInsets.all(10.0),
+             child: Container(
+               height: 300,
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                 boxShadow: <BoxShadow>[
+                   BoxShadow(
+                     color: Colors.grey.withOpacity(0.6),
+                     offset: Offset(4, 4),
+                     blurRadius: 15,
+                   ),
+                 ],
+               ),
+               child: CoiffeurMap(
+                 enableScroll: true,
+               ),
+             ),
+           ),
 
           SizedBox(height: 60),
         ],
