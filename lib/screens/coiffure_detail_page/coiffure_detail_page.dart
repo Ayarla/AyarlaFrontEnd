@@ -1,4 +1,4 @@
-import 'package:ayarla/components/floatingButton.dart';
+import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
@@ -149,19 +149,17 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
       floatingActionButton: total != 0
           ? Row(
               children: [
-                FloatingButton(
+                FloatingTextButton(
                   gradient: Functions().decideColor(context),
-                  text: "Toplam = $total",
+                  text: "Toplam = $total TL",
                 ),
                 Spacer(),
-                FloatingButton(
+                FloatingTextButton(
                   text: "Saati Belirle",
                   gradient: Functions().decideColor(context),
-                  onPressed: ()async{
+                  onPressed: () async {
                     await Provider.of<AppointmentData>(context, listen: false)
                         .getServicesWithEmployee();
-
-                    // Navigator.pushNamed(context, ConfirmationPage.id);
                     showModalBottomSheet(
                       enableDrag: false,
                       isScrollControlled: true,

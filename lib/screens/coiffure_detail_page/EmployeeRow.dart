@@ -24,7 +24,7 @@ class EmployeeRow extends StatelessWidget {
             SizedBox(width: 10),
             Container(
               height: 100,
-              width: size.width / 1.3,
+              width: size.width / 1.4,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [

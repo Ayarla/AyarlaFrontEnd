@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/components/floatingButton.dart';
+import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/googleMap.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/overScroll.dart';
@@ -234,7 +234,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         floatingActionButton: isChanged
-            ? FloatingButton(
+            ? FloatingTextButton(
                 text: 'Kaydet',
                 onPressed: () {
                   setState(() {
