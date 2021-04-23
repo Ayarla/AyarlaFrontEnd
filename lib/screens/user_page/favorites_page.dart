@@ -1,3 +1,5 @@
+import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -80,16 +82,17 @@ class _FavoritesPageState extends State<FavoritesPage>
                       actionExtentRatio: 0.25,
                       child: GestureDetector(
                         onTap: () {
-                          // Routers.router.navigateTo(
-                          //   context,
-                          //   "/Isletme/:name",
-                          //   routeSettings: RouteSettings(
-                          //     name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}",
-                          //     arguments: CoiffureDetailPage(
-                          //         coiffureModel: widget.coiffureModel,
-                          //         name: widget.coiffureModel.name),
-                          //   ),
-                          // );
+                          Routers.router.navigateTo(
+                            context,
+                            "/Isletme/:name",
+                            routeSettings: RouteSettings(
+                              name:
+                                  "/Isletme/${fixURL(localList[index].name.toString())}",
+                              arguments: CoiffureDetailPage(
+                                  coiffureModel: localList[index],
+                                  name: localList[index].name),
+                            ),
+                          );
                         },
                         child: Card(
                           elevation: 5,
@@ -145,28 +148,75 @@ class _FavoritesPageState extends State<FavoritesPage>
                     )
                   : SizedBox(
                       width: size.width,
+                      height: 100,
                       child: Row(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              // Routers.router.navigateTo(
-                              //   context,
-                              //   "/Isletme/:name",
-                              //   routeSettings: RouteSettings(
-                              //     name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}",
-                              //     arguments: CoiffureDetailPage(
-                              //         coiffureModel: widget.coiffureModel,
-                              //         name: widget.coiffureModel.name),
-                              //   ),
-                              // );
-                            },
-                            child: SizedBox(
-                              width: size.width / 1.2,
+                          Expanded(
+                            flex: 5,
+                            child: GestureDetector(
+                              onTap: () {
+                                Routers.router.navigateTo(
+                                  context,
+                                  "/Isletme/:name",
+                                  routeSettings: RouteSettings(
+                                    name:
+                                        "/Isletme/${fixURL(localList[index].name.toString())}",
+                                    arguments: CoiffureDetailPage(
+                                        coiffureModel: localList[index],
+                                        name: localList[index].name),
+                                  ),
+                                );
+                              },
                               child: Card(
                                 elevation: 5,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
-                                child: CardInfo(coiffureModel: localList[index]),
+                                child:
+                                    CardInfo(coiffureModel: localList[index]),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: CircularParent(
+                                radius: 20,
+                                direction: Directions.all,
+                                color: Colors.red,
+                                child: IconSlideAction(
+                                    caption: 'Kaldır',
+                                    color: Colors.transparent,
+                                    icon: Icons.delete,
+                                    onTap: () {
+                                      if (Provider.of<AppointmentData>(context,
+                                              listen: false)
+                                          .myState
+                                          .mounted) {
+                                        Provider.of<AppointmentData>(context,
+                                                listen: false)
+                                            .myState
+                                            .setState(() {});
+                                      }
+                                      setState(() {
+                                        removeFavorite(index, localList[index]);
+                                      });
+                                    }),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: CircularParent(
+                                radius: 20,
+                                direction: Directions.all,
+                                color: Colors.indigo,
+                                child: IconSlideAction(
+                                  caption: 'Paylaş',
+                                  color: Colors.transparent,
+                                  icon: Icons.share,
+                                  // onTap: () => _showSnackBar('More'),
+                                ),
                               ),
                             ),
                           ),

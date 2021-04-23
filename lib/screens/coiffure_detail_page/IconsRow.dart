@@ -30,6 +30,8 @@ class _IconsRowState extends State<IconsRow> {
             color: Colors.green,
             size: 40,
           ),
+          height: 70,
+          width: 70,
           onPressed: () {
             launch("tel://${widget.coiffureModel.telephone}");
           },
@@ -39,18 +41,20 @@ class _IconsRowState extends State<IconsRow> {
         GenericIconButton(
           iconContext: Icon(
             Provider.of<AppointmentData>(context, listen: false)
-                .favorites
-                .contains(widget.coiffureModel)
+                    .favorites
+                    .contains(widget.coiffureModel)
                 ? Icons.favorite
                 : Icons.favorite_border,
             color: Colors.red,
             size: 40,
           ),
+          height: 70,
+          width: 70,
           onPressed: () {
             setState(() {
               if (Provider.of<AppointmentData>(context, listen: false)
-                  .myState !=
-                  null) {
+                  .myState
+                  .mounted) {
                 Provider.of<AppointmentData>(context, listen: false)
                     .myState
                     .setState(() {});

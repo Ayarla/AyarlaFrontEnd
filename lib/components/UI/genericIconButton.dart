@@ -10,6 +10,8 @@ class GenericIconButton extends StatelessWidget {
   final Function onPressed;
   final TextStyle textStyle;
   final double spaceBetween;
+  final double width;
+  final double height;
 
   /// • For [opacity] use [Colors.xxx.withOpacity()],
   ///
@@ -21,6 +23,8 @@ class GenericIconButton extends StatelessWidget {
     this.onPressed,
     this.textStyle,
     this.spaceBetween,
+    this.width,
+    this.height,
   });
 
   @override
@@ -28,8 +32,8 @@ class GenericIconButton extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       child: Container(
-        width: size.width / 3,
-        height: size.width / 3,
+        width: width ?? size.width / 3,
+        height: height ?? size.width / 3,
         child: Card(
           color: color ?? Colors.transparent,
           shape: roundedShape,

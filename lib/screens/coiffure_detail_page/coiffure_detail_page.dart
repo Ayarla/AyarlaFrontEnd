@@ -1,11 +1,9 @@
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/map/coiffeurMap.dart';
-import 'package:ayarla/components/menuItem.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
-import 'package:ayarla/models/employeeAndService.dart';
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/coiffure_detail_page/AboutSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
@@ -86,6 +84,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
             controller: _photoController,
             children: <Widget>[
               ImageSection(pages: _pages),
+              SizedBox(height: 10),
 
               /// TODO - rework
               IconsRow(coiffureModel: widget.coiffureModel),
@@ -133,12 +132,14 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
               ContactSection(coiffureModel: widget.coiffureModel),
 
               /// Map
-               Container(
-                 height: 320,
-                 child: CoiffeurMap(
-                   enableScroll: false,
-                 ),
-               ),
+              Container(
+                height: 320,
+                width: 300,
+                child: CoiffeurMap(
+                  enableScroll: false,
+                ),
+              ),
+
               /// create enough space for map
               total != 0
                   ? SizedBox(height: MediaQuery.of(context).size.width / 7)
@@ -175,9 +176,9 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return CalenderPage(
-                            servicesAndEmployees:
-                            Provider.of<AppointmentData>(context,
-                                listen: true)
+                            servicesAndEmployees: Provider.of<AppointmentData>(
+                                    context,
+                                    listen: true)
                                 .servicesAndEmployees);
                       },
                     );
