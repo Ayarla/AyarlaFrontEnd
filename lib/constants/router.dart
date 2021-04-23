@@ -2,7 +2,7 @@ import 'package:ayarla/components/map/mapBox.dart';
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
-import 'package:ayarla/screens/manager_screens/manager_notes.dart';
+import 'package:ayarla/screens/manager_screens/employee_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 import 'package:ayarla/screens/popUpScreens/registrationPopUp.dart';
@@ -55,6 +55,10 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ConfirmationPage());
 
+  static Handler _timeSelectionPage = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          CalenderPage());
+
   /// User Pages
   static Handler _userPage = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
@@ -80,9 +84,10 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           PastAppointmentsPage());
 
-  static Handler _timeSelectionPage = Handler(
+  static Handler _employeeSettingsPage = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          CalenderPage());
+          EmployeePage());
+
   /// Manager Pages
   static Handler _managerHome = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
@@ -113,29 +118,34 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ViewWebFunctions());
 
-  /// REg
-   static Handler _regPopUp = Handler(
-        handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-            ViewWebFunctions());
+  /// Reg
+  static Handler _regPopUp = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          ViewWebFunctions());
 
-   static Handler _regPage = Handler(
+  static Handler _regPage = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           RegistrationPage());
 
-
   static void setupRouter() {
+    /// General Pages
     router.define("/", handler: _loadingPage);
     router.define("/Hosgeldiniz", handler: _welcomePage);
     router.define("/AramaSayfasi", handler: _searchPage);
     router.define("/Isletme/:name", handler: _detailPage);
     router.define("/Isletme/:name/Yorumlar", handler: _commentsPage);
+    router.define("/SaatSayfasi", handler: _timeSelectionPage);
     router.define("/OnaySayfasi", handler: _confirmationPage);
+
+    /// User Pages
     router.define("/KullaniciSayfasi", handler: _userPage);
     router.define("/Favorilerim", handler: _favoritesPage);
     router.define("/Randevularim", handler: _appointmentsPage);
     router.define("/Mesajlarim", handler: _userMessagePage);
     router.define("/GecmisRandevularim", handler: _pastAppointmentPage);
     router.define("/ProfilimiDuzenle", handler: _editProfilePage);
+
+    /// Manager Pages
     router.define("/YoneticiAnasayfasi", handler: _managerHome);
     router.define("/Isletmem", handler: _businessInfoPage);
     router.define("/Calisanlarim", handler: _employeeManagement);
@@ -145,6 +155,6 @@ class Routers {
     router.define("/WebServisleri", handler: _webServicePage);
     router.define("/KayitPopUp", handler: _regPopUp);
     router.define("/KayitSayfasi", handler: _regPage);
-    router.define("/SaatSayfasi", handler: _timeSelectionPage);
+    router.define("/Ayarlarim", handler: _employeeSettingsPage);
   }
 }

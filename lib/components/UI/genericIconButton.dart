@@ -25,29 +25,34 @@ class GenericIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
-      child: Card(
-        color: color ?? Colors.transparent,
-        shape: roundedShape,
-        elevation: 0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            iconContext,
-            SizedBox(height: spaceBetween ?? 5),
-            TextOverFlowHandler(
-              child: Text(
-                text,
-                style: textStyle ??
-                    kTextStyle.copyWith(fontSize: 18, color: Color(0xFF2D3B4A)),
+      child: Container(
+        width: size.width / 3,
+        height: size.width / 3,
+        child: Card(
+          color: color ?? Colors.transparent,
+          shape: roundedShape,
+          elevation: 0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              iconContext,
+              SizedBox(height: spaceBetween ?? 5),
+              TextOverFlowHandler(
+                child: Text(
+                  text,
+                  style: textStyle ??
+                      kTextStyle.copyWith(
+                          fontSize: 18, color: Color(0xFF2D3B4A)),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       onTap: onPressed,
     );
   }
 }
-

@@ -1,4 +1,3 @@
-import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ayarla/components/UI/linearGradientMask.dart';
@@ -16,45 +15,18 @@ Container generalLogo = Container(
 );
 
 /// NEW ICONS
-Widget homeIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_home.svg',
-  width: 70,
-  color: Colors.white,
-));
 
-Widget employeesIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_users.svg',
-  width: 70,
-  color: Colors.white,
-));
 
-Widget calenderIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_calendar.svg',
-  width: 70,
-  color: Colors.white,
-));
-
-Widget messageIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_message.svg',
-  width: 80,
-  color: Colors.white,
-));
-
-Widget notesIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_notes.svg',
-  width: 70,
-  color: Colors.white,
-));
+String homeIconName = 'assets/icons/icon_home.svg';
+String employeesIconName = 'assets/icons/icon_users.svg';
+String calenderIconName = 'assets/icons/icon_calendar.svg';
+String messageIconName = 'assets/icons/icon_message.svg';
+String notesIconName = 'assets/icons/icon_notes.svg';
 
 Widget notificationIcon = LinearGradientMask(
     child: SvgPicture.asset(
   'assets/icons/icon_bell.svg',
-  width: 70,
+  // width: 70,
   color: Colors.white,
 ));
 

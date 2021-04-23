@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:ayarla/components/UI/hover_button.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,7 +14,7 @@ import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/user_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
-import 'package:rating_dialog/rating_dialog.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class ConfirmationPage extends StatefulWidget {
   @override
@@ -27,7 +28,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     isConfirmed =
         Provider.of<AppointmentData>(context, listen: false).isConfirmed;
@@ -186,9 +186,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                         ],
                                       ),
                                     )
-                                  : Divider(
-                                      thickness: 2,
-                                    ),
+                                  : Divider(thickness: 2),
                             ],
                           ),
                     Padding(
@@ -211,6 +209,34 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               ),
             ),
           ),
+
+          if (UniversalPlatform.isWeb)
+            Container(
+              height: 300,
+              child: ListView(
+                children: [
+                  Text('Uygulamamızı indirmek ister misiniz?',
+                      style: kTextStyle),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      HoverButton(
+                        text: 'PlayStore',
+                        onPressed: () {
+                          print('Lauch Playstore!');
+                        },
+                      ),
+                      HoverButton(
+                        text: 'AppStore',
+                        onPressed: () {
+                          print('Lauch AppStore!');
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
 
           /// Google Maps integration
           // Padding(
@@ -300,9 +326,7 @@ class BuildSumPerDay extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Divider(
-          thickness: 2,
-        ),
+        Divider(thickness: 2),
 
         /// prints services for all services in the servicesAndEmployees list
         for (AppointmentInfo x
@@ -366,9 +390,7 @@ class BuildColumn extends StatelessWidget {
             )
           ],
         ),
-        Divider(
-          thickness: 2,
-        )
+        Divider(thickness: 2),
       ],
     );
   }
