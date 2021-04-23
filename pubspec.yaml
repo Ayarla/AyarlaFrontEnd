@@ -27,9 +27,9 @@ dependencies:
   rating_dialog: ^2.0.0
   marquee: ^2.0.0
   carousel_slider: ^3.0.0
-  image: ^3.0.2
+  image: ^2.1.12
   modal_bottom_sheet: ^1.0.0+1
-  flutter_svg: ^0.22.0
+  flutter_svg: ^0.19.3
   image_picker: ^0.6.6+5
   share: ^2.0.1
   mailer2: ^1.2.5
@@ -48,7 +48,7 @@ dependencies:
   firebase_core: ^0.7.0
 #  firebase_analytics: ^7.0.0
   #map
-  mapbox_gl: ^0.12.0
+  mapbox_gl: ^0.11.0
   mapbox_search: ^2.1.0
   mapbox_search_flutter: any
 
