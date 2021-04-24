@@ -7,12 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+/// TODO - rework for deeplinking.
 class IconsRow extends StatefulWidget {
   final CoiffureModel coiffureModel;
-
   IconsRow({this.coiffureModel});
-
   @override
   _IconsRowState createState() => _IconsRowState();
 }

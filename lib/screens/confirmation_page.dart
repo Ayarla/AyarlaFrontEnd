@@ -90,7 +90,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(
-                top: 25.0, bottom: 15.0, left: 10.0, right: 10.0),
+                top: 20.0, bottom: 15.0, left: 10.0, right: 10.0),
             child: Text(
               isConfirmed
                   ? Provider.of<AppointmentData>(context).coiffureName
@@ -100,11 +100,13 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(6.0),
+            padding: size.width < 700
+                ? EdgeInsets.symmetric(horizontal: 15)
+                : EdgeInsets.symmetric(horizontal: size.width / 10),
             child: Card(
               elevation: 10,
               child: Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(8),
                 child: Column(
                   children: <Widget>[
                     Text(
@@ -117,33 +119,38 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                       style: kTextStyle.copyWith(
                           fontSize: 20, fontWeight: FontWeight.normal),
                     ),
-                    SizedBox(height: 7),
 
                     /// prints day
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Gün: ", style: kTitleStyle),
-                        Text(
-                          '${dateTime.day} '
-                          '${month[dateTime.month - 1]} '
-                          '${week[dateTime.weekday - 1]}',
-                          style: kTitleStyle,
-                        ),
-                      ],
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Gün: ", style: kTitleStyle),
+                          Text(
+                            '${dateTime.day} '
+                            '${month[dateTime.month - 1]} '
+                            '${week[dateTime.weekday - 1]}',
+                            style: kTitleStyle,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 7),
 
                     /// prints hour
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Saat: ", style: kTitleStyle),
-                        Text(
-                          "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
-                          style: kTitleStyle,
-                        ),
-                      ],
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Saat: ", style: kTitleStyle),
+                          Text(
+                            "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
+                            style: kTitleStyle,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 5),
 
@@ -212,26 +219,27 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           ),
 
           if (UniversalPlatform.isWeb && isConfirmed == true)
+            SizedBox(height: 20),
+
+          if (UniversalPlatform.isWeb && isConfirmed == true)
             Container(
               height: 300,
               child: ListView(
                 children: [
-                  Text('Uygulamamızı indirmek ister misiniz?',
-                      style: kTextStyle),
+                  Center(
+                    child: Text('Uygulamamızı indirmek ister misiniz?',
+                        style: kTextStyle),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       HoverButton(
                         text: 'PlayStore',
-                        onPressed: () {
-                          print('Lauch Playstore!');
-                        },
+                        onPressed: () => print('Lauch Playstore!'),
                       ),
                       HoverButton(
                         text: 'AppStore',
-                        onPressed: () {
-                          print('Lauch AppStore!');
-                        },
+                        onPressed: () => print('Lauch AppStore!'),
                       ),
                     ],
                   ),
@@ -240,26 +248,23 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             ),
 
           /// Google Maps integration
-           Padding(
-             padding: EdgeInsets.all(10.0),
-             child: Container(
-               height: 300,
-               decoration: BoxDecoration(
-                 borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                 boxShadow: <BoxShadow>[
-                   BoxShadow(
-                     color: Colors.grey.withOpacity(0.6),
-                     offset: Offset(4, 4),
-                     blurRadius: 15,
-                   ),
-                 ],
-               ),
-               child: CoiffeurMap(
-                 enableScroll: true,
-               ),
-             ),
-           ),
-
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.6),
+                    offset: Offset(4, 4),
+                    blurRadius: 15,
+                  ),
+                ],
+              ),
+              child: CoiffeurMap(enableScroll: true),
+            ),
+          ),
           SizedBox(height: 60),
         ],
       ),
@@ -381,13 +386,10 @@ class BuildColumn extends StatelessWidget {
             Spacer(),
 
             /// on the right side we have only total part
-            Container(
-              width: size.width / 5.7,
-              child: Text(
-                '$price TL',
-                style: kTextStyle.copyWith(fontSize: 20),
-                textAlign: TextAlign.end,
-              ),
+            Text(
+              '$price TL',
+              style: kTextStyle.copyWith(fontSize: 20),
+              textAlign: TextAlign.end,
             )
           ],
         ),
