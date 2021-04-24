@@ -1,4 +1,4 @@
-import 'package:ayarla/components/comment.dart';
+import 'package:ayarla/models/commentModel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class CommentsSection extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: size.width / 35),
               physics: BouncingScrollPhysics(),
               children: [
-                Comment(
+                CommentModel(
                   name: 'Fatih Özkan',
                   rating: 2,
                   comment: 'Harika!!',
@@ -34,7 +34,7 @@ class CommentsSection extends StatelessWidget {
                   dislike: 0,
                 ),
                 Divider(thickness: 1),
-                Comment(
+                CommentModel(
                   name: 'Nixu',
                   rating: 2,
                   comment:
@@ -50,7 +50,7 @@ class CommentsSection extends StatelessWidget {
                   dislike: 4,
                 ),
                 Divider(thickness: 1),
-                Comment(
+                CommentModel(
                   name: 'Bahadır İren',
                   rating: 3,
                   comment: 'Daha iyilerini görmüştüm ama idare eder. '

@@ -3,14 +3,14 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 class NotificationBadge extends StatelessWidget {
+  final bool showBadge;
   final int notificationNumber;
   final Widget child;
-  final bool showBadge;
 
   NotificationBadge({
-    this.child,
-    this.notificationNumber,
     this.showBadge,
+    this.notificationNumber,
+    this.child,
   });
 
   @override

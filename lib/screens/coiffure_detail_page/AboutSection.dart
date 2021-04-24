@@ -1,15 +1,10 @@
 import 'package:ayarla/constants/constants.dart';
+import 'package:ayarla/models/coiffeurModel.dart';
 import 'package:flutter/material.dart';
 
 class AboutSection extends StatefulWidget {
-  final String firstHalf;
-  final String secondHalf;
-
-  AboutSection({
-    this.firstHalf,
-    this.secondHalf,
-  });
-
+  final CoiffureModel coiffureModel;
+  AboutSection({this.coiffureModel});
   @override
   _AboutSectionState createState() => _AboutSectionState();
 }
@@ -17,19 +12,32 @@ class AboutSection extends StatefulWidget {
 class _AboutSectionState extends State<AboutSection> {
   bool flag = true;
   String text;
+  String firstHalf;
+  String secondHalf;
+
+  @override
+  void initState() {
+    text = '${widget.coiffureModel.text}';
+
+    if (text.length > 200) {
+      firstHalf = text.substring(0, 200);
+      secondHalf = text.substring(200, text.length);
+    } else {
+      firstHalf = text;
+      secondHalf = "";
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: widget.secondHalf.isEmpty
-          ? Text(widget.firstHalf, style: kSmallTextStyle)
+      child: secondHalf.isEmpty
+          ? Text(firstHalf, style: kSmallTextStyle)
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                    flag
-                        ? (widget.firstHalf + "...")
-                        : (widget.firstHalf + widget.secondHalf),
+                Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf),
                     style: kSmallTextStyle),
                 SizedBox(width: double.infinity),
                 Row(

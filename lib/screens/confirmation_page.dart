@@ -1,8 +1,12 @@
 import 'dart:ui';
+import 'package:ayarla/components/floatingTextButton.dart';
+import 'package:ayarla/components/map/coiffeurMap.dart';
+import 'package:ayarla/components/UI/hover_button.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/pop-up.dart';
@@ -13,7 +17,7 @@ import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/user_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
-import 'package:rating_dialog/rating_dialog.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class ConfirmationPage extends StatefulWidget {
   @override
@@ -27,7 +31,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     isConfirmed =
         Provider.of<AppointmentData>(context, listen: false).isConfirmed;
@@ -89,7 +92,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(
-                top: 25.0, bottom: 15.0, left: 10.0, right: 10.0),
+                top: 20.0, bottom: 15.0, left: 10.0, right: 10.0),
             child: Text(
               isConfirmed
                   ? Provider.of<AppointmentData>(context).coiffureName
@@ -98,14 +101,14 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               style: kTitleStyle,
             ),
           ),
-
-          ///added some padding outside the card widget
           Padding(
-            padding: EdgeInsets.all(6.0),
+            padding: size.width < 700
+                ? EdgeInsets.symmetric(horizontal: 15)
+                : EdgeInsets.symmetric(horizontal: size.width / 10),
             child: Card(
               elevation: 10,
               child: Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(8),
                 child: Column(
                   children: <Widget>[
                     Text(
@@ -118,33 +121,38 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                       style: kTextStyle.copyWith(
                           fontSize: 20, fontWeight: FontWeight.normal),
                     ),
-                    SizedBox(height: 7),
 
                     /// prints day
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Gün: ", style: kTitleStyle),
-                        Text(
-                          '${dateTime.day} '
-                          '${month[dateTime.month - 1]} '
-                          '${week[dateTime.weekday - 1]}',
-                          style: kTitleStyle,
-                        ),
-                      ],
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Gün: ", style: kTitleStyle),
+                          Text(
+                            '${dateTime.day} '
+                            '${month[dateTime.month - 1]} '
+                            '${week[dateTime.weekday - 1]}',
+                            style: kTitleStyle,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 7),
 
                     /// prints hour
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Saat: ", style: kTitleStyle),
-                        Text(
-                          "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
-                          style: kTitleStyle,
-                        ),
-                      ],
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Saat: ", style: kTitleStyle),
+                          Text(
+                            "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
+                            style: kTitleStyle,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 5),
 
@@ -188,9 +196,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                         ],
                                       ),
                                     )
-                                  : Divider(
-                                      thickness: 2,
-                                    ),
+                                  : Divider(thickness: 2),
                             ],
                           ),
                     Padding(
@@ -214,105 +220,78 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             ),
           ),
 
-          /// Google Maps integration
-          // Padding(
-          //   padding: EdgeInsets.all(10.0),
-          //   child: Container(
-          //     height: 300,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.all(Radius.circular(16.0)),
-          //       boxShadow: <BoxShadow>[
-          //         BoxShadow(
-          //           color: Colors.grey.withOpacity(0.6),
-          //           offset: Offset(4, 4),
-          //           blurRadius: 15,
-          //         ),
-          //       ],
-          //     ),
-          //     child: MapSample(
-          //       clickable: true,
-          //     ),
-          //   ),
-          // ),
-
-          RatingDialog(
-            title: 'Kuaförü Değerlendirin',
-            message:
-                'Tap a star to set your rating. Add more description here if you want.',
-            image: Image(
-              image: AssetImage('assets/genel_logo.png'),
-              alignment: AlignmentDirectional.center,
+          if (UniversalPlatform.isWeb && isConfirmed == true)
+            ListView(
+              shrinkWrap: true,
+              children: [
+                SizedBox(height: 40),
+                Center(
+                  child: Text('Uygulamamızı indirmek ister misiniz?',
+                      style: kTextStyle),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    HoverButton(
+                      text: 'PlayStore',
+                      onPressed: () => print('Lauch PlayStore!'),
+                      icon: FontAwesomeIcons.googlePlay,
+                      spaceBetween: 10,
+                    ),
+                    HoverButton(
+                      text: 'AppStore',
+                      onPressed: () => print('Lauch AppStore!'),
+                      icon: FontAwesomeIcons.appStoreIos,
+                      spaceBetween: 10,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+              ],
             ),
-            commentHint: 'Yorumunuzu buraya yazabilirsiniz',
-            submitButton: 'Gönder',
-            onCancelled: () => print('cancelled'),
-            onSubmitted: (response) {
-              print('rating: ${response.rating}, comment: ${response.comment}');
 
-              // TODO: add your own logic
-              if (response.rating < 3.0) {
-                // send their comments to your email or anywhere you wish
-                // ask the user to contact you instead of leaving a bad review
-              } else {
-                // _rateAndReviewApp();
-              }
-            },
+          /// Google Maps integration
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.6),
+                    offset: Offset(4, 4),
+                    blurRadius: 15,
+                  ),
+                ],
+              ),
+              child: CoiffeurMap(enableScroll: true),
+            ),
           ),
-          SizedBox(height: 60),
         ],
       ),
       floatingActionButton: !isConfirmed
-          ? Container(
-              width: size.width - 4 * (size.width / 6),
-              decoration: BoxDecoration(
-                gradient: functions.decideColor(context),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: FloatingActionButton.extended(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                onPressed: () {
-                  bool check =
-                      Provider.of<Login>(context, listen: false).holder;
-                  if (check == false) {
-                    PopUp().mailFieldDialog(context: context);
-                  } else if (check == true) {
-                    ///TODO profildeki mail adresine mail gonderilecek
-                    Routers.router.navigateTo(context, "/OnaySayfasi");
-                    Provider.of<AppointmentData>(context, listen: false)
-                        .confirmation();
-                  }
-                },
-                label: FittedBox(
-                  fit: BoxFit.cover,
-                  child: Text('Onayla',
-                      style: kSmallTitleStyle.copyWith(
-                        color: Colors.white,
-                      )),
-                ),
-              ),
+          ? FloatingTextButton(
+              text: 'Onayla',
+              gradient: functions.decideColor(context),
+              onPressed: () {
+                bool check = Provider.of<Login>(context, listen: false).holder;
+                if (check == false) {
+                  PopUp().mailFieldDialog(context: context);
+                } else if (check == true) {
+                  ///TODO profildeki mail adresine mail gonderilecek
+                  Routers.router.navigateTo(context, "/OnaySayfasi");
+                  Provider.of<AppointmentData>(context, listen: false)
+                      .confirmation();
+                }
+              },
             )
-          :
-
-          ///TODO Profilde eksik bilgi varsa bunu yazdirsak daha iyi olur
-          Container(
-              decoration: BoxDecoration(
-                gradient: functions.decideColor(context),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, EditProfilePage.id);
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  primary: Colors.transparent,
-                ),
-                child: Text(
-                  'Profilini Tamamla',
-                  style: kTextStyle.copyWith(color: Colors.white),
-                ),
-              ),
+          : FloatingTextButton(
+              text: 'Profilini Tamamla',
+              gradient: functions.decideColor(context),
+              onPressed: () {
+                Navigator.pushNamed(context, EditProfilePage.id);
+              },
             ),
     );
   }
@@ -325,9 +304,7 @@ class BuildSumPerDay extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Divider(
-          thickness: 2,
-        ),
+        Divider(thickness: 2),
 
         /// prints services for all services in the servicesAndEmployees list
         for (AppointmentInfo x
@@ -381,19 +358,14 @@ class BuildColumn extends StatelessWidget {
             Spacer(),
 
             /// on the right side we have only total part
-            Container(
-              width: size.width / 5.7,
-              child: Text(
-                '$price TL',
-                style: kTextStyle.copyWith(fontSize: 20),
-                textAlign: TextAlign.end,
-              ),
+            Text(
+              '$price TL',
+              style: kTextStyle.copyWith(fontSize: 20),
+              textAlign: TextAlign.end,
             )
           ],
         ),
-        Divider(
-          thickness: 2,
-        )
+        Divider(thickness: 2),
       ],
     );
   }

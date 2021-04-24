@@ -7,9 +7,11 @@ class LinearGradientMask extends StatelessWidget {
   final Alignment alignment;
   final double radius;
 
-  /// Applies a ShaderMask to its child.
+  /// • Applies a ShaderMask to its child.
   ///
-  /// -> [child] is required.
+  /// • Not supported by web.
+  ///
+  /// • [child] parameter is required.
   LinearGradientMask(
       {@required this.child,
       this.firstColor,
@@ -24,7 +26,7 @@ class LinearGradientMask extends StatelessWidget {
         return RadialGradient(
           center: Alignment.bottomLeft,
           radius: radius ?? 1.7,
-          colors: [firstColor ?? Colors.blue,  secondColor ?? Colors.red],
+          colors: [firstColor ?? Colors.blue, secondColor ?? Colors.red],
           tileMode: TileMode.mirror,
         ).createShader(bounds);
       },
