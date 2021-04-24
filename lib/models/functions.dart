@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
@@ -204,6 +206,25 @@ class Functions {
             ),
           );
         });
+  }
+
+  int findIndex(ServiceModel x,context) {
+    return Provider.of<AppointmentData>(context, listen: false)
+        .fullTimeServices
+        .indexOf(x);
+  }
+
+  int findIndexOfEmployee(int employeeIndex, EmployeeModel y,context) {
+    return Provider.of<AppointmentData>(context, listen: false)
+        .fullTimeServices[employeeIndex]
+        .employees
+        .indexOf(y);
+  }
+
+  int findIndexEmployee(EmployeeModel y,context) {
+    return Provider.of<AppointmentData>(context, listen: false)
+        .employeesList
+        .indexOf(y);
   }
 
 

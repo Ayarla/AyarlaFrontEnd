@@ -1,6 +1,6 @@
 import 'package:ayarla/components/map/mapBox.dart';
 import 'package:ayarla/screens/calender_page.dart';
-import 'package:ayarla/screens/manager_screens/business_info_page.dart';
+import 'file:///C:/Users/Nilsu/AndroidStudioProjects/AyarlaFrontEnd/lib/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
