@@ -4,8 +4,9 @@ import 'package:menu_button/menu_button.dart';
 class TimeDropdown extends StatefulWidget {
   ///initial value
   String selected;
+  bool isHour;
   ///items farklı içerikler lazım olursa constructor'a eklenir
-  List<String> items = <String>[
+  List<String> itemsHour = <String>[
     '00:00',
     '00:30',
     '01:30',
@@ -54,7 +55,10 @@ class TimeDropdown extends StatefulWidget {
     '23:00',
     '23:30',
   ];
-  TimeDropdown({this.selected});
+  List<String> itemsMinute = <String>[
+    '0','5','10','15','20','25','30','35','40','45','50','55','60'
+  ];
+  TimeDropdown({this.selected,this.isHour=true});
 
   @override
   _TimeDropdownState createState() => _TimeDropdownState();
@@ -96,7 +100,7 @@ class _TimeDropdownState extends State<TimeDropdown> {
           ),
         ),
       ),
-      items:widget.items,
+      items:widget.isHour?widget.itemsHour:widget.itemsMinute,
       itemBuilder: (String value) => Container(
         height: 40,
         alignment: Alignment.centerLeft,

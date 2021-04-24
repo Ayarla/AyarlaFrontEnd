@@ -13,6 +13,7 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
     final Size size = MediaQuery.of(context).size;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// Ratings
         Text(
@@ -46,32 +47,44 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
         ),
 
         /// TODO - fix
-        TextButton(
-            child: Text('Randevu aralığı belirleyiniz',
-                style: kSmallTextStyle.copyWith(
-                    color: Colors.grey.withOpacity(0.8))),
-            onPressed: () {}),
+        Row(
+          children: [
+                Text('Randevu aralığı belirleyiniz: ',
+                    style: kSmallTextStyle.copyWith(
+                        color: Colors.black.withOpacity(0.8))),
+                TimeDropdown(isHour: false,selected: '0',),
+            Padding(
+              padding: const EdgeInsets.only(left:4.0),
+              child: Text('dk',
+                  style: kSmallTextStyle.copyWith(
+                      color: Colors.black.withOpacity(0.8))),
+            ),
+              ],
+        ),
 
         /// Working hours
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Icon(Icons.access_time,
-                color: Colors.grey.withOpacity(0.8), size: 20),
-            SizedBox(width: 10),
-            TimeDropdown(
-              selected: "00:00",
-            ),
-            Text(
-              "-",
-              style: kSmallTextStyle.copyWith(
-                color: Colors.grey.withOpacity(0.8),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical:8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Icon(Icons.access_time,
+                  color: Colors.grey.withOpacity(0.8), size: 20),
+              SizedBox(width: 10),
+              TimeDropdown(
+                selected: "00:00",
               ),
-            ),
-            TimeDropdown(
-              selected: "00:00",
-            ),
-          ],
+              Text(
+                "-",
+                style: kSmallTextStyle.copyWith(
+                  color: Colors.grey.withOpacity(0.8),
+                ),
+              ),
+              TimeDropdown(
+                selected: "00:00",
+              ),
+            ],
+          ),
         ),
 
         /// About text
