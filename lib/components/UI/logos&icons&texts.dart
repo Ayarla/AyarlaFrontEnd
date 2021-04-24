@@ -1,9 +1,7 @@
-import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ayarla/components/UI/linearGradientMask.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/functions.dart';
 
 /// GENERAL LOGO
 Container generalLogo = Container(
@@ -17,45 +15,11 @@ Container generalLogo = Container(
 );
 
 /// NEW ICONS
-Widget homeIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_home.svg',
-  width: 70,
-  color: Colors.white,
-));
-
-Widget employeesIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_users.svg',
-  width: 70,
-  color: Colors.white,
-));
-
-Widget calenderIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_calendar.svg',
-  width: 70,
-  color: Colors.white,
-));
-
-Widget messageIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_message.svg',
-  width: 80,
-  color: Colors.white,
-));
-
-Widget notesIcon = LinearGradientMask(
-    child: SvgPicture.asset(
-  'assets/icons/icon_notes.svg',
-  width: 70,
-  color: Colors.white,
-));
 
 Widget notificationIcon = LinearGradientMask(
     child: SvgPicture.asset(
   'assets/icons/icon_bell.svg',
-  width: 70,
+  // width: 70,
   color: Colors.white,
 ));
 
@@ -125,56 +89,42 @@ class AppBarTitleCustomer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return ResponsiveWidget(
-      smallScreen: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Merhaba Nilsu",
-              style: kTitleStyle.copyWith(
-                  color: Colors.white, fontSize: size.width / 28),
-            ),
-            Text(
-              "Haydi randevunu ayarlayalım!",
-              style: kSmallTextStyle.copyWith(fontSize: size.width / 30),
-            )
-          ],
-        ),
-      ),
-      mediumScreen: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Merhaba Nilsu",
-              style: kTitleStyle.copyWith(color: Colors.white),
-            ),
-            Text(
-              "Haydi randevunu ayarlayalım!",
-              style: kSmallTextStyle,
-            )
-          ],
-        ),
-      ),
-      largeScreen: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Merhaba Nilsu",
-              style: kTitleStyle.copyWith(color: Colors.white),
-            ),
-            Text(
-              "Haydi randevunu ayarlayalım!",
-              style: kSmallTextStyle,
-            )
-          ],
-        ),
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Merhaba Nilsu",
+            style: kTitleStyle.copyWith(
+                color: Colors.white,
+                fontSize: size.width < 700 ? size.width / 31.8 : 22),
+          ),
+          Text(
+            "Haydi randevunu ayarlayalım!",
+            style: kSmallTextStyle.copyWith(
+                fontSize: size.width < 700 ? size.width / 50 : 14),
+          )
+        ],
       ),
     );
   }
 }
+
+Container appBarTitleCustomer = Container(
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Merhaba Nilsu",
+        style: kTitleStyle.copyWith(color: Colors.white),
+      ),
+      Text(
+        "Haydi randevunu ayarlayalım!",
+        style: kSmallTextStyle,
+      )
+    ],
+  ),
+);
 
 Row appBarTitleManager = Row(
   mainAxisAlignment: MainAxisAlignment.start,
@@ -188,7 +138,6 @@ Row appBarTitleManager = Row(
             fit: BoxFit.scaleDown,
             child: Text(
               "Merhaba Nilsu",
-              // style: kTextStylewoSize,
               style: kTitleStyle.copyWith(color: Colors.white),
             ),
           ),
@@ -196,7 +145,6 @@ Row appBarTitleManager = Row(
             fit: BoxFit.scaleDown,
             child: Text(
               "Haydi işletmeni ayarlayalım!",
-              // style: kTextStylewoSize,
               style: kSmallTextStyle.copyWith(color: Colors.white),
             ),
           )
@@ -206,16 +154,17 @@ Row appBarTitleManager = Row(
   ],
 );
 
-Row appBarTitleFavorites = Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    Container(
-      child: Functions().titleLength(
-          inputName: "Favorilerim",
-          textStyle: kTitleStyle.copyWith(
-              color: Colors.white, letterSpacing: 2, fontSize: 25),
-          ctrlLength: 20),
-    ),
-    Container(),
-  ],
-);
+class AppBarTitleFavorites extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Center(
+        child: Text(
+          "Favorilerim",
+          style: kTitleStyle.copyWith(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}

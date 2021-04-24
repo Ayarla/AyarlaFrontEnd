@@ -29,11 +29,11 @@ class _ServicesSectionState extends State<ServicesSection> {
                 .fullTimeServices)
           MenuSection2(
             title: Container(
-              width: size.width / 1.1,
+              width: size.width - size.width / 10,
               height: 80,
               child: Row(
                 children: [
-                  SizedBox(width: 10),
+                  SizedBox(width: 20),
                   Text(x.name,
                       style:
                           kTextStyle.copyWith(fontWeight: FontWeight.normal)),
@@ -57,7 +57,6 @@ class _ServicesSectionState extends State<ServicesSection> {
 
                       },
                   ),
-                  SizedBox(width: 10),
                 ],
               ),
             ),

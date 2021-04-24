@@ -1,4 +1,3 @@
-import 'package:ayarla/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class GenericRow extends StatelessWidget {
@@ -10,6 +9,7 @@ class GenericRow extends StatelessWidget {
   final bool useFirstSpacer;
   final bool useSecondSpacer;
 
+  /// Out of use.
   GenericRow({
     this.leading,
     this.body,

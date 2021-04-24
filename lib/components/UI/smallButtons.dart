@@ -1,8 +1,6 @@
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/constants/router.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AcceptButton extends StatelessWidget {
   final Function acceptCondition;

@@ -1,12 +1,12 @@
-import 'package:ayarla/components/UI/genericIconButton.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/employeeAndService.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/virtual_data_base/genderSelection.dart';
+
+import 'genericIconButton.dart';
+
 
 class MenuItemData2 {
   String label;
@@ -20,7 +20,6 @@ class MenuSection2 extends StatefulWidget {
   final Color accentColor;
   final List menuOptions;
   final int serviceIndex;
-  // final String assetId;
 
   MenuSection2({
     this.title,

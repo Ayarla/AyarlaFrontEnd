@@ -18,4 +18,8 @@ class Login extends ChangeNotifier{
     notifyListeners();
   }
 
+  /// TODO - Password Mail
+  sendPasswordMail() {
+
+  }
 }

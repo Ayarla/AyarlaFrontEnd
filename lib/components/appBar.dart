@@ -1,13 +1,11 @@
-import 'package:ayarla/components/UI/responsiveWidget.dart';
+import 'package:ayarla/components/UI/notificationBadge.dart';
 import 'package:ayarla/constants/router.dart';
-import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'circularParent.dart';
 import 'filter&order.dart';
-import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 
 class DefaultAppBar extends StatelessWidget {
   final Widget title;
@@ -19,6 +17,7 @@ class DefaultAppBar extends StatelessWidget {
   final bool showBackButton;
   final double titleSpacing;
   final Function backButtonFunction;
+  final bool centerTitle;
 
   /// In order to call this component on a tree use DefaultAppBar().build(context)
   ///
@@ -40,12 +39,14 @@ class DefaultAppBar extends StatelessWidget {
     this.titleSpacing,
     this.backButtonFunction,
     this.showBackButton,
+    this.centerTitle,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
+      centerTitle: centerTitle ?? false,
       backgroundColor: Colors.transparent,
       titleSpacing: titleSpacing ?? 0,
       flexibleSpace: CircularParent(
@@ -66,14 +67,7 @@ class DefaultAppBar extends StatelessWidget {
             ? IconButton(
                 padding: EdgeInsets.only(left: 10, right: 20),
                 iconSize: 35,
-                icon: Badge(
-                  badgeContent: Text('1',
-                      style: kSmallTextStyle.copyWith(color: Colors.white)),
-                  child: Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                  ),
-                ),
+                icon: NotificationBadge(),
                 onPressed: () {
                   Routers.router.navigateTo(context, "/KullaniciSayfasi");
                 },
@@ -111,64 +105,53 @@ class _SearchAppBarState extends State<SearchAppBar> {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: widget.mediaQueryData.size.width < 479
-          ? widget.mediaQueryData.size.width / 2.7
+      expandedHeight: widget.mediaQueryData.size.width < 700
+          ? widget.mediaQueryData.size.width / 3.4
           : 170,
-      collapsedHeight: widget.mediaQueryData.size.width < 479
-          ? widget.mediaQueryData.size.width / 8
-          : 70,
-      toolbarHeight: widget.mediaQueryData.size.width < 479
-          ? widget.mediaQueryData.size.width / 8.2
+      collapsedHeight: widget.mediaQueryData.size.width < 700
+          ? widget.mediaQueryData.size.width / 9.5
           : 60,
-      // expandedHeight: 180,
-      // collapsedHeight: 70,
+      toolbarHeight: widget.mediaQueryData.size.width < 700
+          ? widget.mediaQueryData.size.width / 9.7
+          : 60,
       floating: false,
       pinned: true,
       snap: false,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title: Row(
-        children: [
-          ResponsiveWidget(
-            smallScreen: IconButton(
+      title: SizedBox(
+        width: widget.mediaQueryData.size.width,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
                 icon: Icon(Icons.arrow_back_sharp,
-                    size: widget.mediaQueryData.size.width / 20),
+                    size: widget.mediaQueryData.size.width < 700
+                        ? widget.mediaQueryData.size.width / 20
+                        : 24),
                 onPressed: () => Routers.router.pop(context)),
-            mediumScreen: IconButton(
-                icon: Icon(Icons.arrow_back_sharp, size: 24),
-                onPressed: () => Routers.router.pop(context)),
-            largeScreen: IconButton(
-                icon: Icon(Icons.arrow_back_sharp, size: 24),
-                onPressed: () => Routers.router.pop(context)),
-          ),
-          SizedBox(width: widget.mediaQueryData.size.width / 100),
-          // UI.AppBarTitleCustomer(size: widget.mediaQueryData.size.width),
-          widget.title,
-          Spacer(),
-          ResponsiveWidget(
-            smallScreen: IconButton(
-              icon: Icon(
-                Icons.account_circle,
-                color: Colors.white,
-                size: widget.mediaQueryData.size.width / 12,
-              ),
-              onPressed: () {
-                Routers.router.navigateTo(context, "/KullaniciSayfasi");
-              },
-            ),
-            mediumScreen: IconButton(
-                icon: Icon(Icons.account_circle, size: 36),
-                onPressed: () =>
+            SizedBox(width: widget.mediaQueryData.size.width / 85),
+            SizedBox(
+                width: widget.mediaQueryData.size.width - 150,
+                child: widget.title),
+            Spacer(),
+            GestureDetector(
+                child: NotificationBadge(
+                  child: Icon(
+                    Icons.account_circle,
+                    color: Colors.white,
+                    size: widget.mediaQueryData.size.width < 700
+                        ? widget.mediaQueryData.size.width / 15
+                        : 36,
+                  ),
+                ),
+                onTap: () =>
                     Routers.router.navigateTo(context, "/KullaniciSayfasi")),
-            largeScreen: IconButton(
-                icon: Icon(Icons.account_circle, size: 36),
-                onPressed: () =>
-                    Routers.router.navigateTo(context, "/KullaniciSayfasi")),
-          ),
-        ],
+          ],
+        ),
       ),
       flexibleSpace: CircularParent(
-        radius: 20,
+        radius: 30,
         direction: Directions.bottom,
         gradient: Functions().decideColor(context),
         child: FlexibleSpaceBar(
@@ -180,19 +163,55 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 direction: Directions.bottom,
                 color: Colors.white,
                 gradient: Functions().decideColor(context),
-                child: ResponsiveWidget(
-                  smallScreen: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: widget.mediaQueryData.size.width / 7,
-                          left: widget.mediaQueryData.size.width / 20,
-                          right: widget.mediaQueryData.size.width / 20,
-                          bottom: widget.mediaQueryData.size.width / 120,
-                        ),
-                        child: SizedBox(
-                          height: widget.mediaQueryData.size.width / 9,
-                          width: widget.mediaQueryData.size.width / 1.05,
+                child: Column(
+                  children: [
+                    widget.mediaQueryData.size.width < 700
+                        ? Padding(
+                            padding: EdgeInsets.only(
+                              top: widget.mediaQueryData.size.width / 10,
+                              bottom: widget.mediaQueryData.size.width / 150,
+                            ),
+                            child: SizedBox(
+                              height: widget.mediaQueryData.size.width / 11,
+                              width: widget.mediaQueryData.size.width / 1.08,
+                              child: TextField(
+                                textCapitalization: TextCapitalization.words,
+                                autofocus: false,
+                                autocorrect: false,
+                                focusNode: FocusNode(canRequestFocus: false),
+                                textAlignVertical: TextAlignVertical.bottom,
+                                onChanged: widget.onChanged,
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize:
+                                        widget.mediaQueryData.size.width / 30),
+                                decoration: InputDecoration(
+                                  hintText:
+                                      "Lütfen işletme adı veya kodu giriniz",
+                                  hintStyle: kSmallTextStyle.copyWith(
+                                    color: Colors.grey.withOpacity(0.8),
+                                    fontSize:
+                                        widget.mediaQueryData.size.width / 35,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.search,
+                                      size: widget.mediaQueryData.size.width /
+                                          25),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25.0)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Padding(
+                          padding: EdgeInsets.only(
+                            top: 70,
+                            left: 20,
+                            right: 20,
+                            bottom: 10,
+                          ),
                           child: TextField(
                             textCapitalization: TextCapitalization.words,
                             autofocus: false,
@@ -200,19 +219,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             focusNode: FocusNode(canRequestFocus: false),
                             textAlignVertical: TextAlignVertical.bottom,
                             onChanged: widget.onChanged,
-                            style: kSmallTextStyle.copyWith(
-                                fontSize:
-                                    widget.mediaQueryData.size.width / 30),
+                            style: kSmallTextStyle,
                             decoration: InputDecoration(
-                              hintText: "Lütfen işletme adı veya kodu giriniz",
+                              hintText:
+                                  "Lütfen işletme adı veya kodu giriniz",
                               hintStyle: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                                fontSize: widget.mediaQueryData.size.width / 30,
-                              ),
+                                  color: Colors.grey.withOpacity(0.8)),
                               filled: true,
                               fillColor: Colors.white,
-                              prefixIcon: Icon(Icons.search,
-                                  size: widget.mediaQueryData.size.width / 20),
+                              prefixIcon: Icon(Icons.search),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(25.0),
@@ -221,80 +236,12 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             ),
                           ),
                         ),
-                      ),
-                      FilterOrderRow(),
-                    ],
-                  ),
-                  mediumScreen: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 70,
-                          left: 10,
-                          right: 10,
-                          bottom: 10,
-                        ),
-                        child: TextField(
-                          textCapitalization: TextCapitalization.words,
-                          autofocus: false,
-                          autocorrect: false,
-                          focusNode: FocusNode(canRequestFocus: false),
-                          textAlignVertical: TextAlignVertical.bottom,
-                          onChanged: widget.onChanged,
-                          style: kSmallTextStyle,
-                          decoration: InputDecoration(
-                            hintText: "Lütfen işletme adı veya kodu giriniz",
-                            hintStyle: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8)),
-                            filled: true,
-                            fillColor: Colors.white,
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(25.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      FilterOrderRow(),
-                    ],
-                  ),
-                  largeScreen: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 70,
-                          left: 10,
-                          right: 10,
-                          bottom: 10,
-                        ),
-                        child: TextField(
-                          textCapitalization: TextCapitalization.words,
-                          autofocus: false,
-                          autocorrect: false,
-                          focusNode: FocusNode(canRequestFocus: false),
-                          textAlignVertical: TextAlignVertical.bottom,
-                          onChanged: widget.onChanged,
-                          style: kSmallTextStyle,
-                          decoration: InputDecoration(
-                            hintText: "Lütfen işletme adı veya kodu giriniz",
-                            hintStyle: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8)),
-                            filled: true,
-                            fillColor: Colors.white,
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(25.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      FilterOrderRow(),
-                    ],
-                  ),
+                    SizedBox(
+                        height: widget.mediaQueryData.size.width < 700
+                            ? widget.mediaQueryData.size.width / 700
+                            : 0),
+                    FilterOrderRow(),
+                  ],
                 ),
               ),
             ),

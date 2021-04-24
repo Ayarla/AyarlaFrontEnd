@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ayarla/constants/constants.dart';
 
-class Comment extends StatelessWidget {
+class CommentModel extends StatelessWidget {
   final String name;
   final int rating;
   final String comment;
@@ -12,7 +12,20 @@ class Comment extends StatelessWidget {
   final int dislike;
   final int score;
 
-  Comment({
+  // factory CommentModel.fromJson(json, int index) {
+  //   return CommentModel(
+  //     comment: json["comment"],
+  //     name: json[""],
+  //     rating: json["rating"],
+  //     image: json[""],
+  //     date: json[""],
+  //     like: json[""],
+  //     dislike: json[""],
+  //     score: json[""],
+  //   );
+  // }
+
+  CommentModel({
     @required this.rating,
     @required this.name,
     @required this.comment,

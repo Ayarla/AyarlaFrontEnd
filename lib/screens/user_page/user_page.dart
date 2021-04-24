@@ -1,3 +1,4 @@
+import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -9,7 +10,6 @@ import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/authentication_page.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
-import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 
 class UserPage extends StatefulWidget {
   static const id = 'UserPage';
@@ -46,8 +46,8 @@ class _UserPageState extends State<UserPage> {
               ///otherwise it opens the profile of the user
               if (Provider.of<Login>(context, listen: true).holder)
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 8.0),
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.start,
                     runSpacing: 10.0,
@@ -153,15 +153,12 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.pushNamed(context, AppointmentsPage.id);
                           Routers.router.navigateTo(context, '/Randevularim');
                         },
                         child: Row(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10.0, right: 20),
-                            // child: UI.calenderIcon,
+                              padding: EdgeInsets.only(left: 10.0, right: 20),
                               child: Icon(Icons.date_range_outlined),
                             ),
                             Text("Randevularım", style: kTextStyle),
@@ -176,8 +173,8 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.pushNamed(context, PastAppointmentsPage.id);
-                          Routers.router.navigateTo(context, '/GecmisRandevularim');
+                          Routers.router
+                              .navigateTo(context, '/GecmisRandevularim');
                         },
                         child: Row(
                           children: [
@@ -186,7 +183,9 @@ class _UserPageState extends State<UserPage> {
                                   const EdgeInsets.only(left: 10.0, right: 20),
                               child: Icon(Icons.update_outlined),
                             ),
-                            Text("Geçmiş Randevularım", style: kTextStyle),
+                            TextOverFlowHandler(
+                                child: Text("Geçmiş Randevularım",
+                                    style: kTextStyle)),
                             Spacer(),
                             Padding(
                               padding: const EdgeInsets.only(right: 10.0),
@@ -198,7 +197,8 @@ class _UserPageState extends State<UserPage> {
                       Divider(color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          Routers.router.navigateTo(context, '/ProfilimiDuzenle');
+                          Routers.router
+                              .navigateTo(context, '/ProfilimiDuzenle');
                         },
                         child: Row(
                           children: [

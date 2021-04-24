@@ -34,8 +34,6 @@ const kTextStylewoSize = TextStyle(
 
 const kSmallTextStyle = TextStyle(
   fontSize: 14,
-  //color: Colors.grey.withOpacity(0.8),
-  // fontWeight: FontWeight.w900,
   fontWeight: FontWeight.normal,
   fontFamily: 'Round_Regular',
   letterSpacing: 1,

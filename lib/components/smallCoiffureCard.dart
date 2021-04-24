@@ -36,11 +36,7 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
         );
       },
       child: Padding(
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 20,
-        ),
+        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
         child: Stack(
           children: [
             cardBody(context),
@@ -63,7 +59,7 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                         .setOrChangeFav(widget.coiffureModel);
                   },
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(7),
                     child: ResponsiveWidget(
                       smallScreen: Icon(
                         Provider.of<AppointmentData>(context, listen: true)
@@ -72,12 +68,12 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.red,
-                        size: size.width / 17,
+                        size: size.width / 25,
                       ),
                       mediumScreen: Icon(
                         Provider.of<AppointmentData>(context, listen: true)
-                            .favorites
-                            .contains(widget.coiffureModel)
+                                .favorites
+                                .contains(widget.coiffureModel)
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.red,
@@ -85,8 +81,8 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                       ),
                       largeScreen: Icon(
                         Provider.of<AppointmentData>(context, listen: true)
-                            .favorites
-                            .contains(widget.coiffureModel)
+                                .favorites
+                                .contains(widget.coiffureModel)
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.red,
@@ -148,343 +144,111 @@ class CardInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return ResponsiveWidget(
-      smallScreen: Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: Padding(
-                padding:
-                    EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    /// name
-                    TextOverFlowHandler(
-                      child: Text(
-                        coiffureModel.name,
-                        // style: kTextStyle,
-                        style: kTextStyle.copyWith(fontSize: size.width / 20),
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            child: Padding(
+              padding: EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  /// name
+                  TextOverFlowHandler(
+                    child: Text(
+                      coiffureModel.name,
+                      style: kTextStyle.copyWith(fontSize: 20),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+
+                  /// First line
+                  Row(
+                    children: <Widget>[
+                      SizedBox(width: 1),
+                      Icon(
+                        FontAwesomeIcons.mapMarkerAlt,
+                        size: 13,
+                        color: Colors.red,
                       ),
-                    ),
-                    SizedBox(height: 5),
-
-                    /// First line
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: 1),
-                        Icon(
-                          FontAwesomeIcons.mapMarkerAlt,
-                          size: size.width / 30,
-                          color: Colors.red,
-                        ),
-                        SizedBox(width: 7),
-                        Padding(
-                          padding: EdgeInsets.only(top: 1.0),
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text(
-                              '${coiffureModel.city}, ${coiffureModel.district}',
-                              // style: kSmallTextStyle.copyWith(
-                              //   color: Colors.grey.withOpacity(0.8),
-                              style: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                                fontSize: size.width / 30,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          '${coiffureModel.time}',
-                          // style: kTextStyle.copyWith(fontSize: 14),
-                          style: kSmallTextStyle.copyWith(
-                            color: Colors.grey.withOpacity(0.8),
-                            fontSize: size.width / 30,
-                          ),
-                        ),
-                        SizedBox(width: 1),
-                      ],
-                    ),
-                    SizedBox(height: 2),
-
-                    /// Second Line
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow.shade700,
-                          size: size.width / 25,
-                        ),
-                        SizedBox(width: 4),
-                        Row(
-                          children: [
-                            Text(
-                              '${coiffureModel.star}',
-                              // style: kSmallTextStyle.copyWith(
-                              //   color: Colors.grey.withOpacity(0.8),
-                              // ),
-                              style: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                                fontSize: size.width / 30,
-                              ),
-                            ),
-                            Text(
-                              ' (${coiffureModel.comments} değerlendirme)',
-                              // style: kSmallTextStyle.copyWith(
-                              //     color: Colors.grey.withOpacity(0.8),
-                              //     fontSize: 12),
-                              style: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                                fontSize: size.width / 35,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text(
-                              'Çalışma Saatleri',
-                              // style: kSmallTextStyle.copyWith(
-                              //   color: Colors.grey.withOpacity(0.8),
-                              // ),
-                              style: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                                fontSize: size.width / 35,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 1),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      mediumScreen: Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: Padding(
-                padding:
-                EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    /// name
-                    TextOverFlowHandler(
-                      child: Text(
-                        coiffureModel.name,
-                        style: kTextStyle),
-                    ),
-                    SizedBox(height: 5),
-
-                    /// First line
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: 1),
-                        Icon(
-                          FontAwesomeIcons.mapMarkerAlt,
-                          size: 13,
-                          color: Colors.red,
-                        ),
-                        SizedBox(width: 7),
-                        Padding(
-                          padding: EdgeInsets.only(top: 1.0),
+                      SizedBox(width: 7),
+                      Padding(
+                        padding: EdgeInsets.only(top: 1.0),
+                        child: TextOverFlowHandler(
                           child: Text(
                             '${coiffureModel.city}, ${coiffureModel.district}',
                             style: kSmallTextStyle.copyWith(
                               color: Colors.grey.withOpacity(0.8),
-                              fontSize: 12,
+                              // fontSize: 12,
+                              fontSize: 13,
                             ),
                           ),
                         ),
-                        Spacer(),
-                        Text(
-                          '${coiffureModel.time}',
-                          style: kTextStyle.copyWith(fontSize: 14),
-                        ),
-                        SizedBox(width: 1),
-                      ],
-                    ),
-                    SizedBox(height: 2),
-
-                    /// Second Line
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow.shade700,
-                          size: 16,
-                        ),
-                        SizedBox(width: 4),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '${coiffureModel.star}',
-                                  style: kSmallTextStyle.copyWith(
-                                    color: Colors.grey.withOpacity(0.8),
-                                  ),
-                                  // style: kSmallTextStyle.copyWith(
-                                  //   color: Colors.grey.withOpacity(0.8),
-                                  //   fontSize: size.width / 30,
-                                  // ),
-                                ),
-                                TextSpan(
-                                  text:
-                                  ' (${coiffureModel.comments} değerlendirme)',
-                                  style: kSmallTextStyle.copyWith(
-                                      color: Colors.grey.withOpacity(0.8),
-                                      fontSize: 12),
-                                  // style: kSmallTextStyle.copyWith(
-                                  //   color: Colors.grey.withOpacity(0.8),
-                                  //   fontSize: size.width / 35,
-                                  // ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text(
-                              'Çalışma Saatleri',
-                              style: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
-                              ),
-                              // style: kSmallTextStyle.copyWith(
-                              //   color: Colors.grey.withOpacity(0.8),
-                              //   fontSize: size.width / 35,
-                              // ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 1),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      largeScreen: Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: Padding(
-                padding:
-                    EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    /// name
-                    TextOverFlowHandler(
-                      child: Text(
-                        coiffureModel.name,
-                        style: kTextStyle,
                       ),
-                    ),
-                    SizedBox(height: 5),
+                      Spacer(),
+                      Text(
+                        '${coiffureModel.time}',
+                        style: kTextStyle.copyWith(fontSize: 13),
+                      ),
+                      SizedBox(width: 1),
+                    ],
+                  ),
+                  SizedBox(height: 2),
 
-                    /// First line
-                    Row(
-                      children: <Widget>[
-                        SizedBox(width: 1),
-                        Icon(
-                          FontAwesomeIcons.mapMarkerAlt,
-                          size: 13,
-                          color: Colors.red,
-                        ),
-                        SizedBox(width: 7),
-                        Padding(
-                          padding: EdgeInsets.only(top: 1.0),
-                          child: Text(
-                            '${coiffureModel.city}, ${coiffureModel.district}',
-                            style: kSmallTextStyle.copyWith(
-                              color: Colors.grey.withOpacity(0.8),
-                              fontSize: 12,
-                            ),
+                  /// Second Line
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.star,
+                        color: Colors.yellow.shade700,
+                        size: 16,
+                      ),
+                      SizedBox(width: 4),
+                      Padding(
+                        padding: EdgeInsets.only(top: 4.0),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${coiffureModel.star}',
+                                style: kSmallTextStyle.copyWith(
+                                  color: Colors.grey.withOpacity(0.8),
+                                  fontSize: 13,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' (${coiffureModel.comments} yorum)',
+                                style: kSmallTextStyle.copyWith(
+                                  color: Colors.grey.withOpacity(0.8),
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Spacer(),
-                        Text(
-                          '${coiffureModel.time}',
-                          style: kTextStyle.copyWith(fontSize: 14),
-                        ),
-                        SizedBox(width: 1),
-                      ],
-                    ),
-                    SizedBox(height: 2),
-
-                    /// Second Line
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow.shade700,
-                          size: 16,
-                        ),
-                        SizedBox(width: 4),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '${coiffureModel.star}',
-                                  style: kSmallTextStyle.copyWith(
-                                    color: Colors.grey.withOpacity(0.8),
-                                  ),
+                      ),
+                      Spacer(),
+                      size.width < 340
+                          ? Container()
+                          : Padding(
+                              padding: EdgeInsets.only(top: 4.0),
+                              child: Text(
+                                'Çalışma Saatleri',
+                                style: kSmallTextStyle.copyWith(
+                                  color: Colors.grey.withOpacity(0.8),
+                                  fontSize: 13,
                                 ),
-                                TextSpan(
-                                  text:
-                                      ' (${coiffureModel.comments} değerlendirme)',
-                                  style: kSmallTextStyle.copyWith(
-                                      color: Colors.grey.withOpacity(0.8),
-                                      fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text(
-                              'Çalışma Saatleri',
-                              style: kSmallTextStyle.copyWith(
-                                color: Colors.grey.withOpacity(0.8),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(width: 1),
-                      ],
-                    ),
-                  ],
-                ),
+                      SizedBox(width: 1),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
