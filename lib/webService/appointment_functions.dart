@@ -63,18 +63,8 @@ class HttpAppointmentFunctions extends HttpService {
     final String _url = '$baseUrl/api/services/app/Appoinment/Update';
 
     var data = {
-      "employeeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       "userId": 0,
       "dayTime": "2021-04-24T10:19:00.641Z",
-      "serviceId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "isDeleted": true,
-      "deleterUserId": 0,
-      "deletionTime": "2021-04-24T10:19:00.641Z",
-      "lastModificationTime": "2021-04-24T10:19:00.641Z",
-      "lastModifierUserId": 0,
-      "creationTime": "2021-04-24T10:19:00.641Z",
-      "creatorUserId": 0,
-      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     };
     var body = jsonEncode(data);
 
