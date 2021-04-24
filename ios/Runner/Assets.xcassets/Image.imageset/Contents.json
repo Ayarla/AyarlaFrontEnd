@@ -1,16 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "genel_logo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "LaunchImage@2x.jpeg",
+      "filename" : "genel_logo2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "LaunchImage@3x.jpeg",
+      "filename" : "genel_logo3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

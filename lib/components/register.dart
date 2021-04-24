@@ -1,9 +1,9 @@
-import 'dart:convert';
+import 'package:ayarla/components/appBar.dart';
+import 'package:ayarla/webService/user_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   @override
@@ -14,59 +14,21 @@ class _RegisterState extends State<Register> {
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   Functions functions = Functions();
 
+  HttpUserFunctions httpUserFunctions = HttpUserFunctions();
+
   String _typedMail;
   String _typedPassword;
   String _typedPasswordCheck;
   String _typedName;
   String _typedSurname;
 
-  int index=1;
-
-  final String _adminToken =
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBhc3BuZXRib2lsZXJwbGF0ZS5jb20iLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6IjEyYWEzZjQ1LWVkZGMtMGEzYi02MGE5LTM5ZmE1MWMyNDE1NCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwic3ViIjoiMSIsImp0aSI6IjBjNWNkZjIyLWE5ZmQtNGM5MS05YTk2LTM2YTUxY2Q4N2VlZSIsImlhdCI6MTYxNTM3Njc2OSwibmJmIjoxNjE1Mzc2NzY5LCJleHAiOjE2MTU0NjMxNjksImlzcyI6IkF5YXJsYSIsImF1ZCI6IkF5YXJsYSJ9.ARj2CphmCEsDamRawGOu8y-Et1pHocRlkHcNA7Kvdhw';
-
-  final String _userToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIzIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlNlbWloR00iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzZW1paEBheWFybGEuYXBwIiwiQXNwTmV0LklkZW50aXR5LlNlY3VyaXR5U3RhbXAiOiI1UE0yVkxaVDZJQUUzUFBLWTZBN1pPVjJZN0pKUUlNNSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwic3ViIjoiMjMiLCJqdGkiOiI1ZTVlZjYwNS02NzNhLTQ2MGMtODE3NS0yZDQyODJjYTA0MmEiLCJpYXQiOjE2MTUzMTIwODUsIm5iZiI6MTYxNTMxMjA4NSwiZXhwIjoxNjE1Mzk4NDg1LCJpc3MiOiJBeWFybGEiLCJhdWQiOiJBeWFybGEifQ.dxCUy3BowF9swq5KI3n3icJHyuFi1aaFvB-XZUzEw';
+  int index = 1;
 
   /// TODO add isValidEmail() to the functions-we are using multiple times.
   bool isValidEmail() {
     return RegExp(
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(_typedMail);
-  }
-
-  Future createUser() async {
-    final String _url = 'http://10.0.2.2:21021/api/services/app/User/Create';
-
-    Map data = {
-      "userName": "asasdd",
-      "name": "aadsd",
-      "surname": "assd",
-      "emailAddress": "aasasddd@gmail.com",
-      "isActive": true,
-      "roleNames": [
-        "User"
-      ],
-      "password": "123456"
-    };
-
-    var body = json.encode(data);
-
-    http.Response response = await http.post(_url,
-        headers: <String, String>{
-          'Authorization': _adminToken,
-          'Content-type': 'application/json; charset=utf-8',
-        },
-        body: body);
-
-    if (response.statusCode == 200) {
-      String data = response.body;
-      print('kullanici olusturuldu');
-      return jsonEncode(data);
-    } else {
-      print(response.statusCode);
-      var error = jsonDecode(response.body);
-      print(error);
-    }
   }
 
   @override
@@ -74,119 +36,107 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(5, 50),
-        child: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                gradient: functions.decideColor(context),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(15))),
+        child: DefaultAppBar(
+          title: Text(
+            'ayarla',
+            style: kTitleStyle.copyWith(
+                color: Colors.white, letterSpacing: 2, fontSize: 30),
           ),
-          leading: FlatButton(
-            child: Icon(Icons.home, color: Colors.white, size: 40.0),
-            onPressed: () {
-              // Navigator.popUntil(
-              //     context,
-              //     ModalRoute.withName(
-              //         SearchPage.id
-              //     ));
-            },
-          ),
-          title: Center(
-              child: Text(
-                "ayarla",
-                style: kTitleStyle.copyWith(
-                    color: Colors.white, letterSpacing: 2, fontSize: 30),
-              )),
-          actions: [
-
-          ],
+          centerTitle: true,
+          showIconButton: false,
+          gradient: functions.decideColor(context),
         ),
       ),
       body: ListView(
         children: [
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical:10.0),
-              child: Text("Lütfen hesap türünü seçiniz",style: kTitleStyle,),
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: Text(
+                "Lütfen hesap türünü seçiniz",
+                style: kTitleStyle,
+              ),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Stack(
-                children: [
+                children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Container(
                       child: Container(
                         height: 150,
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black26
-                            )
+                          border: Border.all(color: Colors.black26),
                         ),
                         child: TextButton(
                           child: Center(
-                            child:Column(children: [
-                              Icon(Icons.person, size:100),
-                              Text("Müşteri", style: kTextStyle,),
-
-                            ]),
+                            child: Column(
+                              children: <Widget>[
+                                Icon(Icons.person, size: 100),
+                                Text(
+                                  "Müşteri",
+                                  style: kTextStyle,
+                                ),
+                              ],
+                            ),
                           ),
-                          onPressed: (){
+                          onPressed: () {
                             setState(() {
-                              index=1;
+                              index = 1;
                             });
                           },
                         ),
                       ),
                     ),
                   ),
+
                   /// TODO - yeşil ikon yerine border yeşil olsun.
-                  if(index==1)Positioned(
-                    child: Icon(Icons.check_circle,color:Colors.green),
-                    bottom: 0,
-                    right: 0,
-                  ),
+                  if (index == 1)
+                    Positioned(
+                      child: Icon(Icons.check_circle, color: Colors.green),
+                      bottom: 0,
+                      right: 0,
+                    ),
                 ],
               ),
               Stack(
-                children: [
+                children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Container(
                       child: Container(
                         height: 150,
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black26
-                            )
+                          border: Border.all(color: Colors.black26),
                         ),
-                        child: FlatButton(
+                        child: TextButton(
                           child: Center(
-                            child: Column(
-                                children: [
-                                  Icon(Icons.work, size:110),
-                                  Text("Yönetici", style: kTextStyle,),
-                                ]),
+                            child: Column(children: <Widget>[
+                              Icon(Icons.work, size: 105),
+                              Text(
+                                "Yönetici",
+                                style: kTextStyle,
+                              ),
+                            ]),
                           ),
-                          onPressed: (){
+                          onPressed: () {
                             setState(() {
-                              index=2;
+                              index = 2;
                             });
                           },
                         ),
                       ),
                     ),
                   ),
-                  if(index==2)Positioned(
-                    child: Icon(Icons.check_circle,color:Colors.green),
-                    bottom: 0,
-                    right: 0,
-                  ),
+                  if (index == 2)
+                    Positioned(
+                      child: Icon(Icons.check_circle, color: Colors.green),
+                      bottom: 0,
+                      right: 0,
+                    ),
                 ],
               ),
             ],
@@ -195,10 +145,10 @@ class _RegisterState extends State<Register> {
             key: _formkey,
             child: Container(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal:20.0, vertical: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 child: Wrap(
                   runSpacing: 10.0,
-                  children: [
+                  children: <Widget>[
                     TextFormField(
                       validator: (_typed) {
                         if (_typed.isEmpty) {
@@ -214,8 +164,8 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40))),
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Icon(
@@ -238,7 +188,7 @@ class _RegisterState extends State<Register> {
                       validator: (_typed) {
                         if (_typed.isEmpty) {
                           return 'Boş bırakılamaz.';
-                        }  else {
+                        } else {
                           return null;
                         }
                       },
@@ -249,8 +199,8 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40))),
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Icon(
@@ -274,16 +224,16 @@ class _RegisterState extends State<Register> {
                         return (_typedValue.isEmpty)
                             ? 'Boş bırakılamaz.'
                             : isValidEmail()
-                            ? null
-                            : "Lütfen geçerli bir mail adresi giriniz";
+                                ? null
+                                : "Lütfen geçerli bir mail adresi giriniz";
                       },
                       onChanged: (typed) {
                         _typedMail = typed;
                       },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40))),
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Icon(
@@ -322,8 +272,8 @@ class _RegisterState extends State<Register> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40))),
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Icon(
@@ -361,8 +311,8 @@ class _RegisterState extends State<Register> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40))),
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Icon(
@@ -385,23 +335,35 @@ class _RegisterState extends State<Register> {
                       child: Container(
                         height: 45,
                         width: 160,
-                        margin: EdgeInsets.only(top:10.0),
+                        margin: EdgeInsets.only(top: 10.0),
                         decoration: BoxDecoration(
                             gradient: functions.decideColor(context),
                             borderRadius: BorderRadius.circular(20)),
-                        child: FlatButton(
-                          onPressed: () {
+                        child: TextButton(
+                          onPressed: () async {
                             if (_formkey.currentState.validate()) {
-                              print("Validated");
+                              /// 1 = user , 2 = business owner (index)
+                              if (index == 1) {
+                                await httpUserFunctions.createUser(
+                                  name: _typedName,
+                                  surname: _typedSurname,
+                                  email: _typedMail,
+                                  password: _typedPassword,
+
+                                  /// TODO userName daha sonra kalkacak
+                                  userName: 'bahadirrahmettt',
+                                );
+                              } else {
+                                /// TODO create business account
+                              }
                             } else {
                               print("Not Validated");
                             }
-                            ///TODO register the user(index=1: Müşteri, index=2:Yönetici)
-                            createUser();
                           },
                           child: Text(
                             'Kayıt',
-                            style: kTextStyle.copyWith(color: Colors.white, fontSize: 25),
+                            style: kTextStyle.copyWith(
+                                color: Colors.white, fontSize: 25),
                           ),
                         ),
                       ),
