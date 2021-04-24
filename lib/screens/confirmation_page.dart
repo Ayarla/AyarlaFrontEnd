@@ -1,10 +1,12 @@
 import 'dart:ui';
+import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/map/coiffeurMap.dart';
 import 'package:ayarla/components/UI/hover_button.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/pop-up.dart';
@@ -219,32 +221,33 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           ),
 
           if (UniversalPlatform.isWeb && isConfirmed == true)
-            SizedBox(height: 20),
-
-          if (UniversalPlatform.isWeb && isConfirmed == true)
-            Container(
-              height: 300,
-              child: ListView(
-                children: [
-                  Center(
-                    child: Text('Uygulamamızı indirmek ister misiniz?',
-                        style: kTextStyle),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      HoverButton(
-                        text: 'PlayStore',
-                        onPressed: () => print('Lauch Playstore!'),
-                      ),
-                      HoverButton(
-                        text: 'AppStore',
-                        onPressed: () => print('Lauch AppStore!'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            ListView(
+              shrinkWrap: true,
+              children: [
+                SizedBox(height: 40),
+                Center(
+                  child: Text('Uygulamamızı indirmek ister misiniz?',
+                      style: kTextStyle),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    HoverButton(
+                      text: 'PlayStore',
+                      onPressed: () => print('Lauch PlayStore!'),
+                      icon: FontAwesomeIcons.googlePlay,
+                      spaceBetween: 10,
+                    ),
+                    HoverButton(
+                      text: 'AppStore',
+                      onPressed: () => print('Lauch AppStore!'),
+                      icon: FontAwesomeIcons.appStoreIos,
+                      spaceBetween: 10,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+              ],
             ),
 
           /// Google Maps integration
@@ -265,61 +268,30 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               child: CoiffeurMap(enableScroll: true),
             ),
           ),
-          SizedBox(height: 60),
         ],
       ),
       floatingActionButton: !isConfirmed
-          ? Container(
-              width: size.width - 4 * (size.width / 6),
-              decoration: BoxDecoration(
-                gradient: functions.decideColor(context),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: FloatingActionButton.extended(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                onPressed: () {
-                  bool check =
-                      Provider.of<Login>(context, listen: false).holder;
-                  if (check == false) {
-                    PopUp().mailFieldDialog(context: context);
-                  } else if (check == true) {
-                    ///TODO profildeki mail adresine mail gonderilecek
-                    Routers.router.navigateTo(context, "/OnaySayfasi");
-                    Provider.of<AppointmentData>(context, listen: false)
-                        .confirmation();
-                  }
-                },
-                label: FittedBox(
-                  fit: BoxFit.cover,
-                  child: Text('Onayla',
-                      style: kSmallTitleStyle.copyWith(
-                        color: Colors.white,
-                      )),
-                ),
-              ),
+          ? FloatingTextButton(
+              text: 'Onayla',
+              gradient: functions.decideColor(context),
+              onPressed: () {
+                bool check = Provider.of<Login>(context, listen: false).holder;
+                if (check == false) {
+                  PopUp().mailFieldDialog(context: context);
+                } else if (check == true) {
+                  ///TODO profildeki mail adresine mail gonderilecek
+                  Routers.router.navigateTo(context, "/OnaySayfasi");
+                  Provider.of<AppointmentData>(context, listen: false)
+                      .confirmation();
+                }
+              },
             )
-          :
-
-          ///TODO Profilde eksik bilgi varsa bunu yazdirsak daha iyi olur
-          Container(
-              decoration: BoxDecoration(
-                gradient: functions.decideColor(context),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, EditProfilePage.id);
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  primary: Colors.transparent,
-                ),
-                child: Text(
-                  'Profilini Tamamla',
-                  style: kTextStyle.copyWith(color: Colors.white),
-                ),
-              ),
+          : FloatingTextButton(
+              text: 'Profilini Tamamla',
+              gradient: functions.decideColor(context),
+              onPressed: () {
+                Navigator.pushNamed(context, EditProfilePage.id);
+              },
             ),
     );
   }

@@ -7,18 +7,24 @@ class HoverButton extends StatefulWidget {
   final Color backgroundColor;
   final Color textColor;
   final Color shadowColor;
+  final double iconSize;
+  final IconData icon;
+  final double spaceBetween;
 
   /// • A button that changes its appearance on hover, designed for web.
   ///
   /// • More features will be added.
   ///
-  /// • [text] & [onPressed] are available for now.
+  /// • [backgroundColor] & [textColor] & [shadowColor] are disabled for now.
   HoverButton({
     this.text,
     this.onPressed,
     this.backgroundColor,
     this.shadowColor,
     this.textColor,
+    this.iconSize,
+    this.icon,
+    this.spaceBetween,
   });
 
   @override
@@ -59,10 +65,20 @@ class _HoverButtonState extends State<HoverButton> {
         },
         child: Center(
           child: FittedBox(
-            child: Text(
-              widget.text,
-              style: kTextStyle.copyWith(
-                  color: isHovered ? Colors.white : Colors.black),
+            child: Row(
+              children: [
+                widget.icon!=null ? Icon(
+                  widget.icon,
+                  size: widget.iconSize,
+                  color: isHovered ? Colors.white : Colors.black,
+                ) : Container(),
+                SizedBox(width: widget.spaceBetween ?? 0),
+                Text(
+                  widget.text,
+                  style: kTextStyle.copyWith(
+                      color: isHovered ? Colors.white : Colors.black),
+                ),
+              ],
             ),
           ),
         ),

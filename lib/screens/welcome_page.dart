@@ -106,6 +106,7 @@ class WelcomePage extends StatelessWidget {
                   child: Text('debug'),
                   onPressed: () =>
                       Routers.router.navigateTo(context, "/WebServisleri")),
+
             ],
           ),
         ),

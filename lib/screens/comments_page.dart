@@ -1,9 +1,9 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
+import 'package:ayarla/models/commentModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/circularParent.dart';
-import 'package:ayarla/components/comment.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -432,7 +432,7 @@ class _CommentsPageState extends State<CommentsPage> {
   @override
   void initState() {
     generatingList = [
-      Comment(
+      CommentModel(
         name: 'Fatih Özkan',
         rating: 2,
         comment: 'Harika!!',
@@ -441,7 +441,7 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 5,
         dislike: 0,
       ),
-      Comment(
+      CommentModel(
         name: 'Nixu',
         rating: 2,
         comment: 'Merhaba ben çok uzun bir yorum yazmak istiyorum. '
@@ -455,7 +455,7 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 9,
         dislike: 4,
       ),
-      Comment(
+      CommentModel(
         name: 'Bahadır İren',
         rating: 4,
         comment: 'Daha iyilerini görmüştüm ama idare eder. '
@@ -465,7 +465,7 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 13,
         dislike: 1,
       ),
-      Comment(
+      CommentModel(
         name: 'Fatih Özkan',
         rating: 4,
         comment: 'Harika bence.',
@@ -474,7 +474,7 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 5,
         dislike: 0,
       ),
-      Comment(
+      CommentModel(
         name: 'Nixu',
         rating: 5,
         comment: 'Merhaba ben çok uzun bir yorum yazmak istiyorum. '
@@ -486,7 +486,7 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 9,
         dislike: 4,
       ),
-      Comment(
+      CommentModel(
         name: 'Bahadır İren',
         rating: 3,
         comment: 'Daha iyilerini görmüştüm ama idare eder. '
