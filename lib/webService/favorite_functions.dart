@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class HttpFavoriteFunctions extends HttpService {
+  /// TODO sonra bakilacak
   Future createFavorite() async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/Favorite/Create';

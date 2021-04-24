@@ -40,6 +40,7 @@ class HttpAyarlaAccountFunctions extends HttpService {
     await getToken();
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Create';
 
+    /// 1 for male , 2 female (gender)
     var data = {
       "phone1": "string",
       "phone2": "string",
@@ -49,14 +50,6 @@ class HttpAyarlaAccountFunctions extends HttpService {
       "accountTypes": [
         {
           "gender": 1,
-          "isDeleted": true,
-          "deleterUserId": 0,
-          "deletionTime": "2021-04-24T10:08:36.193Z",
-          "lastModificationTime": "2021-04-24T10:08:36.193Z",
-          "lastModifierUserId": 0,
-          "creationTime": "2021-04-24T10:08:36.193Z",
-          "creatorUserId": 0,
-          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         }
       ],
       "accountNotes": "string",
@@ -65,30 +58,13 @@ class HttpAyarlaAccountFunctions extends HttpService {
       "city": "string",
       "openCloseTimes": [
         {
-          "accountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
           "dayOfTheWeek": "string",
           "accountWorkStartTime": "string",
           "accountWorkEndTime": "string",
-          "isDeleted": true,
-          "deleterUserId": 0,
-          "deletionTime": "2021-04-24T10:08:36.193Z",
-          "lastModificationTime": "2021-04-24T10:08:36.193Z",
-          "lastModifierUserId": 0,
-          "creationTime": "2021-04-24T10:08:36.193Z",
-          "creatorUserId": 0,
-          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         }
       ],
       "location": "string",
       "timePeriod": 0,
-      "isDeleted": true,
-      "deleterUserId": 0,
-      "deletionTime": "2021-04-24T10:08:36.193Z",
-      "lastModificationTime": "2021-04-24T10:08:36.193Z",
-      "lastModifierUserId": 0,
-      "creationTime": "2021-04-24T10:08:36.193Z",
-      "creatorUserId": 0,
-      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     };
     var body = jsonEncode(data);
 
@@ -118,14 +94,6 @@ class HttpAyarlaAccountFunctions extends HttpService {
       "accountTypes": [
         {
           "gender": 1,
-          "isDeleted": true,
-          "deleterUserId": 0,
-          "deletionTime": "2021-04-24T10:10:04.490Z",
-          "lastModificationTime": "2021-04-24T10:10:04.490Z",
-          "lastModifierUserId": 0,
-          "creationTime": "2021-04-24T10:10:04.490Z",
-          "creatorUserId": 0,
-          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         }
       ],
       "accountNotes": "string",
@@ -134,30 +102,13 @@ class HttpAyarlaAccountFunctions extends HttpService {
       "city": "string",
       "openCloseTimes": [
         {
-          "accountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
           "dayOfTheWeek": "string",
           "accountWorkStartTime": "string",
           "accountWorkEndTime": "string",
-          "isDeleted": true,
-          "deleterUserId": 0,
-          "deletionTime": "2021-04-24T10:10:04.490Z",
-          "lastModificationTime": "2021-04-24T10:10:04.490Z",
-          "lastModifierUserId": 0,
-          "creationTime": "2021-04-24T10:10:04.490Z",
-          "creatorUserId": 0,
-          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         }
       ],
       "location": "string",
       "timePeriod": 0,
-      "isDeleted": true,
-      "deleterUserId": 0,
-      "deletionTime": "2021-04-24T10:10:04.490Z",
-      "lastModificationTime": "2021-04-24T10:10:04.490Z",
-      "lastModifierUserId": 0,
-      "creationTime": "2021-04-24T10:10:04.490Z",
-      "creatorUserId": 0,
-      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     };
     var body = jsonEncode(data);
 

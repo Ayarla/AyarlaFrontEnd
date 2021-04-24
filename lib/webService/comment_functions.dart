@@ -9,16 +9,7 @@ class HttpCommentFunctions extends HttpService {
 
     var data = {
       "comment": "string",
-      "accountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       "rating": 0,
-      "isDeleted": true,
-      "deleterUserId": 0,
-      "deletionTime": "2021-04-24T09:45:38.564Z",
-      "lastModificationTime": "2021-04-24T09:45:38.564Z",
-      "lastModifierUserId": 0,
-      "creationTime": "2021-04-24T09:45:38.564Z",
-      "creatorUserId": 0,
-      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     };
     var body = jsonEncode(data);
 
@@ -75,16 +66,7 @@ class HttpCommentFunctions extends HttpService {
     var data = {
       "userId": 0,
       "comment": "string",
-      "accountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       "rating": 0,
-      "isDeleted": true,
-      "deleterUserId": 0,
-      "deletionTime": "2021-04-24T09:52:03.803Z",
-      "lastModificationTime": "2021-04-24T09:52:03.803Z",
-      "lastModifierUserId": 0,
-      "creationTime": "2021-04-24T09:52:03.803Z",
-      "creatorUserId": 0,
-      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     };
     var body = jsonEncode(data);
 
