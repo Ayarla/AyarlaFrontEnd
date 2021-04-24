@@ -65,23 +65,43 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
                   ),
                 ),
               ),
-              Positioned(
+              if(_pages.length!=0)
+                Positioned(
                 right: 0,
                 top: 0,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: GestureDetector(
-                    child: Icon(
-                      Icons.add_circle,
-                      color: Colors.green,
-                      size: 40,
-                    ),
-                    onTap: () {
-                      functions.showPicker(context);
-                      setState(() {
-                        //isChanged = true;
-                      });
-                    },
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        child: Icon(
+                          Icons.add_circle,
+                          color: Colors.green,
+                          size: 40,
+                        ),
+                        onTap: () {
+                          functions.showPicker(context);
+                          setState(() {
+                            //isChanged = true;
+                          });
+                        },
+                      ),
+                      GestureDetector(
+                        child: Icon(
+                          Icons.remove_circle,
+                          color: Colors.red,
+                          size: 40,
+                        ),
+                        onTap: () {
+                          if(_pages.length==1){
+                            Provider.of<BusinessAndUserData>(context,listen: false).deleteImage(_pages[0]);
+                          }else{
+                            Provider.of<BusinessAndUserData>(context,listen: false).deleteImage(_pages[_currentPage]);
+                          }
+
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
