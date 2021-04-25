@@ -30,6 +30,10 @@ class BusinessAndUserData extends ChangeNotifier{
     pages.add(image);
     notifyListeners();
   }
+  deleteImage(ImageListItem image){
+    pages.remove(image);
+    notifyListeners();
+  }
   setUserImage(File image){
     userImage=image;
     notifyListeners();
