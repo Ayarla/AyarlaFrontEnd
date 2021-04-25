@@ -109,7 +109,7 @@ class HttpFavoriteFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'kullanici silindi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 }
