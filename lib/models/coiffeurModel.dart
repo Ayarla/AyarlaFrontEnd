@@ -15,6 +15,7 @@ class CoiffureModel {
   final List<ImageListItem> images;
   final String uniqueId;
   final bool isPrime;
+  final List employeeList;
 
   factory CoiffureModel.fromJson(json, int index) {
     return CoiffureModel(
@@ -49,5 +50,7 @@ class CoiffureModel {
       this.comments,
       this.images,
       this.uniqueId,
-      this.isPrime});
+      this.isPrime,
+      this.employeeList,
+      });
 }

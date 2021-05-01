@@ -127,21 +127,25 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                                 child: Text('Yıldıza göre filtrele',
                                     style: kSmallTitleStyle))),
                         SizedBox(height: 10),
-                        SfSlider(
-                          min: 0.0,
-                          max: 5.0,
-                          value: _value,
-                          interval: 1,
-                          enableTooltip: true,
-                          tooltipShape: SfPaddleTooltipShape(),
-                          minorTicksPerInterval: 0,
-                          activeColor: Colors.deepPurple,
-                          onChanged: (dynamic value) {
-                            setModalState(() {
-                              _value = value;
-                            });
-                            setState(() {});
-                          },
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                          child: SfSlider(
+                            min: 0.0,
+                            max: 5.0,
+                            value: _value,
+                            interval: 1,
+                            enableTooltip: true,
+                            tooltipShape: SfPaddleTooltipShape(),
+                            minorTicksPerInterval: 0,
+                            activeColor: Colors.deepPurple,
+                            onChanged: (dynamic value) {
+                              setModalState(() {
+                                _value = value;
+                              });
+                              setState(() {});
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -167,7 +171,7 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
             radius: 20,
             direction: Directions.top,
             color: Colors.white,
-            child: Wrap(
+            child: ListView(
               children: [
                 SizedBox(height: 10),
 
@@ -179,82 +183,9 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                   ),
                 ),
                 SizedBox(height: 10),
-
-                /// LESS TO MORE ACC STARS
-                TextButton(
-                  child: Center(
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Text('Azdan Çoka', style: kSmallTextStyle),
-                    ),
-                  ),
-                  onPressed: () {
-                    var ancestralState =
-                        context.findAncestorStateOfType<SearchPageState>();
-                    ancestralState.setState(() {});
-
-                    setState(() {
-                      Provider.of<AppointmentData>(context, listen: false)
-                          .currentList
-                          .sort((a, b) => a.star.compareTo(b.star));
-                      Provider.of<AppointmentData>(context, listen: false)
-                          .setList(Provider.of<AppointmentData>(context,
-                                  listen: false)
-                              .currentList);
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-
-                /// MORE TO LESS ACC STARS
-                TextButton(
-                  child: Center(
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Text('Çoktan Aza', style: kSmallTextStyle),
-                    ),
-                  ),
-                  onPressed: () {
-                    var ancestralState =
-                        context.findAncestorStateOfType<SearchPageState>();
-                    ancestralState.setState(() {});
-                    setState(() {
-                      Provider.of<AppointmentData>(context, listen: false)
-                          .currentList
-                          .sort((b, a) => a.star.compareTo(b.star));
-                      Provider.of<AppointmentData>(context, listen: false)
-                          .setList(Provider.of<AppointmentData>(context,
-                                  listen: false)
-                              .currentList);
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ),
-          mediumScreen: Align(
-            alignment: Alignment.bottomCenter,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: size.width / 1.5),
-              child: CircularParent(
-                radius: 20,
-                direction: Directions.top,
-                color: Colors.white,
-                child: Wrap(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(height: 10),
-
-                    /// ACC TO STARS
-                    Center(
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Text('Yıldıza göre sırala',
-                            style: kSmallTitleStyle),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-
                     /// LESS TO MORE ACC STARS
                     TextButton(
                       child: Center(
@@ -307,31 +238,19 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                     ),
                   ],
                 ),
-              ),
-            ),
-          ),
-          largeScreen: Align(
-            alignment: Alignment.bottomCenter,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: size.width / 1.5),
-              child: CircularParent(
-                radius: 20,
-                direction: Directions.top,
-                color: Colors.white,
-                child: Wrap(
+
+                /// ACC TO COMMENTS
+                Center(
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child:
+                        Text('Yorumlara göre sırala', style: kSmallTitleStyle),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(height: 10),
-
-                    /// ACC TO STARS
-                    Center(
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Text('Yıldıza göre sırala',
-                            style: kSmallTitleStyle),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-
                     /// LESS TO MORE ACC STARS
                     TextButton(
                       child: Center(
@@ -348,7 +267,7 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                         setState(() {
                           Provider.of<AppointmentData>(context, listen: false)
                               .currentList
-                              .sort((a, b) => a.star.compareTo(b.star));
+                              .sort((a, b) => a.comments.compareTo(b.comments));
                           Provider.of<AppointmentData>(context, listen: false)
                               .setList(Provider.of<AppointmentData>(context,
                                       listen: false)
@@ -373,7 +292,7 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                         setState(() {
                           Provider.of<AppointmentData>(context, listen: false)
                               .currentList
-                              .sort((b, a) => a.star.compareTo(b.star));
+                              .sort((b, a) => a.comments.compareTo(b.comments));
                           Provider.of<AppointmentData>(context, listen: false)
                               .setList(Provider.of<AppointmentData>(context,
                                       listen: false)
@@ -381,6 +300,318 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
                         });
                         Navigator.pop(context);
                       },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          mediumScreen: Align(
+            alignment: Alignment.bottomCenter,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: size.width / 1.5),
+              child: CircularParent(
+                radius: 20,
+                direction: Directions.top,
+                color: Colors.white,
+                child: ListView(
+                  children: [
+                    SizedBox(height: 10),
+
+                    /// ACC TO STARS
+                    Center(
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Text('Yıldıza göre sırala',
+                            style: kSmallTitleStyle),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        /// LESS TO MORE ACC STARS
+                        TextButton(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Azdan Çoka', style: kSmallTextStyle),
+                            ),
+                          ),
+                          onPressed: () {
+                            var ancestralState = context
+                                .findAncestorStateOfType<SearchPageState>();
+                            ancestralState.setState(() {});
+
+                            setState(() {
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .currentList
+                                  .sort((a, b) => a.star.compareTo(b.star));
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .setList(Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .currentList);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+
+                        /// MORE TO LESS ACC STARS
+                        TextButton(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Çoktan Aza', style: kSmallTextStyle),
+                            ),
+                          ),
+                          onPressed: () {
+                            var ancestralState = context
+                                .findAncestorStateOfType<SearchPageState>();
+                            ancestralState.setState(() {});
+                            setState(() {
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .currentList
+                                  .sort((b, a) => a.star.compareTo(b.star));
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .setList(Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .currentList);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+
+                    /// ACC TO COMMENTS
+                    Center(
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Text('Yorumlara göre sırala',
+                            style: kSmallTitleStyle),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        /// LESS TO MORE ACC STARS
+                        TextButton(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Azdan Çoka', style: kSmallTextStyle),
+                            ),
+                          ),
+                          onPressed: () {
+                            var ancestralState = context
+                                .findAncestorStateOfType<SearchPageState>();
+                            ancestralState.setState(() {});
+
+                            setState(() {
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .currentList
+                                  .sort((a, b) =>
+                                      a.comments.compareTo(b.comments));
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .setList(Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .currentList);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+
+                        /// MORE TO LESS ACC STARS
+                        TextButton(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Çoktan Aza', style: kSmallTextStyle),
+                            ),
+                          ),
+                          onPressed: () {
+                            var ancestralState = context
+                                .findAncestorStateOfType<SearchPageState>();
+                            ancestralState.setState(() {});
+                            setState(() {
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .currentList
+                                  .sort((b, a) =>
+                                      a.comments.compareTo(b.comments));
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .setList(Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .currentList);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          largeScreen: Align(
+            alignment: Alignment.bottomCenter,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: size.width / 1.5),
+              child: CircularParent(
+                radius: 20,
+                direction: Directions.top,
+                color: Colors.white,
+                child: ListView(
+                  children: [
+                    SizedBox(height: 10),
+
+                    /// ACC TO STARS
+                    Center(
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Text('Yıldıza göre sırala',
+                            style: kSmallTitleStyle),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        /// LESS TO MORE ACC STARS
+                        TextButton(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Azdan Çoka', style: kSmallTextStyle),
+                            ),
+                          ),
+                          onPressed: () {
+                            var ancestralState = context
+                                .findAncestorStateOfType<SearchPageState>();
+                            ancestralState.setState(() {});
+
+                            setState(() {
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .currentList
+                                  .sort((a, b) => a.star.compareTo(b.star));
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .setList(Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .currentList);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+
+                        /// MORE TO LESS ACC STARS
+                        TextButton(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Çoktan Aza', style: kSmallTextStyle),
+                            ),
+                          ),
+                          onPressed: () {
+                            var ancestralState = context
+                                .findAncestorStateOfType<SearchPageState>();
+                            ancestralState.setState(() {});
+                            setState(() {
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .currentList
+                                  .sort((b, a) => a.star.compareTo(b.star));
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .setList(Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .currentList);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+
+                    /// ACC TO COMMENTS
+                    Center(
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Text('Yorumlara göre sırala',
+                            style: kSmallTitleStyle),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        /// LESS TO MORE ACC STARS
+                        TextButton(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Azdan Çoka', style: kSmallTextStyle),
+                            ),
+                          ),
+                          onPressed: () {
+                            var ancestralState = context
+                                .findAncestorStateOfType<SearchPageState>();
+                            ancestralState.setState(() {});
+
+                            setState(() {
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .currentList
+                                  .sort((a, b) =>
+                                      a.comments.compareTo(b.comments));
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .setList(Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .currentList);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+
+                        /// MORE TO LESS ACC STARS
+                        TextButton(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Çoktan Aza', style: kSmallTextStyle),
+                            ),
+                          ),
+                          onPressed: () {
+                            var ancestralState = context
+                                .findAncestorStateOfType<SearchPageState>();
+                            ancestralState.setState(() {});
+                            setState(() {
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .currentList
+                                  .sort((b, a) =>
+                                      a.comments.compareTo(b.comments));
+                              Provider.of<AppointmentData>(context,
+                                      listen: false)
+                                  .setList(Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .currentList);
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),

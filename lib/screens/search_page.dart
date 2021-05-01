@@ -151,7 +151,7 @@ class SearchPageState extends State<SearchPage> {
                 smallScreen: ListView.builder(
                   shrinkWrap: true,
                   padding: EdgeInsets.only(
-                      top: 20, left: size.width / 20, right: size.width / 20),
+                      top: 20, left: size.width / 50, right: size.width / 50),
                   itemCount: Provider.of<AppointmentData>(context, listen: true)
                       .currentList
                       .length,

@@ -4,40 +4,16 @@ import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/user_page/appontments_page.dart';
+import 'package:ayarla/screens/user_page/appointments_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class PastAppointmentsPage extends StatefulWidget {
-  static const id = 'PastAppointmentsPage';
   @override
   _PastAppointmentsPageState createState() => _PastAppointmentsPageState();
 }
 
 class _PastAppointmentsPageState extends State<PastAppointmentsPage> {
   Functions functions = Functions();
-  List month = [
-    "Ocak",
-    "Şubat",
-    "Mart",
-    "Nisan",
-    "Mayıs",
-    "Haziran",
-    "Temmuz",
-    "Ağustos",
-    "Eylül",
-    "Ekim",
-    "Kasım",
-    "Aralık"
-  ];
-  List week = [
-    "Pazartesi",
-    "Salı",
-    "Çarşamba",
-    "Perşembe",
-    "Cuma",
-    "Cumartesi",
-    "Pazar"
-  ];
 
   @override
   Widget build(BuildContext context) {

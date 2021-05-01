@@ -106,7 +106,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       expandedHeight: widget.mediaQueryData.size.width < 700
-          ? widget.mediaQueryData.size.width / 3.4
+          ? widget.mediaQueryData.size.width / 3.45
           : 170,
       collapsedHeight: widget.mediaQueryData.size.width < 700
           ? widget.mediaQueryData.size.width / 9.5
@@ -237,9 +237,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
                           ),
                         ),
                     SizedBox(
-                        height: widget.mediaQueryData.size.width < 700
-                            ? widget.mediaQueryData.size.width / 700
-                            : 0),
+                        height: widget.mediaQueryData.size.width < 500
+                            ? widget.mediaQueryData.size.width / 400
+                            : 2),
                     FilterOrderRow(),
                   ],
                 ),

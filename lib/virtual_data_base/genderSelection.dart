@@ -1,11 +1,6 @@
 import 'dart:collection';
+import 'package:ayarla/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
-
-enum Gender{
-  female,
-  male,
-  unisex
-}
 
 class GenderSelection extends ChangeNotifier{
   Gender gender;

@@ -221,9 +221,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           ),
 
           if (UniversalPlatform.isWeb && isConfirmed == true)
-            ListView(
-              shrinkWrap: true,
-              children: [
                 SizedBox(height: 40),
                 Center(
                   child: Text('Uygulamamızı indirmek ister misiniz?',
@@ -244,8 +241,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                       icon: FontAwesomeIcons.appStoreIos,
                       spaceBetween: 10,
                     ),
-                  ],
-                ),
                 SizedBox(height: 20),
               ],
             ),

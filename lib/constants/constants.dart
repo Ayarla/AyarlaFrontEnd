@@ -68,6 +68,13 @@ enum Directions {
   all,
   none,
 }
+
+enum Gender{
+  female,
+  male,
+  unisex
+}
+
 List month = [
   "Ocak",
   "Şubat",
