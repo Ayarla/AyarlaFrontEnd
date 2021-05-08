@@ -10,8 +10,6 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:ayarla/models/functions.dart';
 
 class CommentsPage extends StatefulWidget {
-  static const String id = 'CommentPage';
-
   @override
   _CommentsPageState createState() => _CommentsPageState();
 }
@@ -41,9 +39,7 @@ class _CommentsPageState extends State<CommentsPage> {
                   children: [
                     /// ACC TO STARS
                     functions.createTitle(context, 'Yıldıza göre filtrele'),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     SfSlider(
                       min: 0.0,
                       max: 5.0,
@@ -84,11 +80,8 @@ class _CommentsPageState extends State<CommentsPage> {
                       physics: BouncingScrollPhysics(),
                       children: [
                         /// ACC TO STARS
-                        functions.createTitle(
-                            context, 'Yıldıza göre filtrele'),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        functions.createTitle(context, 'Yıldıza göre filtrele'),
+                        SizedBox(height: 10),
                         SfSlider(
                           min: 0.0,
                           max: 5.0,
@@ -119,7 +112,7 @@ class _CommentsPageState extends State<CommentsPage> {
                   ),
                 ),
               ),
-              largeScreen:  Align(
+              largeScreen: Align(
                 alignment: Alignment.bottomCenter,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: size.width / 1.5),
@@ -132,11 +125,8 @@ class _CommentsPageState extends State<CommentsPage> {
                       physics: BouncingScrollPhysics(),
                       children: [
                         /// ACC TO STARS
-                        functions.createTitle(
-                            context, 'Yıldıza göre filtrele'),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        functions.createTitle(context, 'Yıldıza göre filtrele'),
+                        SizedBox(height: 10),
                         SfSlider(
                           min: 0.0,
                           max: 5.0,
@@ -148,8 +138,8 @@ class _CommentsPageState extends State<CommentsPage> {
                           minorTicksPerInterval: 2,
                           onChanged: (dynamic value) {
                             generatingList = Provider.of<AppointmentData>(
-                                context,
-                                listen: false)
+                                    context,
+                                    listen: false)
                                 .currentList2;
                             List returnList = generatingList;
                             setModalState(() {
@@ -225,7 +215,11 @@ class _CommentsPageState extends State<CommentsPage> {
                             Navigator.pop(context);
                           },
                         ),
-                        Icon(Icons.arrow_circle_down_rounded),
+                        Icon(
+                          Icons.arrow_circle_down_rounded,
+                          color: Colors.blue,
+                          size: 20,
+                        ),
                         SizedBox(width: 20),
                         TextButton(
                           child: Center(
@@ -247,7 +241,11 @@ class _CommentsPageState extends State<CommentsPage> {
                             Navigator.pop(context);
                           },
                         ),
-                        Icon(Icons.arrow_circle_up_rounded),
+                        Icon(
+                          Icons.arrow_circle_up_rounded,
+                          color: Colors.blue,
+                          size: 20,
+                        ),
                       ],
                     ),
                   ],
@@ -265,7 +263,7 @@ class _CommentsPageState extends State<CommentsPage> {
           mediumScreen: Align(
             alignment: Alignment.bottomCenter,
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: size.width / 2),
+              constraints: BoxConstraints(maxWidth: size.width / 1.5),
               child: CircularParent(
                 color: Colors.white,
                 radius: 20,
@@ -290,8 +288,8 @@ class _CommentsPageState extends State<CommentsPage> {
                               onPressed: () {
                                 setState(() {
                                   if (index == 0) {
-                                    generatingList.sort((a, b) =>
-                                        a.rating.compareTo(b.rating));
+                                    generatingList.sort(
+                                        (a, b) => a.rating.compareTo(b.rating));
                                   } else if (index == 1) {
                                     generatingList.sort(
                                         (a, b) => a.like.compareTo(b.like));
@@ -303,7 +301,11 @@ class _CommentsPageState extends State<CommentsPage> {
                                 Navigator.pop(context);
                               },
                             ),
-                            Icon(Icons.arrow_circle_down_rounded),
+                            Icon(
+                              Icons.arrow_circle_down_rounded,
+                              color: Colors.blue,
+                              size: 20,
+                            ),
                             SizedBox(width: 20),
                             TextButton(
                               child: Center(
@@ -312,8 +314,8 @@ class _CommentsPageState extends State<CommentsPage> {
                               onPressed: () {
                                 setState(() {
                                   if (index == 0) {
-                                    generatingList.sort((b, a) =>
-                                        a.rating.compareTo(b.rating));
+                                    generatingList.sort(
+                                        (b, a) => a.rating.compareTo(b.rating));
                                   } else if (index == 1) {
                                     generatingList.sort(
                                         (b, a) => a.like.compareTo(b.like));
@@ -325,7 +327,11 @@ class _CommentsPageState extends State<CommentsPage> {
                                 Navigator.pop(context);
                               },
                             ),
-                            Icon(Icons.arrow_circle_up_rounded),
+                            Icon(
+                              Icons.arrow_circle_up_rounded,
+                              color: Colors.blue,
+                              size: 20,
+                            ),
                           ],
                         ),
                       ],
@@ -346,7 +352,7 @@ class _CommentsPageState extends State<CommentsPage> {
           largeScreen: Align(
             alignment: Alignment.bottomCenter,
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: size.width / 2),
+              constraints: BoxConstraints(maxWidth: size.width / 1.5),
               child: CircularParent(
                 color: Colors.white,
                 radius: 20,
@@ -371,8 +377,8 @@ class _CommentsPageState extends State<CommentsPage> {
                               onPressed: () {
                                 setState(() {
                                   if (index == 0) {
-                                    generatingList.sort((a, b) =>
-                                        a.rating.compareTo(b.rating));
+                                    generatingList.sort(
+                                        (a, b) => a.rating.compareTo(b.rating));
                                   } else if (index == 1) {
                                     generatingList.sort(
                                         (a, b) => a.like.compareTo(b.like));
@@ -384,7 +390,11 @@ class _CommentsPageState extends State<CommentsPage> {
                                 Navigator.pop(context);
                               },
                             ),
-                            Icon(Icons.arrow_circle_down_rounded),
+                            Icon(
+                              Icons.arrow_circle_down_rounded,
+                              color: Colors.blue,
+                              size: 20,
+                            ),
                             SizedBox(width: 20),
                             TextButton(
                               child: Center(
@@ -393,8 +403,8 @@ class _CommentsPageState extends State<CommentsPage> {
                               onPressed: () {
                                 setState(() {
                                   if (index == 0) {
-                                    generatingList.sort((b, a) =>
-                                        a.rating.compareTo(b.rating));
+                                    generatingList.sort(
+                                        (b, a) => a.rating.compareTo(b.rating));
                                   } else if (index == 1) {
                                     generatingList.sort(
                                         (b, a) => a.like.compareTo(b.like));
@@ -406,7 +416,11 @@ class _CommentsPageState extends State<CommentsPage> {
                                 Navigator.pop(context);
                               },
                             ),
-                            Icon(Icons.arrow_circle_up_rounded),
+                            Icon(
+                              Icons.arrow_circle_up_rounded,
+                              color: Colors.blue,
+                              size: 20,
+                            ),
                           ],
                         ),
                       ],
