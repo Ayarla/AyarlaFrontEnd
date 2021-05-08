@@ -1,4 +1,5 @@
-import 'package:ayarla/components/map/mapBox.dart';
+import 'package:ayarla/components/map/BusinessFlutterMap.dart';
+
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
@@ -108,9 +109,9 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ManagerSendMessage());
 
-  static Handler _mapBox = Handler(
+  static Handler _flutterMap = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          MapBox());
+          BusinessFlutterMap());
 
   /// WebServices
   static Handler _webServicePage = Handler(
@@ -150,7 +151,8 @@ class Routers {
     router.define("/Calisanlarim", handler: _employeeManagement);
     router.define("/Notlarim", handler: _managerNotesPage);
     router.define("/MesajYolla", handler: _managerSendMessagePage);
-    router.define("/Harita", handler: _mapBox);
+    router.define("/Harita", handler: _flutterMap);
+
     router.define("/WebServisleri", handler: _webServicePage);
     router.define("/KayitPopUp", handler: _regPopUp);
     router.define("/KayitSayfasi", handler: _regPage);

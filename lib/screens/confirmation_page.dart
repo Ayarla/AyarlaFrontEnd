@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:ayarla/components/floatingTextButton.dart';
-import 'package:ayarla/components/map/coiffeurMap.dart';
 import 'package:ayarla/components/UI/hover_button.dart';
+import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -260,7 +260,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   ),
                 ],
               ),
-              child: CoiffeurMap(enableScroll: true),
+              child: FlutterMapCoiffure(),
             ),
           ),
         ],
