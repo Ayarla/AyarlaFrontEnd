@@ -105,7 +105,6 @@ class _SectionState extends State<MenuSection>
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return GestureDetector(
         onTap: () {
           _toggleExpand();

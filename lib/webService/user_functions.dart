@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:ayarla/webService/http_service.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class HttpUserFunctions extends HttpService {

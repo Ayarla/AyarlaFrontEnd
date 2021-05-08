@@ -81,7 +81,7 @@ class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
               _getRow(
                 size,
                 'Çalışan İsmi',
-                FlatButton(
+                  TextButton(
                   onPressed: null,
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(
@@ -104,7 +104,7 @@ class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
               _getRow(
                 size,
                 'Çalışan İsmi',
-                FlatButton(
+                TextButton(
                   onPressed: null,
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(
@@ -127,7 +127,7 @@ class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
               _getRow(
                 size,
                 'Çalışan İsmi',
-                FlatButton(
+                  TextButton(
                   onPressed: null,
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(
@@ -150,7 +150,7 @@ class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
               _getRow(
                 size,
                 'Çalışan İsmi',
-                FlatButton(
+                  TextButton(
                   onPressed: null,
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(
@@ -174,7 +174,7 @@ class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
               Row(
                 children: [
                   Spacer(),
-                  FlatButton(
+                  TextButton(
                     onPressed: null,
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(
@@ -203,7 +203,7 @@ class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
   }
 }
 
-Padding _getRow(Size size, String text, FlatButton flatButton) {
+Padding _getRow(Size size, String text, TextButton flatButton) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: ClipRRect(

@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class ManagerNotes extends StatelessWidget {
   static const String id = "ManagerNotes";
-  final Functions functions = Functions();
-
   String noteContent;
   final int index;
 

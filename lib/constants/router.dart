@@ -5,7 +5,6 @@ import 'package:ayarla/screens/manager_screens/employee_management.dart';
 import 'package:ayarla/screens/manager_screens/employee_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
-import 'package:ayarla/screens/popUpScreens/registrationPopUp.dart';
 import 'package:ayarla/screens/registrationPage.dart';
 import 'package:ayarla/screens/user_page/appointments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';

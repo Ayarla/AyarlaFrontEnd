@@ -6,7 +6,7 @@ class EmployeeModel {
   final String name;
   final bool selected;
   final Gender gender;
-  final List<ServiceModel> services;
+  List<ServiceModel> services;
 
   EmployeeModel({
     this.image,

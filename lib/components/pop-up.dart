@@ -119,7 +119,7 @@ class PopUp {
             ),
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(
                 'İptal',
                 style: kSmallTextStyle.copyWith(
@@ -132,7 +132,7 @@ class PopUp {
                 Navigator.pop(context);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text(
                 'Onayla',
                 style: kSmallTextStyle.copyWith(
@@ -554,9 +554,9 @@ class PopUp {
                   ),
                 ),
                 actions: <Widget>[
-                  FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    padding: EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
+                  TextButton(
+                    // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    // padding: EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
                     child: Text(
                       'Kayıt Olmadan Devam',
                       style: kSmallTextStyle.copyWith(color: Colors.red, fontWeight: FontWeight.bold),
@@ -567,9 +567,9 @@ class PopUp {
                       Provider.of<AppointmentData>(context, listen: false).confirmation();
                     },
                   ),
-                  FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    padding: EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
+                  TextButton(
+                    // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    // padding: EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
                     child: Text(
                       checkBox ? 'Kayıt Ol ve Devam' : 'Kayıt olmak için Sözleşmeyi onayla',
                       style: kSmallTextStyle.copyWith(
