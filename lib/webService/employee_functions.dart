@@ -306,7 +306,7 @@ class HttpEmployeeFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'calisan silindi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 }

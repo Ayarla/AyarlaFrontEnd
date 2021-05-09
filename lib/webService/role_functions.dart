@@ -83,7 +83,7 @@ class HttpRoleFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'rol silindi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 

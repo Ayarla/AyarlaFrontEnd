@@ -1,3 +1,4 @@
+import 'package:ayarla/models/coiffeurModel.dart';
 import 'package:ayarla/webService/http_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -36,16 +37,16 @@ class HttpAyarlaAccountFunctions extends HttpService {
     );
   }
 
-  Future createAyarlaAccount() async {
+  Future createAyarlaAccount({CoiffureModel coiffureModel}) async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Create';
 
     /// 1 for male , 2 female (gender)
     var data = {
-      "phone1": "string",
+      "phone1": coiffureModel.telephone,
       "phone2": "string",
       "phone3": "string",
-      "accountName": "string",
+      "accountName": coiffureModel.name,
       "accountImage": "string",
       "accountTypes": [
         {
@@ -53,9 +54,9 @@ class HttpAyarlaAccountFunctions extends HttpService {
         }
       ],
       "accountNotes": "string",
-      "addressDetail": "string",
-      "district": "string",
-      "city": "string",
+      "addressDetail": coiffureModel.address,
+      "district": coiffureModel.district,
+      "city": coiffureModel.city,
       "openCloseTimes": [
         {
           "dayOfTheWeek": "string",
@@ -81,15 +82,15 @@ class HttpAyarlaAccountFunctions extends HttpService {
     );
   }
 
-  Future updateAyarlaAccount() async {
+  Future updateAyarlaAccount({CoiffureModel coiffureModel}) async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Update';
 
     var data = {
-      "phone1": "string",
+      "phone1": coiffureModel.telephone,
       "phone2": "string",
       "phone3": "string",
-      "accountName": "string",
+      "accountName": coiffureModel.name,
       "accountImage": "string",
       "accountTypes": [
         {
@@ -97,9 +98,9 @@ class HttpAyarlaAccountFunctions extends HttpService {
         }
       ],
       "accountNotes": "string",
-      "addressDetail": "string",
-      "district": "string",
-      "city": "string",
+      "addressDetail": coiffureModel.address,
+      "district": coiffureModel.district,
+      "city": coiffureModel.city,
       "openCloseTimes": [
         {
           "dayOfTheWeek": "string",
@@ -136,7 +137,7 @@ class HttpAyarlaAccountFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'Ayarla hesabi silindi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 }

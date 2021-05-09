@@ -1,4 +1,5 @@
 import 'package:ayarla/components/imageListItem.dart';
+import 'package:ayarla/models/employeeAndService.dart';
 
 class CoiffureModel {
   final String name;
@@ -15,6 +16,8 @@ class CoiffureModel {
   final List<ImageListItem> images;
   final String uniqueId;
   final bool isPrime;
+  final List<EmployeeModel> employeeList;
+  final List<ServiceModel> serviceList;
 
   factory CoiffureModel.fromJson(json, int index) {
     return CoiffureModel(
@@ -35,19 +38,22 @@ class CoiffureModel {
     );
   }
 
-  CoiffureModel(
-      {this.name,
-      this.time,
-      this.index,
-      this.star,
-      this.text,
-      this.averagePrice,
-      this.city,
-      this.district,
-      this.telephone,
-      this.address,
-      this.comments,
-      this.images,
-      this.uniqueId,
-      this.isPrime});
+  CoiffureModel({
+    this.name,
+    this.time,
+    this.index,
+    this.star,
+    this.text,
+    this.averagePrice,
+    this.city,
+    this.district,
+    this.telephone,
+    this.address,
+    this.comments,
+    this.images,
+    this.uniqueId,
+    this.isPrime,
+    this.employeeList,
+    this.serviceList,
+  });
 }

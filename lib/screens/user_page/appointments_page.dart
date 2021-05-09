@@ -8,7 +8,6 @@ import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class AppointmentsPage extends StatefulWidget {
-  static const id = 'AppointmensPage';
   @override
   _AppointmentsPageState createState() => _AppointmentsPageState();
 }
@@ -39,8 +38,8 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: DefaultAppBar(
+        showIconButton: false,
         gradient: functions.decideColor(context),
-        showBackButton: false,
         title: Center(
           child: FittedBox(
               fit: BoxFit.scaleDown,

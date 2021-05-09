@@ -42,8 +42,12 @@ class WelcomePage extends StatelessWidget {
                   child: MenuSection(
                     FittedBox(
                       fit: BoxFit.cover,
-                      child: Text('Kuaför Randevumu Ayarla',
-                          style: kTextStylewoSize),
+                      child: Text(
+                        'Kuaför Randevumu Ayarla',
+                        style: kTextStylewoSize.copyWith(
+                          fontSize: size.width < 425 ? size.width / 18.4 : 23,
+                        ),
+                      ),
                     ),
                     Colors.white,
                     Colors.white,
@@ -106,7 +110,6 @@ class WelcomePage extends StatelessWidget {
                   child: Text('debug'),
                   onPressed: () =>
                       Routers.router.navigateTo(context, "/WebServisleri")),
-
             ],
           ),
         ),

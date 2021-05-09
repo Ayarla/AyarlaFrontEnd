@@ -59,7 +59,6 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   bool editService = false;
   bool editEmployee = false;
 
-
   bool isChanged = false;
 
   ///popup to add employee
@@ -217,7 +216,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                   });
                 },
                 // isGradient: true,
-        )
+              )
             : null,
         appBar: DefaultAppBar(
                 title: Text("Kuaför Adı",
@@ -311,7 +310,8 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
 
                             ///MAP
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 60.0),
                               child: OutlinedButton(
                                 onPressed: () {
                                   // Navigator.pushNamed(
@@ -321,12 +321,13 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                 style: ButtonStyle(
                                   padding: MaterialStateProperty.all(
                                       EdgeInsets.all(0)),
-                                  overlayColor:
-                                  MaterialStateProperty.all(Colors.grey[200]),
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.grey[200]),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child: Text("Haritadan Bulunuz", style: kTextStyle),
+                                  child: Text("Haritadan Bulunuz",
+                                      style: kTextStyle),
                                 ),
                               ),
                             ),
@@ -347,6 +348,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                             // ),
                             Text('veya', style: kSmallTextStyle),
                             SizedBox(height: 10),
+
                             /// TODO
                             Container(
                               width: size.width * 0.83,

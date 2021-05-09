@@ -9,7 +9,7 @@ class NewIcon extends StatelessWidget {
 
   /// Widget for building customized new icons.
   ///
-  /// • For [iconName], make necessary additions at constants/xxxxx
+  /// • For [iconName], make necessary additions at constants/iconNames.dart
   ///
   /// • Parameter [iconName] is required.
   NewIcon({@required this.iconName, this.size});

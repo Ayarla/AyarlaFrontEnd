@@ -342,19 +342,31 @@ class _RegisterState extends State<Register> {
                         child: TextButton(
                           onPressed: () async {
                             if (_formkey.currentState.validate()) {
-                              /// 1 = user , 2 = business owner (index)
+                              /// 1 = customer , 2 = business owner (index)
                               if (index == 1) {
+                                /// creates customer account
                                 await httpUserFunctions.createUser(
                                   name: _typedName,
                                   surname: _typedSurname,
                                   email: _typedMail,
                                   password: _typedPassword,
+                                  roleNames: "User",
 
                                   /// TODO userName daha sonra kalkacak
-                                  userName: 'bahadirrahmettt',
+                                  userName: 'bahadir4444',
                                 );
-                              } else {
-                                /// TODO create business account
+                              } else if (index == 2) {
+                                /// creates business owner account
+                                await httpUserFunctions.createUser(
+                                  name: _typedName,
+                                  surname: _typedSurname,
+                                  email: _typedMail,
+                                  password: _typedPassword,
+                                  roleNames: "Accounts",
+
+                                  /// TODO userName daha sonra kalkacak
+                                  userName: 'Bahadir4444',
+                                );
                               }
                             } else {
                               print("Not Validated");

@@ -26,7 +26,7 @@ class _EmployeePageState extends State<EmployeePage> {
         context: context,
         builder: (BuildContext context) {
           final size = MediaQuery.of(context).size;
-          bool value;
+          // bool value;
           return StatefulBuilder(
             builder: (BuildContext bc, StateSetter setState2) {
               return CircularParent(
@@ -211,23 +211,14 @@ class _EmployeePageState extends State<EmployeePage> {
 
   @override
   void initState() {
-    week = [
-      "Pazartesi",
-      "Salı",
-      "Çarşamba",
-      "Perşembe",
-      "Cuma",
-      "Cumartesi",
-      "Pazar"
-    ];
-    for (String x in week) {
+    week.forEach((element) {
       weekBoolList.add(false);
-    }
+    });
     services =
         Provider.of<AppointmentData>(context, listen: false).fullTimeServices;
-    for (ServiceModel x in services) {
+    services.forEach((element) {
       serviceBoolList.add(false);
-    }
+    });
     super.initState();
   }
 

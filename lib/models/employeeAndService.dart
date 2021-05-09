@@ -3,15 +3,22 @@ class EmployeeModel {
   final String name;
   bool selected;
   final String gender;
+  List<ServiceModel> services;
 
-  EmployeeModel({this.image,this.name,this.selected,this.gender});
+  EmployeeModel({
+    this.image,
+    this.name,
+    this.selected,
+    this.gender,
+    this.services,
+  });
 }
 
-class ServiceModel{
+class ServiceModel {
   final String name;
   final int price;
   bool selected;
   final List<EmployeeModel> employees;
 
-  ServiceModel({this.selected,this.name,this.employees,this.price});
+  ServiceModel({this.selected, this.name, this.employees, this.price});
 }

@@ -1,14 +1,13 @@
 import 'package:ayarla/components/map/BusinessFlutterMap.dart';
 
 import 'package:ayarla/screens/calender_page.dart';
-import 'file:///C:/Users/Nilsu/AndroidStudioProjects/AyarlaFrontEnd/lib/screens/manager_screens/business_info_page/business_info_page.dart';
+import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
 import 'package:ayarla/screens/manager_screens/employee_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
-import 'package:ayarla/screens/popUpScreens/registrationPopUp.dart';
 import 'package:ayarla/screens/registrationPage.dart';
-import 'package:ayarla/screens/user_page/appontments_page.dart';
+import 'package:ayarla/screens/user_page/appointments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/message_page.dart';
 import 'package:ayarla/screens/user_page/past_appointments_page.dart';

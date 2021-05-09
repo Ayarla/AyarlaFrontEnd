@@ -9,9 +9,10 @@ class HttpUserFunctions extends HttpService {
       String name,
       String surname,
       String email,
-      String password}) async {
+      String password,
+      String roleNames}) async {
     await getToken();
-    final String _url = '$baseUrl}/api/services/app/User/Create';
+    final String _url = '$baseUrl/api/services/app/User/Create';
 
     Map data = {
       "userName": userName,
@@ -19,7 +20,7 @@ class HttpUserFunctions extends HttpService {
       "surname": surname,
       "emailAddress": email,
       "isActive": true,
-      "roleNames": ["User"],
+      "roleNames": [roleNames],
       "password": password
     };
     var body = json.encode(data);
@@ -30,11 +31,12 @@ class HttpUserFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    var id = await checkResponseStatus(
       successMessage: 'kullanici olusturuldu',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body)["result"]["id"],
     );
+    print('Olusturulan kullanici id: $id');
   }
 
   /// Update User
@@ -69,7 +71,7 @@ class HttpUserFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'kullanici guncellendi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 
@@ -85,7 +87,7 @@ class HttpUserFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'kullanici silindi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 
@@ -104,7 +106,7 @@ class HttpUserFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'kullanici aktiflestirildi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 
@@ -123,7 +125,7 @@ class HttpUserFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'kullanici pasiflestirildi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 
@@ -160,7 +162,7 @@ class HttpUserFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'dil degistirildi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 
@@ -180,7 +182,7 @@ class HttpUserFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'kullanici sifresi degistirildi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 
@@ -203,7 +205,7 @@ class HttpUserFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'kullanici sifresi sifirlandi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 
@@ -218,7 +220,7 @@ class HttpUserFunctions extends HttpService {
     var responseBody = await checkResponseStatus(
       successMessage: 'kullanici cagirildi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
     print(responseBody);
   }

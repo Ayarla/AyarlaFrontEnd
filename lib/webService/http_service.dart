@@ -1,40 +1,28 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-String _userToken = "";
-String _adminToken = "";
-String _accountToken = "";
-final String baseUrl = 'https://ayarlawebhost20210410115100.azurewebsites.net';
+String _userToken;
+String _adminToken;
+String _accountToken;
+
+Map<String, String> headersWithAdminToken = {
+  'Authorization': _adminToken,
+  'Content-type': 'application/json; charset=utf-8',
+};
+
+Map<String, String> headersWithUserToken = {
+  'Authorization': _userToken,
+  'Content-type': 'application/json; charset=utf-8',
+};
+
+Map<String, String> headersWithAccountToken = {
+  'Authorization': _accountToken,
+  'Content-type': 'application/json; charset=utf-8',
+};
 
 class HttpService {
-  Map<String, String> headersWithAdminToken = {
-    'Authorization': _adminToken,
-    'Content-type': 'application/json; charset=utf-8',
-  };
-
-  Map<String, String> headersWithUserToken = {
-    'Authorization': _userToken,
-    'Content-type': 'application/json; charset=utf-8',
-  };
-
-  Map<String, String> headersWithAccountToken = {
-    'Authorization': _accountToken,
-    'Content-type': 'application/json; charset=utf-8',
-  };
-
-  Future<String> checkResponseStatus(
-      {String successMessage, http.Response response, var returnData}) async {
-    if (response.statusCode == 200) {
-      print(successMessage);
-      return returnData;
-    } else {
-      /// server error message
-      var error = jsonDecode(response.body)['error']['message'];
-      print(response.statusCode);
-      print(error);
-      return null;
-    }
-  }
+  final String baseUrl =
+      'https://ayarlawebhost20210410115100.azurewebsites.net';
 
   Future getToken() async {
     final String _url = '$baseUrl/api/TokenAuth/Authenticate';
@@ -48,7 +36,9 @@ class HttpService {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: {
+        'Content-type': 'application/json; charset=utf-8',
+      },
       body: body,
     );
 
@@ -59,7 +49,21 @@ class HttpService {
     await checkResponseStatus(
       successMessage: 'Token Çekildi!',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
+  }
+
+  Future checkResponseStatus(
+      {String successMessage, http.Response response, var returnData}) async {
+    if (response.statusCode == 200) {
+      print(successMessage);
+      return returnData;
+    } else {
+      /// server error message
+      var error = jsonDecode(response.body)['error']['message'];
+      print(response.statusCode);
+      print(error);
+      return null;
+    }
   }
 }

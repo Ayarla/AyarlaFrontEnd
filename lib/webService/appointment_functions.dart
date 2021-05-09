@@ -3,12 +3,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class HttpAppointmentFunctions extends HttpService {
-  Future createAppointment() async {
+  Future createAppointment({String dayTime}) async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/Appoinment/Create';
 
     var data = {
-      "dayTime": "2021-04-24T10:14:39.160Z",
+      "dayTime": dayTime,
+      // "dayTime": "2021-04-24T10:14:39.160Z",
     };
     var body = jsonEncode(data);
 
@@ -58,13 +59,14 @@ class HttpAppointmentFunctions extends HttpService {
     );
   }
 
-  Future updateAppointment() async {
+  Future updateAppointment({int userId, String dayTime}) async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/Appoinment/Update';
 
     var data = {
-      "userId": 0,
-      "dayTime": "2021-04-24T10:19:00.641Z",
+      "userId": userId,
+      "dayTime": dayTime,
+      // "dayTime": "2021-04-24T10:19:00.641Z",
     };
     var body = jsonEncode(data);
 
@@ -92,7 +94,7 @@ class HttpAppointmentFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'randevu silindi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 }

@@ -1,6 +1,5 @@
-import 'package:ayarla/components/UI/responsiveWidget.dart';
-import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/circularParent.dart';
+import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/router.dart';

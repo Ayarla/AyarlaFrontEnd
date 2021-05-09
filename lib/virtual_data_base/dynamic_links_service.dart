@@ -1,3 +1,4 @@
+import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
@@ -29,12 +30,12 @@ class DynamicLinkService {
 
       if (deepLink != null) {
         if (deepLink.queryParameters.containsKey('id')) {
-          String id = deepLink.queryParameters['id'];
-          // Navigator.of(context).push(
-            // MaterialPageRoute(
-            //   builder: (context) => CoiffureDetailPage(uniqueId: id),
-            // ),
-          // );
+          // String id = deepLink.queryParameters['id'];
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => CoiffureDetailPage(),
+            ),
+          );
         }
       }
       // FirebaseDynamicLinks.instance.onLink(

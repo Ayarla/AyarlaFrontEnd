@@ -20,17 +20,28 @@ class Availability {
 class AppointmentData extends ChangeNotifier {
   /// called in coiffure_detail_card initState
   String coiffureName = '';
-  setName(String name) {
-    coiffureName = name;
-  }
+  // setName(String name) {
+  //   coiffureName = name;
+  // }
+
+  List<ServiceModel> newServiceList = [
+    ServiceModel(name: 'Saç Kesimi', price: 20, selected: false),
+    ServiceModel(name: 'Sakal Kesimi', price: 10, selected: false),
+    ServiceModel(name: 'Saç Boyama', price: 100, selected: false),
+    ServiceModel(name: 'Manikür', price: 30, selected: false),
+    ServiceModel(name: 'Pedikür', price: 30, selected: false),
+    ServiceModel(name: 'Perma', price: 100, selected: false),
+    ServiceModel(name: 'Saç Bakımı', price: 50, selected: false),
+  ];
 
   //used in coiffure_detail card
   List<EmployeeModel> employeesList = [
     EmployeeModel(
-        image: 'assets/worker_3.png',
-        name: 'Nilsu Öz',
-        selected: false,
-        gender: 'female'),
+      name: 'Nilsu Öz',
+      image: 'assets/worker_3.png',
+      gender: 'female',
+      selected: false,
+    ),
     EmployeeModel(
         image: 'assets/worker_1.png',
         name: 'Fatih Özkan',
@@ -645,7 +656,7 @@ class AppointmentData extends ChangeNotifier {
     //       print('Data received successfully!');
     //     });
     //   }
-    //   return coiffureList;
+      return coiffureList;
   }
   HttpUserFunctions httpUserFunctions = HttpUserFunctions();
   List userList = [];

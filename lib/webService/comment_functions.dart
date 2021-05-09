@@ -1,15 +1,16 @@
+import 'package:ayarla/models/commentModel.dart';
 import 'package:ayarla/webService/http_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class HttpCommentFunctions extends HttpService {
-  Future createComment() async {
+  Future createComment({CommentModel commentModel}) async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/Comment/Create';
 
     var data = {
-      "comment": "string",
-      "rating": 0,
+      "comment": commentModel.comment,
+      "rating": commentModel.rating,
     };
     var body = jsonEncode(data);
 
@@ -59,14 +60,14 @@ class HttpCommentFunctions extends HttpService {
     );
   }
 
-  Future updateComment() async {
+  Future updateComment({CommentModel commentModel, int userId}) async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/Comment/Update';
 
     var data = {
-      "userId": 0,
-      "comment": "string",
-      "rating": 0,
+      "userId": userId,
+      "comment": commentModel.comment,
+      "rating": commentModel.rating,
     };
     var body = jsonEncode(data);
 
@@ -94,7 +95,7 @@ class HttpCommentFunctions extends HttpService {
     await checkResponseStatus(
       successMessage: 'yorum silindi',
       response: response,
-      returnData: jsonEncode(response.body),
+      returnData: jsonDecode(response.body),
     );
   }
 }

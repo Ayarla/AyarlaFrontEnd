@@ -97,12 +97,12 @@ class AppBarTitleCustomer extends StatelessWidget {
             "Merhaba Nilsu",
             style: kTitleStyle.copyWith(
                 color: Colors.white,
-                fontSize: size.width < 700 ? size.width / 31.8 : 22),
+                fontSize: size.width < 425 ? size.width / 19.3 : 22),
           ),
           Text(
             "Haydi randevunu ayarlayalım!",
             style: kSmallTextStyle.copyWith(
-                fontSize: size.width < 700 ? size.width / 50 : 14),
+                fontSize: size.width < 425 ? size.width / 30.3 : 14),
           )
         ],
       ),
