@@ -153,6 +153,13 @@ class WelcomePage extends StatelessWidget {
                   ),
                   backGroundColor: Color(0xFF90a4ae).withOpacity(0.4),
                   onPressed: () {},
+                  cardPadding: EdgeInsets.all(0),
+                  backGroundImage: DecorationImage(
+                    image: AssetImage('assets/new/cfr2.png'),
+                    repeat: ImageRepeat.repeatX,
+                    scale: 1.2,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ],

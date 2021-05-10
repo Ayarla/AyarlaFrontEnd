@@ -41,7 +41,9 @@ abstract class Expandable extends StatefulWidget {
   /// • Duration between [onPressed] & expand animation.
   final Duration beforeAnimationDuration;
 
-  final Image backGroundImage;
+  final DecorationImage backGroundImage;
+
+  final EdgeInsets cardPadding;
 
   /// • Expandable abstract class for general use.
   Expandable({
@@ -57,8 +59,10 @@ abstract class Expandable extends StatefulWidget {
     this.animationDuration,
     this.beforeAnimationDuration,
     this.backGroundImage,
+    this.cardPadding,
   });
 
+  /// TODO - add icon that rotates.
   @override
   _ExpandableState createState() => _ExpandableState();
 }
@@ -125,36 +129,43 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
           _toggleExpand();
         });
       },
-      child: Card(
-        elevation: widget.elevation ?? 0,
-        shape: widget.shape ?? roundedShape,
-        color: widget.backGroundColor ?? Colors.white,
-        child: Padding(
-          padding: widget.padding ?? EdgeInsets.all(0),
-          child: Column(
-            children: [
-              widget.text != null
-                  ? AnimatedCrossFade(
-                      duration: widget.animationDuration ??
-                          Duration(milliseconds: 100),
-                      crossFadeState: _isExpanded
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                      firstChild: Text(widget.text, style: kSmallTextStyle),
-                      secondChild: Text(
-                        widget.text,
-                        style: kSmallTextStyle,
-                        maxLines: widget.maxLines,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
-                  : widget.primaryWidget,
-              SizeTransition(
-                axisAlignment: 0.0,
-                sizeFactor: _sizeAnimation,
-                child: widget.secondaryWidget,
-              ),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: widget.backGroundImage ?? null,
+        ),
+        child: Card(
+          margin: widget.cardPadding ?? EdgeInsets.all(5),
+          elevation: widget.elevation ?? 0,
+          shape: widget.shape ?? roundedShape,
+          color: widget.backGroundColor ?? Colors.white,
+          child: Padding(
+            padding: widget.padding ?? EdgeInsets.all(0),
+            child: Column(
+              children: [
+                widget.text != null
+                    ? AnimatedCrossFade(
+                        duration: widget.animationDuration ??
+                            Duration(milliseconds: 100),
+                        crossFadeState: _isExpanded
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
+                        firstChild: Text(widget.text, style: kSmallTextStyle),
+                        secondChild: Text(
+                          widget.text,
+                          style: kSmallTextStyle,
+                          maxLines: widget.maxLines,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    : widget.primaryWidget,
+                SizeTransition(
+                  axisAlignment: 0.0,
+                  sizeFactor: _sizeAnimation,
+                  child: widget.secondaryWidget,
+                ),
+              ],
+            ),
           ),
         ),
       ),

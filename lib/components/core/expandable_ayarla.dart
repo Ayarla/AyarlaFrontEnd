@@ -15,6 +15,8 @@ class AyarlaExpandable extends Expandable {
     Padding padding,
     Duration animationDuration,
     Duration beforeAnimationDuration,
+    DecorationImage backGroundImage,
+    EdgeInsets cardPadding,
   })  : assert(primaryWidget != null || secondaryWidget != null),
         super(
           primaryWidget: primaryWidget,
@@ -26,6 +28,8 @@ class AyarlaExpandable extends Expandable {
           animationDuration: animationDuration,
           beforeAnimationDuration: beforeAnimationDuration,
           padding: padding,
+          backGroundImage: backGroundImage,
+          cardPadding: cardPadding,
         );
 
   /// Provides an expandable widget for a long text.
