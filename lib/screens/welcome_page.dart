@@ -1,13 +1,12 @@
-import 'package:ayarla/components/UI/responsiveWidget.dart';
-import 'package:ayarla/components/core/expandable.dart';
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/virtual_data_base/genderSelection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/components/menuItem.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:provider/provider.dart';
 
 /// Calendar page gesture detector problem with the buttons!!!!!
 
@@ -39,83 +38,81 @@ class WelcomePage extends StatelessWidget {
               Text("Yeni Nesil, Akıllı Randevu Danışmanı",
                   textAlign: TextAlign.center, style: kTitleStyle),
               SizedBox(height: 15),
-              ResponsiveWidget(
-                smallScreen: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width / 50, vertical: 10),
-                  child: MenuSection(
-                    FittedBox(
-                      fit: BoxFit.cover,
-                      child: Text(
-                        'Kuaför Randevumu Ayarla',
-                        style: kTextStylewoSize.copyWith(
-                          fontSize: size.width < 425 ? size.width / 18.4 : 23,
-                        ),
-                      ),
-                    ),
-                    Colors.white,
-                    Colors.white,
-                    [
-                      MenuItemData(label: 'Kadın'),
-                      MenuItemData(label: 'Erkek'),
-                      MenuItemData(label: 'Unisex'),
-                    ],
-                  ),
-                ),
-                mediumScreen: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width / 6, vertical: 10),
-                  child: MenuSection(
-                    Row(
-                      children: [
-                        Container(
-                          child: Text(
-                            'Kuaför Randevumu Ayarla',
-                            style: kTextStyle.copyWith(
-                                color: Colors.white, fontSize: size.width / 30),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Colors.white,
-                    Colors.white,
-                    [
-                      MenuItemData(label: 'Kadın'),
-                      MenuItemData(label: 'Erkek'),
-                      MenuItemData(label: 'Unisex'),
-                    ],
-                  ),
-                ),
-                largeScreen: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width / 3.5, vertical: 10),
-                  child: MenuSection(
-                    Row(
-                      children: [
-                        Container(
-                          child: Text(
-                            'Kuaför Randevumu Ayarla',
-                            style: kTextStyle.copyWith(color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Colors.white,
-                    Colors.white,
-                    [
-                      MenuItemData(label: 'Kadın'),
-                      MenuItemData(label: 'Erkek'),
-                      MenuItemData(label: 'Unisex'),
-                    ],
-                  ),
-                ),
-              ),
-              TextButton(
-                  child: Text('debug'),
-                  onPressed: () =>
-                      Routers.router.navigateTo(context, "/WebServisleri")),
+              // ResponsiveWidget(
+              //   smallScreen: Padding(
+              //     padding: EdgeInsets.symmetric(
+              //         horizontal: size.width / 50, vertical: 10),
+              //     child: MenuSection(
+              //       FittedBox(
+              //         fit: BoxFit.cover,
+              //         child: Text(
+              //           'Kuaför Randevumu Ayarla',
+              //           style: kTextStylewoSize.copyWith(
+              //             fontSize: size.width < 425 ? size.width / 18.4 : 23,
+              //           ),
+              //         ),
+              //       ),
+              //       Colors.white,
+              //       Colors.white,
+              //       [
+              //         MenuItemData(label: 'Kadın'),
+              //         MenuItemData(label: 'Erkek'),
+              //         MenuItemData(label: 'Unisex'),
+              //       ],
+              //     ),
+              //   ),
+              //   mediumScreen: Padding(
+              //     padding: EdgeInsets.symmetric(
+              //         horizontal: size.width / 6, vertical: 10),
+              //     child: MenuSection(
+              //       Row(
+              //         children: [
+              //           Container(
+              //             child: Text(
+              //               'Kuaför Randevumu Ayarla',
+              //               style: kTextStyle.copyWith(
+              //                   color: Colors.white, fontSize: size.width / 30),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       Colors.white,
+              //       Colors.white,
+              //       [
+              //         MenuItemData(label: 'Kadın'),
+              //         MenuItemData(label: 'Erkek'),
+              //         MenuItemData(label: 'Unisex'),
+              //       ],
+              //     ),
+              //   ),
+              //   largeScreen: Padding(
+              //     padding: EdgeInsets.symmetric(
+              //         horizontal: size.width / 3.5, vertical: 10),
+              //     child: MenuSection(
+              //       Row(
+              //         children: [
+              //           Container(
+              //             child: Text(
+              //               'Kuaför Randevumu Ayarla',
+              //               style: kTextStyle.copyWith(color: Colors.white),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       Colors.white,
+              //       Colors.white,
+              //       [
+              //         MenuItemData(label: 'Kadın'),
+              //         MenuItemData(label: 'Erkek'),
+              //         MenuItemData(label: 'Unisex'),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width / 3),
+                padding: size.width <= 600
+                    ? EdgeInsets.symmetric(horizontal: 10)
+                    : EdgeInsets.symmetric(horizontal: size.width / 4),
                 child: AyarlaExpandable(
                   primaryWidget: Container(
                     height: 80,
@@ -130,24 +127,88 @@ class WelcomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TextButton(
-                          child: Text(
-                            'Kadın',
-                            softWrap: true,
-                            style: kTextStyle.copyWith(color: Colors.white),
+                        GestureDetector(
+                          onTap: () {
+                            Provider.of<GenderSelection>(context, listen: false)
+                                .selectGender(Gender.female);
+                            Routers.router.navigateTo(context, "/AramaSayfasi");
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Kadın',
+                                softWrap: true,
+                                style: kTextStyle.copyWith(color: Colors.white),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.arrow_right_rounded,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              ),
+                            ],
                           ),
-                          onPressed: () {},
                         ),
-                        Text(
-                          'Erkek',
-                          softWrap: true,
-                          style: kTextStyle.copyWith(color: Colors.white),
+                        SizedBox(height:5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                              child: Text(
+                                'Erkek',
+                                softWrap: true,
+                                style: kTextStyle.copyWith(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                Provider.of<GenderSelection>(context,
+                                        listen: false)
+                                    .selectGender(Gender.male);
+                                Routers.router
+                                    .navigateTo(context, "/AramaSayfasi");
+                              },
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.arrow_right_rounded,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Unisex',
-                          softWrap: true,
-                          style: kTextStyle.copyWith(color: Colors.white),
+                        SizedBox(height:5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                              child: Text(
+                                'Unisex',
+                                softWrap: true,
+                                style: kTextStyle.copyWith(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                Provider.of<GenderSelection>(context,
+                                        listen: false)
+                                    .selectGender(Gender.unisex);
+                                Routers.router
+                                    .navigateTo(context, "/AramaSayfasi");
+                              },
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.arrow_right_rounded,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            ),
+                          ],
                         ),
+                        SizedBox(height:10),
                       ],
                     ),
                   ),
@@ -162,6 +223,10 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
               ),
+              TextButton(
+                  child: Text('debug'),
+                  onPressed: () =>
+                      Routers.router.navigateTo(context, "/WebServisleri")),
             ],
           ),
         ),

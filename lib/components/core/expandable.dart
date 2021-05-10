@@ -41,8 +41,12 @@ abstract class Expandable extends StatefulWidget {
   /// • Duration between [onPressed] & expand animation.
   final Duration beforeAnimationDuration;
 
+  /// • Background image of the expandable.
   final DecorationImage backGroundImage;
 
+  /// • General padding.
+  ///
+  /// • Recommended to set 0 if it is used with [backGroundImage].
   final EdgeInsets cardPadding;
 
   /// • Expandable abstract class for general use.
