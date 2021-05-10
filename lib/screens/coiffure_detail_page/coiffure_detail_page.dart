@@ -48,7 +48,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     }
     super.initState();
   }
-  
+
   @override
   void dispose() {
     _listViewController.dispose();

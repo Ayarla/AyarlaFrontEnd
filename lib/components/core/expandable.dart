@@ -3,34 +3,47 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 abstract class Expandable extends StatefulWidget {
-  /// Widget for upper part.
+  /// • The widget that is placed at the collapsed part of the expandable.
   final Widget primaryWidget;
 
-  /// The widget that [sizeTransition] affects.
+  /// • The widget that [sizeTransition] affects.
   final Widget secondaryWidget;
 
-  /// Function that is placed top of the widget tree.
+  /// • Function that is placed top of the widget tree.
   ///
-  /// Animation starts AFTER this function.
+  /// • Animation starts AFTER this function.
+  ///
+  /// • For the duration between see [beforeAnimationDuration].
   final Function onPressed;
 
-  /// Padding that affects INSIDE of the widget.
+  /// • Padding that affects inside of the widget.
   final Padding padding;
 
-  /// Needed for [AyarlaExpandable.singleTextChild].
+  /// • Needed for [AyarlaExpandable.singleTextChild].
   final String text;
 
-  /// Determines the maximum line of the [text] when the widget is collapsed.
+  /// • Determines the maximum line of the [text] when the widget is collapsed.
   final int maxLines;
 
   final Color backGroundColor;
 
-  ///
+  /// • Elevation of expandable widget.
   final double elevation;
+
+  /// • Shape of the component.
+  ///
+  /// • Notice that [shape] is a [ShapeBorder] not [BoxShape].
   final ShapeBorder shape;
+
+  /// • Duration for expand animation.
   final Duration animationDuration;
+
+  /// • Duration between [onPressed] & expand animation.
   final Duration beforeAnimationDuration;
 
+  final Image backGroundImage;
+
+  /// • Expandable abstract class for general use.
   Expandable({
     this.primaryWidget,
     this.secondaryWidget,
@@ -43,6 +56,7 @@ abstract class Expandable extends StatefulWidget {
     this.shape,
     this.animationDuration,
     this.beforeAnimationDuration,
+    this.backGroundImage,
   });
 
   @override
@@ -107,7 +121,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
           widget.onPressed();
         }
 
-        Timer(Duration(milliseconds: 20), () {
+        Timer(widget.beforeAnimationDuration ?? Duration(milliseconds: 20), () {
           _toggleExpand();
         });
       },

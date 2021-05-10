@@ -2,9 +2,9 @@ import 'package:ayarla/components/core/expandable.dart';
 import 'package:flutter/material.dart';
 
 class AyarlaExpandable extends Expandable {
-  /// Provides an expandable widget for general use.
+  /// • Provides an expandable widget for general use.
   ///
-  /// See [Expandable] for more details.
+  /// • See [Expandable] for more details.
   AyarlaExpandable({
     Widget primaryWidget,
     Widget secondaryWidget,
