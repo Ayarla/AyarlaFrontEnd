@@ -49,6 +49,12 @@ abstract class Expandable extends StatefulWidget {
   /// • Recommended to set 0 if it is used with [backGroundImage].
   final EdgeInsets cardPadding;
 
+  /// Icon that changes its direction with respect to expand animation.
+  final bool showArrowIcon;
+
+  /// TEST - Designed for web.
+  final bool hoverOn;
+
   /// • Expandable abstract class for general use.
   Expandable({
     this.primaryWidget,
@@ -64,6 +70,10 @@ abstract class Expandable extends StatefulWidget {
     this.beforeAnimationDuration,
     this.backGroundImage,
     this.cardPadding,
+    this.showArrowIcon,
+
+    /// TEST
+    this.hoverOn,
   });
 
   /// TODO - add icon that rotates.
@@ -72,10 +82,16 @@ abstract class Expandable extends StatefulWidget {
 }
 
 class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController _sizeController;
   Animation<double> _sizeAnimation;
   bool _isExpanded = false;
-
+  AnimationController _rotationController;
+  Animation<double> _rotationAnimation;
+  bool _isRotated = false;
+  static final Animatable<double> _rotationTween = Tween<double>(
+    begin: 0.0,
+    end: 2,
+  );
   static final Animatable<double> _sizeTween = Tween<double>(
     begin: 0.0,
     end: 1.0,
@@ -87,10 +103,27 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
     });
     switch (_sizeAnimation.status) {
       case AnimationStatus.completed:
-        _controller.reverse();
+        _sizeController.reverse();
         break;
       case AnimationStatus.dismissed:
-        _controller.forward();
+        _sizeController.forward();
+        break;
+      case AnimationStatus.reverse:
+      case AnimationStatus.forward:
+        break;
+    }
+  }
+
+  _toggleRotate() {
+    setState(() {
+      _isRotated = !_isRotated;
+    });
+    switch (_rotationAnimation.status) {
+      case AnimationStatus.completed:
+        _rotationController.reverse();
+        break;
+      case AnimationStatus.dismissed:
+        _rotationController.forward();
         break;
       case AnimationStatus.reverse:
       case AnimationStatus.forward:
@@ -101,29 +134,46 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
   @override
   initState() {
     super.initState();
-    _controller = AnimationController(
+    _sizeController = AnimationController(
       vsync: this,
       duration: widget.animationDuration ?? Duration(milliseconds: 200),
     );
 
+    _rotationController = AnimationController(
+        duration: Duration(milliseconds: 200), vsync: this, lowerBound: 0.5);
+
     final CurvedAnimation curve =
-        CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
+        CurvedAnimation(parent: _sizeController, curve: Curves.fastOutSlowIn);
 
     _sizeAnimation = _sizeTween.animate(curve);
-    _controller.addListener(() {
+    _rotationAnimation = _rotationTween.animate(_rotationController);
+    _sizeController.addListener(() {
       setState(() {});
     });
   }
 
   @override
   dispose() {
-    _controller.dispose();
+    _sizeController.dispose();
+    _rotationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      onHover: widget.hoverOn ?? false
+          ? (value) {
+              if (value = true) {
+                _toggleExpand();
+                // _toggleRotate();
+              } else if (value = false) {
+                // _isExpanded = true;
+              }
+            }
+          : null,
       onTap: () {
         if (widget.onPressed.toString() != 'null') {
           widget.onPressed();
@@ -131,6 +181,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
 
         Timer(widget.beforeAnimationDuration ?? Duration(milliseconds: 20), () {
           _toggleExpand();
+          _toggleRotate();
         });
       },
       child: Container(
@@ -162,7 +213,23 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
                           overflow: TextOverflow.ellipsis,
                         ),
                       )
-                    : widget.primaryWidget,
+                    : widget.showArrowIcon
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              widget.primaryWidget,
+                              RotationTransition(
+                                turns: Tween(begin: 0.0, end: 1.0)
+                                    .animate(_rotationController),
+                                child: Icon(
+                                  Icons.keyboard_arrow_up_rounded,
+                                  color: Colors.white,
+                                  size: 20.0,
+                                ),
+                              ),
+                            ],
+                          )
+                        : widget.primaryWidget,
                 SizeTransition(
                   axisAlignment: 0.0,
                   sizeFactor: _sizeAnimation,

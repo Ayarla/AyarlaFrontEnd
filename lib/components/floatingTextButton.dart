@@ -22,17 +22,17 @@ class FloatingTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return FloatingActionButton.extended(
-      // shape: RoundedRectangleBorder(
-      //   side: BorderSide.none,
-      //   borderRadius: BorderRadius.circular(10),
-      // ),
       onPressed: onPressed,
       heroTag: null,
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      highlightElevation: 0,
+      focusElevation: 0,
+      focusColor: Colors.transparent,
       hoverElevation: 0,
       hoverColor: Colors.transparent,
-      highlightElevation: 0,
+      foregroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
+      splashColor: Colors.white.withOpacity(0),
       label: Container(
         width: size.width < 700 ? size.width / 3 : 150,
         padding: EdgeInsets.all(10),

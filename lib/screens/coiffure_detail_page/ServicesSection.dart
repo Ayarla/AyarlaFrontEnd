@@ -1,4 +1,3 @@
-import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/employeeAndService.dart';
@@ -22,7 +21,9 @@ class _ServicesSectionState extends State<ServicesSection> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Hizmetler', style: kTitleStyle),
         for (ServiceModel x
@@ -35,10 +36,11 @@ class _ServicesSectionState extends State<ServicesSection> {
             },
             elevation: 5,
             primaryWidget: Container(
+              width: size.width,
               height: 60,
               child: Row(
                 children: [
-                  SizedBox(width: 20),
+                  SizedBox(width: 10),
                   Text(x.name,
                       style:
                           kTextStyle.copyWith(fontWeight: FontWeight.normal)),
@@ -56,11 +58,13 @@ class _ServicesSectionState extends State<ServicesSection> {
                         : Icons.add,
                     size: 25,
                   ),
-                  SizedBox(width: 20),
+                  SizedBox(width: 10),
                 ],
               ),
             ),
-            secondaryWidget: EmployeeRow(size: MediaQuery.of(context).size),
+            secondaryWidget: Center(
+              child: EmployeeRow(width: MediaQuery.of(context).size.width - 20),
+            ),
             // secondaryWidget: ListView.builder(
             //   scrollDirection: Axis.horizontal,
             //   itemCount: 5,

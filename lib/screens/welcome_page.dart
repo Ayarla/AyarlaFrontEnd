@@ -8,8 +8,6 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:provider/provider.dart';
 
-/// Calendar page gesture detector problem with the buttons!!!!!
-
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -38,82 +36,13 @@ class WelcomePage extends StatelessWidget {
               Text("Yeni Nesil, Akıllı Randevu Danışmanı",
                   textAlign: TextAlign.center, style: kTitleStyle),
               SizedBox(height: 15),
-              // ResponsiveWidget(
-              //   smallScreen: Padding(
-              //     padding: EdgeInsets.symmetric(
-              //         horizontal: size.width / 50, vertical: 10),
-              //     child: MenuSection(
-              //       FittedBox(
-              //         fit: BoxFit.cover,
-              //         child: Text(
-              //           'Kuaför Randevumu Ayarla',
-              //           style: kTextStylewoSize.copyWith(
-              //             fontSize: size.width < 425 ? size.width / 18.4 : 23,
-              //           ),
-              //         ),
-              //       ),
-              //       Colors.white,
-              //       Colors.white,
-              //       [
-              //         MenuItemData(label: 'Kadın'),
-              //         MenuItemData(label: 'Erkek'),
-              //         MenuItemData(label: 'Unisex'),
-              //       ],
-              //     ),
-              //   ),
-              //   mediumScreen: Padding(
-              //     padding: EdgeInsets.symmetric(
-              //         horizontal: size.width / 6, vertical: 10),
-              //     child: MenuSection(
-              //       Row(
-              //         children: [
-              //           Container(
-              //             child: Text(
-              //               'Kuaför Randevumu Ayarla',
-              //               style: kTextStyle.copyWith(
-              //                   color: Colors.white, fontSize: size.width / 30),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //       Colors.white,
-              //       Colors.white,
-              //       [
-              //         MenuItemData(label: 'Kadın'),
-              //         MenuItemData(label: 'Erkek'),
-              //         MenuItemData(label: 'Unisex'),
-              //       ],
-              //     ),
-              //   ),
-              //   largeScreen: Padding(
-              //     padding: EdgeInsets.symmetric(
-              //         horizontal: size.width / 3.5, vertical: 10),
-              //     child: MenuSection(
-              //       Row(
-              //         children: [
-              //           Container(
-              //             child: Text(
-              //               'Kuaför Randevumu Ayarla',
-              //               style: kTextStyle.copyWith(color: Colors.white),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //       Colors.white,
-              //       Colors.white,
-              //       [
-              //         MenuItemData(label: 'Kadın'),
-              //         MenuItemData(label: 'Erkek'),
-              //         MenuItemData(label: 'Unisex'),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: size.width <= 600
                     ? EdgeInsets.symmetric(horizontal: 10)
                     : EdgeInsets.symmetric(horizontal: size.width / 4),
                 child: AyarlaExpandable(
+                  backGroundColor: Color(0xFF90a4ae).withOpacity(0.4),
+                  hoverOn: false,
                   primaryWidget: Container(
                     height: 80,
                     child: Center(
@@ -152,7 +81,7 @@ class WelcomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height:5),
+                        SizedBox(height: 5),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -180,7 +109,7 @@ class WelcomePage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height:5),
+                        SizedBox(height: 5),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -208,12 +137,10 @@ class WelcomePage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height:10),
+                        SizedBox(height: 10),
                       ],
                     ),
                   ),
-                  backGroundColor: Color(0xFF90a4ae).withOpacity(0.4),
-                  onPressed: () {},
                   cardPadding: EdgeInsets.all(0),
                   backGroundImage: DecorationImage(
                     image: AssetImage('assets/new/cfr2.png'),

@@ -68,7 +68,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               ? Icon(Icons.home, color: Colors.white, size: 40.0)
               : BackButton(),
           onPressed: () {
-            // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
+            Routers.router
+                .navigateTo(context, "/Hosgeldiniz", clearStack: true);
           },
         ),
         title: Center(
@@ -221,27 +222,30 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           ),
 
           if (UniversalPlatform.isWeb && isConfirmed == true)
-                SizedBox(height: 40),
-                Center(
-                  child: Text('Uygulamamızı indirmek ister misiniz?',
-                      style: kTextStyle),
+            SizedBox(height: 40),
+          if (UniversalPlatform.isWeb && isConfirmed == true)
+            Center(
+              child: Text(
+                'Uygulamamızı indirmek ister misiniz?',
+                style: kTextStyle,
+              ),
+            ),
+          if (UniversalPlatform.isWeb && isConfirmed == true)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                HoverButton(
+                  text: 'PlayStore',
+                  onPressed: () => print('Lauch PlayStore!'),
+                  icon: FontAwesomeIcons.googlePlay,
+                  spaceBetween: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    HoverButton(
-                      text: 'PlayStore',
-                      onPressed: () => print('Lauch PlayStore!'),
-                      icon: FontAwesomeIcons.googlePlay,
-                      spaceBetween: 10,
-                    ),
-                    HoverButton(
-                      text: 'AppStore',
-                      onPressed: () => print('Lauch AppStore!'),
-                      icon: FontAwesomeIcons.appStoreIos,
-                      spaceBetween: 10,
-                    ),
-                SizedBox(height: 20),
+                HoverButton(
+                  text: 'AppStore',
+                  onPressed: () => print('Lauch AppStore!'),
+                  icon: FontAwesomeIcons.appStoreIos,
+                  spaceBetween: 10,
+                ),
               ],
             ),
 
@@ -324,8 +328,6 @@ class BuildColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
     /// finds selectedService`s price from Provider
     int price;
     for (int i = 0;

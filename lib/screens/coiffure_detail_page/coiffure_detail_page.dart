@@ -54,6 +54,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     _listViewController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -100,14 +101,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
               ServicesSection(),
               Text('Personeller', style: kTextStyle),
               SizedBox(height: 10),
-              EmployeeRow(size: size),
-              // TextButton(
-              //   onPressed: () {
-              //     _listViewController.animateTo(200,
-              //         duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-              //   },
-              //   child: Text('Upup!'),
-              // ),
+              EmployeeRow(width: size.width),
               Row(
                 children: [
                   Text('Yorumlar', style: kTextStyle),
@@ -163,24 +157,16 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   onPressed: () async {
                     await Provider.of<AppointmentData>(context, listen: false)
                         .getServicesWithEmployee();
-                    showModalBottomSheet(
-                      enableDrag: false,
-                      isScrollControlled: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20.0),
-                        ),
-                      ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CalenderPage(
+                    Routers.router.navigateTo(
+                      context,
+                      'SaatSayfasi',
+                      routeSettings: RouteSettings(
+                        arguments: CalenderPage(
                             servicesAndEmployees: Provider.of<AppointmentData>(
                                     context,
-                                    listen: true)
-                                .servicesAndEmployees);
-                      },
+                                    listen: false)
+                                .servicesAndEmployees),
+                      ),
                     );
                   },
                 ),

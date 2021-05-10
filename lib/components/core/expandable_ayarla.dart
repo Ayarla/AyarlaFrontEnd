@@ -17,6 +17,8 @@ class AyarlaExpandable extends Expandable {
     Duration beforeAnimationDuration,
     DecorationImage backGroundImage,
     EdgeInsets cardPadding,
+    bool showArrowIcon = false,
+    bool hoverOn,
   })  : assert(primaryWidget != null || secondaryWidget != null),
         super(
           primaryWidget: primaryWidget,
@@ -30,11 +32,13 @@ class AyarlaExpandable extends Expandable {
           padding: padding,
           backGroundImage: backGroundImage,
           cardPadding: cardPadding,
+          hoverOn: hoverOn,
+          showArrowIcon: showArrowIcon,
         );
 
-  /// Provides an expandable widget for a long text.
+  /// • Provides an expandable widget for a long text.
   ///
-  /// See [Expandable] for more details.
+  /// • See [Expandable] for more details.
   AyarlaExpandable.singleTextChild({
     String text,
     Color backGroundColor,

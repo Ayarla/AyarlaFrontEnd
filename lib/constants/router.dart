@@ -43,7 +43,8 @@ class Routers {
       Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     final CoiffureDetailPage args = ModalRoute.of(context).settings.arguments;
     return CoiffureDetailPage(
-        coiffureModel: args?.coiffureModel,
+        // coiffureModel: args?.coiffureModel,
+        coiffureModel: args.coiffureModel,
         name: params['${args.coiffureModel.name.toString()}']);
   });
 
@@ -55,9 +56,11 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ConfirmationPage());
 
-  static Handler _timeSelectionPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          CalenderPage());
+  static Handler _timeSelectionPage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    final CalenderPage args = ModalRoute.of(context).settings.arguments;
+    return CalenderPage(servicesAndEmployees: args.servicesAndEmployees);
+  });
 
   /// User Pages
   static Handler _userPage = Handler(
@@ -153,6 +156,7 @@ class Routers {
     router.define("/MesajYolla", handler: _managerSendMessagePage);
     router.define("/Harita", handler: _flutterMap);
 
+    /// Test
     router.define("/WebServisleri", handler: _webServicePage);
     router.define("/KayitPopUp", handler: _regPopUp);
     router.define("/KayitSayfasi", handler: _regPage);

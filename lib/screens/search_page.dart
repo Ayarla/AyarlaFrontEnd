@@ -1,5 +1,4 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
-import 'package:ayarla/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,7 +19,6 @@ class SearchPageState extends State<SearchPage> {
   Functions functions = Functions();
   List generatingList = [];
   List coiffureList;
-  // List uniqueCodes = ['340101'];
 
   @override
   initState() {
@@ -35,7 +33,6 @@ class SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: NestedScrollView(
@@ -69,8 +66,7 @@ class SearchPageState extends State<SearchPage> {
               ResponsiveWidget(
                 smallScreen: ListView.builder(
                   shrinkWrap: true,
-                  padding: EdgeInsets.only(
-                      top: 20),
+                  padding: EdgeInsets.only(top: 20),
                   itemCount: Provider.of<AppointmentData>(context, listen: true)
                       .currentList
                       .length,
