@@ -105,13 +105,13 @@ class _SearchAppBarState extends State<SearchAppBar> {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: widget.mediaQueryData.size.width < 700
+      expandedHeight: widget.mediaQueryData.size.width <= 375
           ? widget.mediaQueryData.size.width / 3.45
           : 170,
-      collapsedHeight: widget.mediaQueryData.size.width < 700
+      collapsedHeight: widget.mediaQueryData.size.width <= 375
           ? widget.mediaQueryData.size.width / 9.5
           : 60,
-      toolbarHeight: widget.mediaQueryData.size.width < 700
+      toolbarHeight: widget.mediaQueryData.size.width <= 375
           ? widget.mediaQueryData.size.width / 9.7
           : 60,
       floating: false,
@@ -165,10 +165,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 gradient: Functions().decideColor(context),
                 child: Column(
                   children: [
-                    widget.mediaQueryData.size.width < 700
+                    widget.mediaQueryData.size.width <= 375
                         ? Padding(
                             padding: EdgeInsets.only(
-                              top: widget.mediaQueryData.size.width / 10,
+                              // top: widget.mediaQueryData.size.width / 10,
                               bottom: widget.mediaQueryData.size.width / 150,
                             ),
                             child: SizedBox(

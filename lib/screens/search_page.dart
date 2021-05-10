@@ -1,4 +1,5 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
+import 'package:ayarla/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -150,7 +151,7 @@ class SearchPageState extends State<SearchPage> {
                 smallScreen: ListView.builder(
                   shrinkWrap: true,
                   padding: EdgeInsets.only(
-                      top: 20, left: size.width / 50, right: size.width / 50),
+                      top: 20),
                   itemCount: Provider.of<AppointmentData>(context, listen: true)
                       .currentList
                       .length,

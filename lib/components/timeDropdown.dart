@@ -8,7 +8,7 @@ class TimeDropdown extends StatefulWidget {
   bool isHour;
   ///items farklı içerikler lazım olursa constructor'a eklenir
 
-  TimeDropdown({this.selected});
+  // TimeDropdown({this.selected});
   List<String> itemsHour = <String>[
     '00:00',
     '00:30',
@@ -104,7 +104,7 @@ class _TimeDropdownState extends State<TimeDropdown> {
         ),
       ),
       items:widget.isHour?widget.itemsHour:widget.itemsMinute,
-      items: items,
+      // items: items,
       itemBuilder: (String value) => Container(
         height: 40,
         alignment: Alignment.centerLeft,

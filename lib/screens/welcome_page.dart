@@ -1,4 +1,6 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
+import 'package:ayarla/components/core/expandable.dart';
+import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,8 @@ import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/menuItem.dart';
 import 'package:ayarla/constants/constants.dart';
+
+/// Calendar page gesture detector problem with the buttons!!!!!
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -110,6 +114,47 @@ class WelcomePage extends StatelessWidget {
                   child: Text('debug'),
                   onPressed: () =>
                       Routers.router.navigateTo(context, "/WebServisleri")),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width / 3),
+                child: AyarlaExpandable(
+                  primaryWidget: Container(
+                    height: 80,
+                    child: Center(
+                      child: Text(
+                        'Kuaför Randevumu Ayarla',
+                        style: kTextStyle.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  secondaryWidget: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          child: Text(
+                            'Kadın',
+                            softWrap: true,
+                            style: kTextStyle.copyWith(color: Colors.white),
+                          ),
+                          onPressed: () {},
+                        ),
+                        Text(
+                          'Erkek',
+                          softWrap: true,
+                          style: kTextStyle.copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          'Unisex',
+                          softWrap: true,
+                          style: kTextStyle.copyWith(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                  backGroundColor: Color(0xFF90a4ae).withOpacity(0.4),
+                  onPressed: () {},
+                ),
+              ),
             ],
           ),
         ),

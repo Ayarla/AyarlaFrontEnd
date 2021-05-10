@@ -643,13 +643,13 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
           child: Row(children: [
             Icon(Icons.filter_alt_outlined,
                 color: Colors.white,
-                size: size.width < 700 ? size.width / 25 : 25),
+                size: size.width < 375 ? size.width / 20 : 25),
             SizedBox(width: 5),
             Text(
               'Filtrele',
               style: kSmallTextStyle.copyWith(
                   color: Colors.white,
-                  fontSize: size.width < 700 ? size.width / 35 : 18),
+                  fontSize: size.width < 375 ? size.width / 25 : 18),
             ),
           ]),
           onPressed: () {
@@ -663,13 +663,13 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
           child: Row(children: [
             Icon(Icons.sort,
                 color: Colors.white,
-                size: size.width < 700 ? size.width / 25 : 25),
+                size: size.width < 375 ? size.width / 20 : 25),
             SizedBox(width: 5),
             Text(
               'Sırala',
               style: kSmallTextStyle.copyWith(
                   color: Colors.white,
-                  fontSize: size.width < 700 ? size.width / 35 : 18),
+                  fontSize: size.width < 375 ? size.width / 25 : 18),
             ),
           ]),
           onPressed: () {
