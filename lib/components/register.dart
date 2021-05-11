@@ -1,4 +1,5 @@
 import 'package:ayarla/components/appBar.dart';
+import 'package:ayarla/models/userModel.dart';
 import 'package:ayarla/webService/user_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Functions functions = Functions();
 
   HttpUserFunctions httpUserFunctions = HttpUserFunctions();
@@ -142,7 +143,7 @@ class _RegisterState extends State<Register> {
             ],
           ),
           Form(
-            key: _formkey,
+            key: _formKey,
             child: Container(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -341,7 +342,7 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(20)),
                         child: TextButton(
                           onPressed: () async {
-                            if (_formkey.currentState.validate()) {
+                            if (_formKey.currentState.validate()) {
                               /// 1 = customer , 2 = business owner (index)
                               if (index == 1) {
                                 /// creates customer account
@@ -355,6 +356,8 @@ class _RegisterState extends State<Register> {
                                   /// TODO userName daha sonra kalkacak
                                   userName: 'bahadir4444',
                                 );
+                                // await httpUserFunctions.createUser(
+                                //     userModel: UserModel(name: _typedName));
                               } else if (index == 2) {
                                 /// creates business owner account
                                 await httpUserFunctions.createUser(

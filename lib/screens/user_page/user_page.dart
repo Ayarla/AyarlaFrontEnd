@@ -20,11 +20,15 @@ class _UserPageState extends State<UserPage> {
   Functions functions = Functions();
 
   bool isLoggedIn = false;
+  double smallIconSize = 18.0;
+  double bigIconSize = 24.0;
+  double smallTextSize = 16.0;
+  double bigTextSize = 20.0;
 
-  //
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    bool smallScreenCondition = size.width < 400;
     return Scaffold(
         appBar: DefaultAppBar(
           showIconButton: false,
@@ -50,7 +54,7 @@ class _UserPageState extends State<UserPage> {
                   if (Provider.of<Login>(context, listen: true).holder)
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 8.0),
                         child: Wrap(
                           crossAxisAlignment: WrapCrossAlignment.start,
@@ -89,7 +93,8 @@ class _UserPageState extends State<UserPage> {
                                               decoration: BoxDecoration(
                                                   color: Colors.grey[200],
                                                   borderRadius:
-                                                      BorderRadius.circular(50)),
+                                                      BorderRadius.circular(
+                                                          50)),
                                               width: 100,
                                               height: 100,
                                               child: Icon(
@@ -116,21 +121,38 @@ class _UserPageState extends State<UserPage> {
 
                             GestureDetector(
                               onTap: () {
-                                Routers.router.navigateTo(context, "Favorilerim");
+                                Routers.router
+                                    .navigateTo(context, "Favorilerim");
                               },
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10.0, right: 20),
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20),
                                     // child: UI.HeartIcon(),
-                                    child: Icon(Icons.favorite_border_outlined),
+                                    child: Icon(
+                                      Icons.favorite_border_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                   ),
-                                  Text("Favorilerim", style: kTextStyle),
+                                  Text(
+                                    "Favorilerim",
+                                    style: kTextStyle.copyWith(
+                                        fontSize: smallScreenCondition
+                                            ? smallTextSize
+                                            : bigTextSize),
+                                  ),
                                   Spacer(),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Icon(Icons.keyboard_arrow_right),
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                   )
                                 ],
                               ),
@@ -138,21 +160,38 @@ class _UserPageState extends State<UserPage> {
                             Divider(color: Colors.black),
                             GestureDetector(
                               onTap: () {
-                                Routers.router.navigateTo(context, '/Mesajlarim');
+                                Routers.router
+                                    .navigateTo(context, '/Mesajlarim');
                               },
                               child: Row(
                                 children: [
                                   Padding(
                                     padding:
                                         EdgeInsets.only(left: 10.0, right: 20),
-                                    child: Icon(Icons.chat_outlined),
+                                    child: Icon(
+                                      Icons.chat_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                     // child: UI.messageIcon,
                                   ),
-                                  Text("Mesajlarım", style: kTextStyle),
+                                  Text(
+                                    "Mesajlarım",
+                                    style: kTextStyle.copyWith(
+                                        fontSize: smallScreenCondition
+                                            ? smallTextSize
+                                            : bigTextSize),
+                                  ),
                                   Spacer(),
                                   Padding(
                                     padding: EdgeInsets.only(right: 10.0),
-                                    child: Icon(Icons.keyboard_arrow_right),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                   )
                                 ],
                               ),
@@ -168,13 +207,29 @@ class _UserPageState extends State<UserPage> {
                                   Padding(
                                     padding:
                                         EdgeInsets.only(left: 10.0, right: 20),
-                                    child: Icon(Icons.date_range_outlined),
+                                    child: Icon(
+                                      Icons.date_range_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                   ),
-                                  Text("Randevularım", style: kTextStyle),
+                                  Text(
+                                    "Randevularım",
+                                    style: kTextStyle.copyWith(
+                                        fontSize: smallScreenCondition
+                                            ? smallTextSize
+                                            : bigTextSize),
+                                  ),
                                   Spacer(),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Icon(Icons.keyboard_arrow_right),
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                   )
                                 ],
                               ),
@@ -188,17 +243,33 @@ class _UserPageState extends State<UserPage> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10.0, right: 20),
-                                    child: Icon(Icons.update_outlined),
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20),
+                                    child: Icon(
+                                      Icons.update_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                   ),
                                   TextOverFlowHandler(
-                                      child: Text("Geçmiş Randevularım",
-                                          style: kTextStyle)),
+                                    child: Text(
+                                      "Geçmiş Randevularım",
+                                      style: kTextStyle.copyWith(
+                                          fontSize: smallScreenCondition
+                                              ? smallTextSize
+                                              : bigTextSize),
+                                    ),
+                                  ),
                                   Spacer(),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Icon(Icons.keyboard_arrow_right),
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                   )
                                 ],
                               ),
@@ -212,16 +283,32 @@ class _UserPageState extends State<UserPage> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10.0, right: 20),
-                                    child: Icon(Icons.edit_outlined),
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20),
+                                    child: Icon(
+                                      Icons.edit_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                     // child: UI.settingsIcon,
                                   ),
-                                  Text("Profilimi Düzenle", style: kTextStyle),
+                                  Text(
+                                    "Profilimi Düzenle",
+                                    style: kTextStyle.copyWith(
+                                        fontSize: smallScreenCondition
+                                            ? smallTextSize
+                                            : bigTextSize),
+                                  ),
                                   Spacer(),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Icon(Icons.keyboard_arrow_right),
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
                                   )
                                 ],
                               ),
@@ -272,7 +359,8 @@ class _UserPageState extends State<UserPage> {
                     child: TextButton(
                       onPressed: () {
                         // Navigator.pushNamed(context, ManagerHome.id);
-                        Routers.router.navigateTo(context, "YoneticiAnasayfasi");
+                        Routers.router
+                            .navigateTo(context, "YoneticiAnasayfasi");
                         Provider.of<Login>(context, listen: false)
                             .loggedInManager();
 
