@@ -132,53 +132,57 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   textAlign: TextAlign.center,
                   style: kTitleStyle,
                 ),
-                primaryWidget: Column(
-                  children: [
-                    Text(
-                      ///prints coiffureName from Provider
-                      isConfirmed
-                          ? 'Randevu Talebiniz Alınmıştır,\n'
-                              'İşletmeden Onay Bekleniyor'
-                          : Provider.of<AppointmentData>(context).coiffureName,
-                      textAlign: TextAlign.center,
-                      style: kTextStyle.copyWith(
-                          fontSize: 20, fontWeight: FontWeight.normal),
-                    ),
-
-                    /// prints day
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("Gün: ", style: kTitleStyle),
-                          Text(
-                            '${dateTime.day} '
-                            '${month[dateTime.month - 1]} '
-                            '${week[dateTime.weekday - 1]}',
-                            style: kTitleStyle,
-                          ),
-                        ],
+                primaryWidget: Container(
+                 width: size.width <600 ? size.width / 2 : size.width / 2.4,
+                  child: Column(
+                    children: [
+                      Text(
+                        ///prints coiffureName from Provider
+                        isConfirmed
+                            ? 'Randevu Talebiniz Alınmıştır,\n'
+                                'İşletmeden Onay Bekleniyor'
+                            : Provider.of<AppointmentData>(context)
+                                .coiffureName,
+                        textAlign: TextAlign.center,
+                        style: kTextStyle.copyWith(
+                            fontSize: 20, fontWeight: FontWeight.normal),
                       ),
-                    ),
-                    SizedBox(height: 7),
 
-                    /// prints hour
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("Saat: ", style: kTitleStyle),
-                          Text(
-                            "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
-                            style: kTitleStyle,
-                          ),
-                        ],
+                      /// prints day
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Gün: ", style: kTitleStyle),
+                            Text(
+                              '${dateTime.day} '
+                              '${month[dateTime.month - 1]} '
+                              '${week[dateTime.weekday - 1]}',
+                              style: kTitleStyle,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 5),
-                  ],
+                      SizedBox(height: 7),
+
+                      /// prints hour
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Saat: ", style: kTitleStyle),
+                            Text(
+                              "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
+                              style: kTitleStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                    ],
+                  ),
                 ),
                 secondaryWidget: Column(
                   children: [

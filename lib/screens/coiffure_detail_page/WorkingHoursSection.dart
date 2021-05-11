@@ -1,5 +1,4 @@
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/coiffeurModel.dart';
 import 'package:flutter/material.dart';
 
 class WorkingHoursSection extends StatelessWidget {

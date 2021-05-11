@@ -39,10 +39,10 @@ class WelcomePage extends StatelessWidget {
               Padding(
                 padding: size.width <= 600
                     ? EdgeInsets.symmetric(horizontal: 10)
-                    : EdgeInsets.symmetric(horizontal: size.width / 4),
+                    : EdgeInsets.symmetric(horizontal: size.width / 4.2),
                 child: AyarlaExpandable(
                   backGroundColor: Color(0xFF90a4ae).withOpacity(0.4),
-                  hoverOn: false,
+                  hoverOn: true,
                   showArrowIcon: true,
                   primaryWidget: Container(
                     height: 80,

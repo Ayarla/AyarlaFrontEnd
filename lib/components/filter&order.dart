@@ -653,13 +653,13 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
           child: Row(children: [
             Icon(Icons.sort,
                 color: Colors.white,
-                size: size.width < 375 ? size.width / 23 : 25),
+                size: size.width <= 375 ? size.width / 23 : 25),
             SizedBox(width: 5),
             Text(
               'Sırala',
               style: kSmallTextStyle.copyWith(
                   color: Colors.white,
-                  fontSize: size.width < 375 ? size.width / 28 : 18),
+                  fontSize: size.width <= 375 ? size.width / 28 : 18),
             ),
           ]),
           onPressed: () {

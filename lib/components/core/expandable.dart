@@ -105,7 +105,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
     end: 2,
   );
   static final Animatable<double> _sizeTween = Tween<double>(
-    begin: 00 ,
+    begin: 00,
     end: 1.0,
   );
 
@@ -174,7 +174,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if(checker == true) {
+    if (checker == true) {
       _toggleExpand();
       checker = false;
     }
@@ -185,9 +185,9 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
           ? (value) {
               if (value = true) {
                 _toggleExpand();
-                // _toggleRotate();
+                _toggleRotate();
               } else if (value = false) {
-                // _isExpanded = true;
+                _isExpanded = true;
               }
             }
           : null,
