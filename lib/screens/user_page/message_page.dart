@@ -1,64 +1,73 @@
+import 'package:ayarla/models/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 
 class UserMessagePage extends StatelessWidget {
+  final Functions functions = Functions();
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: DefaultAppBar(
         showIconButton: false,
-        color: Colors.grey,
+        centerTitle: true,
+        gradient: functions.decideColor(context),
         title: Text(
           'Mesajlarım',
           style: kTitleStyle.copyWith(color: Colors.white),
         ),
       ).build(context),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          Column(
-            children: <Widget>[
-              /// TODO listeden cagirabiliriz
-              MessageCard(
-                message: "30 TL indirim kuponu",
-                backgroundColor: Colors.lightBlueAccent.shade400,
-                sender: "Ayarla Ekibi",
-                fromAyarla: true,
-              ),
-              MessageCard(
-                message: "indirim kuponu",
-                backgroundColor: Colors.deepOrangeAccent,
-                sender: "Ahmet Kuafor",
-                fromAyarla: false,
-              ),
-              MessageCard(
-                message: "indirim kuponu",
-                backgroundColor: Colors.lightBlueAccent.shade400,
-                sender: "Ayarla Ekibi",
-                fromAyarla: true,
-              ),
-              MessageCard(
-                message: "30 TL indirim kuponu",
-                backgroundColor: Colors.lightBlueAccent.shade400,
-                sender: "Ayarla Ekibi",
-                fromAyarla: true,
-              ),
-              MessageCard(
-                message: "indirim kuponu",
-                backgroundColor: Colors.deepOrangeAccent,
-                sender: "Ahmet Kuafor",
-                fromAyarla: false,
-              ),
-              MessageCard(
-                message: "indirim kuponu",
-                backgroundColor: Colors.lightBlueAccent.shade400,
-                sender: "Ayarla Ekibi",
-                fromAyarla: true,
+      body: Center(
+        child: Container(
+          width: size.width < 700 ? size.width : size.width / 1.5,
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              Column(
+                children: <Widget>[
+                  /// TODO listeden cagirabiliriz
+                  MessageCard(
+                    message: "30 TL indirim kuponu",
+                    backgroundColor: Colors.lightBlueAccent.shade400,
+                    sender: "Ayarla Ekibi",
+                    fromAyarla: true,
+                  ),
+                  MessageCard(
+                    message: "indirim kuponu",
+                    backgroundColor: Colors.deepOrangeAccent,
+                    sender: "Ahmet Kuafor",
+                    fromAyarla: false,
+                  ),
+                  MessageCard(
+                    message: "indirim kuponu",
+                    backgroundColor: Colors.lightBlueAccent.shade400,
+                    sender: "Ayarla Ekibi",
+                    fromAyarla: true,
+                  ),
+                  MessageCard(
+                    message: "30 TL indirim kuponu",
+                    backgroundColor: Colors.lightBlueAccent.shade400,
+                    sender: "Ayarla Ekibi",
+                    fromAyarla: true,
+                  ),
+                  MessageCard(
+                    message: "indirim kuponu",
+                    backgroundColor: Colors.deepOrangeAccent,
+                    sender: "Ahmet Kuafor",
+                    fromAyarla: false,
+                  ),
+                  MessageCard(
+                    message: "indirim kuponu",
+                    backgroundColor: Colors.lightBlueAccent.shade400,
+                    sender: "Ayarla Ekibi",
+                    fromAyarla: true,
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -85,43 +94,48 @@ class MessageCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Container(
-          width: size.width,
-          height: size.width / 3.6,
+          width: size.width < 600 ? size.width : size.width / 1.5,
+          height: 150,
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
             boxShadow: <BoxShadow>[
               BoxShadow(
                 color: Colors.grey.withOpacity(0.6),
-                offset: const Offset(4, 4),
+                offset: Offset(4, 4),
                 blurRadius: 15,
               ),
             ],
           ),
           child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Row(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Gönderen $sender",
-                      style: kTextStyle.copyWith(fontSize: 17),
-                    ),
-                    SizedBox(height: 5),
+                Text(
+                  "Gönderen $sender",
+                  style: kTextStyle.copyWith(
+                    fontSize: 17,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Row(
+                  children: <Widget>[
                     Container(
-                      width: size.width * 0.8,
                       child: Text(
                         message,
-                        style: kSmallTextStyle,
+                        style: kSmallTextStyle.copyWith(color: Colors.white),
                         maxLines: 3,
                       ),
                     ),
+                    Spacer(),
+                    Icon(
+                      Icons.chevron_right,
+                      color: Colors.white,
+                    ),
                   ],
                 ),
-                Spacer(),
-                Icon(Icons.chevron_right),
               ],
             ),
           ),
@@ -217,7 +231,7 @@ class UserMessagePopUp {
                               color: Colors.red, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      // SizedBox(width: 50),
+                      SizedBox(width: 20),
                       TextButton(
                         onPressed: () {
                           /// TODO mesaj gonderme yapilacak

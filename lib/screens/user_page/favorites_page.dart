@@ -146,81 +146,85 @@ class _FavoritesPageState extends State<FavoritesPage>
                         ),
                       ],
                     )
-                  : SizedBox(
-                      width: size.width,
-                      height: 100,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: GestureDetector(
-                              onTap: () {
-                                Routers.router.navigateTo(
-                                  context,
-                                  "/Isletme/:name",
-                                  routeSettings: RouteSettings(
-                                    name:
-                                        "/Isletme/${fixURL(localList[index].name.toString())}",
-                                    arguments: CoiffureDetailPage(
-                                        coiffureModel: localList[index],
-                                        name: localList[index].name),
-                                  ),
-                                );
-                              },
-                              child: Card(
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                child:
-                                    CardInfo(coiffureModel: localList[index]),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: CircularParent(
-                                radius: 20,
-                                direction: Directions.all,
-                                color: Colors.red,
-                                child: IconSlideAction(
-                                    caption: 'Kaldır',
-                                    color: Colors.transparent,
-                                    icon: Icons.delete,
-                                    onTap: () {
-                                      if (Provider.of<AppointmentData>(context,
-                                              listen: false)
-                                          .myState
-                                          .mounted) {
-                                        Provider.of<AppointmentData>(context,
-                                                listen: false)
-                                            .myState
-                                            .setState(() {});
-                                      }
-                                      setState(() {
-                                        removeFavorite(index, localList[index]);
-                                      });
-                                    }),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: CircularParent(
-                                radius: 20,
-                                direction: Directions.all,
-                                color: Colors.indigo,
-                                child: IconSlideAction(
-                                  caption: 'Paylaş',
-                                  color: Colors.transparent,
-                                  icon: Icons.share,
-                                  // onTap: () => _showSnackBar('More'),
+                  : Center(
+                      child: SizedBox(
+                        width: size.width > 900 ? size.width / 1.3 : size.width,
+                        height: 100,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Routers.router.navigateTo(
+                                    context,
+                                    "/Isletme/:name",
+                                    routeSettings: RouteSettings(
+                                      name:
+                                          "/Isletme/${fixURL(localList[index].name.toString())}",
+                                      arguments: CoiffureDetailPage(
+                                          coiffureModel: localList[index],
+                                          name: localList[index].name),
+                                    ),
+                                  );
+                                },
+                                child: Card(
+                                  elevation: 5,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child:
+                                      CardInfo(coiffureModel: localList[index]),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: CircularParent(
+                                  radius: 20,
+                                  direction: Directions.all,
+                                  color: Colors.red,
+                                  child: IconSlideAction(
+                                      caption: 'Kaldır',
+                                      color: Colors.transparent,
+                                      icon: Icons.delete,
+                                      onTap: () {
+                                        if (Provider.of<AppointmentData>(
+                                                context,
+                                                listen: false)
+                                            .myState
+                                            .mounted) {
+                                          Provider.of<AppointmentData>(context,
+                                                  listen: false)
+                                              .myState
+                                              .setState(() {});
+                                        }
+                                        setState(() {
+                                          removeFavorite(
+                                              index, localList[index]);
+                                        });
+                                      }),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: CircularParent(
+                                  radius: 20,
+                                  direction: Directions.all,
+                                  color: Colors.indigo,
+                                  child: IconSlideAction(
+                                    caption: 'Paylaş',
+                                    color: Colors.transparent,
+                                    icon: Icons.share,
+                                    // onTap: () => _showSnackBar('More'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
             );
