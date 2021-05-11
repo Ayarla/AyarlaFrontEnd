@@ -4,6 +4,7 @@ import 'package:ayarla/components/imageListItem.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import "package:latlong/latlong.dart" as LatLong;
+import 'package:mapbox_search/mapbox_search.dart';
 
 class BusinessAndUserData extends ChangeNotifier{
   List<ImageListItem> pages = [];
