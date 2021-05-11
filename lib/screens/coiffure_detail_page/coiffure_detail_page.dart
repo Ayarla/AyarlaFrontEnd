@@ -46,6 +46,8 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
       widget.coiffureModel =
           Provider.of<AppointmentData>(context).coiffureList[0];
     }
+    Provider.of<AppointmentData>(context, listen: false)
+        .setName(widget.coiffureModel.name);
     super.initState();
   }
 

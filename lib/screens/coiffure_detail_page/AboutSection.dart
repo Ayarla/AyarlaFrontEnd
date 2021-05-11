@@ -13,6 +13,7 @@ class AboutSection extends StatelessWidget {
       text: aboutText,
       maxLines: 3,
       animationDuration: Duration(milliseconds: 200),
+      backGroundColor: Colors.transparent,
       onPressed: () => controller.animateTo(size.width/3,
           duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn),
     );

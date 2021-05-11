@@ -43,12 +43,16 @@ class WelcomePage extends StatelessWidget {
                 child: AyarlaExpandable(
                   backGroundColor: Color(0xFF90a4ae).withOpacity(0.4),
                   hoverOn: false,
+                  showArrowIcon: true,
                   primaryWidget: Container(
                     height: 80,
                     child: Center(
                       child: Text(
                         'Kuaför Randevumu Ayarla',
-                        style: kTextStyle.copyWith(color: Colors.white),
+                        style: kTextStyle.copyWith(
+                            color: Colors.white,
+                            fontSize:
+                                size.width <= 375 ? size.width / 18.8 : 20),
                       ),
                     ),
                   ),

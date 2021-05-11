@@ -9,6 +9,9 @@ abstract class Expandable extends StatefulWidget {
   /// • The widget that [sizeTransition] affects.
   final Widget secondaryWidget;
 
+  ///
+  final Widget additionalWidget;
+
   /// • Function that is placed top of the widget tree.
   ///
   /// • Animation starts AFTER this function.
@@ -17,7 +20,7 @@ abstract class Expandable extends StatefulWidget {
   final Function onPressed;
 
   /// • Padding that affects inside of the widget.
-  final Padding padding;
+  final EdgeInsets padding;
 
   /// • Needed for [AyarlaExpandable.singleTextChild].
   final String text;
@@ -52,6 +55,10 @@ abstract class Expandable extends StatefulWidget {
   /// Icon that changes its direction with respect to expand animation.
   final bool showArrowIcon;
 
+  final Color arrowColor;
+
+  final bool initiallyExpanded;
+
   /// TEST - Designed for web.
   final bool hoverOn;
 
@@ -71,12 +78,14 @@ abstract class Expandable extends StatefulWidget {
     this.backGroundImage,
     this.cardPadding,
     this.showArrowIcon,
+    this.arrowColor,
+    this.initiallyExpanded,
 
     /// TEST
     this.hoverOn,
+    this.additionalWidget,
   });
 
-  /// TODO - add icon that rotates.
   @override
   _ExpandableState createState() => _ExpandableState();
 }
@@ -88,12 +97,15 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
   AnimationController _rotationController;
   Animation<double> _rotationAnimation;
   bool _isRotated = false;
+
+  bool checker = false;
+
   static final Animatable<double> _rotationTween = Tween<double>(
     begin: 0.0,
     end: 2,
   );
   static final Animatable<double> _sizeTween = Tween<double>(
-    begin: 0.0,
+    begin: 00 ,
     end: 1.0,
   );
 
@@ -150,6 +162,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
     _sizeController.addListener(() {
       setState(() {});
     });
+    checker = widget.initiallyExpanded;
   }
 
   @override
@@ -161,6 +174,10 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    if(checker == true) {
+      _toggleExpand();
+      checker = false;
+    }
     return InkWell(
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
@@ -223,13 +240,42 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
                                     .animate(_rotationController),
                                 child: Icon(
                                   Icons.keyboard_arrow_up_rounded,
-                                  color: Colors.white,
-                                  size: 20.0,
+                                  color: widget.arrowColor ?? Colors.white,
+                                  size: 25.0,
                                 ),
                               ),
                             ],
                           )
-                        : widget.primaryWidget,
+                        : widget.additionalWidget.toString() != 'null'
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    children: [
+                                      widget.primaryWidget,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          widget.additionalWidget,
+                                          RotationTransition(
+                                            turns: Tween(begin: 0.0, end: 1.0)
+                                                .animate(_rotationController),
+                                            child: Icon(
+                                              Icons.keyboard_arrow_up_rounded,
+                                              color: widget.arrowColor ??
+                                                  Colors.white,
+                                              size: 25.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )
+                            : widget.primaryWidget,
                 SizeTransition(
                   axisAlignment: 0.0,
                   sizeFactor: _sizeAnimation,

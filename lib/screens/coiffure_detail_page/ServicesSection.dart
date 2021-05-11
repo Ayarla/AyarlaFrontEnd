@@ -36,7 +36,7 @@ class _ServicesSectionState extends State<ServicesSection> {
             },
             elevation: 5,
             primaryWidget: Container(
-              width: size.width,
+              width: size.width - 100,
               height: 60,
               child: Row(
                 children: [
