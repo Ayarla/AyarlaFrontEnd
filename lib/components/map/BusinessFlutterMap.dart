@@ -29,19 +29,8 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
         Provider.of<BusinessAndUserData>(context, listen: true).currentPosition;
 
     _onPositionChanged(mapPosition, b) {
-      Provider.of<BusinessAndUserData>(context, listen: false).setMarkerPosition(LatLng(mapPosition.center.latitude, mapPosition.center.longitude));
+       // Provider.of<BusinessAndUserData>(context, listen: false).setMarkerPosition(LatLng(mapPosition.center.latitude, mapPosition.center.longitude));
     }
-
-    Marker currentMarker = Marker(
-      width: 50.0,
-      height: 50.0,
-      point: markerPoisiton,
-      builder: (ctx) => Container(
-          child: Icon(
-            Icons.location_on_rounded,
-            color: Colors.red,
-          )),
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -73,6 +62,8 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
           ),
         ],
       ),
+      floatingActionButtonLocation:
+      FloatingActionButtonLocation.centerFloat,
       floatingActionButton:
       Row(
         children: [
@@ -92,19 +83,16 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
                       onSelected: (place) {
                         Provider.of<BusinessAndUserData>(context, listen: false)
                             .setPickedPlace(place);
-                        setState(() {
-                          currentPosition = Provider.of<BusinessAndUserData>(context, listen: false)
-                              .currentPosition;
-                        });
+                        mapController.onReady.then((value) => {
+                          mapController.move(currentPosition, 15)}).then((value) =>  Navigator.of(context).pop());
                       },
                       context: context,
                     ),
                     actions: <Widget>[
                       // usually buttons at the bottom of the dialog
                       TextButton(
-                        child: Text("Adrese Git"),
+                        child: Text("Geri Dön"),
                         onPressed: () {
-                          mapController.onReady.then((value) => {mapController.move(currentPosition, 15)});
                           Navigator.of(context).pop();
                         },
                       ),
@@ -131,7 +119,9 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
         mapController: mapController,
         options: MapOptions(
           center: currentPosition,
-          onPositionChanged: _onPositionChanged,
+          onTap: (mapPosition){
+            Provider.of<BusinessAndUserData>(context, listen: false).setMarkerPosition(LatLng(mapPosition.latitude, mapPosition.longitude));
+          },
           zoom: 15.0,
         ),
         layers: [
@@ -145,7 +135,18 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
             },
           ),
           MarkerLayerOptions(
-            markers: [currentMarker],
+            markers: [
+            Marker(
+            width: 50.0,
+            height: 50.0,
+            point: markerPoisiton,
+            builder: (ctx) => Container(
+                child: Icon(
+                  Icons.location_on_rounded,
+                  color: Colors.red,
+                )),
+          )
+            ],
           ),
         ],
       ),
