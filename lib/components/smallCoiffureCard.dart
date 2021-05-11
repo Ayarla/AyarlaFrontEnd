@@ -36,7 +36,8 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
         );
       },
       child: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+        padding: size.width < 375 ? EdgeInsets.only(left: 10, right: 10, bottom: 20):
+        EdgeInsets.only(left: 20, right: 20, bottom: 20),
         child: Stack(
           children: [
             cardBody(context),

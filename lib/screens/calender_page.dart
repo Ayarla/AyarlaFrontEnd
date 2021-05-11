@@ -1,3 +1,4 @@
+import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
@@ -11,6 +12,7 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/Appointment.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 
 class CalenderPage extends StatefulWidget {
   List servicesAndEmployees;
@@ -20,7 +22,6 @@ class CalenderPage extends StatefulWidget {
 }
 
 class _CalenderPageState extends State<CalenderPage> {
-  ///we used for color
   Functions functions = Functions();
 
   ///calender
@@ -111,56 +112,56 @@ class _CalenderPageState extends State<CalenderPage> {
   }
 
   /// Builds time buttons
-  Container buildTimeButton(
+  GestureDetector buildTimeButton(
       {String time, bool selected, int whichService, int index}) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width < 700 ? 150 : size.width / 5,
-      height: 50,
-      margin: EdgeInsets.symmetric(vertical: 7, horizontal: 1),
-      decoration: BoxDecoration(
-        color: selected ? Colors.green : Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            offset: Offset(0.0, 5),
-            blurRadius: 10,
-          ),
-        ],
-      ),
-      child: Center(
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              for (int i = 0; i < 8; i++) {
-                if (index == i) {
-                  if (widget.servicesAndEmployees[whichService].availability[i]
-                          .selected ==
-                      false) {
-                    widget.servicesAndEmployees[whichService].availability[i]
-                        .selected = true;
-                  } else {
-                    widget.servicesAndEmployees[whichService].availability[i]
-                        .selected = false;
-                  }
-                } else {
-                  widget.servicesAndEmployees[whichService].availability[i]
-                      .selected = false;
-                }
-
-                if (widget.servicesAndEmployees[whichService].availability[i]
-                        .selected ==
-                    true) {
-                  Provider.of<AppointmentData>(context, listen: false)
-                          .servicesAndEmployees[whichService]
-                          .time =
-                      widget.servicesAndEmployees[whichService].availability[i]
-                          .time;
-                }
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          for (int i = 0; i < 8; i++) {
+            if (index == i) {
+              if (widget.servicesAndEmployees[whichService].availability[i]
+                  .selected ==
+                  false) {
+                widget.servicesAndEmployees[whichService].availability[i]
+                    .selected = true;
+              } else {
+                widget.servicesAndEmployees[whichService].availability[i]
+                    .selected = false;
               }
-            });
-          },
+            } else {
+              widget.servicesAndEmployees[whichService].availability[i]
+                  .selected = false;
+            }
+
+            if (widget.servicesAndEmployees[whichService].availability[i]
+                .selected ==
+                true) {
+              Provider.of<AppointmentData>(context, listen: false)
+                  .servicesAndEmployees[whichService]
+                  .time =
+                  widget.servicesAndEmployees[whichService].availability[i]
+                      .time;
+            }
+          }
+        });
+      },
+      child: Container(
+        width: size.width < 700 ? 150 : size.width / 5,
+        height: 50,
+        margin: EdgeInsets.symmetric(vertical: 7, horizontal: 1),
+        decoration: BoxDecoration(
+          color: selected ? Colors.green : Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              offset: Offset(0.0, 5),
+              blurRadius: 10,
+            ),
+          ],
+        ),
+        child: Center(
           child: FittedBox(
             child: Text(
               time,
@@ -250,102 +251,101 @@ class _CalenderPageState extends State<CalenderPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      alignment: Alignment.center,
-      child: Scaffold(
-        backgroundColor: Color(0xFFE5EBEE),
-        body: OverScroll(
-          child: ListView(
-            children: <Widget>[
-              Container(
-                height: size.height,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 18),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('Gün Seçin', style: kSmallTitleStyle),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 15.0, top: 12),
-                        child: CalendarStrip(
-                          containerHeight:
-                              size.width < 700 ? (90 + size.width / 20) : 125,
-                          addSwipeGesture: true,
-                          selectedDate: selectedDate,
-                          startDate: now,
-                          endDate: endDate,
-                          onWeekSelected: onWeekSelected,
-                          onDateSelected: onSelect,
-                          dateTileBuilder: dateTileBuilder,
-                          iconColor: Colors.white,
-                          monthNameWidget: _monthNameWidget,
-                          containerDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            gradient: functions.decideColor(context),
-                          ),
-                          leftIcon: size.width < 700
-                              ? Icon(
-                                  CupertinoIcons.left_chevron,
-                                  size: size.width / 23.3,
-                                  color: Colors.white,
-                                )
-                              : Icon(
-                                  CupertinoIcons.left_chevron,
-                                  size: 30,
-                                  color: Colors.white,
-                                ),
-                          rightIcon: size.width < 700
-                              ? Icon(
-                                  CupertinoIcons.right_chevron,
-                                  size: size.width / 23.3,
-                                  color: Colors.white,
-                                )
-                              : Icon(
-                                  CupertinoIcons.right_chevron,
-                                  size: 30,
-                                  color: Colors.white,
-                                ),
+    return Scaffold(
+      appBar: DefaultAppBar(
+        title: UI.AppBarTitleCustomer(),
+        gradient: functions.decideColor(context),
+      ).build(context),
+      backgroundColor: Color(0xFFE5EBEE),
+      body: OverScroll(
+        child: ListView(
+          children: <Widget>[
+            Container(
+              height: size.height,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 18),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Gün Seçin', style: kSmallTitleStyle),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 15.0, top: 12),
+                      child: CalendarStrip(
+                        containerHeight:
+                            size.width < 700 ? (90 + size.width / 20) : 125,
+                        addSwipeGesture: true,
+                        selectedDate: selectedDate,
+                        startDate: now,
+                        endDate: endDate,
+                        onWeekSelected: onWeekSelected,
+                        onDateSelected: onSelect,
+                        dateTileBuilder: dateTileBuilder,
+                        iconColor: Colors.white,
+                        monthNameWidget: _monthNameWidget,
+                        containerDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          gradient: functions.decideColor(context),
                         ),
+                        leftIcon: size.width < 700
+                            ? Icon(
+                                CupertinoIcons.left_chevron,
+                                size: size.width / 23.3,
+                                color: Colors.white,
+                              )
+                            : Icon(
+                                CupertinoIcons.left_chevron,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                        rightIcon: size.width < 700
+                            ? Icon(
+                                CupertinoIcons.right_chevron,
+                                size: size.width / 23.3,
+                                color: Colors.white,
+                              )
+                            : Icon(
+                                CupertinoIcons.right_chevron,
+                                size: 30,
+                                color: Colors.white,
+                              ),
                       ),
-                      Text('Saat Seçin', style: kSmallTitleStyle),
-                      SizedBox(height: 10),
-                      Expanded(
-                        child: ListView(
-                          children: <Widget>[
-                            for (AppointmentInfo x
-                                in widget.servicesAndEmployees)
-                              servicesAndDates(
-                                  x.service,
-                                  widget.servicesAndEmployees.indexOf(x),
-                                  x.employee),
-                            SizedBox(height: 35),
-                          ],
-                        ),
+                    ),
+                    Text('Saat Seçin', style: kSmallTitleStyle),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: ListView(
+                        children: <Widget>[
+                          for (AppointmentInfo x in widget.servicesAndEmployees)
+                            servicesAndDates(
+                                x.service,
+                                widget.servicesAndEmployees.indexOf(x),
+                                x.employee),
+                          SizedBox(height: 35),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Row(
-          children: <Widget>[
-            FloatingTextButton(
-              text: 'Geri Dön',
-              onPressed: () => Routers.router.pop(context),
-              gradient: functions.decideColor(context),
             ),
-            Spacer(),
-            FloatingTextButton(
-              text: 'Onayla',
-              onPressed: () =>
-                  Routers.router.navigateTo(context, "/OnaySayfasi"),
-              gradient: functions.decideColor(context),
-            )
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Row(
+        children: <Widget>[
+          FloatingTextButton(
+            text: 'Geri Dön',
+            onPressed: () => Routers.router.pop(context),
+            gradient: functions.decideColor(context),
+          ),
+          Spacer(),
+          FloatingTextButton(
+            text: 'Onayla',
+            onPressed: () => Routers.router.navigateTo(context, "/OnaySayfasi"),
+            gradient: functions.decideColor(context),
+          )
+        ],
       ),
     );
   }

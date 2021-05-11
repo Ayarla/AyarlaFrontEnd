@@ -20,9 +20,9 @@ class Availability {
 class AppointmentData extends ChangeNotifier {
   /// called in coiffure_detail_card initState
   String coiffureName = '';
-  // setName(String name) {
-  //   coiffureName = name;
-  // }
+  setName(String name) {
+    coiffureName = name;
+  }
 
   List<ServiceModel> newServiceList = [
     ServiceModel(name: 'Saç Kesimi', price: 20, selected: false),
@@ -656,8 +656,9 @@ class AppointmentData extends ChangeNotifier {
     //       print('Data received successfully!');
     //     });
     //   }
-      return coiffureList;
+    return coiffureList;
   }
+
   HttpUserFunctions httpUserFunctions = HttpUserFunctions();
   List userList = [];
   Future<List> getAllUsers() async {

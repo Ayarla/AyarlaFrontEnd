@@ -105,14 +105,14 @@ class _SearchAppBarState extends State<SearchAppBar> {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: widget.mediaQueryData.size.width < 700
-          ? widget.mediaQueryData.size.width / 3.45
-          : 170,
-      collapsedHeight: widget.mediaQueryData.size.width < 700
-          ? widget.mediaQueryData.size.width / 9.5
+      expandedHeight: widget.mediaQueryData.size.width <= 375
+          ? widget.mediaQueryData.size.width / 2.6
+          : 160,
+      collapsedHeight: widget.mediaQueryData.size.width <= 375
+          ? widget.mediaQueryData.size.width / 6.2
           : 60,
-      toolbarHeight: widget.mediaQueryData.size.width < 700
-          ? widget.mediaQueryData.size.width / 9.7
+      toolbarHeight: widget.mediaQueryData.size.width <= 375
+          ? widget.mediaQueryData.size.width / 6.3
           : 60,
       floating: false,
       pinned: true,
@@ -126,8 +126,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
           children: [
             IconButton(
                 icon: Icon(Icons.arrow_back_sharp,
-                    size: widget.mediaQueryData.size.width < 700
-                        ? widget.mediaQueryData.size.width / 20
+                    size: widget.mediaQueryData.size.width <= 375
+                        ? widget.mediaQueryData.size.width / 15.6
                         : 24),
                 onPressed: () => Routers.router.pop(context)),
             SizedBox(width: widget.mediaQueryData.size.width / 85),
@@ -140,8 +140,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   child: Icon(
                     Icons.account_circle,
                     color: Colors.white,
-                    size: widget.mediaQueryData.size.width < 700
-                        ? widget.mediaQueryData.size.width / 15
+                    size: widget.mediaQueryData.size.width <= 375
+                        ? widget.mediaQueryData.size.width / 10.4
                         : 36,
                   ),
                 ),
@@ -165,15 +165,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 gradient: Functions().decideColor(context),
                 child: Column(
                   children: [
-                    widget.mediaQueryData.size.width < 700
+                    widget.mediaQueryData.size.width <= 375
                         ? Padding(
                             padding: EdgeInsets.only(
-                              top: widget.mediaQueryData.size.width / 10,
+                              top: widget.mediaQueryData.size.width / 6,
                               bottom: widget.mediaQueryData.size.width / 150,
                             ),
                             child: SizedBox(
-                              height: widget.mediaQueryData.size.width / 11,
-                              width: widget.mediaQueryData.size.width / 1.08,
+                              height: widget.mediaQueryData.size.width / 9,
+                              width: widget.mediaQueryData.size.width / 1.11,
                               child: TextField(
                                 textCapitalization: TextCapitalization.words,
                                 autofocus: false,
@@ -206,36 +206,36 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             ),
                           )
                         : Padding(
-                          padding: EdgeInsets.only(
-                            top: 70,
-                            left: 20,
-                            right: 20,
-                            bottom: 10,
-                          ),
-                          child: TextField(
-                            textCapitalization: TextCapitalization.words,
-                            autofocus: false,
-                            autocorrect: false,
-                            focusNode: FocusNode(canRequestFocus: false),
-                            textAlignVertical: TextAlignVertical.bottom,
-                            onChanged: widget.onChanged,
-                            style: kSmallTextStyle,
-                            decoration: InputDecoration(
-                              hintText:
-                                  "Lütfen işletme adı veya kodu giriniz",
-                              hintStyle: kSmallTextStyle.copyWith(
-                                  color: Colors.grey.withOpacity(0.8)),
-                              filled: true,
-                              fillColor: Colors.white,
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(25.0),
+                            padding: EdgeInsets.only(
+                              top: 60,
+                              left: 20,
+                              right: 20,
+                              bottom: 10,
+                            ),
+                            child: TextField(
+                              textCapitalization: TextCapitalization.words,
+                              autofocus: false,
+                              autocorrect: false,
+                              focusNode: FocusNode(canRequestFocus: false),
+                              textAlignVertical: TextAlignVertical.bottom,
+                              onChanged: widget.onChanged,
+                              style: kSmallTextStyle,
+                              decoration: InputDecoration(
+                                hintText:
+                                    "Lütfen işletme adı veya kodu giriniz",
+                                hintStyle: kSmallTextStyle.copyWith(
+                                    color: Colors.grey.withOpacity(0.8)),
+                                filled: true,
+                                fillColor: Colors.white,
+                                prefixIcon: Icon(Icons.search),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(25.0),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
                     SizedBox(
                         height: widget.mediaQueryData.size.width < 500
                             ? widget.mediaQueryData.size.width / 400

@@ -74,8 +74,14 @@ class CommentModel extends StatelessWidget {
         ),
         SizedBox(height: 5),
         Padding(
-            padding: EdgeInsets.only(left: 45),
-            child: Text(comment, style: kSmallTextStyle)),
+          padding: EdgeInsets.only(left: 45),
+          child: Text(
+            comment,
+            style: kSmallTextStyle,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         _voting(),
       ],
     );

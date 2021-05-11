@@ -19,7 +19,6 @@ class SearchPageState extends State<SearchPage> {
   Functions functions = Functions();
   List generatingList = [];
   List coiffureList;
-  // List uniqueCodes = ['340101'];
 
   @override
   initState() {
@@ -34,7 +33,6 @@ class SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: NestedScrollView(
@@ -65,92 +63,10 @@ class SearchPageState extends State<SearchPage> {
         body: OverScroll(
           child: ListView(
             children: [
-              // Container(
-              //   width: double.infinity,
-              //   height: 300,
-              //   decoration: BoxDecoration(
-              //     color: Colors.grey.shade200,
-              //     borderRadius: BorderRadius.circular(10.0),
-              //     boxShadow: [
-              //       BoxShadow(
-              //         color: Colors.black12,
-              //         offset: Offset(0.0, 5),
-              //         blurRadius: 10,
-              //       ),
-              //     ],
-              //   ),
-              //   child: ListView(
-              //     shrinkWrap: true,
-              //     children: [
-              //       SizedBox(height: 10),
-              //
-              //       /// ACC TO STARS
-              //       Center(
-              //         child: FittedBox(
-              //           fit: BoxFit.cover,
-              //           child: Text('Yıldıza göre sırala', style: kSmallTitleStyle),
-              //         ),
-              //       ),
-              //       SizedBox(height: 10),
-              //
-              //       /// LESS TO MORE ACC STARS
-              //       TextButton(
-              //         child: Center(
-              //           child: FittedBox(
-              //             fit: BoxFit.cover,
-              //             child: Text('Azdan Çoka', style: kSmallTextStyle),
-              //           ),
-              //         ),
-              //         onPressed: () {
-              //           var ancestralState =
-              //           context.findAncestorStateOfType<SearchPageState>();
-              //           ancestralState.setState(() {});
-              //
-              //           setState(() {
-              //             Provider.of<AppointmentData>(context, listen: false)
-              //                 .currentList
-              //                 .sort((a, b) => a.star.compareTo(b.star));
-              //             Provider.of<AppointmentData>(context, listen: false)
-              //                 .setList(Provider.of<AppointmentData>(context,
-              //                 listen: false)
-              //                 .currentList);
-              //           });
-              //           Navigator.pop(context);
-              //         },
-              //       ),
-              //
-              //       /// MORE TO LESS ACC STARS
-              //       TextButton(
-              //         child: Center(
-              //           child: FittedBox(
-              //             fit: BoxFit.cover,
-              //             child: Text('Çoktan Aza', style: kSmallTextStyle),
-              //           ),
-              //         ),
-              //         onPressed: () {
-              //           var ancestralState =
-              //           context.findAncestorStateOfType<SearchPageState>();
-              //           ancestralState.setState(() {});
-              //           setState(() {
-              //             Provider.of<AppointmentData>(context, listen: false)
-              //                 .currentList
-              //                 .sort((b, a) => a.star.compareTo(b.star));
-              //             Provider.of<AppointmentData>(context, listen: false)
-              //                 .setList(Provider.of<AppointmentData>(context,
-              //                 listen: false)
-              //                 .currentList);
-              //           });
-              //           Navigator.pop(context);
-              //         },
-              //       ),
-              //     ],
-              //   ),
-              // ),
               ResponsiveWidget(
                 smallScreen: ListView.builder(
                   shrinkWrap: true,
-                  padding: EdgeInsets.only(
-                      top: 20, left: size.width / 50, right: size.width / 50),
+                  padding: EdgeInsets.only(top: 20),
                   itemCount: Provider.of<AppointmentData>(context, listen: true)
                       .currentList
                       .length,

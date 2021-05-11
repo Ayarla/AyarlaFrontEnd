@@ -27,16 +27,6 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
         double _value = 0;
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setModalState) {
-            // Icon(
-            //   Icons.arrow_circle_down_rounded,
-            //   color: Colors.blue,
-            //   size: 20,
-            // ),
-            // Icon(
-            // Icons.arrow_circle_up_rounded,
-            // color: Colors.blue,
-            // size: 20,
-            // ),
             return ResponsiveWidget(
               smallScreen: Container(
                 decoration: BoxDecoration(
@@ -643,13 +633,13 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
           child: Row(children: [
             Icon(Icons.filter_alt_outlined,
                 color: Colors.white,
-                size: size.width < 700 ? size.width / 25 : 25),
+                size: size.width <= 375 ? size.width / 23 : 25),
             SizedBox(width: 5),
             Text(
               'Filtrele',
               style: kSmallTextStyle.copyWith(
                   color: Colors.white,
-                  fontSize: size.width < 700 ? size.width / 35 : 18),
+                  fontSize: size.width <= 375 ? size.width / 28 : 18),
             ),
           ]),
           onPressed: () {
@@ -663,13 +653,13 @@ class _FilterOrderRowState extends State<FilterOrderRow> {
           child: Row(children: [
             Icon(Icons.sort,
                 color: Colors.white,
-                size: size.width < 700 ? size.width / 25 : 25),
+                size: size.width < 375 ? size.width / 23 : 25),
             SizedBox(width: 5),
             Text(
               'Sırala',
               style: kSmallTextStyle.copyWith(
                   color: Colors.white,
-                  fontSize: size.width < 700 ? size.width / 35 : 18),
+                  fontSize: size.width < 375 ? size.width / 28 : 18),
             ),
           ]),
           onPressed: () {

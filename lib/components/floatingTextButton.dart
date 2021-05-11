@@ -7,9 +7,10 @@ class FloatingTextButton extends StatelessWidget {
   final Gradient gradient;
   final Color color;
 
-  /// • For a good alignment in the Scaffold, use
+  /// • If you are using a [Row] for [floatingActionButton], consider to use
   ///
-  /// [floatingActionButtonLocation]: [FloatingActionButtonLocation.centerFloat],
+  /// [floatingActionButtonLocation]: [FloatingActionButtonLocation.centerFloat]
+  /// for a good alignment in the Scaffold,
   FloatingTextButton({
     this.text,
     this.onPressed,
@@ -24,8 +25,14 @@ class FloatingTextButton extends StatelessWidget {
       onPressed: onPressed,
       heroTag: null,
       elevation: 0,
-      backgroundColor: Colors.transparent,
       highlightElevation: 0,
+      focusElevation: 0,
+      focusColor: Colors.transparent,
+      hoverElevation: 0,
+      hoverColor: Colors.transparent,
+      foregroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
+      splashColor: Colors.white.withOpacity(0),
       label: Container(
         width: size.width < 700 ? size.width / 3 : 150,
         padding: EdgeInsets.all(10),
