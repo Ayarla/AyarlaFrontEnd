@@ -103,17 +103,18 @@ class SearchAppBar extends StatefulWidget {
 class _SearchAppBarState extends State<SearchAppBar> {
   @override
   Widget build(BuildContext context) {
+    // print(MediaQuery.of(context).size.width);
     return SliverAppBar(
       automaticallyImplyLeading: false,
       expandedHeight: widget.mediaQueryData.size.width <= 375
           ? widget.mediaQueryData.size.width / 2.6
-          : 160,
+          : 165,
       collapsedHeight: widget.mediaQueryData.size.width <= 375
           ? widget.mediaQueryData.size.width / 6.2
-          : 60,
+          : 65,
       toolbarHeight: widget.mediaQueryData.size.width <= 375
           ? widget.mediaQueryData.size.width / 6.3
-          : 60,
+          : 65,
       floating: false,
       pinned: true,
       snap: false,
@@ -169,7 +170,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         ? Padding(
                             padding: EdgeInsets.only(
                               top: widget.mediaQueryData.size.width / 6,
-                              bottom: widget.mediaQueryData.size.width / 150,
+                              bottom: widget.mediaQueryData.size.width / 350,
                             ),
                             child: SizedBox(
                               height: widget.mediaQueryData.size.width / 9,
@@ -236,10 +237,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
                               ),
                             ),
                           ),
-                    SizedBox(
-                        height: widget.mediaQueryData.size.width < 500
-                            ? widget.mediaQueryData.size.width / 400
-                            : 2),
+                    // SizedBox(
+                    //     height: widget.mediaQueryData.size.width <= 375
+                    //         ? widget.mediaQueryData.size.width / 100
+                    //         : 10),
                     FilterOrderRow(),
                   ],
                 ),
