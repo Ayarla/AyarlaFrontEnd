@@ -11,9 +11,11 @@ class ContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      direction: Axis.vertical,
       runSpacing: 10,
       children: [
         Text('Adres', style: kTextStyle),
+        SizedBox(height: 5),
         Text(coiffureModel.address, style: kSmallTextStyle),
         SizedBox(height: 10),
         Row(
@@ -30,15 +32,6 @@ class ContactSection extends StatelessWidget {
                  launch("tel://${coiffureModel.telephone}");
                },
              ),
-           // TextButton(
-           //   child: Text(
-           //     coiffureModel.telephone,
-           //     style: kSmallTextStyle.copyWith(color: Colors.blue),
-           //   ),
-           //   onPressed: () {
-           //     launch("tel://${coiffureModel.telephone}");
-           //   },
-           // ),
           ],
         ),
       ],

@@ -92,6 +92,7 @@ class _FavoritesPageState extends State<FavoritesPage>
                                   coiffureModel: localList[index],
                                   name: localList[index].name),
                             ),
+                            replace: true,
                           );
                         },
                         child: Card(

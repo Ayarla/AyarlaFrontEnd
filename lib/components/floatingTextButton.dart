@@ -1,3 +1,4 @@
+import 'package:ayarla/models/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 
@@ -39,7 +40,7 @@ class FloatingTextButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color ?? Colors.orange,
           borderRadius: BorderRadius.circular(15),
-          gradient: gradient ?? null,
+          gradient: gradient ?? Functions().decideColor(context),
         ),
         child: Center(
           child: FittedBox(

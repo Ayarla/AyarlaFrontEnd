@@ -63,7 +63,9 @@ class _ServicesSectionState extends State<ServicesSection> {
               ),
             ),
             secondaryWidget: Center(
-              child: EmployeeRow(width: MediaQuery.of(context).size.width - 20),
+              child: EmployeeRow(
+                width: size.width < 700 ? size.width - 85 : 699,
+              ),
             ),
             // secondaryWidget: ListView.builder(
             //   scrollDirection: Axis.horizontal,

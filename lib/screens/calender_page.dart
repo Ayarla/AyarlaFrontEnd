@@ -1,8 +1,10 @@
 import 'package:ayarla/components/appBar.dart';
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/overScroll.dart';
+import 'package:ayarla/components/smallCoiffureCard.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -257,95 +259,103 @@ class _CalenderPageState extends State<CalenderPage> {
         gradient: functions.decideColor(context),
       ).build(context),
       backgroundColor: Color(0xFFE5EBEE),
-      body: OverScroll(
-        child: ListView(
-          children: <Widget>[
-            Container(
-              height: size.height,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('Gün Seçin', style: kSmallTitleStyle),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 15.0, top: 12),
-                      child: CalendarStrip(
-                        containerHeight:
-                            size.width < 700 ? (90 + size.width / 20) : 125,
-                        addSwipeGesture: true,
-                        selectedDate: selectedDate,
-                        startDate: now,
-                        endDate: endDate,
-                        onWeekSelected: onWeekSelected,
-                        onDateSelected: onSelect,
-                        dateTileBuilder: dateTileBuilder,
-                        iconColor: Colors.white,
-                        monthNameWidget: _monthNameWidget,
-                        containerDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          gradient: functions.decideColor(context),
+      body: AyarlaPage(
+        child: Card(
+          elevation: 1,
+          color: Colors.transparent,
+          child: OverScroll(
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  height: size.height,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 18),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Gün Seçin', style: kSmallTitleStyle),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 15.0, top: 12),
+                          child: CalendarStrip(
+                            containerHeight:
+                                size.width < 700 ? (90 + size.width / 20) : 125,
+                            addSwipeGesture: true,
+                            selectedDate: selectedDate,
+                            startDate: now,
+                            endDate: endDate,
+                            onWeekSelected: onWeekSelected,
+                            onDateSelected: onSelect,
+                            dateTileBuilder: dateTileBuilder,
+                            iconColor: Colors.white,
+                            monthNameWidget: _monthNameWidget,
+                            containerDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              gradient: functions.decideColor(context),
+                            ),
+                            leftIcon: size.width < 700
+                                ? Icon(
+                                    CupertinoIcons.left_chevron,
+                                    size: size.width / 23.3,
+                                    color: Colors.white,
+                                  )
+                                : Icon(
+                                    CupertinoIcons.left_chevron,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                            rightIcon: size.width < 700
+                                ? Icon(
+                                    CupertinoIcons.right_chevron,
+                                    size: size.width / 23.3,
+                                    color: Colors.white,
+                                  )
+                                : Icon(
+                                    CupertinoIcons.right_chevron,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                          ),
                         ),
-                        leftIcon: size.width < 700
-                            ? Icon(
-                                CupertinoIcons.left_chevron,
-                                size: size.width / 23.3,
-                                color: Colors.white,
-                              )
-                            : Icon(
-                                CupertinoIcons.left_chevron,
-                                size: 30,
-                                color: Colors.white,
-                              ),
-                        rightIcon: size.width < 700
-                            ? Icon(
-                                CupertinoIcons.right_chevron,
-                                size: size.width / 23.3,
-                                color: Colors.white,
-                              )
-                            : Icon(
-                                CupertinoIcons.right_chevron,
-                                size: 30,
-                                color: Colors.white,
-                              ),
-                      ),
+                        Text('Saat Seçin', style: kSmallTitleStyle),
+                        SizedBox(height: 10),
+                        Expanded(
+                          child: ListView(
+                            children: <Widget>[
+                              for (AppointmentInfo x in widget.servicesAndEmployees)
+                                servicesAndDates(
+                                    x.service,
+                                    widget.servicesAndEmployees.indexOf(x),
+                                    x.employee),
+                              SizedBox(height: 35),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    Text('Saat Seçin', style: kSmallTitleStyle),
-                    SizedBox(height: 10),
-                    Expanded(
-                      child: ListView(
-                        children: <Widget>[
-                          for (AppointmentInfo x in widget.servicesAndEmployees)
-                            servicesAndDates(
-                                x.service,
-                                widget.servicesAndEmployees.indexOf(x),
-                                x.employee),
-                          SizedBox(height: 35),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Row(
-        children: <Widget>[
-          FloatingTextButton(
-            text: 'Geri Dön',
-            onPressed: () => Routers.router.pop(context),
-            gradient: functions.decideColor(context),
-          ),
-          Spacer(),
-          FloatingTextButton(
-            text: 'Onayla',
-            onPressed: () => Routers.router.navigateTo(context, "/OnaySayfasi"),
-            gradient: functions.decideColor(context),
-          )
-        ],
+      floatingActionButton: AyarlaPageNoC(
+        child: Row(
+          children: <Widget>[
+            FloatingTextButton(
+              text: 'Geri Dön',
+              onPressed: () => Routers.router.pop(context),
+              gradient: functions.decideColor(context),
+            ),
+            Spacer(),
+            FloatingTextButton(
+              text: 'Onayla',
+              onPressed: () => Routers.router.navigateTo(context, "/OnaySayfasi"),
+              gradient: functions.decideColor(context),
+            )
+          ],
+        ),
       ),
     );
   }

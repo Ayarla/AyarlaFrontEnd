@@ -11,6 +11,7 @@ class CommentModel extends StatelessWidget {
   final int like;
   final int dislike;
   final int score;
+  final bool expanded;
 
   // factory CommentModel.fromJson(json, int index) {
   //   return CommentModel(
@@ -34,6 +35,7 @@ class CommentModel extends StatelessWidget {
     this.like,
     this.dislike,
     this.score,
+    this.expanded = false,
   });
 
   @override
@@ -75,12 +77,14 @@ class CommentModel extends StatelessWidget {
         SizedBox(height: 5),
         Padding(
           padding: EdgeInsets.only(left: 45),
-          child: Text(
-            comment,
-            style: kSmallTextStyle,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
+          child: expanded
+              ? Text(comment, style: kSmallTextStyle)
+              : Text(
+                  comment,
+                  style: kSmallTextStyle,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
         ),
         _voting(),
       ],

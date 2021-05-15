@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/UI/hover_button.dart';
@@ -103,24 +104,21 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           ),
         ],
       ),
-      body: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(
-                top: 20.0, bottom: 15.0, left: 10.0, right: 10.0),
-            child: Text(
-              isConfirmed
-                  ? Provider.of<AppointmentData>(context).coiffureName
-                  : 'Randevu Özeti',
-              textAlign: TextAlign.center,
-              style: kTitleStyle,
+      body: AyarlaPage(
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(
+                  top: 20.0, bottom: 15.0, left: 10.0, right: 10.0),
+              child: Text(
+                isConfirmed
+                    ? Provider.of<AppointmentData>(context).coiffureName
+                    : 'Randevu Özeti',
+                textAlign: TextAlign.center,
+                style: kTitleStyle,
+              ),
             ),
-          ),
-          Padding(
-            padding: size.width < 600
-                ? EdgeInsets.symmetric(horizontal: 10)
-                : EdgeInsets.symmetric(horizontal: size.width / 4),
-            child: Center(
+            Center(
               child: AyarlaExpandable.extended(
                 showArrowIcon: false,
                 initiallyExpanded: isConfirmed ? false : true,
@@ -133,7 +131,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   style: kTitleStyle,
                 ),
                 primaryWidget: Container(
-                 width: size.width <600 ? size.width / 2 : size.width / 2.4,
+                  width: size.width < 600 ? size.width / 2 : size.width / 2.4,
                   child: Column(
                     children: [
                       Text(
@@ -250,44 +248,10 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                 ),
               ),
             ),
-          ),
-
-          if (UniversalPlatform.isWeb && isConfirmed == true)
             SizedBox(height: 40),
-          if (UniversalPlatform.isWeb && isConfirmed == true)
-            Center(
-              child: Text(
-                'Uygulamamızı indirmek ister misiniz?',
-                style: kTextStyle,
-              ),
-            ),
-          if (UniversalPlatform.isWeb && isConfirmed == true)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                HoverButton(
-                  text: 'PlayStore',
-                  onPressed: () => print('Lauch PlayStore!'),
-                  icon: FontAwesomeIcons.googlePlay,
-                  spaceBetween: 10,
-                ),
-                HoverButton(
-                  text: 'AppStore',
-                  onPressed: () => print('Lauch AppStore!'),
-                  icon: FontAwesomeIcons.appStoreIos,
-                  spaceBetween: 10,
-                ),
-              ],
-            ),
 
-          SizedBox(height: 40),
-
-          /// Google Maps integration
-          Padding(
-            padding: size.width < 600
-                ? EdgeInsets.symmetric(horizontal: 10)
-                : EdgeInsets.symmetric(horizontal: size.width / 4),
-            child: Container(
+            /// Google Maps integration
+            Container(
               height: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(16.0)),
@@ -301,156 +265,36 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               ),
               child: FlutterMapCoiffure(),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: !isConfirmed
-          ? FloatingTextButton(
-              text: 'Onayla',
-              gradient: functions.decideColor(context),
-              onPressed: () {
-                bool check = Provider.of<Login>(context, listen: false).holder;
-                if (check == false) {
-                  PopUp().mailFieldDialog(context: context);
-                } else if (check == true) {
-                  ///TODO profildeki mail adresine mail gonderilecek
-                  Routers.router.navigateTo(context, "/OnaySayfasi");
-                  Provider.of<AppointmentData>(context, listen: false)
-                      .confirmation();
-                }
-              },
-            )
-          : FloatingTextButton(
-              text: 'Profilini Tamamla',
-              gradient: functions.decideColor(context),
-              onPressed: () {
-                Navigator.pushNamed(context, EditProfilePage.id);
-              },
-            ),
+          ? AyarlaPageNoC(
+            child: FloatingTextButton(
+                text: 'Onayla',
+                gradient: functions.decideColor(context),
+                onPressed: () {
+                  bool check = Provider.of<Login>(context, listen: false).holder;
+                  if (check == false) {
+                    PopUp().mailFieldDialog(context: context);
+                  } else if (check == true) {
+                    ///TODO profildeki mail adresine mail gonderilecek
+                    Routers.router.navigateTo(context, "/OnaySayfasi");
+                    Provider.of<AppointmentData>(context, listen: false)
+                        .confirmation();
+                  }
+                },
+              ),
+          )
+          : AyarlaPageNoC(
+            child: FloatingTextButton(
+                text: 'Profilini Tamamla',
+                gradient: functions.decideColor(context),
+                onPressed: () {
+                  Routers.router.navigateTo(context, "/ProfilimiDuzenle");
+                },
+              ),
+          ),
     );
   }
 }
-
-//
-// child: AyarlaExpandable(
-// showArrowIcon: false,
-// padding: EdgeInsets.all(10),
-// elevation: 10,
-// primaryWidget: Column(
-// children: [
-// Text(
-// ///prints coiffureName from Provider
-// isConfirmed
-// ? 'Randevu Talebiniz Alınmıştır,\n'
-// 'İşletmeden Onay Bekleniyor'
-// : Provider.of<AppointmentData>(context).coiffureName,
-// textAlign: TextAlign.center,
-// style: kTextStyle.copyWith(
-// fontSize: 20, fontWeight: FontWeight.normal),
-// ),
-//
-// /// prints day
-// FittedBox(
-// fit: BoxFit.scaleDown,
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: <Widget>[
-// Text("Gün: ", style: kTitleStyle),
-// Text(
-// '${dateTime.day} '
-// '${month[dateTime.month - 1]} '
-// '${week[dateTime.weekday - 1]}',
-// style: kTitleStyle,
-// ),
-// ],
-// ),
-// ),
-// SizedBox(height: 7),
-//
-// /// prints hour
-// FittedBox(
-// fit: BoxFit.scaleDown,
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: <Widget>[
-// Text("Saat: ", style: kTitleStyle),
-// Text(
-// "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
-// style: kTitleStyle,
-// ),
-// ],
-// ),
-// ),
-// SizedBox(height: 5),
-// Text(
-// 'Randevu Detay',
-// textAlign: TextAlign.center,
-// style: kTitleStyle,
-// ),
-// ],
-// ),
-// secondaryWidget: Column(
-// children: [
-// Divider(thickness: 2),
-// ListView.separated(
-// shrinkWrap: true,
-// itemCount: localList.length,
-// itemBuilder: (BuildContext bc, int index) {
-// return Column(
-// children: <Widget>[
-// Row(
-// mainAxisAlignment: MainAxisAlignment.start,
-// children: [
-// Text('Saat:', style: kSmallTextStyle),
-// Spacer(),
-// Text(localList[index].time,
-// style: kSmallTextStyle),
-// Spacer(),
-// Text('Saat:',
-// style: kSmallTextStyle.copyWith(
-// color: Colors.transparent)),
-// ],
-// ),
-// Row(
-// mainAxisAlignment: MainAxisAlignment.start,
-// children: [
-// Text('Hizmet:', style: kSmallTextStyle),
-// Spacer(),
-// Text(localList[index].service,
-// style: kSmallTextStyle),
-// Spacer(),
-// Text('${localPriceList[index]} TL',
-// style: kSmallTextStyle),
-// ],
-// ),
-// Row(
-// mainAxisAlignment: MainAxisAlignment.start,
-// children: [
-// Text('Çalışan:', style: kSmallTextStyle),
-// Spacer(),
-// Text(localList[index].employee,
-// style: kSmallTextStyle),
-// Spacer(),
-// Text('Çalışan:',
-// style: kSmallTextStyle.copyWith(
-// color: Colors.transparent)),
-// ],
-// ),
-// ],
-// );
-// },
-// separatorBuilder: (BuildContext bc, int index) {
-// return Divider(thickness: 2);
-// },
-// ),
-// Divider(thickness: 2),
-// Row(
-// children: [
-// Text('Toplam', style: kSmallTextStyle),
-// Spacer(),
-// Text('$total TL', style: kSmallTextStyle),
-// ],
-// ),
-// ],
-// ),
-// ),

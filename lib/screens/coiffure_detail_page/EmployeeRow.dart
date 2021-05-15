@@ -16,14 +16,14 @@ class EmployeeRow extends StatelessWidget {
     return Center(
       child: OverScroll(
         child: Container(
-          width: width,
+          width: width < 700 ? width : 700,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Icon(Icons.keyboard_arrow_left),
               Container(
                 height: 100,
-                width: width / 1.3,
+                width: width < 700 ? width - 85 : 640,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [

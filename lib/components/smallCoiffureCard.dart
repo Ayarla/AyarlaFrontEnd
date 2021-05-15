@@ -178,15 +178,13 @@ class CardInfo extends StatelessWidget {
                       SizedBox(width: 7),
                       Padding(
                         padding: EdgeInsets.only(top: 1.0),
-                        child: TextOverFlowHandler(
-                          child: Text(
-                            '${coiffureModel.city}, ${coiffureModel.district}',
-                            style: kSmallTextStyle.copyWith(
-                              color: Colors.grey.withOpacity(0.8),
-                              // fontSize: 12,
-                              fontSize: 13,
-                            ),
+                        child: Text(
+                          '${coiffureModel.city}, ${coiffureModel.district}',
+                          style: kSmallTextStyle.copyWith(
+                            color: Colors.grey.withOpacity(0.8),
+                            fontSize: 13,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Spacer(),

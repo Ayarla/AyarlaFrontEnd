@@ -69,8 +69,8 @@ class _ManagerHomeState extends State<ManagerHome> {
                                 ),
                                 color: Colors.white.withOpacity(.4),
                                 text: 'Çalışanlarım',
-                                onPressed: () => Routers.router
-                                    .navigateTo(context, "/Calisanlarim"),
+                                // onPressed: () => Routers.router
+                                //     .navigateTo(context, "/Calisanlarim"),
                               ),
                               GenericIconButton(
                                 iconContext: NewIcon(
@@ -144,8 +144,8 @@ class _ManagerHomeState extends State<ManagerHome> {
                                 ),
                                 color: Colors.white.withOpacity(.4),
                                 text: 'Çalışanlarım',
-                                onPressed: () => Routers.router
-                                    .navigateTo(context, "/Calisanlarim"),
+                                // onPressed: () => Routers.router
+                                //     .navigateTo(context, "/Calisanlarim"),
                               ),
                               GenericIconButton(
                                 iconContext: NewIcon(
