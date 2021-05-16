@@ -1,5 +1,6 @@
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -123,6 +124,7 @@ class _UserPageState extends State<UserPage> {
                               onTap: () {
                                 Routers.router
                                     .navigateTo(context, "Favorilerim");
+                                FirebaseAnalytics().logEvent(name: 'user_favorites',parameters:null);
                               },
                               child: Row(
                                 children: [
@@ -162,6 +164,7 @@ class _UserPageState extends State<UserPage> {
                               onTap: () {
                                 Routers.router
                                     .navigateTo(context, '/Mesajlarim');
+                                FirebaseAnalytics().logEvent(name: 'user_messages',parameters:null);
                               },
                               child: Row(
                                 children: [
@@ -201,6 +204,7 @@ class _UserPageState extends State<UserPage> {
                               onTap: () {
                                 Routers.router
                                     .navigateTo(context, '/Randevularim');
+                                FirebaseAnalytics().logEvent(name: 'user_appointments',parameters:null);
                               },
                               child: Row(
                                 children: [
@@ -239,6 +243,7 @@ class _UserPageState extends State<UserPage> {
                               onTap: () {
                                 Routers.router
                                     .navigateTo(context, '/GecmisRandevularim');
+                                FirebaseAnalytics().logEvent(name: 'user_past_appointments',parameters:null);
                               },
                               child: Row(
                                 children: [
@@ -279,6 +284,7 @@ class _UserPageState extends State<UserPage> {
                               onTap: () {
                                 Routers.router
                                     .navigateTo(context, '/ProfilimiDuzenle');
+                                FirebaseAnalytics().logEvent(name: 'user_edit_profile',parameters:null);
                               },
                               child: Row(
                                 children: [

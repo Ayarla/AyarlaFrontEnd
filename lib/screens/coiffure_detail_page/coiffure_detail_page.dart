@@ -4,6 +4,7 @@ import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/models/Appointment.dart';
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/coiffure_detail_page/AboutSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
@@ -17,6 +18,7 @@ import 'package:ayarla/screens/coiffure_detail_page/WorkingHoursSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/screens/comments_page.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -170,7 +172,13 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                                 .servicesAndEmployees),
                       ),
                     );
+                    for(AppointmentInfo x in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees){
+                      FirebaseAnalytics().logEvent(name: 'selectDate_button',
+                          parameters:{'service': x.service, 'employee':x.employee, 'state': 'not confirmed'}
+                      );
+                    }
                   },
+
                 ),
               ],
             )

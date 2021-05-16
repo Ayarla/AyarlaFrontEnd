@@ -6,6 +6,7 @@ import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/Appointment.dart';
 import 'package:ayarla/models/employeeAndService.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -317,6 +318,11 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   Routers.router.navigateTo(context, "/OnaySayfasi");
                   Provider.of<AppointmentData>(context, listen: false)
                       .confirmation();
+                }
+                for(AppointmentInfo x in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees){
+                  FirebaseAnalytics().logEvent(name: 'selectDate_button',
+                      parameters:{'service': x.service, 'employee':x.employee, 'date': x.dateTime, 'state': 'confirmed'}
+                  );
                 }
               },
             )

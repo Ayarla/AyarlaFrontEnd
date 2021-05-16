@@ -3,6 +3,7 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/employeeAndService.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +34,9 @@ class _ServicesSectionState extends State<ServicesSection> {
             onPressed: () {
               Provider.of<AppointmentData>(context, listen: false)
                   .changeSelectedService(findIndex(x));
+              FirebaseAnalytics().logEvent(name: 'service_expandable',
+                  parameters:{'name': x.name, 'state': x.selected?'opened':'closed'}
+              );
             },
             elevation: 5,
             primaryWidget: Container(

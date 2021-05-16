@@ -1,5 +1,6 @@
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -125,6 +126,8 @@ class _FavoritesPageState extends State<FavoritesPage>
                                   setState(() {
                                     removeFavorite(index, localList[index]);
                                   });
+                                  FirebaseAnalytics().logEvent(name: 'favorites_button',
+                                      parameters:{'coiffeur': localList[index].name, 'state': 'deleted'});
                                 }),
                           ),
                         ),

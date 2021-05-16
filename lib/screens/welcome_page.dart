@@ -1,6 +1,7 @@
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/virtual_data_base/genderSelection.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
@@ -65,6 +66,7 @@ class WelcomePage extends StatelessWidget {
                             Provider.of<GenderSelection>(context, listen: false)
                                 .selectGender(Gender.female);
                             Routers.router.navigateTo(context, "/AramaSayfasi");
+                            FirebaseAnalytics().logEvent(name: 'female_button',parameters:null);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -101,6 +103,7 @@ class WelcomePage extends StatelessWidget {
                                     .selectGender(Gender.male);
                                 Routers.router
                                     .navigateTo(context, "/AramaSayfasi");
+                                FirebaseAnalytics().logEvent(name: 'male_button',parameters:null);
                               },
                             ),
                             Container(
@@ -129,6 +132,7 @@ class WelcomePage extends StatelessWidget {
                                     .selectGender(Gender.unisex);
                                 Routers.router
                                     .navigateTo(context, "/AramaSayfasi");
+                                FirebaseAnalytics().logEvent(name: 'unisex_button',parameters:null);
                               },
                             ),
                             Container(
