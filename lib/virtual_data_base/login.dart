@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 
 class Login extends ChangeNotifier{
 
-  bool holder = false;
+  bool isLoggedIn = false;
   bool isManager=false;
   void loggedInUser() {
-    holder=!holder;
+    isLoggedIn=!isLoggedIn;
     isManager=false;
     notifyListeners();
   }
@@ -14,7 +14,7 @@ class Login extends ChangeNotifier{
 
   void loggedInManager(){
     isManager=!isManager;
-    holder=false;
+    isLoggedIn=false;
     notifyListeners();
   }
 

@@ -2,6 +2,7 @@ import 'package:ayarla/components/timeDropdown.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class AboutSectionBusiness extends StatefulWidget {
   @override
   _AboutSectionBusinessState createState() => _AboutSectionBusinessState();
@@ -16,14 +17,7 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// Ratings
-        Text(
-          "Hakkında",
-          style: kTitleStyle,
-        ),
-        // RatingRow(
-        //   number: 3,
-        //   comment: 150,
-        // ),
+        Text("Hakkında", style: kTitleStyle),
 
         /// Location
         Row(
@@ -34,9 +28,7 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
               size: 12,
               color: Colors.red,
             ),
-            SizedBox(
-              width: 4,
-            ),
+            SizedBox(width: 4),
             Text(
               'İstanbul, Sarıyer',
               style: kSmallTextStyle.copyWith(
@@ -49,22 +41,25 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
         /// TODO - fix
         Row(
           children: [
-                Text('Randevu aralığı belirleyiniz: ',
-                    style: kSmallTextStyle.copyWith(
-                        color: Colors.black.withOpacity(0.8))),
-                TimeDropdown(isHour: false,selected: '0',),
+            Text('Randevu aralığı belirleyiniz: ',
+                style: kSmallTextStyle.copyWith(
+                    color: Colors.black.withOpacity(0.8))),
+            TimeDropdown(
+              isHour: false,
+              selected: '0',
+            ),
             Padding(
-              padding: const EdgeInsets.only(left:4.0),
+              padding: const EdgeInsets.only(left: 4.0),
               child: Text('dk',
                   style: kSmallTextStyle.copyWith(
                       color: Colors.black.withOpacity(0.8))),
             ),
-              ],
+          ],
         ),
 
         /// Working hours
         Padding(
-          padding: const EdgeInsets.symmetric(vertical:8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -104,11 +99,9 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
                     autofocus: false,
                     maxLines: null,
                     decoration: InputDecoration(
-                      hintText:
-                      'Kuaför hakkındaki bilgileri giriniz',
+                      hintText: 'Kuaför hakkındaki bilgileri giriniz',
                       border: OutlineInputBorder(
-                        borderRadius:
-                        new BorderRadius.circular(20.0),
+                        borderRadius: new BorderRadius.circular(20.0),
                         borderSide: new BorderSide(),
                       ),
                     )),

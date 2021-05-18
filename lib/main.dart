@@ -48,14 +48,6 @@ class _AyarlaState extends State<Ayarla> {
         theme: theme,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: Routers.router.generator,
-        //     (settings) {
-        // if (settings.name.contains('/Isletme')) {
-        //   final CoiffureModel coiffureModel =
-        //       Provider.of<AppointmentData>(context).coiffureList[0];
-        //   return Routers.router.navigateTo(context, '/Isletme/${fixURL(coiffureModel.name)}');
-        // }
-        // },
-
         initialRoute: "/",
       ),
     );

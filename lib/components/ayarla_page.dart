@@ -6,10 +6,10 @@ class AyarlaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return size.width >= 700
+    return size.width >= 650
         ? Center(
             child: Container(
-              width: 700,
+              width: 650,
               child: child,
             ),
           )
@@ -30,9 +30,9 @@ class AyarlaPageNoC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return size.width >= 700
+    return size.width >= 650
         ? Container(
-          width: 700,
+          width: 650,
           child: child,
         )
         : Container(

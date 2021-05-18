@@ -575,21 +575,18 @@ class _CommentsPageState extends State<CommentsPage> {
       body: ListView(
         children: [
           AyarlaPage(
-            child: Card(
-              elevation: 2,
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                itemCount: generatingList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                      children: [SizedBox(height: 10), generatingList[index]]);
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Divider(thickness: 1, height: 0);
-                },
-              ),
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              itemCount: generatingList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                    children: [SizedBox(height: 10), generatingList[index]]);
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(thickness: 1, height: 0);
+              },
             ),
           ),
         ],

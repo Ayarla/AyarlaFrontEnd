@@ -1,5 +1,4 @@
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/models/userModel.dart';
 import 'package:ayarla/webService/user_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

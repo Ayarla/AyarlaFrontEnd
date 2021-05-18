@@ -23,7 +23,6 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
         Provider.of<BusinessAndUserData>(context, listen: true).pages;
     final Size size = MediaQuery.of(context).size;
 
-
     return Column(
       children: [
         GestureDetector(

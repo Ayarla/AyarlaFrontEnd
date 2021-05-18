@@ -1,3 +1,4 @@
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -28,7 +29,7 @@ class _ManagerSendMessageState extends State<ManagerSendMessage> {
         ),
         // showIconButton: false,
       ).build(context),
-      body: SafeArea(
+      body: AyarlaPage(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,

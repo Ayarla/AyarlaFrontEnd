@@ -120,20 +120,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2+dart2"
-  expandable:
-    dependency: "direct main"
-    description:
-      name: expandable
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.1"
-  expansion_card:
-    dependency: "direct main"
-    description:
-      name: expansion_card
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   fading_edge_scrollview:
     dependency: transitive
     description:

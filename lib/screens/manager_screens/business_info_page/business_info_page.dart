@@ -1,3 +1,4 @@
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/AboutSectionBusiness.dart';
@@ -29,36 +30,13 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   bool leftArrow = false;
   String text;
 
-  final ScrollController _scrollControllerEmployee = ScrollController();
-
   final ScrollController _photoController = ScrollController();
+
   Functions functions = Functions();
   String selectedStart = '00:00';
   String selectedEnd = '00:00';
-  @override
-  initState() {
-    super.initState();
-
-    /// checking whether the arrow of the employee row of employee section
-    /// reaches the max scroll extent.
-    _scrollControllerEmployee.addListener(() {
-      if (_scrollControllerEmployee.position.pixels ==
-          _scrollControllerEmployee.position.maxScrollExtent) {
-        setState(() {
-          leftArrow = true;
-        });
-      } else if (_scrollControllerEmployee.position.pixels ==
-          _scrollControllerEmployee.position.minScrollExtent) {
-        setState(() {
-          leftArrow = false;
-        });
-      }
-    });
-  }
-
   bool editService = false;
   bool editEmployee = false;
-
   bool isChanged = false;
 
   ///popup to add employee
@@ -203,7 +181,6 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         extendBodyBehindAppBar: true,
         floatingActionButton: isChanged
@@ -276,7 +253,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                             });
                       })
             .build(context),
-        body: Container(
+        body: AyarlaPage(
           child: OverScroll(
             child: ListView(
               controller: _photoController,
@@ -297,8 +274,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                       ///Hizmetler
                       ServiceSectionBusiness(),
 
-                      ///İletişim - TODO - Need design.
-                      /// Wrap maybe ?
+                      ///İletişim
                       OverScroll(
                         child: ListView(
                           shrinkWrap: true,
@@ -314,8 +290,6 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                   const EdgeInsets.symmetric(horizontal: 60.0),
                               child: OutlinedButton(
                                 onPressed: () {
-                                  // Navigator.pushNamed(
-                                  //     context, MapBox.id);
                                   Routers.router.navigateTo(context, "/Harita");
                                 },
                                 style: ButtonStyle(
@@ -331,21 +305,6 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                 ),
                               ),
                             ),
-                            //
-                            // TextButton(
-                            //   style: ButtonStyle(
-                            //     alignment: Alignment.topLeft,
-                            //     padding: MaterialStateProperty.all(
-                            //         EdgeInsets.all(0)),
-                            //     overlayColor:
-                            //         MaterialStateProperty.all(Colors.grey[200]),
-                            //   ),
-                            //   onPressed: () {
-                            //     Navigator.pushNamed(
-                            //         context, GoogleMapSample.id);
-                            //   },
-                            //   child: Text("Haritada Göster", style: kTextStyle),
-                            // ),
                             Text('veya', style: kSmallTextStyle),
                             SizedBox(height: 10),
 

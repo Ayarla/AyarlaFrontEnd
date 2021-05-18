@@ -117,7 +117,6 @@ class AuthenticationPage extends StatelessWidget {
                       } else {
                         print("Not Validated");
                       }
-
                       ///TODO check and push somewhere
                     },
                     child: Text(

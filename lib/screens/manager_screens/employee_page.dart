@@ -1,3 +1,4 @@
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -25,7 +26,6 @@ class _EmployeePageState extends State<EmployeePage> {
         context: context,
         builder: (BuildContext context) {
           final size = MediaQuery.of(context).size;
-          // bool value;
           return StatefulBuilder(
             builder: (BuildContext bc, StateSetter setState2) {
               return CircularParent(
@@ -234,9 +234,7 @@ class _EmployeePageState extends State<EmployeePage> {
           style: kTitleStyle.copyWith(color: Colors.white),
         )),
       ).build(context),
-      body: Container(
-        width: size.width,
-        height: size.height,
+      body: AyarlaPage(
         child: OverScroll(
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 10),
@@ -315,39 +313,6 @@ class _EmployeePageState extends State<EmployeePage> {
                   });
                 },
               ),
-              // _getRow(
-              //   size,
-              //   'İzin günü belirleyiniz',
-              //   () {
-              //   //   setState(() {
-              //   //     detailSheet();
-              //   //   });
-              //   },
-              // ),
-              // Row(
-              //   children: [
-              //     Spacer(),
-              //     FlatButton(
-              //       onPressed: null,
-              //       child: ClipRRect(
-              //         borderRadius: BorderRadius.all(
-              //           Radius.circular(20),
-              //         ),
-              //         child: Container(
-              //           padding: EdgeInsets.symmetric(horizontal: 5),
-              //           color: Colors.white,
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(10.0),
-              //             child: Text(
-              //               'Kaydet',
-              //               style: kTextStyle,
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),

@@ -187,100 +187,100 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                   child: ListView(
                     padding: EdgeInsets.all(20),
                     children: [
-                      for (int i = 0; i < 3; i++)
-                        Row(
-                          children: [
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: UI.femaleUserIcon,
-                              ),
-                              elevation: 5,
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(width: 15),
-                            // Icon(
-                            //   // Icons.account_circle_rounded,
-                            //
-                            //   // size: 50,
-                            // ),
-                            Text(
-                              'Çalışan İsmi',
-                              style: kTextStyle,
-                            ),
-                            Spacer(),
-                            IconButton(
-                              icon: UI.settingsIcon,
-                              padding: EdgeInsets.all(0),
-                              onPressed: () {
-                                detailSheet();
-                              },
-                            ),
-                          ],
-                        ),
-                      for (Row x in employeeList) x,
-                      Row(
-                        children: [
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: UI.addUserIcon,
-                            ),
-                            elevation: 5,
-                            shape: CircleBorder(),
-                          ),
-                          // Icon(
-                          //   Icons.account_circle_rounded,
-                          //   size: 50,
-                          // ),
-                          SizedBox(width: 15),
-                          Text(
-                            'Çalışan Ekle',
-                            style: kTextStyle,
-                          ),
-                          Spacer(),
-                          LinearGradientMask(
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.add_circle_sharp,
-                                size: 35,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  employeeList.add(
-                                    Row(
-                                      children: [
-                                        Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: UI.maleUserIcon,
-                                          ),
-                                          elevation: 5,
-                                          shape: CircleBorder(),
-                                        ),
-                                        SizedBox(width: 15),
-                                        Text(
-                                          'Çalışan İsmi',
-                                          style: kTextStyle,
-                                        ),
-                                        Spacer(),
-                                        IconButton(
-                                          icon: UI.settingsIcon,
-                                          padding: EdgeInsets.all(0),
-                                          onPressed: () {
-                                            detailSheet();
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                      // for (int i = 0; i < 3; i++)
+                      //   Row(
+                      //     children: [
+                      //       Card(
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(10.0),
+                      //           child: UI.femaleUserIcon,
+                      //         ),
+                      //         elevation: 5,
+                      //         shape: CircleBorder(),
+                      //       ),
+                      //       SizedBox(width: 15),
+                      //       // Icon(
+                      //       //   // Icons.account_circle_rounded,
+                      //       //
+                      //       //   // size: 50,
+                      //       // ),
+                      //       Text(
+                      //         'Çalışan İsmi',
+                      //         style: kTextStyle,
+                      //       ),
+                      //       Spacer(),
+                      //       IconButton(
+                      //         icon: UI.settingsIcon,
+                      //         padding: EdgeInsets.all(0),
+                      //         onPressed: () {
+                      //           detailSheet();
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // for (Row x in employeeList) x,
+                      // Row(
+                      //   children: [
+                      //     Card(
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.all(10.0),
+                      //         child: UI.addUserIcon,
+                      //       ),
+                      //       elevation: 5,
+                      //       shape: CircleBorder(),
+                      //     ),
+                      //     // Icon(
+                      //     //   Icons.account_circle_rounded,
+                      //     //   size: 50,
+                      //     // ),
+                      //     SizedBox(width: 15),
+                      //     Text(
+                      //       'Çalışan Ekle',
+                      //       style: kTextStyle,
+                      //     ),
+                      //     Spacer(),
+                      //     LinearGradientMask(
+                      //       child: IconButton(
+                      //         icon: Icon(
+                      //           Icons.add_circle_sharp,
+                      //           size: 35,
+                      //           color: Colors.white,
+                      //         ),
+                      //         onPressed: () {
+                      //           setState(() {
+                      //             employeeList.add(
+                      //               Row(
+                      //                 children: [
+                      //                   Card(
+                      //                     child: Padding(
+                      //                       padding: const EdgeInsets.all(10.0),
+                      //                       child: UI.maleUserIcon,
+                      //                     ),
+                      //                     elevation: 5,
+                      //                     shape: CircleBorder(),
+                      //                   ),
+                      //                   SizedBox(width: 15),
+                      //                   Text(
+                      //                     'Çalışan İsmi',
+                      //                     style: kTextStyle,
+                      //                   ),
+                      //                   Spacer(),
+                      //                   IconButton(
+                      //                     icon: UI.settingsIcon,
+                      //                     padding: EdgeInsets.all(0),
+                      //                     onPressed: () {
+                      //                       detailSheet();
+                      //                     },
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             );
+                      //           });
+                      //         },
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),

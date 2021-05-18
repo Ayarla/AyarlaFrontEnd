@@ -274,7 +274,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                 text: 'Onayla',
                 gradient: functions.decideColor(context),
                 onPressed: () {
-                  bool check = Provider.of<Login>(context, listen: false).holder;
+                  bool check = Provider.of<Login>(context, listen: false).isLoggedIn;
                   if (check == false) {
                     PopUp().mailFieldDialog(context: context);
                   } else if (check == true) {
