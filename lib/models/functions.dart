@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/models/model_employee.dart';
+import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

@@ -140,10 +140,10 @@ class Routers {
     /// User Pages
     router.define("/KullaniciSayfasi", handler: _userPage);
     router.define("/Favorilerim", handler: _favoritesPage);
-    router.define("/Randevularim", handler: _appointmentsPage);
-    router.define("/Mesajlarim", handler: _userMessagePage);
+    router.define("/Randevularım", handler: _appointmentsPage);
+    router.define("/Mesajlarım", handler: _userMessagePage);
     // router.define("/GecmisRandevularim", handler: _pastAppointmentPage);
-    router.define("/ProfilimiDuzenle", handler: _editProfilePage);
+    router.define("/Profilimi Düzenle", handler: _editProfilePage);
 
     /// Manager Pages
     router.define("/YoneticiAnasayfasi", handler: _managerHome);

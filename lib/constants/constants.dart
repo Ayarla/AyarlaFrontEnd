@@ -69,11 +69,7 @@ enum Directions {
   none,
 }
 
-enum Gender{
-  female,
-  male,
-  unisex
-}
+enum Gender { female, male, unisex }
 
 List<String> month = [
   "Ocak",
@@ -148,4 +144,18 @@ List<String> items = <String>[
   '22:30',
   '23:00',
   '23:30',
+];
+
+List<String> nameList = [
+  "Favorilerim",
+  "Mesajlarım",
+  "Randevularım",
+  "Profilimi Düzenle",
+];
+
+List<IconData> iconList = [
+  Icons.favorite_border_outlined,
+  Icons.chat_outlined,
+  Icons.date_range_outlined,
+  Icons.edit_outlined,
 ];

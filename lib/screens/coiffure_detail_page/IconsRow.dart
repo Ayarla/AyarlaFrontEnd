@@ -1,6 +1,6 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/coiffeurModel.dart';
+import 'package:ayarla/models/model_coiffeur.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

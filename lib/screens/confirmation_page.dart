@@ -1,26 +1,19 @@
-import 'dart:ui';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
-import 'package:ayarla/components/UI/hover_button.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/constants/router.dart';
-import 'package:ayarla/models/Appointment.dart';
-import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/models/model_appointment.dart';
+import 'package:ayarla/models/model_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/pop-up.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/user_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 class ConfirmationPage extends StatefulWidget {
   @override
@@ -124,7 +117,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                 initiallyExpanded: isConfirmed ? false : true,
                 arrowColor: Colors.black,
                 padding: EdgeInsets.all(10),
-                elevation: 10,
+                elevation: 5,
                 additionalWidget: Text(
                   'Randevu Detay',
                   textAlign: TextAlign.center,
@@ -151,6 +144,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                         fit: BoxFit.scaleDown,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Text("Gün: ", style: kTitleStyle),
                             Text(
@@ -232,9 +226,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           ],
                         );
                       },
-                      separatorBuilder: (BuildContext bc, int index) {
-                        return Divider(thickness: 2);
-                      },
+                      separatorBuilder: (BuildContext bc, int index) =>
+                          Divider(thickness: 2),
                     ),
                     Divider(thickness: 2),
                     Row(
@@ -248,33 +241,24 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                 ),
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 20),
 
             /// Google Maps integration
-            Container(
-              height: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.6),
-                    offset: Offset(4, 4),
-                    blurRadius: 15,
-                  ),
-                ],
-              ),
-              child: FlutterMapCoiffure(),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Container(height: 300, child: FlutterMapCoiffure()),
             ),
           ],
         ),
       ),
       floatingActionButton: !isConfirmed
           ? AyarlaPageNoC(
-            child: FloatingTextButton(
+              child: FloatingTextButton(
                 text: 'Onayla',
                 gradient: functions.decideColor(context),
                 onPressed: () {
-                  bool check = Provider.of<Login>(context, listen: false).isLoggedIn;
+                  bool check =
+                      Provider.of<Login>(context, listen: false).isLoggedIn;
                   if (check == false) {
                     PopUp().mailFieldDialog(context: context);
                   } else if (check == true) {
@@ -285,16 +269,16 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   }
                 },
               ),
-          )
+            )
           : AyarlaPageNoC(
-            child: FloatingTextButton(
+              child: FloatingTextButton(
                 text: 'Profilini Tamamla',
                 gradient: functions.decideColor(context),
                 onPressed: () {
                   Routers.router.navigateTo(context, "/ProfilimiDuzenle");
                 },
               ),
-          ),
+            ),
     );
   }
 }

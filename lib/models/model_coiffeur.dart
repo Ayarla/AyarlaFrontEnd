@@ -1,5 +1,6 @@
 import 'package:ayarla/components/imageListItem.dart';
-import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/models/model_employee.dart';
+import 'package:ayarla/models/model_service.dart';
 
 class CoiffureModel {
   final String name;

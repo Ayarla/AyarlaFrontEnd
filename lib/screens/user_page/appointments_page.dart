@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/Appointment.dart';
+import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 

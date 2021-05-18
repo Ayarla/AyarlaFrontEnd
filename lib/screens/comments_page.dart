@@ -1,6 +1,6 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/models/commentModel.dart';
+import 'package:ayarla/models/model_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';

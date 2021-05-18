@@ -1,7 +1,7 @@
+import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/employeeAndService.dart';
-import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
+import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +36,7 @@ class _ServicesSectionState extends State<ServicesSection> {
             },
             elevation: 5,
             primaryWidget: Container(
-              width: size.width - 100,
+              width: size.width - 90,
               height: 60,
               child: Row(
                 children: [
@@ -51,7 +51,7 @@ class _ServicesSectionState extends State<ServicesSection> {
                   Text(" ₺", style: TextStyle(fontSize: 20)),
                   SizedBox(width: 10),
                   Icon(
-                    Provider.of<AppointmentData>(context, listen: true)
+                    Provider.of<AppointmentData>(context, listen: false)
                             .fullTimeServices[findIndex(x)]
                             .selected
                         ? Icons.remove
@@ -62,69 +62,85 @@ class _ServicesSectionState extends State<ServicesSection> {
                 ],
               ),
             ),
-            secondaryWidget: Center(
-              child: EmployeeRow(
-                width: size.width < 700 ? size.width - 85 : 699,
+            secondaryWidget: Container(
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (BuildContext bc, int index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Container(
+                      width: 120,
+                      child: GenericIconButton(
+                        color:
+                            Provider.of<AppointmentData>(context, listen: false)
+                                    .fullTimeServices[
+                                        Provider.of<AppointmentData>(context,
+                                                listen: false)
+                                            .fullTimeServices
+                                            .indexOf(x)]
+                                    .employees[index]
+                                    .selected
+                                ? Provider.of<AppointmentData>(context,
+                                                listen: false)
+                                            .fullTimeServices[
+                                                Provider.of<AppointmentData>(
+                                                        context,
+                                                        listen: false)
+                                                    .fullTimeServices
+                                                    .indexOf(x)]
+                                            .employees[index]
+                                            .gender ==
+                                        'female'
+                                    ? Colors.pink[200]
+                                    : Colors.blue
+                                : null,
+                        iconContext: Container(
+                          padding: EdgeInsets.only(top: 5),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image(
+                                  height: 40,
+                                  image: AssetImage(
+                                    Provider.of<AppointmentData>(context,
+                                            listen: false)
+                                        .employeesList[index]
+                                        .image,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        textStyle: kTextStyle.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                        ),
+                        text:
+                            Provider.of<AppointmentData>(context, listen: false)
+                                .employeesList[index]
+                                .name,
+                        onPressed: () {
+                          setState(() {
+                            Provider.of<AppointmentData>(context, listen: false)
+                                .changeSelectedEmployee(
+                                    Provider.of<AppointmentData>(context,
+                                            listen: false)
+                                        .fullTimeServices
+                                        .indexOf(x),
+                                    index);
+                          });
+                        },
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
-            // secondaryWidget: ListView.builder(
-            //   scrollDirection: Axis.horizontal,
-            //   itemCount: 5,
-            //   itemBuilder: (BuildContext bc, int index) {
-            //     return Padding(
-            //       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            //       child: Container(
-            //         width: 100,
-            //         child: GenericIconButton(
-            //           color:
-            //               // Provider.of<AppointmentData>(context, listen: true)
-            //               //         .fullTimeServices[
-            //               //             Provider.of<AppointmentData>(context,
-            //               //                     listen: true)
-            //               //                 .fullTimeServices
-            //               //                 .indexOf(x)]
-            //               // x.employees[index].selected ? Colors.green : null,
-            //           Colors.green,
-            //           iconContext: Container(
-            //             padding: EdgeInsets.only(top: 5),
-            //             child: Column(
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: [
-            //                 ClipRRect(
-            //                   borderRadius: BorderRadius.circular(10),
-            //                   child: Image(
-            //                     height: 40,
-            //                     image: AssetImage(
-            //                       Provider.of<AppointmentData>(context,
-            //                               listen: true)
-            //                           .employeesList[index]
-            //                           .image,
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           text:
-            //               Provider.of<AppointmentData>(context, listen: true)
-            //                   .employeesList[index]
-            //                   .name,
-            //           onPressed: () {
-            //             setState(() {
-            //               // Provider.of<AppointmentData>(context, listen: false)
-            //               //     .changeSelectedEmployee(
-            //               //         Provider.of<AppointmentData>(context,
-            //               //                 listen: true)
-            //               //             .fullTimeServices
-            //               //             .indexOf(x),
-            //               //         index);
-            //             });
-            //           },
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
           )
       ],
     );

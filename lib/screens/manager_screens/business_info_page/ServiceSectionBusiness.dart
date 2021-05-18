@@ -1,7 +1,8 @@
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/employeeAndService.dart';
 import 'package:ayarla/models/functions.dart';
+import 'package:ayarla/models/model_employee.dart';
+import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/EmployeeSectionBusiness.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';

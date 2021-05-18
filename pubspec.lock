@@ -120,13 +120,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2+dart2"
-  fading_edge_scrollview:
-    dependency: transitive
-    description:
-      name: fading_edge_scrollview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -254,13 +247,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_week_view:
-    dependency: "direct main"
-    description:
-      name: flutter_week_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -457,13 +443,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6+1"
-  marquee:
-    dependency: "direct main"
-    description:
-      name: marquee
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   matcher:
     dependency: transitive
     description:
@@ -686,13 +665,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
-  stories_for_flutter:
-    dependency: "direct main"
-    description:
-      name: stories_for_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.8"
   stream_channel:
     dependency: transitive
     description:

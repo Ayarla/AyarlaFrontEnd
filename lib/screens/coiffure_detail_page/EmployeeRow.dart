@@ -1,7 +1,7 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class EmployeeRow extends StatelessWidget {
               Icon(Icons.keyboard_arrow_left),
               Container(
                 height: 100,
-                width: width < 700 ? width - 85 : 640,
+                width: width < 700 ? width - 100 : 600,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [

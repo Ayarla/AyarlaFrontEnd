@@ -1,14 +1,15 @@
 import 'dart:math';
-import 'package:ayarla/models/userModel.dart';
+import 'package:ayarla/models/model_employee.dart';
+import 'package:ayarla/models/model_service.dart';
+import 'package:ayarla/models/model_use.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/webService/user_functions.dart';
 // import 'package:firebase/firebase.dart';
 // import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mailer2/mailer.dart';
-import 'package:ayarla/models/Appointment.dart';
-import 'package:ayarla/models/coiffeurModel.dart';
-import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/models/model_appointment.dart';
+import 'package:ayarla/models/model_coiffeur.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 
 class Availability {

@@ -3,3 +3,7 @@ String employeesIconName = 'assets/icons/icon_users.svg';
 String calenderIconName = 'assets/icons/icon_calendar.svg';
 String messageIconName = 'assets/icons/icon_message.svg';
 String notesIconName = 'assets/icons/icon_notes.svg';
+String addUserIconName = 'assets/icons/icon_add_user.svg';
+String femaleIconName = 'assets/icons/icon_user_female.svg';
+String maleIconName = 'assets/icons/icon_user_male.svg';
+String settingsIconName = 'assets/icons/icon_settings.svg';

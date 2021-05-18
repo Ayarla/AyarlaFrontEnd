@@ -18,26 +18,11 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   Functions functions = Functions();
-
   bool isLoggedIn = false;
   double smallIconSize = 18.0;
   double bigIconSize = 24.0;
   double smallTextSize = 16.0;
   double bigTextSize = 20.0;
-
-  List<String> nameList = [
-    "Favorilerim",
-    "Mesajlarım",
-    "Randevularım",
-    "Profilimi Düzenle",
-  ];
-
-  List<IconData> iconList = [
-    Icons.favorite_border_outlined,
-    Icons.chat_outlined,
-    Icons.date_range_outlined,
-    Icons.edit_outlined,
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +51,7 @@ class _UserPageState extends State<UserPage> {
                 if (Provider.of<Login>(context, listen: true).isLoggedIn)
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 8.0,
-                        horizontal: 8.0,
-                      ),
+                      padding: EdgeInsets.all(8),
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.start,
                         runSpacing: 10.0,
@@ -135,6 +117,10 @@ class _UserPageState extends State<UserPage> {
                             shrinkWrap: true,
                             itemBuilder: (BuildContext bc, int index) {
                               return TextButton(
+                                style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.transparent),
+                                ),
                                 onPressed: () {
                                   Routers.router
                                       .navigateTo(context, nameList[index]);

@@ -1,5 +1,5 @@
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/coiffeurModel.dart';
+import 'package:ayarla/models/model_coiffeur.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -11,10 +11,7 @@ import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ContactSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/IconsRow.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ImageSection.dart';
-import 'package:ayarla/screens/coiffure_detail_page/RatingRow.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ServicesSection.dart';
-import 'package:ayarla/screens/coiffure_detail_page/SmallLocationSection.dart';
-import 'package:ayarla/screens/coiffure_detail_page/WorkingHoursSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/screens/comments_page.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
@@ -22,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/coiffeurModel.dart';
+import 'package:ayarla/models/model_coiffeur.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
@@ -82,23 +79,8 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   SizedBox(height: 10),
                   IconsRow(coiffureModel: widget.coiffureModel),
                   Text("Hakkında", style: kTitleStyle),
-                  Column(
-                    children: [
-                      RatingRow(
-                          rating: widget.coiffureModel.star.toInt(),
-                          commentNumber:
-                              widget.coiffureModel.comments.toString()),
-                      SizedBox(height: 10),
-                      SmallLocationSection(coiffureModel: widget.coiffureModel),
-                      SizedBox(height: 10),
-                      WorkingHoursSection(widget.coiffureModel.time),
-                      SizedBox(height: 10),
-                      AboutSection(
-                        widget.coiffureModel.text,
-                        controller: _listViewController,
-                      ),
-                    ],
-                  ),
+                  AboutSection(widget.coiffureModel,
+                      controller: _listViewController),
                   ServicesSection(),
                   Text('Personeller', style: kTextStyle),
                   SizedBox(height: 10),
@@ -127,13 +109,18 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   ),
                   CommentsSection(),
                   ContactSection(coiffureModel: widget.coiffureModel),
+                  SizedBox(height: 5),
 
                   /// Map
-                  Container(
-                    height: 320,
-                    width: 300,
-                    child: FlutterMapCoiffure(),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Container(
+                      height: 320,
+                      width: 300,
+                      child: FlutterMapCoiffure(),
+                    ),
                   ),
+                  SizedBox(height: 5),
 
                   /// create enough space for map
                   total != 0
@@ -148,7 +135,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: total != 0
           ? AyarlaPageNoC(
-            child: Row(
+              child: Row(
                 children: [
                   FloatingTextButton(text: "Toplam = $total TL"),
                   Spacer(),
@@ -162,17 +149,17 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                         'SaatSayfasi',
                         routeSettings: RouteSettings(
                           arguments: CalenderPage(
-                              servicesAndEmployees: Provider.of<AppointmentData>(
-                                      context,
-                                      listen: false)
-                                  .servicesAndEmployees),
+                              servicesAndEmployees:
+                                  Provider.of<AppointmentData>(context,
+                                          listen: false)
+                                      .servicesAndEmployees),
                         ),
                       );
                     },
                   ),
                 ],
               ),
-          )
+            )
           : null,
     );
   }

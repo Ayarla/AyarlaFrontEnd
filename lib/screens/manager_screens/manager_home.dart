@@ -42,80 +42,65 @@ class _ManagerHomeState extends State<ManagerHome> {
                   textAlign: TextAlign.center, style: kTitleStyle),
               SizedBox(height: 15),
               GridView.count(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.all(20),
-                  shrinkWrap: true,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    GenericIconButton(
-                      iconContext: NewIcon(
-                        size: size.width < 700 ? size.width / 6 : 700 / 6,
-                        iconName: homeIconName,
-                      ),
-                      color: Colors.white.withOpacity(.4),
-                      text: 'İşletmem',
-                      onPressed: () =>
-                          Routers.router.navigateTo(context, "/Isletmem"),
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.all(20),
+                shrinkWrap: true,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                children: <Widget>[
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: homeIconName,
                     ),
-                    GenericIconButton(
-                      iconContext: NewIcon(
-                        size: size.width < 700 ? size.width / 6 : 700 / 6,
-                        iconName: employeesIconName,
-                      ),
-                      color: Colors.white.withOpacity(.4),
-                      text: 'Çalışanlarım',
-                      // onPressed: () => Routers.router
-                      //     .navigateTo(context, "/Calisanlarim"),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'İşletmem',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/Isletmem"),
+                  ),
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: employeesIconName,
                     ),
-                    GenericIconButton(
-                      iconContext: NewIcon(
-                        size: size.width < 700 ? size.width / 6 : 700 / 6,
-                        iconName: calenderIconName,
-                      ),
-                      color: Colors.white.withOpacity(.4),
-                      text: 'Ayarlarım',
-                      onPressed: () =>
-                          Routers.router.navigateTo(context, "/Ayarlarim"),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'Çalışanlarım',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/Calisanlarim"),
+                  ),
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: calenderIconName,
                     ),
-                    GenericIconButton(
-                      iconContext: NewIcon(
-                        size: size.width < 700 ? size.width / 6 : 700 / 6,
-                        iconName: notesIconName,
-                      ),
-                      color: Colors.white.withOpacity(.4),
-                      text: 'Notlarım',
-                      onPressed: () =>
-                          Routers.router.navigateTo(context, "/Notlarim"),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'Ayarlarım',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/Ayarlarim"),
+                  ),
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: notesIconName,
                     ),
-                    GenericIconButton(
-                      iconContext: NewIcon(
-                        size: size.width < 700 ? size.width / 6 : 700 / 6,
-                        iconName: messageIconName,
-                      ),
-                      color: Colors.white.withOpacity(.4),
-                      text: 'Mesajlaşma',
-                      onPressed: () =>
-                          Routers.router.navigateTo(context, "/MesajYolla"),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'Notlarım',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/Notlarim"),
+                  ),
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: messageIconName,
                     ),
-                    // GenericIconButton(
-                    //   iconContext: UI.messageIcon,
-                    //   color: Colors.white.withOpacity(.4),
-                    //   text: 'Mesajlaşma',
-                    //   // onPressed: ManagerSendMessage.id,
-                    // ),
-
-                    // GenericIconButton(
-                    //   iconContext: UI.NewIcon(
-                    //     size: size.width / 5,
-                    //     iconName: UI.notificationIcon,
-                    //   ),
-                    //   color: Colors.white.withOpacity(.4),
-                    //   text: 'Randevu Hatırlatma',
-                    //   // onPressed: ManagerSendMessage.id,
-                    // ),
-                  ]),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'Mesajlaşma',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/MesajYolla"),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

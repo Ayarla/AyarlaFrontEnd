@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/Appointment.dart';
+import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
