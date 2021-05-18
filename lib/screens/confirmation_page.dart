@@ -1,10 +1,13 @@
-import 'package:ayarla/components/ayarla_page.dart';
+import 'dart:ui';
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/model_service.dart';
+import 'package:ayarla/models/Appointment.dart';
+import 'package:ayarla/models/employeeAndService.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
@@ -252,23 +255,25 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         ),
       ),
       floatingActionButton: !isConfirmed
-          ? AyarlaPageNoC(
-              child: FloatingTextButton(
-                text: 'Onayla',
-                gradient: functions.decideColor(context),
-                onPressed: () {
-                  bool check =
-                      Provider.of<Login>(context, listen: false).isLoggedIn;
-                  if (check == false) {
-                    PopUp().mailFieldDialog(context: context);
-                  } else if (check == true) {
-                    ///TODO profildeki mail adresine mail gonderilecek
-                    Routers.router.navigateTo(context, "/OnaySayfasi");
-                    Provider.of<AppointmentData>(context, listen: false)
-                        .confirmation();
-                  }
-                },
-              ),
+          ? FloatingTextButton(
+              text: 'Onayla',
+              gradient: functions.decideColor(context),
+              onPressed: () {
+                bool check = Provider.of<Login>(context, listen: false).holder;
+                if (check == false) {
+                  PopUp().mailFieldDialog(context: context);
+                } else if (check == true) {
+                  ///TODO profildeki mail adresine mail gonderilecek
+                  Routers.router.navigateTo(context, "/OnaySayfasi");
+                  Provider.of<AppointmentData>(context, listen: false)
+                      .confirmation();
+                }
+                for(AppointmentInfo x in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees){
+                  FirebaseAnalytics().logEvent(name: 'selectDate_button',
+                      parameters:{'service': x.service, 'employee':x.employee, 'date': x.dateTime, 'state': 'confirmed'}
+                  );
+                }
+              },
             )
           : AyarlaPageNoC(
               child: FloatingTextButton(

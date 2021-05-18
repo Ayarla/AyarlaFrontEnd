@@ -2,6 +2,7 @@ import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,9 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                 name: widget.coiffureModel.name),
           ),
         );
+        FirebaseAnalytics().logEvent(name: 'coiffueur_cart',
+            parameters:{'name': widget.coiffureModel.name}
+            );
       },
       child: Padding(
         padding: size.width < 375 ? EdgeInsets.only(left: 10, right: 10, bottom: 20):
@@ -61,6 +65,15 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                         .myState = state;
                     Provider.of<AppointmentData>(context, listen: false)
                         .setOrChangeFav(widget.coiffureModel);
+                    if(Provider.of<AppointmentData>(context, listen: true)
+                        .favorites
+                        .contains(widget.coiffureModel)){
+                      FirebaseAnalytics().logEvent(name: 'favorites_button',
+                          parameters:{'coiffeur': widget.coiffureModel.name, 'state': 'added'});
+                    }else{
+                      FirebaseAnalytics().logEvent(name: 'favorites_button',
+                          parameters:{'coiffeur': widget.coiffureModel.name, 'state': 'deleted'});
+                    }
                   },
                   child: Padding(
                     padding: EdgeInsets.all(7),

@@ -1,5 +1,6 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -196,33 +197,267 @@ class _UserPageState extends State<UserPage> {
                         Provider.of<Login>(context, listen: false)
                             .loggedInUser();
                       });
+                            GestureDetector(
+                              onTap: () {
+                                Routers.router
+                                    .navigateTo(context, "Favorilerim");
+                                FirebaseAnalytics().logEvent(name: 'user_favorites',parameters:null);
+                              },
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20),
+                                    // child: UI.HeartIcon(),
+                                    child: Icon(
+                                      Icons.favorite_border_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Favorilerim",
+                                    style: kTextStyle.copyWith(
+                                        fontSize: smallScreenCondition
+                                            ? smallTextSize
+                                            : bigTextSize),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Divider(color: Colors.black),
+                            GestureDetector(
+                              onTap: () {
+                                Routers.router
+                                    .navigateTo(context, '/Mesajlarim');
+                                FirebaseAnalytics().logEvent(name: 'user_messages',parameters:null);
+                              },
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20),
+                                    child: Icon(
+                                      Icons.chat_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                    // child: UI.messageIcon,
+                                  ),
+                                  Text(
+                                    "Mesajlarım",
+                                    style: kTextStyle.copyWith(
+                                        fontSize: smallScreenCondition
+                                            ? smallTextSize
+                                            : bigTextSize),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Divider(color: Colors.black),
+                            GestureDetector(
+                              onTap: () {
+                                Routers.router
+                                    .navigateTo(context, '/Randevularim');
+                                FirebaseAnalytics().logEvent(name: 'user_appointments',parameters:null);
+                              },
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20),
+                                    child: Icon(
+                                      Icons.date_range_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Randevularım",
+                                    style: kTextStyle.copyWith(
+                                        fontSize: smallScreenCondition
+                                            ? smallTextSize
+                                            : bigTextSize),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Divider(color: Colors.black),
+                            GestureDetector(
+                              onTap: () {
+                                Routers.router
+                                    .navigateTo(context, '/GecmisRandevularim');
+                                FirebaseAnalytics().logEvent(name: 'user_past_appointments',parameters:null);
+                              },
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20),
+                                    child: Icon(
+                                      Icons.update_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                  ),
+                                  TextOverFlowHandler(
+                                    child: Text(
+                                      "Geçmiş Randevularım",
+                                      style: kTextStyle.copyWith(
+                                          fontSize: smallScreenCondition
+                                              ? smallTextSize
+                                              : bigTextSize),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Divider(color: Colors.black),
+                            GestureDetector(
+                              onTap: () {
+                                Routers.router
+                                    .navigateTo(context, '/ProfilimiDuzenle');
+                                FirebaseAnalytics().logEvent(name: 'user_edit_profile',parameters:null);
+                              },
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10.0, right: 20),
+                                    child: Icon(
+                                      Icons.edit_outlined,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                    // child: UI.settingsIcon,
+                                  ),
+                                  Text(
+                                    "Profilimi Düzenle",
+                                    style: kTextStyle.copyWith(
+                                        fontSize: smallScreenCondition
+                                            ? smallTextSize
+                                            : bigTextSize),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: smallScreenCondition
+                                          ? smallIconSize
+                                          : bigIconSize,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Divider(color: Colors.black),
+                            Center(
+                              child: Container(
+                                height: 50,
+                                width: 150,
+                                margin: EdgeInsets.only(top: 10.0),
+                                decoration: BoxDecoration(
+                                    gradient: functions.decideColor(context),
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: TextButton(
+                                  onPressed: () {
+                                    ///TODO logout button
+                                  },
+                                  child: Text(
+                                    'Çıkış',
+                                    style: kTextStyle.copyWith(
+                                        color: Colors.white, fontSize: 25),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          Provider.of<Login>(context, listen: false)
+                              .loggedInUser();
+                        });
 
-                      ///TODO check and push somewhere
-                    },
-                    child: Text(
-                      'User Girişi',
-                      style: kTextStyle.copyWith(
-                          color: Colors.black, fontSize: 25),
+                        ///TODO check and push somewhere
+                      },
+                      child: Text(
+                        'User Girişi',
+                        style: kTextStyle.copyWith(
+                            color: Colors.black, fontSize: 25),
+                      ),
                     ),
                   ),
-                ),
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      Routers.router.navigateTo(context, "YoneticiAnasayfasi");
-                      Provider.of<Login>(context, listen: false)
-                          .loggedInManager();
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        // Navigator.pushNamed(context, ManagerHome.id);
+                        Routers.router
+                            .navigateTo(context, "YoneticiAnasayfasi");
+                        Provider.of<Login>(context, listen: false)
+                            .loggedInManager();
 
-                      ///TODO check and push somewhere
-                    },
-                    child: Text(
-                      'Manager Girişi',
-                      style: kTextStyle.copyWith(
-                          color: Colors.black, fontSize: 25),
+                        ///TODO check and push somewhere
+                      },
+                      child: Text(
+                        'Manager Girişi',
+                        style: kTextStyle.copyWith(
+                            color: Colors.black, fontSize: 25),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));

@@ -1,11 +1,11 @@
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/smallCoiffureCard.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
