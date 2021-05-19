@@ -1,4 +1,5 @@
 import 'package:ayarla/components/appBar.dart';
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';

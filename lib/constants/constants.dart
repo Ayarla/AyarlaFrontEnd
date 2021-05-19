@@ -148,14 +148,28 @@ List<String> items = <String>[
 
 List<String> nameList = [
   "Favorilerim",
-  "Mesajlarım",
   "Randevularım",
+  "Mesajlarım",
   "Profilimi Düzenle",
+];
+List<Color> colorList = [
+  Colors.red,
+  Colors.green,
+  Colors.yellow,
 ];
 
 List<IconData> iconList = [
   Icons.favorite_border_outlined,
-  Icons.chat_outlined,
   Icons.date_range_outlined,
-  Icons.edit_outlined,
+  Icons.chat_outlined,
+  Icons.settings_outlined,
 ];
+
+List<String> userFireBaseFunctions = [
+  'user_favorites',
+  'user_appointments',
+  'user_messages',
+  'user_edit_profile',
+];
+
+// 'user_past_appointments',

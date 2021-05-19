@@ -159,10 +159,10 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              TextButton(
-                  child: Text('debug'),
-                  onPressed: () =>
-                      Routers.router.navigateTo(context, "/WebServisleri")),
+              // TextButton(
+              //     child: Text('debug'),
+              //     onPressed: () =>
+              //         Routers.router.navigateTo(context, "/WebServisleri")),
             ],
           ),
         ),

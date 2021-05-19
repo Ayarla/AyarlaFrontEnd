@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
-import 'package:ayarla/models/model_use.dart';
+import 'package:ayarla/models/model_user.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/webService/user_functions.dart';
 // import 'package:firebase/firebase.dart';

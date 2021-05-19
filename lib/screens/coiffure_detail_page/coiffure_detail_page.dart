@@ -1,10 +1,10 @@
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
-import 'package:ayarla/models/Appointment.dart';
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/coiffure_detail_page/AboutSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
@@ -64,9 +64,11 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(
         gradient: Functions().decideColor(context),
-        title: TextOverFlowHandler(
-            child: Text(widget.coiffureModel.name,
-                style: kTitleStyle.copyWith(color: Colors.white))),
+        title: Center(
+          child: TextOverFlowHandler(
+              child: Text(widget.coiffureModel.name,
+                  style: kTitleStyle.copyWith(color: Colors.white))),
+        ),
       ).build(context),
       body: ListView(
         padding: EdgeInsets.only(top: 20, left: 10, right: 10),
@@ -113,20 +115,25 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   ContactSection(coiffureModel: widget.coiffureModel),
                   SizedBox(height: 5),
 
-              /// Map
-              Container(
-                height: 320,
-                width: 300,
-                child: FlutterMapCoiffure(),
-              ),
+                  /// Map
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      height: 320,
+                      width: 300,
+                      child: FlutterMapCoiffure(),
+                    ),
+                  ),
 
-              /// create enough space for map
-              total != 0
-                  ? SizedBox(height: MediaQuery.of(context).size.width / 7)
-                  : SizedBox(height: 0),
-            ],
+                  /// create enough space for map
+                  total != 0
+                      ? SizedBox(height: MediaQuery.of(context).size.width / 7)
+                      : SizedBox(height: 0),
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: total != 0

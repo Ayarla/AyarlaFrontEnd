@@ -1,12 +1,11 @@
 import 'dart:ui';
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/model_service.dart';
-import 'package:ayarla/models/Appointment.dart';
-import 'package:ayarla/models/employeeAndService.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -259,7 +258,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               text: 'Onayla',
               gradient: functions.decideColor(context),
               onPressed: () {
-                bool check = Provider.of<Login>(context, listen: false).holder;
+                bool check = Provider.of<Login>(context, listen: false).isLoggedIn;
                 if (check == false) {
                   PopUp().mailFieldDialog(context: context);
                 } else if (check == true) {
