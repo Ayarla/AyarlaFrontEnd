@@ -120,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2+dart2"
+  expandable_widgets:
+    dependency: "direct main"
+    description:
+      name: expandable_widgets
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -258,6 +265,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.19.3"
+  flutter_switch:
+    dependency: "direct main"
+    description:
+      name: flutter_switch
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter

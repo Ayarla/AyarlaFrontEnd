@@ -40,7 +40,8 @@ class _UserPageState extends State<UserPage> {
         child: OverScroll(
           child: ListView(
             children: [
-              ///if the user is not logged in then it opens the authentication page for login or signup
+              ///if the user is not logged in then it opens the authentication
+              ///page for login or sign up
               if (!Provider.of<Login>(context, listen: true).isLoggedIn)
                 Center(child: AuthenticationPage()),
 
@@ -124,6 +125,15 @@ class _UserPageState extends State<UserPage> {
                                     parameters: null);
                               },
                             );
+                          },
+                        ),
+                        GenericButton(
+                          icon: Icons.business_center_outlined,
+                          iconColor: Colors.green,
+                          text: 'Çalışan Ayarlarım',
+                          onPressed: () {
+                            Routers.router.navigateTo(context, "/Ayarlarim",
+                                clearStack: false, replace: false);
                           },
                         ),
                         GenericButton(

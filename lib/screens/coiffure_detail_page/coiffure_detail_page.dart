@@ -128,7 +128,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   /// create enough space for map
                   total != 0
                       ? SizedBox(height: MediaQuery.of(context).size.width / 7)
-                      : SizedBox(height: 0),
+                      : SizedBox(height: 20),
                 ],
               ),
             ),

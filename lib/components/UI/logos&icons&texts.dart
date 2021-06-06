@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ayarla/components/UI/linearGradientMask.dart';
 import 'package:ayarla/constants/constants.dart';
 
 /// GENERAL LOGO

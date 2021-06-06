@@ -279,7 +279,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                 text: 'Profilini Tamamla',
                 gradient: functions.decideColor(context),
                 onPressed: () {
-                  Routers.router.navigateTo(context, "/ProfilimiDuzenle");
+                  Routers.router.navigateTo(context, "/Profilimi Düzenle");
                 },
               ),
             ),

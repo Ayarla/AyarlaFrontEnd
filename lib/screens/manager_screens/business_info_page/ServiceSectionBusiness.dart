@@ -191,15 +191,20 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                 children: [
                   SizedBox(width: 10),
                   Text(x.name,
-                      style:
-                          kTextStyle.copyWith(fontWeight: FontWeight.normal)),
+                      style: kTextStyle.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: size.width <= 400 ? size.width / 20 : 20)),
                   Spacer(),
                   Text(x.price.toString(),
-                      style:
-                          kTextStyle.copyWith(fontWeight: FontWeight.normal)),
-                  Text(" ₺", style: TextStyle(fontSize: 20)),
+                      style: kTextStyle.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: size.width <= 400 ? size.width / 22 : 20)),
+                  Text(" ₺",
+                      style: TextStyle(
+                          fontSize: size.width <= 400 ? size.width / 22 : 20)),
                   SizedBox(width: 10),
-                  Icon(Icons.add, size: 25),
+                  Icon(Icons.add,
+                      size: size.width <= 400 ? size.width / 18 : 24),
                   SizedBox(width: 10),
                 ],
               ),
@@ -579,10 +584,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                             SizedBox(
                               width: size.width / 7,
                               height: size.width / 7,
-                              child: FlatButton(
-                                padding: EdgeInsets.all(0),
-                                color: Colors.white,
-                                shape: CircleBorder(),
+                              child: TextButton(
                                 onPressed: () {
                                   /// Add or subtract Service and calculate
                                   /// price

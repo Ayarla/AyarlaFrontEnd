@@ -34,9 +34,12 @@ class _ServicesSectionState extends State<ServicesSection> {
             onPressed: () {
               Provider.of<AppointmentData>(context, listen: false)
                   .changeSelectedService(findIndex(x));
-              FirebaseAnalytics().logEvent(name: 'service_expandable',
-                  parameters:{'name': x.name, 'state': x.selected?'opened':'closed'}
-              );
+              FirebaseAnalytics().logEvent(
+                  name: 'service_expandable',
+                  parameters: {
+                    'name': x.name,
+                    'state': x.selected ? 'opened' : 'closed'
+                  });
             },
             elevation: 5,
             primaryWidget: Container(
@@ -46,13 +49,17 @@ class _ServicesSectionState extends State<ServicesSection> {
                 children: [
                   SizedBox(width: 10),
                   Text(x.name,
-                      style:
-                          kTextStyle.copyWith(fontWeight: FontWeight.normal)),
+                      style: kTextStyle.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: size.width <= 400 ? size.width / 20 : 20)),
                   Spacer(),
                   Text(x.price.toString(),
-                      style:
-                          kTextStyle.copyWith(fontWeight: FontWeight.normal)),
-                  Text(" ₺", style: TextStyle(fontSize: 20)),
+                      style: kTextStyle.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: size.width <= 400 ? size.width / 20 : 20)),
+                  Text(" ₺",
+                      style: TextStyle(
+                          fontSize: size.width <= 400 ? size.width / 20 : 20)),
                   SizedBox(width: 10),
                   Icon(
                     Provider.of<AppointmentData>(context, listen: false)
@@ -60,7 +67,7 @@ class _ServicesSectionState extends State<ServicesSection> {
                             .selected
                         ? Icons.remove
                         : Icons.add,
-                    size: 25,
+                    size: size.width <= 400 ? size.width / 16.6 : 24,
                   ),
                   SizedBox(width: 10),
                 ],
@@ -122,7 +129,7 @@ class _ServicesSectionState extends State<ServicesSection> {
                         ),
                         textStyle: kTextStyle.copyWith(
                           fontWeight: FontWeight.normal,
-                          fontSize: 14,
+                            fontSize: size.width <= 400 ? size.width / 30 : 14
                         ),
                         text:
                             Provider.of<AppointmentData>(context, listen: false)
