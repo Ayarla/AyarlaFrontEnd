@@ -10,10 +10,7 @@ class ImageListItem extends StatelessWidget {
   final bool covered;
   final bool isFile;
 /// isFile koşulu imageListItem kullanılan yerlere eklenilecek
-
   ImageListItem({this.image,this.covered,this.isFile,this.file});
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,18 +24,3 @@ class ImageListItem extends StatelessWidget {
     );
   }
 }
-
-
-// List<Widget> generateImageTiles(screenSize) {
-//   return images
-//       .map(
-//         (element) => ClipRRect(
-//       borderRadius: BorderRadius.circular(8.0),
-//       child: Image.asset(
-//         element,
-//         fit: BoxFit.cover,
-//       ),
-//     ),
-//   )
-//       .toList();
-//

@@ -39,10 +39,7 @@ class Routers {
   static Handler _detailPage =
       Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     final CoiffureDetailPage args = ModalRoute.of(context).settings.arguments;
-    return CoiffureDetailPage(
-        // coiffureModel: args?.coiffureModel,
-        coiffureModel: args.coiffureModel,
-        name: params['${args.coiffureModel.name.toString()}']);
+    return CoiffureDetailPage(coiffureModel: args.coiffureModel);
   });
 
   static Handler _commentsPage = Handler(

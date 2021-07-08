@@ -15,22 +15,19 @@ import 'package:ayarla/screens/coiffure_detail_page/ServicesSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/screens/comments_page.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/model_coiffeur.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class CoiffureDetailPage extends StatefulWidget {
-  CoiffureModel coiffureModel;
-  final String name;
+  final CoiffureModel coiffureModel;
+  CoiffureDetailPage({this.coiffureModel});
 
-  /// name is useless.
-  CoiffureDetailPage({this.coiffureModel, this.name});
   @override
   _CoiffureDetailPageState createState() => _CoiffureDetailPageState();
 }
@@ -41,10 +38,6 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
 
   @override
   void initState() {
-    if (widget.coiffureModel == null) {
-      widget.coiffureModel =
-          Provider.of<AppointmentData>(context).coiffureList[0];
-    }
     Provider.of<AppointmentData>(context, listen: false)
         .setName(widget.coiffureModel.name);
     super.initState();
@@ -103,7 +96,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                             "/Isletme/:name/Yorumlar",
                             routeSettings: RouteSettings(
                               name:
-                                  "/Isletme/${fixURL(widget.coiffureModel.name.toString())}/Yorumlar",
+                                  "/Isletme/${createURL(fixTurkishCharacters(widget.coiffureModel.name))}/Yorumlar",
                               arguments: CommentsPage(),
                             ),
                           );

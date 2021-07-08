@@ -1,4 +1,4 @@
-import 'package:ayarla/services/analytics_service.dart';
+import 'package:ayarla/screens/loading_screen.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,19 +24,7 @@ class Ayarla extends StatefulWidget {
 
 class _AyarlaState extends State<Ayarla> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final theme = ThemeData(
-      highlightColor: Colors.white.withOpacity(0.25),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        splashColor: Colors.white.withOpacity(0.25),
-      ),
-    );
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AppointmentData>(
@@ -47,15 +35,8 @@ class _AyarlaState extends State<Ayarla> {
         ChangeNotifierProvider<BusinessAndUserData>(
             create: (context) => BusinessAndUserData()),
       ],
-      child: MaterialApp(
-        theme: theme,
-        debugShowCheckedModeBanner: false,
-        navigatorObservers: [
-          locator<AnalyticsService>().getAnalyticsObserver(),
-        ],
-        onGenerateRoute: Routers.router.generator,
-        initialRoute: "/",
-      ),
+      /// TODO - revise!
+      child: LoadingScreen(),
     );
   }
 }

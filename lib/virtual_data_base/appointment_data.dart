@@ -9,7 +9,7 @@ import 'package:ayarla/webService/user_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:ayarla/models/model_appointment.dart';
-import 'package:ayarla/models/model_coiffeur.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 
 class Availability {

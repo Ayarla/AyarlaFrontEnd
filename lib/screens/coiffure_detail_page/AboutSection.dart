@@ -1,5 +1,5 @@
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/model_coiffeur.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -73,7 +73,7 @@ class AboutSection extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10),
-        ExpandableTextWidget(
+        ExpandableText(
           textWidget: Text(
             coiffureModel.text,
             maxLines: 3,

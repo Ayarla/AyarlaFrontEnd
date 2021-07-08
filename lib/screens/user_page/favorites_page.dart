@@ -11,7 +11,7 @@ import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/smallCoiffureCard.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/model_coiffeur.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
@@ -90,10 +90,9 @@ class _FavoritesPageState extends State<FavoritesPage>
                               "/Isletme/:name",
                               routeSettings: RouteSettings(
                                 name:
-                                    "/Isletme/${fixURL(localList[index].name.toString())}",
+                                    "/Isletme/${createURL(localList[index].name.toString())}",
                                 arguments: CoiffureDetailPage(
-                                    coiffureModel: localList[index],
-                                    name: localList[index].name),
+                                    coiffureModel: localList[index]),
                               ),
                             );
                           },
@@ -166,12 +165,11 @@ class _FavoritesPageState extends State<FavoritesPage>
                                       "/Isletme/:name",
                                       routeSettings: RouteSettings(
                                         name:
-                                            "/Isletme/${fixURL(localList[index].name.toString())}",
+                                            "/Isletme/${createURL(localList[index].name.toString())}",
                                         arguments: CoiffureDetailPage(
                                             coiffureModel: localList[index],
-                                            name: localList[index].name),
                                       ),
-                                    );
+                                    ),);
                                   },
                                   child: Card(
                                     elevation: 5,
