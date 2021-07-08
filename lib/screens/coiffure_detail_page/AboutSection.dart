@@ -14,25 +14,26 @@ class AboutSection extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
+        SizedBox(height: 10),
         Row(
           children: <Widget>[
             for (int i = 0; i < coiffureModel.star; i++)
               Icon(
                 Icons.star,
                 color: Colors.yellow.shade700,
-                size: size.width <= 400 ? size.width / 20 : 20,
+                size: size.width <= 400 ? size.width / 25 : 16,
               ),
             for (int i = coiffureModel.star.toInt(); i < 5; i++)
               Icon(
                 Icons.star_border,
                 color: Colors.yellow.shade700,
-                size: size.width <= 400 ? size.width / 20 : 20,
+                size: size.width <= 400 ? size.width / 25 : 16,
               ),
             Text(
               '(${coiffureModel.comments} değerlendirme)',
               style: kSmallTextStyle.copyWith(
                 color: Colors.grey.withOpacity(0.8),
-                fontSize: size.width <= 400 ? size.width / 27 : 18,
+                fontSize: size.width <= 400 ? size.width  / 25 : 16,
               ),
             ),
           ],
@@ -41,13 +42,15 @@ class AboutSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Icon(FontAwesomeIcons.mapMarkerAlt, size: 12, color: Colors.red),
+            Icon(FontAwesomeIcons.mapMarkerAlt,
+                size: size.width <= 400 ? size.width  / 25 : 16,
+                color: Colors.red),
             SizedBox(width: 4),
             Text(
               '${coiffureModel.city}, ${coiffureModel.district}',
               style: kSmallTextStyle.copyWith(
                 color: Colors.grey.withOpacity(0.8),
-                fontSize: size.width <= 400 ? size.width / 27 : 18,
+                fontSize: size.width <= 400 ? size.width  / 25 : 16,
               ),
             ),
           ],
@@ -56,9 +59,11 @@ class AboutSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Icon(Icons.access_time,
-                color: Colors.grey.withOpacity(0.8),
-                size: size.width <= 400 ? size.width / 16.6 : 24),
+            Icon(
+              Icons.access_time,
+              color: Colors.grey.withOpacity(0.8),
+              size: size.width <= 400 ? size.width  / 25 : 16,
+            ),
             SizedBox(width: 10),
             Padding(
               padding: const EdgeInsets.only(top: 2.0),
@@ -66,7 +71,7 @@ class AboutSection extends StatelessWidget {
                 coiffureModel.time,
                 style: kSmallTextStyle.copyWith(
                   color: Colors.grey.withOpacity(0.8),
-                  fontSize: size.width <= 400 ? size.width / 20 : 20,
+                  fontSize: size.width <= 400 ? size.width  / 25 : 16,
                 ),
               ),
             ),
@@ -74,11 +79,14 @@ class AboutSection extends StatelessWidget {
         ),
         SizedBox(height: 10),
         ExpandableText(
+          padding: EdgeInsets.all(5.0),
           textWidget: Text(
             coiffureModel.text,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: kSmallTextStyle,
+            style: kSmallTextStyle.copyWith(
+              fontSize: size.width <= 400 ? size.width  / 25 : 16,
+            ),
           ),
           animationDuration: Duration(milliseconds: 300),
           backGroundColor: Colors.transparent,

@@ -17,12 +17,7 @@ void main() {
   runApp(Ayarla());
 }
 
-class Ayarla extends StatefulWidget {
-  @override
-  _AyarlaState createState() => _AyarlaState();
-}
-
-class _AyarlaState extends State<Ayarla> {
+class Ayarla extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -35,7 +30,6 @@ class _AyarlaState extends State<Ayarla> {
         ChangeNotifierProvider<BusinessAndUserData>(
             create: (context) => BusinessAndUserData()),
       ],
-      /// TODO - revise!
       child: LoadingScreen(),
     );
   }

@@ -1,7 +1,5 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
@@ -66,11 +64,7 @@ class SearchPageState extends State<SearchPage> {
               shrinkWrap: false,
               padding: MediaQuery.of(context).size.width < 375
                   ? EdgeInsets.only(top: 20)
-                  : EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      right: 20,
-                    ),
+                  : EdgeInsets.only(top: 20, left: 20, right: 20),
               itemCount: Provider.of<AppointmentData>(context, listen: true)
                   .currentList
                   .length,

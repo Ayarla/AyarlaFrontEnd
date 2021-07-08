@@ -46,6 +46,7 @@ class WelcomePage extends StatelessWidget {
                     padding: EdgeInsets.all(0.0),
                     backgroundColor: Color(0xFF90a4ae).withOpacity(0.4),
                     showArrowIcon: true,
+                    hoverOn: true,
                     arrowWidget: Icon(
                       Icons.keyboard_arrow_up_rounded,
                       color: Colors.white,

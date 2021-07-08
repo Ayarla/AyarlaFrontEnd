@@ -51,7 +51,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final width = MediaQuery.of(context).size.width;
     int total = Provider.of<AppointmentData>(context, listen: true).total;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -75,16 +75,28 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   ImageSection(pages: _pages),
                   SizedBox(height: 10),
                   IconsRow(coiffureModel: widget.coiffureModel),
-                  Text("Hakkında", style: kTitleStyle),
+                  Text(
+                    "Hakkında",
+                    style: kTitleStyle.copyWith(
+                        fontSize: width <= 400 ? width / 20 : 20),
+                  ),
                   AboutSection(widget.coiffureModel,
                       controller: _listViewController),
+                  SizedBox(height: 5),
                   ServicesSection(),
-                  Text('Personeller', style: kTextStyle),
                   SizedBox(height: 10),
-                  EmployeeRow(width: size.width),
+                  Text(
+                    'Personeller',
+                    style: kTextStyle.copyWith(
+                        fontSize: width <= 400 ? width / 20 : 20),
+                  ),
+                  SizedBox(height: 10),
+                  EmployeeRow(width: width),
                   Row(
                     children: [
-                      Text('Yorumlar', style: kTextStyle),
+                      Text('Yorumlar',
+                          style: kTextStyle.copyWith(
+                              fontSize: width <= 400 ? width / 20 : 20)),
                       Spacer(),
                       TextButton(
                         child: Text('Tümünü Gör',
@@ -104,6 +116,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                       )
                     ],
                   ),
+                  SizedBox(height: 10),
                   CommentsSection(),
                   ContactSection(coiffureModel: widget.coiffureModel),
                   SizedBox(height: 5),
