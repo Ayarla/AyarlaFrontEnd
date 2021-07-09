@@ -24,11 +24,18 @@ class BusinessAndUserData extends ChangeNotifier{
   setCoiffurePosition(position){
     currentPosition = LatLong.LatLng(position.latitude,position.longitude);
     markerPosition = LatLong.LatLng(position.latitude,position.longitude);
+    print("marker $markerPosition");
     notifyListeners();
   }
 
   setMarkerPosition(position){
     markerPosition = LatLong.LatLng(position.latitude,position.longitude);
+    notifyListeners();
+  }
+
+  setDefault(){
+    markerPosition = LatLong.LatLng(41.015137, 28.979530); /// from database
+    currentPosition=LatLong.LatLng(41.015137, 28.979530); /// from database
     notifyListeners();
   }
 

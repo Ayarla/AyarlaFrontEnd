@@ -45,7 +45,9 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
           padding: EdgeInsets.only(left: 10),
           icon: BackButton(),
           onPressed: () {
+            Provider.of<BusinessAndUserData>(context, listen: false).setDefault();
             Routers.router.pop(context);
+
           },
         ),
         title: Center(
@@ -84,7 +86,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
                         Provider.of<BusinessAndUserData>(context, listen: false)
                             .setPickedPlace(place);
                         mapController.onReady.then((value) => {
-                          mapController.move(currentPosition, 15)}).then((value) =>  Navigator.of(context).pop());
+                          mapController.move(Latlong.LatLng(place.geometry.coordinates[1],place.geometry.coordinates[0]), 15)}).then((value) =>  Navigator.of(context).pop());
                       },
                       context: context,
                     ),
@@ -119,8 +121,11 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
         mapController: mapController,
         options: MapOptions(
           center: currentPosition,
-          onTap: (mapPosition){
-            Provider.of<BusinessAndUserData>(context, listen: false).setMarkerPosition(LatLng(mapPosition.latitude, mapPosition.longitude));
+          onTap: (mapPosition) {
+
+            Provider.of<BusinessAndUserData>(context, listen: false)
+                .setMarkerPosition(
+                LatLng(mapPosition.latitude, mapPosition.longitude));
           },
           zoom: 15.0,
         ),

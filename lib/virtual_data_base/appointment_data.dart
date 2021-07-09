@@ -351,39 +351,12 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
-  addService() {
+  addService(serviceName, price) {
     fullTimeServices.add(ServiceModel(
-        name: 'Hizmeti Giriniz',
-        price: 20,
+        name: serviceName,
+        price: price,
         selected: false,
-        employees: [
-          EmployeeModel(
-            image: 'assets/worker_3.png',
-            name: 'Nilsu Öz',
-            selected: false,
-            gender: "female",
-          ),
-          EmployeeModel(
-              image: 'assets/worker_1.png',
-              name: 'Fatih Özkan',
-              selected: false,
-              gender: "male"),
-          EmployeeModel(
-              image: 'assets/worker_2.jpg',
-              name: 'Bahadır İren',
-              selected: false,
-              gender: "male"),
-          EmployeeModel(
-              image: 'assets/worker_1.png',
-              name: 'Semih Gümüş',
-              selected: false,
-              gender: "male"),
-          EmployeeModel(
-              image: 'assets/worker_2.jpg',
-              name: 'Ahmed Akif Kaya',
-              selected: false,
-              gender: "male"),
-        ]));
+        employees: defaultService.employees));
     notifyListeners();
   }
 
@@ -396,6 +369,11 @@ class AppointmentData extends ChangeNotifier {
     fullTimeServices[serviceIndex]
         .employees
         .insert(0, employeesList[employeeIndex]);
+    notifyListeners();
+  }
+
+  deleteEmployeeDefault(int employeeIndex){
+    defaultService.employees.removeAt(employeeIndex);
     notifyListeners();
   }
 
