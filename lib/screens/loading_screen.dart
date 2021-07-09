@@ -9,7 +9,6 @@ import 'coiffure_detail_page/coiffure_detail_page.dart';
 class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<AppointmentData>(context, listen: false).getAllCoiffures();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorObservers: [

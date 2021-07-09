@@ -646,19 +646,18 @@ class AppointmentData extends ChangeNotifier {
       "İsim": "Silver Hair Studio Bekir Özdemir & Emre Barış Çakır"
     }, 0),
   ];
-  // DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
-  Future<List> getAllCoiffures() async {
-    //   //TODO - dataSnapShot is not used
-    //   DataSnapshot dataSnapshot = await databaseReference.once();
-    //   for (int i = 0; i <= 10; i++) {
-    //     databaseReference.child('$i').onValue.listen((event) {
-    //       coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
-    //       print('Data received successfully!');
-    //     });
-    //   }
-    return coiffureList;
-  }
+  // DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+  // Future<List> getAllCoiffures() async {
+  //   //   DataSnapshot dataSnapshot = await databaseReference.once();
+  //   //   for (int i = 0; i <= 10; i++) {
+  //   //     databaseReference.child('$i').onValue.listen((event) {
+  //   //       coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
+  //   //       print('Data received successfully!');
+  //   //     });
+  //   //   }
+  //   return coiffureList;
+  // }
 
   HttpUserFunctions httpUserFunctions = HttpUserFunctions();
   List userList = [];
