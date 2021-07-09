@@ -1,4 +1,5 @@
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/services/analytics_service.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,9 @@ class LoadingScreen extends StatelessWidget {
                   coiffureModel:
                       Provider.of<AppointmentData>(context, listen: false)
                           .coiffureList[0])));
+        } else if (settings.name == '/Isletmem') {
+          return Routers.router.generator(RouteSettings(
+              name: settings.name, arguments: BusinessInfoPage()));
         } else
           return Routers.router.generator(RouteSettings(name: '/Hosgeldiniz'));
       },

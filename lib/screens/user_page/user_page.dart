@@ -4,6 +4,7 @@ import 'package:ayarla/constants/router.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
@@ -137,7 +138,7 @@ class _UserPageState extends State<UserPage> {
                           },
                         ),
                         GenericButton(
-                          icon: Icons.settings_outlined,
+                          icon: FontAwesomeIcons.userEdit,
                           text: 'Profilimi Düzenle',
                           iconColor: Colors.blueGrey,
                           onPressed: () {

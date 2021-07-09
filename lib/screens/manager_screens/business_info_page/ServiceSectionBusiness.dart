@@ -166,24 +166,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Text('Hizmetler', style: kTitleStyle),
-          GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: GestureDetector(
-                  child: Icon(Icons.add_circle,
-                      color: Colors.green)),
-            ),
-            onTap: () {
-              // Provider.of<AppointmentData>(context, listen: false).addService();
-              setState(() {
-                editService = !editService;
-                //isChanged = true;
-              });
-            },
-          ),
-        ]),
+        Text('Hizmetler', style: kTitleStyle),
         if (editService)
           Row(
             children: [

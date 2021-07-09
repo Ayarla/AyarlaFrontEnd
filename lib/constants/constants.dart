@@ -96,7 +96,7 @@ List<String> week = [
   "Pazar"
 ];
 
-List<String> items = <String>[
+List<String> dividedHours = <String>[
   '00:00',
   '00:30',
   '01:30',
@@ -144,6 +144,22 @@ List<String> items = <String>[
   '22:30',
   '23:00',
   '23:30',
+];
+
+List<String> dividedMinutes = <String>[
+  '0',
+  '5',
+  '10',
+  '15',
+  '20',
+  '25',
+  '30',
+  '35',
+  '40',
+  '45',
+  '50',
+  '55',
+  '60'
 ];
 
 List<String> nameList = [

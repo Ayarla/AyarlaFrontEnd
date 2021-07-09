@@ -1,5 +1,8 @@
+import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/appBar.dart';
+import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:flutter/material.dart';
@@ -21,81 +24,68 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
   @override
   Widget build(BuildContext context) {
     MapController mapController = MapController();
-    Latlong.LatLng markerPoisiton = Provider.of<BusinessAndUserData>(context, listen: true)
-        .markerPosition;
+    Latlong.LatLng markerPoisiton =
+        Provider.of<BusinessAndUserData>(context, listen: true).markerPosition;
     Latlong.LatLng currentPosition =
         Provider.of<BusinessAndUserData>(context, listen: true).currentPosition;
 
     _onPositionChanged(mapPosition, b) {
-       // Provider.of<BusinessAndUserData>(context, listen: false).setMarkerPosition(LatLng(mapPosition.center.latitude, mapPosition.center.longitude));
+      // Provider.of<BusinessAndUserData>(context, listen: false).setMarkerPosition(LatLng(mapPosition.center.latitude, mapPosition.center.longitude));
     }
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        flexibleSpace: CircularParent(
-          radius: 20,
-          gradient: functions.decideColor(context),
-          direction: Directions.bottom,
-        ),
-        leading: IconButton(
-          padding: EdgeInsets.only(left: 10),
-          icon: BackButton(),
-          onPressed: () {
-            Provider.of<BusinessAndUserData>(context, listen: false).setDefault();
-            Routers.router.pop(context);
-
-          },
-        ),
+      appBar: DefaultAppBar(
+        gradient: functions.decideColor(context),
+        backButtonFunction: () {
+          Provider.of<BusinessAndUserData>(context, listen: false).setDefault();
+          Routers.router.pop(context);
+        },
         title: Center(
-            child: Text(
-          "ayarla",
-          style: kTitleStyle.copyWith(
-              color: Colors.white, letterSpacing: 3, fontSize: 25),
-        )),
-        actions: [
-          IconButton(
-            padding: EdgeInsets.only(right: 30, left: 10),
-            onPressed: () {},
-            icon: Icon(Icons.account_circle, color: Colors.white, size: 35),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation:
-      FloatingActionButtonLocation.centerFloat,
-      floatingActionButton:
-      Row(
+            child: Text('Haritadan Bir Konum Seç!',
+                style: kTitleStyle.copyWith(color: Colors.white))),
+      ).build(context),
+      extendBodyBehindAppBar: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Row(
         children: [
           FloatingTextButton(
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  // return object of type Dialog
+                  /// TODO - overflow
                   return AlertDialog(
-                    title: Text("Adresinizi giriniz"),
+                    backgroundColor: Color(0xFFE5EBEE),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                    ),
+                    title: Text("Adresinizi giriniz", style: kTitleStyle),
                     content: MapBoxPlaceSearchWidget(
+                      height: 120,
+                      // fontSize: 24,
+                      searchHint: 'Adresinizi Giriniz',
                       popOnSelect: false,
                       apiKey:
                           "pk.eyJ1Ijoibmlsc3VveiIsImEiOiJja25jOTV6cmExanZrMnhxbmNxdm9nMWZvIn0.FeH5rtpx5yIc3b-0To-XJg",
-                      searchHint: 'Your Hint here',
                       onSelected: (place) {
                         Provider.of<BusinessAndUserData>(context, listen: false)
                             .setPickedPlace(place);
-                        mapController.onReady.then((value) => {
-                          mapController.move(Latlong.LatLng(place.geometry.coordinates[1],place.geometry.coordinates[0]), 15)}).then((value) =>  Navigator.of(context).pop());
+                        mapController.onReady
+                            .then((value) => {
+                                  mapController.move(
+                                      Latlong.LatLng(
+                                          place.geometry.coordinates[1],
+                                          place.geometry.coordinates[0]),
+                                      15)
+                                })
+                            .then((value) => Navigator.of(context).pop());
                       },
                       context: context,
                     ),
                     actions: <Widget>[
                       // usually buttons at the bottom of the dialog
-                      TextButton(
-                        child: Text("Geri Dön"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
+                      AcceptButton(),
+                      CancelButton(),
                     ],
                   );
                 },
@@ -108,8 +98,10 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
           FloatingTextButton(
             gradient: Functions().decideColor(context),
             text: "Kaydet",
-            onPressed: (){
-              Provider.of<BusinessAndUserData>(context, listen: false).setCoiffurePosition(LatLng(markerPoisiton.latitude, markerPoisiton.longitude));
+            onPressed: () {
+              Provider.of<BusinessAndUserData>(context, listen: false)
+                  .setCoiffurePosition(LatLng(
+                      markerPoisiton.latitude, markerPoisiton.longitude));
               Navigator.of(context).pop();
             },
           ),
@@ -120,10 +112,9 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
         options: MapOptions(
           center: currentPosition,
           onTap: (mapPosition) {
-
             Provider.of<BusinessAndUserData>(context, listen: false)
                 .setMarkerPosition(
-                LatLng(mapPosition.latitude, mapPosition.longitude));
+                    LatLng(mapPosition.latitude, mapPosition.longitude));
           },
           zoom: 15.0,
         ),
@@ -139,16 +130,16 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
           ),
           MarkerLayerOptions(
             markers: [
-            Marker(
-            width: 50.0,
-            height: 50.0,
-            point: markerPoisiton,
-            builder: (ctx) => Container(
-                child: Icon(
+              Marker(
+                width: 50.0,
+                height: 50.0,
+                point: markerPoisiton,
+                builder: (ctx) => Container(
+                    child: Icon(
                   Icons.location_on_rounded,
                   color: Colors.red,
                 )),
-          )
+              )
             ],
           ),
         ],
