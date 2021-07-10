@@ -83,12 +83,14 @@ class AboutSectionBusiness extends StatelessWidget {
         SizedBox(height: 10),
 
         /// About text
+        /// TODO - fix
         AyarlaTextField(
           hintText: Text(
             'Kuaför hakkındaki bilgileri giriniz',
             style: kSmallTextStyle,
-            maxLines: null,
+            maxLines: 2,
           ),
+          keyboardType: TextInputType.multiline,
         ),
       ],
     );

@@ -2,7 +2,7 @@ import 'package:ayarla/components/map/BusinessFlutterMap.dart';
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
-import 'package:ayarla/screens/manager_screens/employee_page.dart';
+import 'package:ayarla/screens/user_page/employee_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 import 'package:ayarla/screens/user_page/appointments_page.dart';

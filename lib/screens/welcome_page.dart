@@ -166,9 +166,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                     backgroundImage: DecorationImage(
                       image: AssetImage('assets/new/cfr2.png'),
-                      repeat: ImageRepeat.repeatX,
-                      scale: 1.2,
-                      fit: BoxFit.cover,
+                      repeat: ImageRepeat.repeat,
                     ),
                   ),
                 ),

@@ -177,7 +177,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
           Padding(
             padding: EdgeInsets.all(5.0),
             child: Expandable(
-              elevation: 5,
+              elevation: 3,
               padding: EdgeInsets.all(5.0),
               primaryWidget: Container(
                 width: width - 90,
@@ -300,17 +300,16 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
             primaryWidget: Row(
               children: [
                 Container(
-                  width: 400,
+                  width: width <= 500 ? width - 250 : 250,
                   padding: EdgeInsets.all(8.0),
                   child: AyarlaTextField(
                     hintText: Text(
                       'Hizmet Adı Giriniz',
                       style: kTextStyle.copyWith(
                           fontWeight: FontWeight.normal,
-                          fontSize: width <= 400 ? width / 20 : 20),
+                          fontSize: width <= 500 ? width / 25 : 20),
                     ),
                     onChanged: (string) {
-                      print(string);
                       setState(() {
                         serviceName = string;
                       });
@@ -319,11 +318,14 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                 ),
                 Spacer(),
                 SizedBox(
+                  /// TODO
                   width: 90,
                   child: AyarlaTextField(
                     hintText: Text(
                       '10',
-                      style: responsiveTextStyle,
+                      style: kTextStyle.copyWith(
+                        fontWeight: FontWeight.normal,
+                        fontSize: width <= 500 ? width / 25 : 20),
                       textAlign: TextAlign.end,
                     ),
                     padding: EdgeInsets.only(top: 14, bottom: 14, right: 15),

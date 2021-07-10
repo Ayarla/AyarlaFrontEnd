@@ -1,6 +1,8 @@
+import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/new_icon.dart';
 import 'package:ayarla/constants/iconNames.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -178,70 +180,73 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
           child: Column(
             children: [
               SizedBox(height: 10),
-              Center(child: Text('Çalışanlar', style: kTitleStyle)),
+              Center(child: Text('Çalışanlarım', style: kTitleStyle)),
               Container(
                 height: size.height / 1.3,
                 child: OverScroll(
                   child: ListView(
                     padding: EdgeInsets.all(20),
                     children: [
-                      for (int i = 0; i < 3; i++)
-                        Padding(
-                            padding: EdgeInsets.all(4),
-                            child: Row(
-                              children: [
-                                NewIcon(iconName: femaleIconName, size: 30),
-                                SizedBox(width: 15),
-                                Text('Çalışan İsmi', style: kTextStyle),
-                                Spacer(),
-                                GestureDetector(
-                                    onTap: () => detailSheet(),
-                                    child: NewIcon(
-                                        iconName: settingsIconName, size: 30))
-                              ],
-                            )),
-                      SizedBox(height: 5),
-                      for (Padding x in employeeList) x,
-                      Padding(
-                        padding: EdgeInsets.all(4.0),
-                        child: Row(
-                          children: [
-                            NewIcon(iconName: addUserIconName, size: 30),
-                            SizedBox(width: 15),
-                            Text('Çalışan Ekle', style: kTextStyle),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(
-                                Icons.add_circle_sharp,
-                                size: 35,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  employeeList.add(
-                                    Padding(
-                                        padding: EdgeInsets.all(4),
-                                        child: Row(children: [
-                                          NewIcon(
-                                              iconName: maleIconName, size: 30),
-                                          SizedBox(width: 15),
-                                          Text('Çalışan İsmi',
-                                              style: kTextStyle),
-                                          Spacer(),
-                                          GestureDetector(
-                                              onTap: () => detailSheet(),
-                                              child: NewIcon(
-                                                iconName: settingsIconName,
-                                                size: 30,
-                                              ))
-                                        ])),
-                                  );
-                                });
-                              },
+                      // badgeColor: Colors.white,
+                      // badgeContent: Icon(
+                      //   Icons.add_circle_sharp,
+                      //   color: Colors.green.shade800,
+                      //   size: 25,
+                      // ),
+                      // position:
+                      // BadgePosition.topEnd(top: -10, end: -20),
+                      Row(
+                        children: [
+                          //             onTap: () => detailSheet(),
+                          GenericIconButton(
+                            height: 100,
+                            width: 100,
+                            iconContext: NewIcon(iconName: addUserIconName, size: 60),
+                            text: 'Çalışan Ekle',
+                          ),
+                          GenericIconButton(
+                            height: 100,
+                            width: 100,
+                            iconContext: Badge(
+                              badgeColor: Colors.white,
+                              badgeContent:
+                                  NewIcon(iconName: settingsIconName, size: 25),
+                              position:
+                                  BadgePosition.topEnd(top: -10, end: -20),
+                              child:
+                                  NewIcon(iconName: femaleIconName, size: 60),
                             ),
-                          ],
-                        ),
+                            text: 'Nilsu',
+                          ),
+                          GenericIconButton(
+                            height: 100,
+                            width: 100,
+                            iconContext: Badge(
+                              badgeColor: Colors.white,
+                              badgeContent:
+                                  NewIcon(iconName: settingsIconName, size: 25),
+                              position:
+                                  BadgePosition.topEnd(top: -10, end: -20),
+                              child: NewIcon(iconName: maleIconName, size: 60),
+                            ),
+                            text: 'Fatih',
+                          ),
+                          GenericIconButton(
+                            height: 100,
+                            width: 100,
+                            iconContext: Badge(
+                              badgeColor: Colors.white,
+                              badgeContent:
+                                  NewIcon(iconName: settingsIconName, size: 25),
+                              position:
+                                  BadgePosition.topEnd(top: -10, end: -20),
+                              child: NewIcon(iconName: maleIconName, size: 60),
+                            ),
+                            text: 'Bahadır',
+                          ),
+                        ],
                       ),
+                      SizedBox(height: 5),
                     ],
                   ),
                 ),
@@ -253,3 +258,23 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
     );
   }
 }
+
+// employeeList.add(
+// Padding(
+// padding: EdgeInsets.all(4),
+// child: Row(children: [
+// NewIcon(
+// iconName: maleIconName, size: 30),
+// SizedBox(width: 15),
+// Text('Çalışan İsmi',
+// style: kTextStyle),
+// Spacer(),
+// GestureDetector(
+// onTap: () => detailSheet(),
+// child: NewIcon(
+// iconName: settingsIconName,
+// size: 30,
+// ))
+// ])),
+// );
+//
