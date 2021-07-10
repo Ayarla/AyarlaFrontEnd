@@ -1,4 +1,6 @@
+import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_employee.dart';
@@ -16,6 +18,7 @@ import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'dart:math' as math;
+
 class BusinessInfoPage extends StatefulWidget {
   static const id = 'BusinessInfoScreen';
   @override
@@ -81,13 +84,8 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    Divider(
-                      color: Colors.grey,
-                      height: 4.0,
-                    ),
+                    SizedBox(height: 5.0),
+                    Divider(color: Colors.grey, height: 4.0),
                     Padding(
                         padding: EdgeInsets.only(left: 30.0, right: 30.0),
                         child: Column(
@@ -173,7 +171,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -256,118 +254,96 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
             child: ListView(
               controller: _photoController,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(
-                      bottom: 16.0, left: 10.0, right: 10.0, top: 16.0),
-                  child: Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: <Widget>[
-                      ///Fotoğraf Ekleme/Çıkartma
-                      /// TODO - File drag area.
-                      ImageSectionBusiness(),
+                /// Fotoğraf Ekleme/Çıkartma
+                /// TODO - File drag area for web.
+                SizedBox(height: 10),
+                ImageSectionBusiness(),
+                SizedBox(height: 10),
 
-                      ///Hakkında
-                      AboutSectionBusiness(),
+                ///Hakkında
+                AboutSectionBusiness(),
+                SizedBox(height: 10),
 
-                      ///Hizmetler
-                      ServiceSectionBusiness(),
+                ///Hizmetler
+                ServiceSectionBusiness(),
 
-                      ///İletişim
-                      OverScroll(
-                        child: ListView(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.all(10),
-                          children: [
-                            Text('Adres', style: kTextStyle),
-                            SizedBox(height: 10),
+                ///İletişim
+                Text('Adres', style: kTextStyle),
 
-                            ///MAP
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 60.0),
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  Routers.router.navigateTo(context, "/Harita");
-                                },
-                                style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.all(0)),
-                                  overlayColor:
-                                      MaterialStateProperty.all(Colors.grey[200]),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text("Haritadan Bulunuz",
-                                      style: kTextStyle),
-                                ),
-                              ),
-                            ),
-                            Text('veya', style: kSmallTextStyle),
-                            SizedBox(height: 10),
-
-                            /// TODO
-                            Container(
-                              width: size.width * 0.83,
-                              child: TextFormField(
-                                  controller: TextEditingController(
-                                      text: Provider.of<BusinessAndUserData>(
-                                              context,
-                                              listen: true)
-                                          .pickedResult
-                                          .formattedAddress),
-                                  keyboardType: TextInputType.multiline,
-                                  autofocus: false,
-                                  maxLines: null,
-                                  decoration: InputDecoration(
-                                    hintText: 'Adres giriniz',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                  )),
-                            ),
-                            SizedBox(height: 20),
-
-                            /// Telephone
-                            Text('Telefon', style: kTextStyle),
-                            SizedBox(height: 10),
-                            Container(
-                              width: size.width * 0.35,
-                              child: TextFormField(
-                                  controller: TextEditingController(
-                                      text: Provider.of<BusinessAndUserData>(
-                                              context,
-                                              listen: true)
-                                          .pickedResult
-                                          .formattedPhoneNumber),
-                                  maxLength: 13,
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp(r'[0-9]')),
-                                  ],
-                                  autofocus: false,
-                                  maxLines: null,
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(0),
-                                    counter: Offstage(),
-                                    hintText: '555-5555555',
-                                    hintStyle: kSmallTextStyle,
-                                    border: OutlineInputBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(20.0),
-                                      borderSide: new BorderSide(),
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                ///MAP
+                GenericIconButton(
+                  iconContext: Icon(Icons.map_rounded),
+                  textStyle: kTextStyle,
+                  text: "Haritadan Bulunuz",
+                  height: 30,
+                  width: 100,
+                  axis: Axis.horizontal,
+                  onPressed: () =>
+                      Routers.router.navigateTo(context, "/Harita"),
                 ),
+                Center(child: Text('veya', style: kSmallTextStyle)),
+                SizedBox(height: 10),
+
+                /// TODO
+                AyarlaTextField(
+                  hintText: Text('Adres giriniz', maxLines: null),
+                ),
+                SizedBox(height: 10),
+                // Container(
+                //   width: size.width * 0.83,
+                //   child: TextFormField(
+                //       controller: TextEditingController(
+                //           text: Provider.of<BusinessAndUserData>(context,
+                //                   listen: true)
+                //               .pickedResult
+                //               .formattedAddress),
+                //       keyboardType: TextInputType.multiline,
+                //       autofocus: false,
+                //       decoration: InputDecoration(
+                //         hintText: 'Adres giriniz',
+                //         border: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(20.0),
+                //         ),
+                //       )),
+                // ),
+                SizedBox(height: 20),
+
+                /// Telephone
+                Text('Telefon', style: kTextStyle),
+                SizedBox(height: 10),
+
+                /// TODO
+                AyarlaTextField(
+                  hintText: Text('Telefon Giriniz - 555-555 555 55 55'),
+                ),
+                SizedBox(height: 10),
+                // Container(
+                //   width: size.width * 0.35,
+                //   child: TextFormField(
+                //       controller: TextEditingController(
+                //           text: Provider.of<BusinessAndUserData>(context,
+                //                   listen: true)
+                //               .pickedResult
+                //               .formattedPhoneNumber),
+                //       maxLength: 13,
+                //       textAlign: TextAlign.center,
+                //       keyboardType: TextInputType.number,
+                //       inputFormatters: <TextInputFormatter>[
+                //         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                //       ],
+                //       autofocus: false,
+                //       maxLines: null,
+                //       decoration: InputDecoration(
+                //         contentPadding: EdgeInsets.all(0),
+                //         counter: Offstage(),
+                //         hintText: '555-5555555',
+                //         hintStyle: kSmallTextStyle,
+                //         border: OutlineInputBorder(
+                //           borderRadius: new BorderRadius.circular(20.0),
+                //           borderSide: new BorderSide(),
+                //         ),
+                //       )),
+                // ),
               ],
             ),
           ),
@@ -379,6 +355,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                   setState(() {
                     // isSaved = true;
                     isChanged = false;
+
                   });
                 },
                 // isGradient: true,

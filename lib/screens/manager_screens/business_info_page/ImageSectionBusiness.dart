@@ -21,7 +21,7 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
   Widget build(BuildContext context) {
     final List<ImageListItem> _pages =
         Provider.of<BusinessAndUserData>(context, listen: true).pages;
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Column(
       children: [
@@ -30,15 +30,8 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black54,
-                      blurRadius: 5.0,
-                      offset: Offset(0.0, 0.0),
-                    ),
-                  ],
-                  color: Color(0xFFE5EBEE),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: Colors.grey.shade200,
                 ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8.0)),
@@ -47,7 +40,10 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
                           height: size.height * 0.35,
                           width: size.width,
                           child: IconButton(
-                            icon: Icon(Icons.add_a_photo),
+                            icon: Icon(
+                              Icons.add_a_photo,
+                              color: Colors.green.shade700,
+                            ),
                             onPressed: () {
                               functions.showPicker(context);
                               setState(() {

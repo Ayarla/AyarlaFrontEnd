@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/model_service.dart';
+import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -114,10 +114,9 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               ),
             ),
             Center(
-              child: AyarlaExpandable.extended(
-                showArrowIcon: false,
+              /// TODO : fix
+              child: Expandable.extended(
                 initiallyExpanded: isConfirmed ? false : true,
-                arrowColor: Colors.black,
                 padding: EdgeInsets.all(10),
                 elevation: 5,
                 additionalWidget: Text(
