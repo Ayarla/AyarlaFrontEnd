@@ -30,6 +30,7 @@ class AyarlaTextField extends StatelessWidget {
       cursorColor: Colors.green,
       style: hintText.style ?? kSmallTextStyle,
       textAlign: hintText.textAlign ?? TextAlign.start,
+      onChanged: onChanged,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.green, width: 2.0),

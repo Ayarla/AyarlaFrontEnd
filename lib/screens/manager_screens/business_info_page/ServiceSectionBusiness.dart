@@ -19,12 +19,23 @@ class ServiceSectionBusiness extends StatefulWidget {
 class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
   bool editService = false;
   Functions functions = Functions();
-  int price;
-  String serviceName;
+  int price = 0;
+  String serviceName = '';
+  List localServiceList = [];
+
+  @override
+  void initState() {
+    localServiceList =
+        Provider.of<AppointmentData>(context, listen: false).fullTimeServices;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    TextStyle responsiveTextStyle = kTextStyle.copyWith(
+        fontWeight: FontWeight.normal,
+        fontSize: width <= 400 ? width / 20 : 20);
     openAlertBox(int serviceIndex) {
       List boolList = [];
       for (int i = 0;
@@ -73,13 +84,8 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                        height: 4.0,
-                      ),
+                      SizedBox(height: 5.0),
+                      Divider(color: Colors.grey, height: 4.0),
                       Padding(
                           padding: EdgeInsets.only(left: 30.0, right: 30.0),
                           child: Column(
@@ -167,9 +173,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Hizmetler', style: kTitleStyle),
-        for (ServiceModel serviceModel
-            in Provider.of<AppointmentData>(context, listen: true)
-                .fullTimeServices)
+        for (ServiceModel serviceModel in localServiceList)
           Padding(
             padding: EdgeInsets.all(5.0),
             child: Expandable(
@@ -183,14 +187,10 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                     SizedBox(width: 10),
                     Text(serviceModel.name,
                         overflow: TextOverflow.ellipsis,
-                        style: kTextStyle.copyWith(
-                            fontWeight: FontWeight.normal,
-                            fontSize: width <= 400 ? width / 20 : 20)),
+                        style: responsiveTextStyle),
                     Spacer(),
                     Text(serviceModel.price.toString(),
-                        style: kTextStyle.copyWith(
-                            fontWeight: FontWeight.normal,
-                            fontSize: width <= 400 ? width / 20 : 20)),
+                        style: responsiveTextStyle),
                     Text(" ₺",
                         style: TextStyle(
                             fontSize: width <= 400 ? width / 20 : 20)),
@@ -202,7 +202,11 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                         color: Colors.red.shade600,
                         size: width <= 400 ? width / 18.2 : 22,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          localServiceList.remove(serviceModel);
+                        });
+                      },
                     ),
                     SizedBox(width: 10),
                   ],
@@ -241,23 +245,32 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                               fontSize: width <= 400 ? width / 30 : 14),
                         ),
                       ),
-                      for (EmployeeModel y
-                          in Provider.of<AppointmentData>(context, listen: true)
-                              .fullTimeServices[
-                                  functions.findIndex(serviceModel, context)]
-                              .employees)
+                      for (EmployeeModel employeeModel in localServiceList[
+                              functions.findIndex(serviceModel, context)]
+                          .employees)
                         GenericIconButton(
                           width: width <= 400 ? width / 2.75 : 150,
-                          text: y.name,
+                          text: employeeModel.name,
                           iconContext: Badge(
                             position: BadgePosition(top: 0, start: 55),
-                            badgeContent: Icon(
-                              Icons.remove_rounded,
-                              color: Colors.white,
-                              size: 12,
+                            badgeContent: GestureDetector(
+                              child: Icon(
+                                Icons.remove_rounded,
+                                color: Colors.white,
+                                size: 12,
+                              ),
+                              onTap: () {
+                                /// TODO - does not work
+                                setState(() {
+                                  localServiceList[functions.findIndex(
+                                          serviceModel, context)]
+                                      .employees
+                                      .remove(employeeModel);
+                                });
+                              },
                             ),
                             child: Image(
-                              image: AssetImage(y.image),
+                              image: AssetImage(employeeModel.image),
                               fit: BoxFit.scaleDown,
                               height: width <= 400 ? width / 8 : 50,
                             ),
@@ -266,64 +279,6 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                               fontWeight: FontWeight.normal,
                               fontSize: width <= 400 ? width / 30 : 14),
                         ),
-                      // Stack(
-                      //   children: [
-                      //     Container(
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.symmetric(
-                      //             horizontal: 12.0, vertical: 4.0),
-                      //         child: Container(
-                      //           width: 90,
-                      //           child: Column(
-                      //             mainAxisAlignment: MainAxisAlignment.center,
-                      //             children: [
-                      //               Padding(
-                      //                 padding:
-                      //                     const EdgeInsets.only(bottom: 8.0),
-                      //                 child: ClipRRect(
-                      //                   borderRadius:
-                      //                       BorderRadius.circular(10),
-                      //                   child: Image(
-                      //                     // height:
-                      //                     // height / 20,
-                      //                     image: AssetImage(
-                      //                       y.image,
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               FittedBox(
-                      //                   child: Text(
-                      //                     y.name,
-                      //                     style: kSmallTextStyle.copyWith(
-                      //                       color: Colors.black,
-                      //                     ),
-                      //                   ),
-                      //                   fit: BoxFit.cover)
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     Positioned(
-                      //         top: -12,
-                      //         right: 5,
-                      //         child: IconButton(
-                      //           icon: Icon(Icons.remove_circle,
-                      //               color: Colors.red),
-                      //           onPressed: () {
-                      //             Provider.of<AppointmentData>(context,
-                      //                     listen: false)
-                      //                 .removeEmployeeFromService(
-                      //                     functions.findIndex(x, context),
-                      //                     functions.findIndexOfEmployee(
-                      //                         functions.findIndex(x, context),
-                      //                         y,
-                      //                         context));
-                      //           },
-                      //         ))
-                      //   ],
-                      // )
                     ],
                   ),
                 ),
@@ -335,6 +290,8 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
               ]),
             ),
           ),
+
+        /// Add new service
         Padding(
           padding: EdgeInsets.all(5.0),
           child: Expandable(
@@ -352,6 +309,12 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                           fontWeight: FontWeight.normal,
                           fontSize: width <= 400 ? width / 20 : 20),
                     ),
+                    onChanged: (string) {
+                      print(string);
+                      setState(() {
+                        serviceName = string;
+                      });
+                    },
                   ),
                 ),
                 Spacer(),
@@ -360,12 +323,15 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                   child: AyarlaTextField(
                     hintText: Text(
                       '10',
-                      style: kTextStyle.copyWith(
-                          fontWeight: FontWeight.normal,
-                          fontSize: width <= 400 ? width / 20 : 20),
+                      style: responsiveTextStyle,
                       textAlign: TextAlign.end,
                     ),
                     padding: EdgeInsets.only(top: 14, bottom: 14, right: 15),
+                    onChanged: (value) {
+                      setState(() {
+                        price = int.parse(value);
+                      });
+                    },
                   ),
 
                   /// TODO
@@ -384,7 +350,17 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                     color: Colors.green.shade700,
                     size: width <= 400 ? width / 18.2 : 22,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      localServiceList.add(
+                        ServiceModel(
+                          name: serviceName,
+                          price: price,
+                          employees: [],
+                        ),
+                      );
+                    });
+                  },
                 ),
                 SizedBox(width: 10),
               ],
