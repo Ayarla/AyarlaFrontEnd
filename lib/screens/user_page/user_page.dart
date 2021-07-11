@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/button_generic.dart';
 import 'package:ayarla/constants/router.dart';
@@ -28,19 +29,22 @@ class _UserPageState extends State<UserPage> {
     return Scaffold(
       appBar: DefaultAppBar(
         showIconButton: false,
-        color: Colors.orange[300],
+        color: Colors.transparent,
         title: Center(
           child: Text(
-            "ayarla",
+            " ",
             style: kTitleStyle.copyWith(color: Colors.white),
           ),
         ),
-        gradient: functions.decideColor(context),
+        childrenColor: Colors.orange,
       ).build(context),
       body: AyarlaPage(
         child: OverScroll(
-          child: ListView(
+          child: Column(
             children: [
+              SizedBox(height: 30),
+              UI.generalLogo,
+              SizedBox(height: 30),
               ///if the user is not logged in then it opens the authentication
               ///page for login or sign up
               if (!Provider.of<Login>(context, listen: true).isLoggedIn)

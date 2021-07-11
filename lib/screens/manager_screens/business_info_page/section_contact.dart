@@ -29,9 +29,7 @@ class ContactSection extends StatelessWidget {
         SizedBox(height: 10),
 
         /// TODO
-        AyarlaTextField(
-          hintText: Text('Adres giriniz', maxLines: null),
-        ),
+        AyarlaTextField(hintText: Text('Adres giriniz', maxLines: null)),
         SizedBox(height: 10),
         // Container(
         //   width: size.width * 0.83,
@@ -57,9 +55,7 @@ class ContactSection extends StatelessWidget {
         SizedBox(height: 10),
 
         /// TODO
-        AyarlaTextField(
-          hintText: Text('Telefon Giriniz - 555-555 555 55 55'),
-        ),
+        AyarlaTextField(hintText: Text('Telefon Giriniz - 555-555 555 55 55')),
         SizedBox(height: 10),
         // Container(
         //   width: size.width * 0.35,

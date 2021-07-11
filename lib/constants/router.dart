@@ -164,7 +164,7 @@ class Routers {
     "/Isletme/:name",
     "/Isletme/:name/Yorumlar",
     // "/SaatSayfasi",
-    "/OnaySayfasi",
+    // "/OnaySayfasi",
 
     /// USER PAGES
     "/KullaniciSayfasi",

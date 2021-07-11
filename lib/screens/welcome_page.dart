@@ -80,13 +80,14 @@ class WelcomePage extends StatelessWidget {
                                   name: 'female_button', parameters: null);
                             },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
                                   'Kadın',
                                   softWrap: true,
-                                  style:
-                                      kTextStyle.copyWith(color: Colors.white),
+                                  style: kTextStyle.copyWith(
+                                      color: Colors.white),
                                 ),
                                 Container(
                                   alignment: Alignment.center,
@@ -111,13 +112,14 @@ class WelcomePage extends StatelessWidget {
                                   name: 'male_button', parameters: null);
                             },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
                                   'Erkek',
                                   softWrap: true,
-                                  style:
-                                      kTextStyle.copyWith(color: Colors.white),
+                                  style: kTextStyle.copyWith(
+                                      color: Colors.white),
                                 ),
                                 Container(
                                   alignment: Alignment.center,
@@ -142,13 +144,14 @@ class WelcomePage extends StatelessWidget {
                                   name: 'unisex_button', parameters: null);
                             },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
                                   'Unisex',
                                   softWrap: true,
-                                  style:
-                                      kTextStyle.copyWith(color: Colors.white),
+                                  style: kTextStyle.copyWith(
+                                      color: Colors.white),
                                 ),
                                 Container(
                                   alignment: Alignment.center,
@@ -167,7 +170,8 @@ class WelcomePage extends StatelessWidget {
                     ),
                     backgroundImage: DecorationImage(
                       image: AssetImage('assets/new/cfr2.png'),
-                      repeat: ImageRepeat.repeat,
+                      repeat: ImageRepeat.repeatX,
+                      scale: 1.4,
                     ),
                   ),
                 ),
