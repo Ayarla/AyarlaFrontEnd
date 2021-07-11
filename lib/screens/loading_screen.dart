@@ -1,5 +1,4 @@
 import 'package:ayarla/constants/router.dart';
-import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/services/analytics_service.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +11,14 @@ class LoadingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      navigatorObservers: [
-        locator<AnalyticsService>().getAnalyticsObserver(),
-      ],
+      navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
+      initialRoute: "/Hosgeldiniz",
       onGenerateRoute: (settings) {
-        /// Has to be static !
-        if (settings.name ==
+        if (Routers.routeNames.contains(settings.name)) {
+          return Routers.router.generator(RouteSettings(name: settings.name));
+
+          /// Has to be static !
+        } else if (settings.name ==
             '/Isletme/Silver-Hair-Studio-Bekir-Ozdemir-&-Emre-Baris-Cakir') {
           return Routers.router.generator(RouteSettings(
               name: settings.name,
@@ -25,13 +26,9 @@ class LoadingScreen extends StatelessWidget {
                   coiffureModel:
                       Provider.of<AppointmentData>(context, listen: false)
                           .coiffureList[0])));
-        } else if (settings.name == '/Isletmem') {
-          return Routers.router.generator(RouteSettings(
-              name: settings.name, arguments: BusinessInfoPage()));
         } else
           return Routers.router.generator(RouteSettings(name: '/Hosgeldiniz'));
       },
-      initialRoute: "/Hosgeldiniz",
     );
   }
 }

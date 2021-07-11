@@ -71,6 +71,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/new/
+    - assets/store_badges/
 
   fonts:
     - family: Courier

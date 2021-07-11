@@ -3,8 +3,6 @@ import 'package:ayarla/constants/constants.dart';
 import '../user_page/user_page.dart';
 
 class EmployeeWorkPage extends StatefulWidget {
-  static const String id = 'EmployeeWorkPage';
-
   @override
   _EmployeeWorkPageState createState() => _EmployeeWorkPageState();
 }

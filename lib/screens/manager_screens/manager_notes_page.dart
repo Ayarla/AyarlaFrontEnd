@@ -33,10 +33,9 @@ class _ManagerNotesPageState extends State<ManagerNotesPage> {
           child: ListView(
             children: [
               Container(
-                height: 185,
+                height: 200,
                 width: double.infinity,
                 child: Expandable(
-                  backgroundColor: Colors.transparent,
                   padding: EdgeInsets.all(5.0),
                   primaryWidget: NotesCard(
                     title: 'Not ekle',
@@ -48,6 +47,7 @@ class _ManagerNotesPageState extends State<ManagerNotesPage> {
                     isGuide: true,
                   ),
                   secondaryWidget: Container(
+                    color: Colors.grey.shade200,
                     height: 100,
                     child: TextFormField(
                       style: kSmallTextStyle,
@@ -121,43 +121,24 @@ class NotesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
-      elevation: 10,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            !isGuide
-                ? Container(
-                    width: 23,
-                    child: Text(
-                      "${++index}",
-                      style: kTextStyle.copyWith(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey.shade500),
-                    ),
-                  )
-                : SizedBox(),
-            !isGuide ? SizedBox(width: 10) : SizedBox(),
-            Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text(
-                title,
-                style: kTextStyle.copyWith(fontWeight: FontWeight.normal),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Spacer(),
-            Icon(
-              icon,
-              size: 30,
-              color: Colors.grey.shade500,
-            ),
-          ],
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(12.0),
+          child: Text(
+            title,
+            style: kTextStyle.copyWith(fontWeight: FontWeight.normal),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-      ),
+        Spacer(),
+        Icon(
+          icon,
+          size: 30,
+          color: Colors.grey.shade500,
+        ),
+      ],
     );
   }
 }

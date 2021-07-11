@@ -126,7 +126,7 @@ class Routers {
 
   static void setupRouter() {
     /// General Pages
-    router.define("/", handler: _loadingPage);
+    // router.define("/", handler: _loadingPage);
     router.define("/Hosgeldiniz", handler: _welcomePage);
     router.define("/AramaSayfasi", handler: _searchPage);
     router.define("/Isletme/:name", handler: _detailPage);
@@ -156,4 +156,36 @@ class Routers {
     // router.define("/KayitSayfasi", handler: _regPage);
     router.define("/Ayarlarim", handler: _employeeSettingsPage);
   }
+
+  static List<String> routeNames = [
+    /// APP PAGES
+    "/Hosgeldiniz",
+    "/AramaSayfasi",
+    "/Isletme/:name",
+    "/Isletme/:name/Yorumlar",
+    // "/SaatSayfasi",
+    "/OnaySayfasi",
+
+    /// USER PAGES
+    "/KullaniciSayfasi",
+    "/Favorilerim",
+    "/Randevularım",
+    "/Mesajlarım",
+    "/GecmisRandevularım",
+    "/Profilimi Düzenle",
+
+    /// MANAGER PAGES
+    "/YoneticiAnasayfasi",
+    "/Isletmem",
+    "/Calisanlarim",
+    "/Notlarim",
+    "/MesajYolla",
+    "/Harita",
+
+    /// TEST PAGES
+    "/WebServisleri",
+    "/KayitPopUp",
+    "/KayitSayfasi",
+    "/Ayarlarim",
+  ];
 }

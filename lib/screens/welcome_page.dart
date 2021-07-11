@@ -9,6 +9,7 @@ import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class WelcomePage extends StatelessWidget {

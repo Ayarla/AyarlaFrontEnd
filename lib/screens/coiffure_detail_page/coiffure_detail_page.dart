@@ -2,7 +2,6 @@ import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
-import 'package:ayarla/components/map/maps_sheet.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
@@ -16,7 +15,6 @@ import 'package:ayarla/screens/coiffure_detail_page/ServicesSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/screens/comments_page.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -28,7 +26,6 @@ import 'package:ayarla/virtual_data_base/appointment_data.dart';
 class CoiffureDetailPage extends StatefulWidget {
   final CoiffureModel coiffureModel;
   CoiffureDetailPage({this.coiffureModel});
-
   @override
   _CoiffureDetailPageState createState() => _CoiffureDetailPageState();
 }
@@ -92,7 +89,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                         fontSize: width <= 400 ? width / 20 : 20),
                   ),
                   SizedBox(height: 10),
-                  EmployeeRow(width: width),
+                  EmployeeRow(),
                   Row(
                     children: [
                       Text('Yorumlar',

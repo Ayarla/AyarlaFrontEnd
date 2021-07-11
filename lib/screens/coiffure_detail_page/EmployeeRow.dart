@@ -8,9 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EmployeeRow extends StatelessWidget {
-  final double width;
-  EmployeeRow({@required this.width});
-
   @override
   Widget build(BuildContext context) {
     return OverScroll(
@@ -25,7 +22,7 @@ class EmployeeRow extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 children: [
-                  for (EmployeeModel x
+                  for (EmployeeModel employeeModel
                       in Provider.of<AppointmentData>(context, listen: false)
                           .employeesList)
                     Padding(
@@ -37,10 +34,10 @@ class EmployeeRow extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           child: Image(
                             height: 40,
-                            image: AssetImage(x.image),
+                            image: AssetImage(employeeModel.image),
                           ),
                         ),
-                        text: x.name,
+                        text: employeeModel.name,
                         textStyle:
                             kSmallTextStyle.copyWith(color: Colors.black),
                         spaceBetween: 15,
