@@ -25,10 +25,13 @@ dependencies:
   url_launcher: ^5.7.10
   rating_dialog: ^2.0.0
   carousel_slider: ^3.0.0
-  image: ^2.1.12
   modal_bottom_sheet: ^1.0.0+1
+  # image imports
+  image: ^2.1.12
   flutter_svg: ^0.19.3
   image_picker: ^0.6.6+5
+  file_picker: ^2.1.7
+  universal_io: ^1.0.2
   share: ^2.0.1
   mailer2: ^1.2.5
   badges: ^1.2.0
