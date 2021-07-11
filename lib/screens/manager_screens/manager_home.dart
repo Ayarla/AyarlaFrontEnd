@@ -72,16 +72,6 @@ class _ManagerHomeState extends State<ManagerHome> {
                   GenericIconButton(
                     iconContext: NewIcon(
                       size: size.width < 700 ? size.width / 6 : 700 / 6,
-                      iconName: calenderIconName,
-                    ),
-                    color: Colors.white.withOpacity(.4),
-                    text: 'Ayarlarım',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/Ayarlarim"),
-                  ),
-                  GenericIconButton(
-                    iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
                       iconName: notesIconName,
                     ),
                     color: Colors.white.withOpacity(.4),

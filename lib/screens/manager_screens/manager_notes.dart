@@ -26,7 +26,7 @@ class ManagerNotes extends StatelessWidget {
         // showIconButton: false,
       ).build(context),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         child: Container(
           height: size.height / 1.34,
           child: TextFormField(

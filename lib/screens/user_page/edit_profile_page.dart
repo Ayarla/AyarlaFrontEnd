@@ -28,7 +28,7 @@ class _EditProfileState extends State<EditProfilePage> {
   //
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: DefaultAppBar(
         showIconButton: false,

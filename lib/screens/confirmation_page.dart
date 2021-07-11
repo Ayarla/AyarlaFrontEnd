@@ -1,13 +1,14 @@
 import 'dart:ui';
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/components/core/expandable_ayarla.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/model_service.dart';
+import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/pop-up.dart';
@@ -114,10 +115,9 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               ),
             ),
             Center(
-              child: AyarlaExpandable.extended(
-                showArrowIcon: false,
+              /// TODO : fix
+              child: Expandable.extended(
                 initiallyExpanded: isConfirmed ? false : true,
-                arrowColor: Colors.black,
                 padding: EdgeInsets.all(10),
                 elevation: 5,
                 additionalWidget: Text(
@@ -250,6 +250,19 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               borderRadius: BorderRadius.circular(20.0),
               child: Container(height: 300, child: FlutterMapCoiffure()),
             ),
+            Divider(),
+            Row(
+              children: [
+                Image.asset(
+                  'assets/store_badges/google-play-badge.png',
+                  height: 65,
+                ),
+                SvgPicture.asset(
+                  'assets/store_badges/app_store_badge.svg',
+                  height: 45,
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -258,7 +271,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               text: 'Onayla',
               gradient: functions.decideColor(context),
               onPressed: () {
-                bool check = Provider.of<Login>(context, listen: false).isLoggedIn;
+                bool check =
+                    Provider.of<Login>(context, listen: false).isLoggedIn;
                 if (check == false) {
                   PopUp().mailFieldDialog(context: context);
                 } else if (check == true) {
@@ -267,10 +281,16 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   Provider.of<AppointmentData>(context, listen: false)
                       .confirmation();
                 }
-                for(AppointmentInfo x in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees){
-                  FirebaseAnalytics().logEvent(name: 'selectDate_button',
-                      parameters:{'service': x.service, 'employee':x.employee, 'date': x.dateTime, 'state': 'confirmed'}
-                  );
+                for (AppointmentInfo x
+                    in Provider.of<AppointmentData>(context, listen: false)
+                        .servicesAndEmployees) {
+                  FirebaseAnalytics()
+                      .logEvent(name: 'selectDate_button', parameters: {
+                    'service': x.service,
+                    'employee': x.employee,
+                    'date': x.dateTime,
+                    'state': 'confirmed'
+                  });
                 }
               },
             )
