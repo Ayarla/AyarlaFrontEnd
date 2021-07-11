@@ -54,7 +54,8 @@ class AyarlaTextField extends StatelessWidget {
   }
 }
 
-  /// TODO - ASAP
+/// TODO - ASAP
+/// Initial value
 class AyarlaTextFormField extends StatelessWidget {
   final String text;
   final TextInputType keyboardType;
@@ -62,6 +63,8 @@ class AyarlaTextFormField extends StatelessWidget {
   final FormFieldValidator formFieldValidator;
   final List<TextInputFormatter> inputFormatter;
   final Function onChanged;
+  final String initialValue;
+  final TextStyle hintStyle;
 
   AyarlaTextFormField({
     this.keyboardType,
@@ -70,21 +73,28 @@ class AyarlaTextFormField extends StatelessWidget {
     this.formFieldValidator,
     this.inputFormatter,
     this.onChanged,
+    this.initialValue,
+    this.hintStyle,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       validator: formFieldValidator,
       cursorColor: Colors.green,
-      controller: TextEditingController(text: text ?? ' '),
+      controller: TextEditingController(text: text ?? ''),
       onChanged: onChanged,
       keyboardType: keyboardType ?? TextInputType.multiline,
       inputFormatters: inputFormatter ?? null,
       autofocus: false,
       decoration: InputDecoration(
         hintText: hintText ?? 'Your Hint Text Here!',
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+        hintStyle: hintStyle ?? kSmallTextStyle,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          borderSide: BorderSide.none,
+        ),
         fillColor: Colors.grey.shade200,
         filled: true,
         isDense: true,

@@ -172,7 +172,7 @@ class Routers {
     "/Randevularım",
     "/Mesajlarım",
     "/GecmisRandevularım",
-    "/Profilimi Düzenle",
+    "/Profilimi%20Düzenle",
 
     /// MANAGER PAGES
     "/YoneticiAnasayfasi",

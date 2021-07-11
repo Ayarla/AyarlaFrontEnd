@@ -1,4 +1,5 @@
 import 'package:ayarla/components/ayarla_textfield.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -624,20 +625,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
               // ),
               /// manager login
               ///
-              // Center(
-              //   child: TextButton(
-              //     onPressed: () {
-              //       Routers.router.navigateTo(context, "YoneticiAnasayfasi");
-              //       Provider.of<Login>(context, listen: false)
-              //           .loggedInManager();
-              //     },
-              //     child: Text(
-              //       'Manager Girişi',
-              //       style:
-              //           kTextStyle.copyWith(color: Colors.black, fontSize: 25),
-              //     ),
-              //   ),
-              // ),
+
             ],
           ),
         ),

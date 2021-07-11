@@ -1,6 +1,7 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/virtual_data_base/genderSelection.dart';
+import 'package:ayarla/virtual_data_base/login.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,6 +37,20 @@ class WelcomePage extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: ListView(
               children: <Widget>[
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Routers.router.navigateTo(context, "YoneticiAnasayfasi");
+                      Provider.of<Login>(context, listen: false)
+                          .loggedInManager();
+                    },
+                    child: Text(
+                      'Manager Girişi',
+                      style:
+                      kTextStyle.copyWith(color: Colors.black, fontSize: 25),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 20),
                 UI.generalLogo,
                 SizedBox(height: 30),
