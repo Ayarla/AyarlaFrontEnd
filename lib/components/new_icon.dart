@@ -7,7 +7,7 @@ class NewIcon extends StatelessWidget {
   final String iconName;
   final double size;
 
-  /// Widget for building customized new icons.
+  /// Widget for building customized new icons. Provides web safety.
   ///
   /// • For [iconName], make necessary additions at constants/iconNames.dart
   ///

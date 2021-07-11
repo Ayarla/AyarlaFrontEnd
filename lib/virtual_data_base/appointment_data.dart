@@ -1,14 +1,15 @@
 import 'dart:math';
-import 'package:ayarla/models/userModel.dart';
+import 'package:ayarla/models/model_employee.dart';
+import 'package:ayarla/models/model_service.dart';
+import 'package:ayarla/models/model_user.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/webService/user_functions.dart';
 // import 'package:firebase/firebase.dart';
 // import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mailer2/mailer.dart';
-import 'package:ayarla/models/Appointment.dart';
-import 'package:ayarla/models/coiffeurModel.dart';
-import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/models/model_appointment.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 
 class Availability {
@@ -351,39 +352,12 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
-  addService() {
+  addService(serviceName, price) {
     fullTimeServices.add(ServiceModel(
-        name: 'Hizmeti Giriniz',
-        price: 20,
+        name: serviceName,
+        price: price,
         selected: false,
-        employees: [
-          EmployeeModel(
-            image: 'assets/worker_3.png',
-            name: 'Nilsu Öz',
-            selected: false,
-            gender: "female",
-          ),
-          EmployeeModel(
-              image: 'assets/worker_1.png',
-              name: 'Fatih Özkan',
-              selected: false,
-              gender: "male"),
-          EmployeeModel(
-              image: 'assets/worker_2.jpg',
-              name: 'Bahadır İren',
-              selected: false,
-              gender: "male"),
-          EmployeeModel(
-              image: 'assets/worker_1.png',
-              name: 'Semih Gümüş',
-              selected: false,
-              gender: "male"),
-          EmployeeModel(
-              image: 'assets/worker_2.jpg',
-              name: 'Ahmed Akif Kaya',
-              selected: false,
-              gender: "male"),
-        ]));
+        employees: defaultService.employees));
     notifyListeners();
   }
 
@@ -396,6 +370,11 @@ class AppointmentData extends ChangeNotifier {
     fullTimeServices[serviceIndex]
         .employees
         .insert(0, employeesList[employeeIndex]);
+    notifyListeners();
+  }
+
+  deleteEmployeeDefault(int employeeIndex){
+    defaultService.employees.removeAt(employeeIndex);
     notifyListeners();
   }
 
@@ -645,19 +624,18 @@ class AppointmentData extends ChangeNotifier {
       "İsim": "Silver Hair Studio Bekir Özdemir & Emre Barış Çakır"
     }, 0),
   ];
-  // DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
-  Future<List> getAllCoiffures() async {
-    //   //TODO - dataSnapShot is not used
-    //   DataSnapshot dataSnapshot = await databaseReference.once();
-    //   for (int i = 0; i <= 10; i++) {
-    //     databaseReference.child('$i').onValue.listen((event) {
-    //       coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
-    //       print('Data received successfully!');
-    //     });
-    //   }
-    return coiffureList;
-  }
+  // DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+  // Future<List> getAllCoiffures() async {
+  //   //   DataSnapshot dataSnapshot = await databaseReference.once();
+  //   //   for (int i = 0; i <= 10; i++) {
+  //   //     databaseReference.child('$i').onValue.listen((event) {
+  //   //       coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
+  //   //       print('Data received successfully!');
+  //   //     });
+  //   //   }
+  //   return coiffureList;
+  // }
 
   HttpUserFunctions httpUserFunctions = HttpUserFunctions();
   List userList = [];

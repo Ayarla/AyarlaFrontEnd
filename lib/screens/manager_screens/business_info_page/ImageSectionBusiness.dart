@@ -23,88 +23,99 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
         Provider.of<BusinessAndUserData>(context, listen: true).pages;
     final Size size = MediaQuery.of(context).size;
 
-
     return Column(
       children: [
         GestureDetector(
           child: Stack(
             children: [
               Container(
-                decoration: kCardShadow,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black54,
+                      blurRadius: 5.0,
+                      offset: Offset(0.0, 0.0),
+                    ),
+                  ],
+                  color: Color(0xFFE5EBEE),
+                ),
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                      Radius.circular(8.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                   child: _pages.length == 0
                       ? Container(
-                    height: size.height * 0.35,
-                    width: size.width,
-                    child: IconButton(
-                      icon: Icon(Icons.add_a_photo),
-                      onPressed: () {
-                        functions.showPicker(context);
-                        setState(() {
-                          //isChanged = true;
-                        });
-                      },
-                    ),
-                  )
+                          height: size.height * 0.35,
+                          width: size.width,
+                          child: IconButton(
+                            icon: Icon(Icons.add_a_photo),
+                            onPressed: () {
+                              functions.showPicker(context);
+                              setState(() {
+                                //isChanged = true;
+                              });
+                            },
+                          ),
+                        )
                       : CarouselSlider(
-                    items: _pages,
-                    options: CarouselOptions(
-                        viewportFraction: 1,
-                        autoPlayInterval: Duration(
-                            seconds: autoChangeSeconds),
-                        autoPlay: true,
-                        enableInfiniteScroll: false,
-                        aspectRatio: 1.6,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _currentPage = index;
-                          });
-                        }),
-                  ),
+                          items: _pages,
+                          options: CarouselOptions(
+                              viewportFraction: 1,
+                              autoPlayInterval:
+                                  Duration(seconds: autoChangeSeconds),
+                              autoPlay: true,
+                              enableInfiniteScroll: false,
+                              aspectRatio: 1.6,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _currentPage = index;
+                                });
+                              }),
+                        ),
                 ),
               ),
-              if(_pages.length!=0)
+              if (_pages.length != 0)
                 Positioned(
-                right: 0,
-                top: 0,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        child: Icon(
-                          Icons.add_circle,
-                          color: Colors.green,
-                          size: 40,
+                  right: 0,
+                  top: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          child: Icon(
+                            Icons.add_circle,
+                            color: Colors.green,
+                            size: 40,
+                          ),
+                          onTap: () {
+                            functions.showPicker(context);
+                            setState(() {
+                              //isChanged = true;
+                            });
+                          },
                         ),
-                        onTap: () {
-                          functions.showPicker(context);
-                          setState(() {
-                            //isChanged = true;
-                          });
-                        },
-                      ),
-                      GestureDetector(
-                        child: Icon(
-                          Icons.remove_circle,
-                          color: Colors.red,
-                          size: 40,
+                        GestureDetector(
+                          child: Icon(
+                            Icons.remove_circle,
+                            color: Colors.red,
+                            size: 40,
+                          ),
+                          onTap: () {
+                            if (_pages.length == 1) {
+                              Provider.of<BusinessAndUserData>(context,
+                                      listen: false)
+                                  .deleteImage(_pages[0]);
+                            } else {
+                              Provider.of<BusinessAndUserData>(context,
+                                      listen: false)
+                                  .deleteImage(_pages[_currentPage]);
+                            }
+                          },
                         ),
-                        onTap: () {
-                          if(_pages.length==1){
-                            Provider.of<BusinessAndUserData>(context,listen: false).deleteImage(_pages[0]);
-                          }else{
-                            Provider.of<BusinessAndUserData>(context,listen: false).deleteImage(_pages[_currentPage]);
-                          }
-
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
 
@@ -129,8 +140,7 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
             return Container(
               width: 8.0,
               height: 20.0,
-              margin:
-              EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 0.0),
+              margin: EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 0.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: _currentPage == index

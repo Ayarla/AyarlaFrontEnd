@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:ayarla/models/employeeAndService.dart';
+import 'package:ayarla/models/model_employee.dart';
+import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -77,14 +78,15 @@ class Functions {
     }
   }
 
+  /// Will be removed.
   createTitle(BuildContext context, String title) {
     final size = MediaQuery.of(context).size;
     Functions functions = Functions();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: size.width / 10),
       decoration: BoxDecoration(
-        gradient: functions.decideColor(context),
-        borderRadius: BorderRadius.all(Radius.circular(15))),
+          gradient: functions.decideColor(context),
+          borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Padding(
         padding: EdgeInsets.all(5.0),
         child: Center(
@@ -166,29 +168,35 @@ class Functions {
         });
   }
 
-  int findIndex(ServiceModel x,context) {
+  int findIndex(ServiceModel x, context) {
     return Provider.of<AppointmentData>(context, listen: false)
         .fullTimeServices
         .indexOf(x);
   }
 
-  int findIndexOfEmployee(int employeeIndex, EmployeeModel y,context) {
+  int findIndexOfEmployee(int employeeIndex, EmployeeModel y, context) {
     return Provider.of<AppointmentData>(context, listen: false)
         .fullTimeServices[employeeIndex]
         .employees
         .indexOf(y);
   }
 
-  int findIndexEmployee(EmployeeModel y,context) {
+  int findIndexEmployee(EmployeeModel y, context) {
     return Provider.of<AppointmentData>(context, listen: false)
         .employeesList
         .indexOf(y);
   }
-
-
 }
 
 /// Fixes the coiffure detail page URL for web.
-String fixURL (String url) {
-  return url.replaceAll(' ', '-');
+String createURL(String url) => url.replaceAll(' ', '-');
+
+// String reverseURL(String url) => url.replaceAll('-', ' ');
+
+String fixTurkishCharacters(String string) {
+  List charList = ['Ö', 'ö', 'ı', 'İ', 'ş', 'Ş', 'Ç', 'ç', 'Ü', 'ü', 'Ğ', 'ğ'];
+  List charList2 = ['O', 'o', 'i', 'I', 's', 'S', 'C', 'c', 'U', 'u', 'G', 'g'];
+  for (String letter in charList)
+    string = string.replaceAll(letter, charList2[charList.indexOf(letter)]);
+  return string;
 }

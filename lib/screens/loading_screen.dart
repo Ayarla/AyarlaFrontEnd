@@ -1,41 +1,37 @@
-import 'dart:async';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
+import 'package:ayarla/services/analytics_service.dart';
+import 'package:ayarla/services/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'coiffure_detail_page/coiffure_detail_page.dart';
 
-class LoadingScreen extends StatefulWidget {
-  @override
-  _LoadingScreenState createState() => _LoadingScreenState();
-}
-
-class _LoadingScreenState extends State<LoadingScreen> {
-  @override
-  void initState() {
-    Timer(
-      Duration(seconds: 1),
-      () => Routers.router.navigateTo(context, "/Hosgeldiniz"),
-    );
-    super.initState();
-  }
-
+class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<AppointmentData>(context, listen: false).getAllCoiffures();
-    return Container(
-      color: Color(0xFFeceff1),
-      child: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width / 1.3,
-          child: Hero(
-            tag: 'logo',
-            child: Image(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/genel_logo.png'),
-            ),
-          ),
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorObservers: [
+        locator<AnalyticsService>().getAnalyticsObserver(),
+      ],
+      onGenerateRoute: (settings) {
+        /// Has to be static !
+        if (settings.name ==
+            '/Isletme/Silver-Hair-Studio-Bekir-Ozdemir-&-Emre-Baris-Cakir') {
+          return Routers.router.generator(RouteSettings(
+              name: settings.name,
+              arguments: CoiffureDetailPage(
+                  coiffureModel:
+                      Provider.of<AppointmentData>(context, listen: false)
+                          .coiffureList[0])));
+        } else if (settings.name == '/Isletmem') {
+          return Routers.router.generator(RouteSettings(
+              name: settings.name, arguments: BusinessInfoPage()));
+        } else
+          return Routers.router.generator(RouteSettings(name: '/Hosgeldiniz'));
+      },
+      initialRoute: "/Hosgeldiniz",
     );
   }
 }

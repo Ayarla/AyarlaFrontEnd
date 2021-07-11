@@ -1,5 +1,7 @@
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/AboutSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/ImageSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/ServiceSectionBusiness.dart';
@@ -10,11 +12,10 @@ import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/employeeAndService.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
-
+import 'dart:math' as math;
 class BusinessInfoPage extends StatefulWidget {
   static const id = 'BusinessInfoScreen';
   @override
@@ -22,43 +23,13 @@ class BusinessInfoPage extends StatefulWidget {
 }
 
 class _BusinessInfoPageState extends State<BusinessInfoPage> {
-  bool pressed = false;
-  String firstHalf;
-  String secondHalf;
-  bool flag = true;
-  bool leftArrow = false;
-  String text;
-
-  final ScrollController _scrollControllerEmployee = ScrollController();
-
   final ScrollController _photoController = ScrollController();
+
   Functions functions = Functions();
   String selectedStart = '00:00';
   String selectedEnd = '00:00';
-  @override
-  initState() {
-    super.initState();
-
-    /// checking whether the arrow of the employee row of employee section
-    /// reaches the max scroll extent.
-    _scrollControllerEmployee.addListener(() {
-      if (_scrollControllerEmployee.position.pixels ==
-          _scrollControllerEmployee.position.maxScrollExtent) {
-        setState(() {
-          leftArrow = true;
-        });
-      } else if (_scrollControllerEmployee.position.pixels ==
-          _scrollControllerEmployee.position.minScrollExtent) {
-        setState(() {
-          leftArrow = false;
-        });
-      }
-    });
-  }
-
   bool editService = false;
   bool editEmployee = false;
-
   bool isChanged = false;
 
   ///popup to add employee
@@ -203,24 +174,28 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
-    return Scaffold(
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
         extendBodyBehindAppBar: true,
-        floatingActionButton: isChanged
-            ? FloatingTextButton(
-                text: 'Kaydet',
-                onPressed: () {
-                  setState(() {
-                    // isSaved = true;
-                    isChanged = false;
-                  });
-                },
-                // isGradient: true,
-              )
-            : null,
         appBar: DefaultAppBar(
-                title: Text("Kuaför Adı",
-                    style: kTitleStyle.copyWith(color: Colors.white)),
+                title: Center(
+                  child: TextField(
+                    focusNode: FocusNode(),
+                    onEditingComplete: () {},
+                    style: kTitleStyle.copyWith(color: Colors.white),
+                    textAlign: TextAlign.left,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Kuaför Adı",
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(right: 15.0),
+                        child: Icon(Icons.edit, color: Colors.white),
+                      ),
+                      hintStyle: kTitleStyle.copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
                 gradient: functions.decideColor(context),
                 backButtonFunction: !isChanged
                     ? null
@@ -276,7 +251,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                             });
                       })
             .build(context),
-        body: Container(
+        body: AyarlaPage(
           child: OverScroll(
             child: ListView(
               controller: _photoController,
@@ -289,6 +264,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                     runSpacing: 10,
                     children: <Widget>[
                       ///Fotoğraf Ekleme/Çıkartma
+                      /// TODO - File drag area.
                       ImageSectionBusiness(),
 
                       ///Hakkında
@@ -297,8 +273,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                       ///Hizmetler
                       ServiceSectionBusiness(),
 
-                      ///İletişim - TODO - Need design.
-                      /// Wrap maybe ?
+                      ///İletişim
                       OverScroll(
                         child: ListView(
                           shrinkWrap: true,
@@ -314,15 +289,13 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                   const EdgeInsets.symmetric(horizontal: 60.0),
                               child: OutlinedButton(
                                 onPressed: () {
-                                  // Navigator.pushNamed(
-                                  //     context, MapBox.id);
                                   Routers.router.navigateTo(context, "/Harita");
                                 },
                                 style: ButtonStyle(
                                   padding: MaterialStateProperty.all(
                                       EdgeInsets.all(0)),
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.grey[200]),
+                                  overlayColor:
+                                      MaterialStateProperty.all(Colors.grey[200]),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -331,21 +304,6 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                 ),
                               ),
                             ),
-                            //
-                            // TextButton(
-                            //   style: ButtonStyle(
-                            //     alignment: Alignment.topLeft,
-                            //     padding: MaterialStateProperty.all(
-                            //         EdgeInsets.all(0)),
-                            //     overlayColor:
-                            //         MaterialStateProperty.all(Colors.grey[200]),
-                            //   ),
-                            //   onPressed: () {
-                            //     Navigator.pushNamed(
-                            //         context, GoogleMapSample.id);
-                            //   },
-                            //   child: Text("Haritada Göster", style: kTextStyle),
-                            // ),
                             Text('veya', style: kSmallTextStyle),
                             SizedBox(height: 10),
 
@@ -372,10 +330,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                             SizedBox(height: 20),
 
                             /// Telephone
-                            Text(
-                              'Telefon',
-                              style: kTextStyle,
-                            ),
+                            Text('Telefon', style: kTextStyle),
                             SizedBox(height: 10),
                             Container(
                               width: size.width * 0.35,
@@ -416,6 +371,20 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
               ],
             ),
           ),
-        ));
+        ),
+        floatingActionButton: isChanged
+            ? FloatingTextButton(
+                text: 'Kaydet',
+                onPressed: () {
+                  setState(() {
+                    // isSaved = true;
+                    isChanged = false;
+                  });
+                },
+                // isGradient: true,
+              )
+            : null,
+      ),
+    );
   }
 }

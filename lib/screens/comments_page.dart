@@ -1,5 +1,6 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
-import 'package:ayarla/models/commentModel.dart';
+import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/models/model_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -454,6 +455,7 @@ class _CommentsPageState extends State<CommentsPage> {
         date: '21.10.2018',
         like: 5,
         dislike: 0,
+        expanded: true,
       ),
       CommentModel(
         name: 'Nixu',
@@ -468,6 +470,7 @@ class _CommentsPageState extends State<CommentsPage> {
         date: '21.10.2020',
         like: 9,
         dislike: 4,
+        expanded: true,
       ),
       CommentModel(
         name: 'Bahadır İren',
@@ -478,6 +481,8 @@ class _CommentsPageState extends State<CommentsPage> {
         date: '21.02.2021',
         like: 13,
         dislike: 1,
+        expanded: true,
+
       ),
       CommentModel(
         name: 'Fatih Özkan',
@@ -487,6 +492,8 @@ class _CommentsPageState extends State<CommentsPage> {
         date: '21.10.2018',
         like: 5,
         dislike: 0,
+        expanded: true,
+
       ),
       CommentModel(
         name: 'Nixu',
@@ -499,6 +506,8 @@ class _CommentsPageState extends State<CommentsPage> {
         date: '21.10.2020',
         like: 9,
         dislike: 4,
+        expanded: true,
+
       ),
       CommentModel(
         name: 'Bahadır İren',
@@ -514,6 +523,8 @@ class _CommentsPageState extends State<CommentsPage> {
         date: '21.02.2021',
         like: 13,
         dislike: 1,
+        expanded: true,
+
       ),
     ];
     Provider.of<AppointmentData>(context, listen: false).currentList2 =
@@ -561,17 +572,24 @@ class _CommentsPageState extends State<CommentsPage> {
           ),
         ],
       )).build(context),
-      body: ListView.separated(
-        physics: BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        itemCount: generatingList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-              children: [SizedBox(height: 10), generatingList[index]]);
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(thickness: 1, height: 0);
-        },
+      body: ListView(
+        children: [
+          AyarlaPage(
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              itemCount: generatingList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                    children: [SizedBox(height: 10), generatingList[index]]);
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(thickness: 1, height: 0);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

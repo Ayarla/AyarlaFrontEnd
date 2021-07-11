@@ -1,7 +1,9 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +13,7 @@ import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class SmallCoiffureCard extends StatefulWidget {
-  final coiffureModel;
+  final CoiffureModel coiffureModel;
   SmallCoiffureCard({this.coiffureModel});
 
   @override
@@ -31,16 +33,19 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
           context,
           "/Isletme/:name",
           routeSettings: RouteSettings(
-            name: "/Isletme/${fixURL(widget.coiffureModel.name.toString())}",
-            arguments: CoiffureDetailPage(
-                coiffureModel: widget.coiffureModel,
-                name: widget.coiffureModel.name),
+            name:
+                "/Isletme/${fixTurkishCharacters(createURL(widget.coiffureModel.name))}",
+            arguments: CoiffureDetailPage(coiffureModel: widget.coiffureModel),
           ),
         );
+        FirebaseAnalytics().logEvent(
+            name: 'coiffueur_cart',
+            parameters: {'name': widget.coiffureModel.name});
       },
       child: Padding(
-        padding: size.width < 375 ? EdgeInsets.only(left: 10, right: 10, bottom: 20):
-        EdgeInsets.only(left: 20, right: 20, bottom: 20),
+        padding: size.width < 375
+            ? EdgeInsets.only(left: 10, right: 10, bottom: 20)
+            : EdgeInsets.only(left: 20, right: 20, bottom: 20),
         child: Stack(
           children: [
             cardBody(context),
@@ -61,6 +66,23 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                         .myState = state;
                     Provider.of<AppointmentData>(context, listen: false)
                         .setOrChangeFav(widget.coiffureModel);
+                    if (Provider.of<AppointmentData>(context, listen: true)
+                        .favorites
+                        .contains(widget.coiffureModel)) {
+                      FirebaseAnalytics().logEvent(
+                          name: 'favorites_button',
+                          parameters: {
+                            'coiffeur': widget.coiffureModel.name,
+                            'state': 'added'
+                          });
+                    } else {
+                      FirebaseAnalytics().logEvent(
+                          name: 'favorites_button',
+                          parameters: {
+                            'coiffeur': widget.coiffureModel.name,
+                            'state': 'deleted'
+                          });
+                    }
                   },
                   child: Padding(
                     padding: EdgeInsets.all(7),
@@ -178,15 +200,13 @@ class CardInfo extends StatelessWidget {
                       SizedBox(width: 7),
                       Padding(
                         padding: EdgeInsets.only(top: 1.0),
-                        child: TextOverFlowHandler(
-                          child: Text(
-                            '${coiffureModel.city}, ${coiffureModel.district}',
-                            style: kSmallTextStyle.copyWith(
-                              color: Colors.grey.withOpacity(0.8),
-                              // fontSize: 12,
-                              fontSize: 13,
-                            ),
+                        child: Text(
+                          '${coiffureModel.city}, ${coiffureModel.district}',
+                          style: kSmallTextStyle.copyWith(
+                            color: Colors.grey.withOpacity(0.8),
+                            fontSize: 13,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Spacer(),

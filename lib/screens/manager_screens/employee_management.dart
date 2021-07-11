@@ -1,21 +1,20 @@
+import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/components/new_icon.dart';
+import 'package:ayarla/constants/iconNames.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ayarla/components/UI/linearGradientMask.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 
 class EmployeeManagement extends StatefulWidget {
-  static final String id = 'EmployeeManagement';
-
   @override
   _EmployeeManagementState createState() => _EmployeeManagementState();
 }
 
 class _EmployeeManagementState extends State<EmployeeManagement> {
-  List employeeList = [];
+  List<Padding> employeeList = [];
 
   detailSheet() {
     return showModalBottomSheet(
@@ -173,10 +172,9 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
           ),
         ),
       ).build(context),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-          elevation: 10,
+      body: AyarlaPage(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
           child: Column(
             children: [
               SizedBox(height: 10),
@@ -188,98 +186,61 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                     padding: EdgeInsets.all(20),
                     children: [
                       for (int i = 0; i < 3; i++)
-                        Row(
+                        Padding(
+                            padding: EdgeInsets.all(4),
+                            child: Row(
+                              children: [
+                                NewIcon(iconName: femaleIconName, size: 30),
+                                SizedBox(width: 15),
+                                Text('Çalışan İsmi', style: kTextStyle),
+                                Spacer(),
+                                GestureDetector(
+                                    onTap: () => detailSheet(),
+                                    child: NewIcon(
+                                        iconName: settingsIconName, size: 30))
+                              ],
+                            )),
+                      SizedBox(height: 5),
+                      for (Padding x in employeeList) x,
+                      Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Row(
                           children: [
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: UI.femaleUserIcon,
-                              ),
-                              elevation: 5,
-                              shape: CircleBorder(),
-                            ),
+                            NewIcon(iconName: addUserIconName, size: 30),
                             SizedBox(width: 15),
-                            // Icon(
-                            //   // Icons.account_circle_rounded,
-                            //
-                            //   // size: 50,
-                            // ),
-                            Text(
-                              'Çalışan İsmi',
-                              style: kTextStyle,
-                            ),
+                            Text('Çalışan Ekle', style: kTextStyle),
                             Spacer(),
                             IconButton(
-                              icon: UI.settingsIcon,
-                              padding: EdgeInsets.all(0),
-                              onPressed: () {
-                                detailSheet();
-                              },
-                            ),
-                          ],
-                        ),
-                      for (Row x in employeeList) x,
-                      Row(
-                        children: [
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: UI.addUserIcon,
-                            ),
-                            elevation: 5,
-                            shape: CircleBorder(),
-                          ),
-                          // Icon(
-                          //   Icons.account_circle_rounded,
-                          //   size: 50,
-                          // ),
-                          SizedBox(width: 15),
-                          Text(
-                            'Çalışan Ekle',
-                            style: kTextStyle,
-                          ),
-                          Spacer(),
-                          LinearGradientMask(
-                            child: IconButton(
                               icon: Icon(
                                 Icons.add_circle_sharp,
                                 size: 35,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               onPressed: () {
                                 setState(() {
                                   employeeList.add(
-                                    Row(
-                                      children: [
-                                        Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: UI.maleUserIcon,
-                                          ),
-                                          elevation: 5,
-                                          shape: CircleBorder(),
-                                        ),
-                                        SizedBox(width: 15),
-                                        Text(
-                                          'Çalışan İsmi',
-                                          style: kTextStyle,
-                                        ),
-                                        Spacer(),
-                                        IconButton(
-                                          icon: UI.settingsIcon,
-                                          padding: EdgeInsets.all(0),
-                                          onPressed: () {
-                                            detailSheet();
-                                          },
-                                        ),
-                                      ],
-                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.all(4),
+                                        child: Row(children: [
+                                          NewIcon(
+                                              iconName: maleIconName, size: 30),
+                                          SizedBox(width: 15),
+                                          Text('Çalışan İsmi',
+                                              style: kTextStyle),
+                                          Spacer(),
+                                          GestureDetector(
+                                              onTap: () => detailSheet(),
+                                              child: NewIcon(
+                                                iconName: settingsIconName,
+                                                size: 30,
+                                              ))
+                                        ])),
                                   );
                                 });
                               },
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

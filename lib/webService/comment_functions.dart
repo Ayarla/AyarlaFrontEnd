@@ -1,4 +1,4 @@
-import 'package:ayarla/models/commentModel.dart';
+import 'package:ayarla/models/model_comment.dart';
 import 'package:ayarla/webService/http_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

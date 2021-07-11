@@ -1,16 +1,13 @@
 import 'package:ayarla/components/map/BusinessFlutterMap.dart';
-
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
 import 'package:ayarla/screens/manager_screens/employee_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
-import 'package:ayarla/screens/registrationPage.dart';
 import 'package:ayarla/screens/user_page/appointments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/message_page.dart';
-import 'package:ayarla/screens/user_page/past_appointments_page.dart';
 import 'package:ayarla/webService/view_webFunctions.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +39,7 @@ class Routers {
   static Handler _detailPage =
       Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     final CoiffureDetailPage args = ModalRoute.of(context).settings.arguments;
-    return CoiffureDetailPage(
-        // coiffureModel: args?.coiffureModel,
-        coiffureModel: args.coiffureModel,
-        name: params['${args.coiffureModel.name.toString()}']);
+    return CoiffureDetailPage(coiffureModel: args.coiffureModel);
   });
 
   static Handler _commentsPage = Handler(
@@ -83,9 +77,9 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           UserMessagePage());
 
-  static Handler _pastAppointmentPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          PastAppointmentsPage());
+  // static Handler _pastAppointmentPage = Handler(
+  //     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+  //         PastAppointmentsPage());
 
   static Handler _employeeSettingsPage = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
@@ -126,9 +120,9 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ViewWebFunctions());
 
-  static Handler _regPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          RegistrationPage());
+  // static Handler _regPage = Handler(
+  //     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+  //         RegistrationPage());
 
   static void setupRouter() {
     /// General Pages
@@ -143,10 +137,10 @@ class Routers {
     /// User Pages
     router.define("/KullaniciSayfasi", handler: _userPage);
     router.define("/Favorilerim", handler: _favoritesPage);
-    router.define("/Randevularim", handler: _appointmentsPage);
-    router.define("/Mesajlarim", handler: _userMessagePage);
-    router.define("/GecmisRandevularim", handler: _pastAppointmentPage);
-    router.define("/ProfilimiDuzenle", handler: _editProfilePage);
+    router.define("/Randevularım", handler: _appointmentsPage);
+    router.define("/Mesajlarım", handler: _userMessagePage);
+    // router.define("/GecmisRandevularim", handler: _pastAppointmentPage);
+    router.define("/Profilimi Düzenle", handler: _editProfilePage);
 
     /// Manager Pages
     router.define("/YoneticiAnasayfasi", handler: _managerHome);
@@ -159,7 +153,7 @@ class Routers {
     /// Test
     router.define("/WebServisleri", handler: _webServicePage);
     router.define("/KayitPopUp", handler: _regPopUp);
-    router.define("/KayitSayfasi", handler: _regPage);
+    // router.define("/KayitSayfasi", handler: _regPage);
     router.define("/Ayarlarim", handler: _employeeSettingsPage);
   }
 }

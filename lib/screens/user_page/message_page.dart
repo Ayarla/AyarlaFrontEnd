@@ -1,3 +1,4 @@
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -18,55 +19,52 @@ class UserMessagePage extends StatelessWidget {
           style: kTitleStyle.copyWith(color: Colors.white),
         ),
       ).build(context),
-      body: Center(
-        child: Container(
-          width: size.width < 700 ? size.width : size.width / 1.5,
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              Column(
-                children: <Widget>[
-                  /// TODO listeden cagirabiliriz
-                  MessageCard(
-                    message: "30 TL indirim kuponu",
-                    backgroundColor: Colors.lightBlueAccent.shade400,
-                    sender: "Ayarla Ekibi",
-                    fromAyarla: true,
-                  ),
-                  MessageCard(
-                    message: "indirim kuponu",
-                    backgroundColor: Colors.deepOrangeAccent,
-                    sender: "Ahmet Kuafor",
-                    fromAyarla: false,
-                  ),
-                  MessageCard(
-                    message: "indirim kuponu",
-                    backgroundColor: Colors.lightBlueAccent.shade400,
-                    sender: "Ayarla Ekibi",
-                    fromAyarla: true,
-                  ),
-                  MessageCard(
-                    message: "30 TL indirim kuponu",
-                    backgroundColor: Colors.lightBlueAccent.shade400,
-                    sender: "Ayarla Ekibi",
-                    fromAyarla: true,
-                  ),
-                  MessageCard(
-                    message: "indirim kuponu",
-                    backgroundColor: Colors.deepOrangeAccent,
-                    sender: "Ahmet Kuafor",
-                    fromAyarla: false,
-                  ),
-                  MessageCard(
-                    message: "indirim kuponu",
-                    backgroundColor: Colors.lightBlueAccent.shade400,
-                    sender: "Ayarla Ekibi",
-                    fromAyarla: true,
-                  ),
-                ],
-              ),
-            ],
-          ),
+      body: AyarlaPage(
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            Column(
+              children: <Widget>[
+                /// TODO listeden cagirabiliriz
+                MessageCard(
+                  message: "30 TL indirim kuponu",
+                  backgroundColor: Colors.lightBlueAccent.shade400,
+                  sender: "Ayarla Ekibi",
+                  fromAyarla: true,
+                ),
+                MessageCard(
+                  message: "indirim kuponu",
+                  backgroundColor: Colors.deepOrangeAccent,
+                  sender: "Ahmet Kuafor",
+                  fromAyarla: false,
+                ),
+                MessageCard(
+                  message: "indirim kuponu",
+                  backgroundColor: Colors.lightBlueAccent.shade400,
+                  sender: "Ayarla Ekibi",
+                  fromAyarla: true,
+                ),
+                MessageCard(
+                  message: "30 TL indirim kuponu",
+                  backgroundColor: Colors.lightBlueAccent.shade400,
+                  sender: "Ayarla Ekibi",
+                  fromAyarla: true,
+                ),
+                MessageCard(
+                  message: "indirim kuponu",
+                  backgroundColor: Colors.deepOrangeAccent,
+                  sender: "Ahmet Kuafor",
+                  fromAyarla: false,
+                ),
+                MessageCard(
+                  message: "indirim kuponu",
+                  backgroundColor: Colors.lightBlueAccent.shade400,
+                  sender: "Ayarla Ekibi",
+                  fromAyarla: true,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

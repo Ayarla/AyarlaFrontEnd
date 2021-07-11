@@ -1,7 +1,8 @@
-import 'package:ayarla/models/commentModel.dart';
+import 'package:ayarla/models/model_comment.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+/// TODO - Make necessary implementations for relevant coiffure.
 class CommentsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

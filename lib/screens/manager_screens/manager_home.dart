@@ -1,3 +1,4 @@
+import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/new_icon.dart';
 import 'package:ayarla/constants/iconNames.dart';
 import 'package:ayarla/constants/router.dart';
@@ -20,7 +21,7 @@ class _ManagerHomeState extends State<ManagerHome> {
       extendBodyBehindAppBar: true,
       backgroundColor: Color(0xFFeceff1),
       appBar: DefaultAppBar(
-        title: UI.appBarTitleManager,
+        title: UI.AppBarTitleManager(),
         color: Color(0xFF90a4ae).withOpacity(0.4),
       ).build(context),
       body: Container(
@@ -30,8 +31,7 @@ class _ManagerHomeState extends State<ManagerHome> {
           scale: .8,
           fit: BoxFit.cover,
         )),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
+        child: AyarlaPage(
           child: ListView(
             shrinkWrap: true,
             children: [
@@ -41,153 +41,64 @@ class _ManagerHomeState extends State<ManagerHome> {
               Text("İşletme Yönetim Paneli",
                   textAlign: TextAlign.center, style: kTitleStyle),
               SizedBox(height: 15),
-              Wrap(
-                children: [
-                  size.width < 700
-                      ? GridView.count(
-                          physics: BouncingScrollPhysics(),
-                          padding: EdgeInsets.all(20),
-                          shrinkWrap: true,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          crossAxisCount: 2,
-                          children: <Widget>[
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 5,
-                                  iconName: homeIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'İşletmem',
-                                onPressed: () =>
-                                    Routers.router.navigateTo(context, "/Isletmem"),
-                              ),
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 5,
-                                  iconName: employeesIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'Çalışanlarım',
-                                onPressed: () => Routers.router
-                                    .navigateTo(context, "/Calisanlarim"),
-                              ),
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 5,
-                                  iconName: calenderIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'Ayarlarım',
-                                onPressed: () => Routers.router
-                                    .navigateTo(context, "/Ayarlarim"),
-                              ),
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 5,
-                                  iconName: notesIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'Notlarım',
-                                onPressed: () =>
-                                    Routers.router.navigateTo(context, "/Notlarim"),
-                              ),
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 5,
-                                  iconName: messageIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'Mesajlaşma',
-                                onPressed: () => Routers.router
-                                    .navigateTo(context, "/MesajYolla"),
-                              ),
-                              // GenericIconButton(
-                              //   iconContext: UI.messageIcon,
-                              //   color: Colors.white.withOpacity(.4),
-                              //   text: 'Mesajlaşma',
-                              //   // onPressed: ManagerSendMessage.id,
-                              // ),
-
-                              // GenericIconButton(
-                              //   iconContext: UI.NewIcon(
-                              //     size: size.width / 5,
-                              //     iconName: UI.notificationIcon,
-                              //   ),
-                              //   color: Colors.white.withOpacity(.4),
-                              //   text: 'Randevu Hatırlatma',
-                              //   // onPressed: ManagerSendMessage.id,
-                              // ),
-                            ])
-                      : GridView.count(
-                          physics: BouncingScrollPhysics(),
-                          padding: EdgeInsets.all(20),
-                          shrinkWrap: true,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          crossAxisCount: 4,
-                          children: <Widget>[
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 8,
-                                  iconName: homeIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'İşletmem',
-                                onPressed: () =>
-                                    Routers.router.navigateTo(context, "/Isletmem"),
-                              ),
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 8,
-                                  iconName: employeesIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'Çalışanlarım',
-                                onPressed: () => Routers.router
-                                    .navigateTo(context, "/Calisanlarim"),
-                              ),
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 8,
-                                  iconName: calenderIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'Ayarlarım',
-                                onPressed: () => Routers.router
-                                    .navigateTo(context, "/Ayarlarim"),
-                              ),
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 8,
-                                  iconName: notesIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'Notlarım',
-                                onPressed: () =>
-                                    Routers.router.navigateTo(context, "/Notlarim"),
-                              ),
-                              GenericIconButton(
-                                iconContext: NewIcon(
-                                  size: size.width / 8,
-                                  iconName: messageIconName,
-                                ),
-                                color: Colors.white.withOpacity(.4),
-                                text: 'Mesajlaşma',
-                                onPressed: () => Routers.router
-                                    .navigateTo(context, "/MesajYolla"),
-                              ),
-
-                              // GenericIconButton(
-                              //   iconContext: UI.NewIcon(
-                              //     size: size.width / 5,
-                              //     iconName: UI.notificationIcon,
-                              //   ),
-                              //   color: Colors.white.withOpacity(.4),
-                              //   text: 'Randevu Hatırlatma',
-                              //   // onPressed: ManagerSendMessage.id,
-                              // ),
-                            ]),
+              GridView.count(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.all(20),
+                shrinkWrap: true,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                children: <Widget>[
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: homeIconName,
+                    ),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'İşletmem',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/Isletmem"),
+                  ),
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: employeesIconName,
+                    ),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'Çalışanlarım',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/Calisanlarim"),
+                  ),
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: calenderIconName,
+                    ),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'Ayarlarım',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/Ayarlarim"),
+                  ),
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: notesIconName,
+                    ),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'Notlarım',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/Notlarim"),
+                  ),
+                  GenericIconButton(
+                    iconContext: NewIcon(
+                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      iconName: messageIconName,
+                    ),
+                    color: Colors.white.withOpacity(.4),
+                    text: 'Mesajlaşma',
+                    onPressed: () =>
+                        Routers.router.navigateTo(context, "/MesajYolla"),
+                  ),
                 ],
               ),
             ],

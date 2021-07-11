@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/models/model_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -25,7 +29,6 @@ class _EmployeePageState extends State<EmployeePage> {
         context: context,
         builder: (BuildContext context) {
           final size = MediaQuery.of(context).size;
-          // bool value;
           return StatefulBuilder(
             builder: (BuildContext bc, StateSetter setState2) {
               return CircularParent(
@@ -210,14 +213,14 @@ class _EmployeePageState extends State<EmployeePage> {
 
   @override
   void initState() {
-    week.forEach((element) {
+    for(String x in week) {
       weekBoolList.add(false);
-    });
+    }
     services =
         Provider.of<AppointmentData>(context, listen: false).fullTimeServices;
-    services.forEach((element) {
+    for(ServiceModel x in services) {
       serviceBoolList.add(false);
-    });
+    }
     super.initState();
   }
 
@@ -234,69 +237,12 @@ class _EmployeePageState extends State<EmployeePage> {
           style: kTitleStyle.copyWith(color: Colors.white),
         )),
       ).build(context),
-      body: Container(
-        width: size.width,
-        height: size.height,
+      body: AyarlaPage(
         child: OverScroll(
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 10),
             children: [
               SizedBox(height: 20),
-              Center(
-                child: Container(
-                  width: size.width,
-                  height: size.height / 4,
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Functions().showPicker(context);
-                              },
-                              child: CircleAvatar(
-                                radius: 55,
-                                backgroundColor: Colors.grey,
-                                child: Provider.of<BusinessAndUserData>(context,
-                                                listen: true)
-                                            .userImage !=
-                                        null
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.file(
-                                          Provider.of<BusinessAndUserData>(
-                                                  context,
-                                                  listen: true)
-                                              .userImage,
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )
-                                    : Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius:
-                                                BorderRadius.circular(50)),
-                                        width: 100,
-                                        height: 100,
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.grey[800],
-                                        ),
-                                      ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Text('Çalışan İsmi', style: kTitleStyle),
-                    ],
-                  ),
-                ),
-              ),
               _getRow(
                 size,
                 'Çalışma Günlerini Seçiniz',
@@ -315,39 +261,6 @@ class _EmployeePageState extends State<EmployeePage> {
                   });
                 },
               ),
-              // _getRow(
-              //   size,
-              //   'İzin günü belirleyiniz',
-              //   () {
-              //   //   setState(() {
-              //   //     detailSheet();
-              //   //   });
-              //   },
-              // ),
-              // Row(
-              //   children: [
-              //     Spacer(),
-              //     FlatButton(
-              //       onPressed: null,
-              //       child: ClipRRect(
-              //         borderRadius: BorderRadius.all(
-              //           Radius.circular(20),
-              //         ),
-              //         child: Container(
-              //           padding: EdgeInsets.symmetric(horizontal: 5),
-              //           color: Colors.white,
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(10.0),
-              //             child: Text(
-              //               'Kaydet',
-              //               style: kTextStyle,
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),

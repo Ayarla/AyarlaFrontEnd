@@ -1,7 +1,10 @@
-import 'package:ayarla/components/textOverFlowHandler.dart';
+import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/components/button_generic.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
@@ -18,365 +21,153 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   Functions functions = Functions();
-
   bool isLoggedIn = false;
-  double smallIconSize = 18.0;
-  double bigIconSize = 24.0;
-  double smallTextSize = 16.0;
-  double bigTextSize = 20.0;
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    bool smallScreenCondition = size.width < 400;
     return Scaffold(
-        appBar: DefaultAppBar(
-          showIconButton: false,
-          title: Center(
-            child: Text(
-              "ayarla",
-              style: kTitleStyle.copyWith(color: Colors.white),
-            ),
+      appBar: DefaultAppBar(
+        showIconButton: false,
+        color: Colors.orange[300],
+        title: Center(
+          child: Text(
+            "ayarla",
+            style: kTitleStyle.copyWith(color: Colors.white),
           ),
-          gradient: functions.decideColor(context),
-        ).build(context),
-        body: OverScroll(
-          child: Center(
-            child: Container(
-              width: size.width < 500 ? size.width - 20 : 500,
-              child: ListView(
-                children: [
-                  ///if the user is not logged in then it opens the authentication page for login or signup
-                  if (!Provider.of<Login>(context, listen: true).holder)
-                    Center(child: AuthenticationPage()),
+        ),
+        gradient: functions.decideColor(context),
+      ).build(context),
+      body: AyarlaPage(
+        child: OverScroll(
+          child: ListView(
+            children: [
+              ///if the user is not logged in then it opens the authentication
+              ///page for login or sign up
+              if (!Provider.of<Login>(context, listen: true).isLoggedIn)
+                Center(child: AuthenticationPage()),
 
-                  ///otherwise it opens the profile of the user
-                  if (Provider.of<Login>(context, listen: true).holder)
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 8.0),
-                        child: Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          runSpacing: 10.0,
-                          children: [
-                            ///users photo and name
-                            Center(
-                              child: Stack(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      functions.showPicker(context);
-                                    },
-                                    child: CircleAvatar(
-                                      radius: 55,
-                                      backgroundColor: Colors.grey,
-                                      child: Provider.of<BusinessAndUserData>(
-                                                      context,
-                                                      listen: true)
-                                                  .userImage !=
-                                              null
-                                          ? ClipRRect(
+              ///otherwise it opens the profile of the user
+              if (Provider.of<Login>(context, listen: true).isLoggedIn)
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      runSpacing: 10.0,
+                      children: [
+                        ///users photo and name
+                        Center(
+                          child: Stack(
+                            children: [
+                              GestureDetector(
+                                onTap: () => functions.showPicker(context),
+                                child: CircleAvatar(
+                                  radius: 55,
+                                  backgroundColor: Colors.grey,
+                                  child: Provider.of<BusinessAndUserData>(
+                                                  context,
+                                                  listen: true)
+                                              .userImage !=
+                                          null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child: Image.file(
+                                            Provider.of<BusinessAndUserData>(
+                                                    context,
+                                                    listen: true)
+                                                .userImage,
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200],
                                               borderRadius:
-                                                  BorderRadius.circular(50),
-                                              child: Image.file(
-                                                Provider.of<BusinessAndUserData>(
-                                                        context,
-                                                        listen: true)
-                                                    .userImage,
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            )
-                                          : Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.grey[200],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          50)),
-                                              width: 100,
-                                              height: 100,
-                                              child: Icon(
-                                                Icons.camera_alt,
-                                                color: Colors.grey[800],
-                                              ),
-                                            ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Center(
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: Text(
-                                  "Nilsu Öz",
-                                  style: kTextStyle.copyWith(
-                                      color: Colors.black, fontSize: 25),
+                                                  BorderRadius.circular(50)),
+                                          width: 100,
+                                          height: 100,
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Colors.grey[800],
+                                          ),
+                                        ),
                                 ),
                               ),
-                            ),
-                            Divider(color: Colors.black),
-
-                            GestureDetector(
-                              onTap: () {
-                                Routers.router
-                                    .navigateTo(context, "Favorilerim");
-                              },
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10.0, right: 20),
-                                    // child: UI.HeartIcon(),
-                                    child: Icon(
-                                      Icons.favorite_border_outlined,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Favorilerim",
-                                    style: kTextStyle.copyWith(
-                                        fontSize: smallScreenCondition
-                                            ? smallTextSize
-                                            : bigTextSize),
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10.0),
-                                    child: Icon(
-                                      Icons.keyboard_arrow_right,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Divider(color: Colors.black),
-                            GestureDetector(
-                              onTap: () {
-                                Routers.router
-                                    .navigateTo(context, '/Mesajlarim');
-                              },
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10.0, right: 20),
-                                    child: Icon(
-                                      Icons.chat_outlined,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                    // child: UI.messageIcon,
-                                  ),
-                                  Text(
-                                    "Mesajlarım",
-                                    style: kTextStyle.copyWith(
-                                        fontSize: smallScreenCondition
-                                            ? smallTextSize
-                                            : bigTextSize),
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10.0),
-                                    child: Icon(
-                                      Icons.keyboard_arrow_right,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Divider(color: Colors.black),
-                            GestureDetector(
-                              onTap: () {
-                                Routers.router
-                                    .navigateTo(context, '/Randevularim');
-                              },
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10.0, right: 20),
-                                    child: Icon(
-                                      Icons.date_range_outlined,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Randevularım",
-                                    style: kTextStyle.copyWith(
-                                        fontSize: smallScreenCondition
-                                            ? smallTextSize
-                                            : bigTextSize),
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10.0),
-                                    child: Icon(
-                                      Icons.keyboard_arrow_right,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Divider(color: Colors.black),
-                            GestureDetector(
-                              onTap: () {
-                                Routers.router
-                                    .navigateTo(context, '/GecmisRandevularim');
-                              },
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10.0, right: 20),
-                                    child: Icon(
-                                      Icons.update_outlined,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                  ),
-                                  TextOverFlowHandler(
-                                    child: Text(
-                                      "Geçmiş Randevularım",
-                                      style: kTextStyle.copyWith(
-                                          fontSize: smallScreenCondition
-                                              ? smallTextSize
-                                              : bigTextSize),
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10.0),
-                                    child: Icon(
-                                      Icons.keyboard_arrow_right,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Divider(color: Colors.black),
-                            GestureDetector(
-                              onTap: () {
-                                Routers.router
-                                    .navigateTo(context, '/ProfilimiDuzenle');
-                              },
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10.0, right: 20),
-                                    child: Icon(
-                                      Icons.edit_outlined,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                    // child: UI.settingsIcon,
-                                  ),
-                                  Text(
-                                    "Profilimi Düzenle",
-                                    style: kTextStyle.copyWith(
-                                        fontSize: smallScreenCondition
-                                            ? smallTextSize
-                                            : bigTextSize),
-                                  ),
-                                  Spacer(),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10.0),
-                                    child: Icon(
-                                      Icons.keyboard_arrow_right,
-                                      size: smallScreenCondition
-                                          ? smallIconSize
-                                          : bigIconSize,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Divider(color: Colors.black),
-                            Center(
-                              child: Container(
-                                height: 50,
-                                width: 150,
-                                margin: EdgeInsets.only(top: 10.0),
-                                decoration: BoxDecoration(
-                                    gradient: functions.decideColor(context),
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: TextButton(
-                                  onPressed: () {
-                                    ///TODO logout button
-                                  },
-                                  child: Text(
-                                    'Çıkış',
-                                    style: kTextStyle.copyWith(
-                                        color: Colors.white, fontSize: 25),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
-                  Center(
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          Provider.of<Login>(context, listen: false)
-                              .loggedInUser();
-                        });
+                        Center(
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: Text(
+                              "Nilsu Öz",
+                              style: kTextStyle.copyWith(
+                                  color: Colors.black, fontSize: 25),
+                            ),
+                          ),
+                        ),
 
-                        ///TODO check and push somewhere
-                      },
-                      child: Text(
-                        'User Girişi',
-                        style: kTextStyle.copyWith(
-                            color: Colors.black, fontSize: 25),
-                      ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 3,
+                          itemBuilder: (BuildContext bc, int index) {
+                            return GenericButton(
+                              icon: iconList[index],
+                              text: nameList[index],
+                              iconColor: Colors.orange[300],
+                              onPressed: () {
+                                Routers.router
+                                    .navigateTo(context, nameList[index]);
+                                FirebaseAnalytics().logEvent(
+                                    name: userFireBaseFunctions[index],
+                                    parameters: null);
+                              },
+                            );
+                          },
+                        ),
+                        GenericButton(
+                          icon: Icons.business_center_outlined,
+                          iconColor: Colors.green,
+                          text: 'Çalışan Ayarlarım',
+                          onPressed: () {
+                            Routers.router.navigateTo(context, "/Ayarlarim",
+                                clearStack: false, replace: false);
+                          },
+                        ),
+                        GenericButton(
+                          icon: FontAwesomeIcons.userEdit,
+                          text: 'Profilimi Düzenle',
+                          iconColor: Colors.blueGrey,
+                          onPressed: () {
+                            FirebaseAnalytics().logEvent(
+                                name: 'user_edit_profile', parameters: null);
+                            Routers.router
+                                .navigateTo(context, "/Profilimi Düzenle");
+                          },
+                        ),
+                        GenericButton(
+                          icon: Icons.logout,
+                          iconColor: Colors.red,
+                          text: 'Çıkış Yap',
+                          onPressed: () {
+                            Provider.of<Login>(context, listen: false)
+                                .loggedInUser();
+                            Routers.router.navigateTo(
+                                context, '/KullaniciSayfasi',
+                                clearStack: false, replace: true);
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  Center(
-                    child: TextButton(
-                      onPressed: () {
-                        // Navigator.pushNamed(context, ManagerHome.id);
-                        Routers.router
-                            .navigateTo(context, "YoneticiAnasayfasi");
-                        Provider.of<Login>(context, listen: false)
-                            .loggedInManager();
-
-                        ///TODO check and push somewhere
-                      },
-                      child: Text(
-                        'Manager Girişi',
-                        style: kTextStyle.copyWith(
-                            color: Colors.black, fontSize: 25),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

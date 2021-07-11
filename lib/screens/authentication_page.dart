@@ -1,7 +1,10 @@
+import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/virtual_data_base/login.dart';
 import 'package:flutter/material.dart';
-import 'package:ayarla/components/register.dart';
+import 'package:ayarla/screens/page_register.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
+import 'package:provider/provider.dart';
 
 class AuthenticationPage extends StatelessWidget {
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -109,6 +112,7 @@ class AuthenticationPage extends StatelessWidget {
                   width: 160,
                   decoration: BoxDecoration(
                       gradient: functions.decideColor(context),
+                      color: Colors.orange[300],
                       borderRadius: BorderRadius.circular(20)),
                   child: TextButton(
                     onPressed: () {
@@ -117,7 +121,7 @@ class AuthenticationPage extends StatelessWidget {
                       } else {
                         print("Not Validated");
                       }
-
+                      Provider.of<Login>(context, listen: false).loggedInUser();
                       ///TODO check and push somewhere
                     },
                     child: Text(
@@ -134,18 +138,45 @@ class AuthenticationPage extends StatelessWidget {
                   width: 160,
                   margin: EdgeInsets.only(top: 10.0),
                   decoration: BoxDecoration(
+                      color: Colors.orange[300],
                       gradient: functions.decideColor(context),
                       borderRadius: BorderRadius.circular(20)),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Register()));
+                          MaterialPageRoute(builder: (context) => RegisterPage()));
                     },
                     child: Text(
                       'Kayıt',
                       style: kTextStyle.copyWith(
                           color: Colors.white, fontSize: 25),
                     ),
+                  ),
+                ),
+              ),
+              // Center(
+              //   child: TextButton(
+              //     onPressed: () {
+              //       Provider.of<Login>(context, listen: false).loggedInUser();
+              //     },
+              //     child: Text(
+              //       'User Girişi',
+              //       style:
+              //           kTextStyle.copyWith(color: Colors.black, fontSize: 25),
+              //     ),
+              //   ),
+              // ),
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    Routers.router.navigateTo(context, "YoneticiAnasayfasi");
+                    Provider.of<Login>(context, listen: false)
+                        .loggedInManager();
+                  },
+                  child: Text(
+                    'Manager Girişi',
+                    style:
+                        kTextStyle.copyWith(color: Colors.black, fontSize: 25),
                   ),
                 ),
               ),

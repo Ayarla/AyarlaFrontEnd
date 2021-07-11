@@ -69,11 +69,7 @@ enum Directions {
   none,
 }
 
-enum Gender{
-  female,
-  male,
-  unisex
-}
+enum Gender { female, male, unisex }
 
 List<String> month = [
   "Ocak",
@@ -100,7 +96,7 @@ List<String> week = [
   "Pazar"
 ];
 
-List<String> items = <String>[
+List<String> dividedHours = <String>[
   '00:00',
   '00:30',
   '01:30',
@@ -149,3 +145,47 @@ List<String> items = <String>[
   '23:00',
   '23:30',
 ];
+
+List<String> dividedMinutes = <String>[
+  '0',
+  '5',
+  '10',
+  '15',
+  '20',
+  '25',
+  '30',
+  '35',
+  '40',
+  '45',
+  '50',
+  '55',
+  '60'
+];
+
+List<String> nameList = [
+  "Favorilerim",
+  "Randevularım",
+  "Mesajlarım",
+  "Profilimi Düzenle",
+];
+List<Color> colorList = [
+  Colors.red,
+  Colors.green,
+  Colors.yellow,
+];
+
+List<IconData> iconList = [
+  Icons.favorite_border_outlined,
+  Icons.date_range_outlined,
+  Icons.chat_outlined,
+  Icons.settings_outlined,
+];
+
+List<String> userFireBaseFunctions = [
+  'user_favorites',
+  'user_appointments',
+  'user_messages',
+  'user_edit_profile',
+];
+
+// 'user_past_appointments',
