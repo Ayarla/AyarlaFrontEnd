@@ -1,3 +1,4 @@
+import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
@@ -88,7 +89,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
                               hintText: Text(
-                                'Mail adresinizi giriniz.',
+                                'Mail adresinizi giriniz',
                                 style: kSmallTextStyle.copyWith(
                                     fontSize: isSmallScreen ? 10 : 14),
                               ),
@@ -101,7 +102,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
                               hintText: Text(
-                                'Şifrenizi giriniz.',
+                                'Şifrenizi giriniz',
                                 style: kSmallTextStyle.copyWith(
                                     fontSize: isSmallScreen ? 10 : 14),
                               ),
@@ -202,7 +203,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
                               hintText: Text(
-                                'İsminizi Giriniz.',
+                                'İsminizi Giriniz',
                                 style: kSmallTextStyle.copyWith(
                                     fontSize: isSmallScreen ? 10 : 14),
                               ),
@@ -215,7 +216,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
                               hintText: Text(
-                                'Soy İsminizi Giriniz.',
+                                'Soy İsminizi Giriniz',
                                 style: kSmallTextStyle.copyWith(
                                     fontSize: isSmallScreen ? 10 : 14),
                               ),
@@ -228,7 +229,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
                               hintText: Text(
-                                'Mail Adresinizi Giriniz.',
+                                'Mail Adresinizi Giriniz',
                                 style: kSmallTextStyle.copyWith(
                                     fontSize: isSmallScreen ? 10 : 14),
                               ),
@@ -241,7 +242,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
                               hintText: Text(
-                                'Şifrenizi Giriniz.',
+                                'Şifrenizi Giriniz',
                                 style: kSmallTextStyle.copyWith(
                                     fontSize: isSmallScreen ? 10 : 14),
                               ),
@@ -254,7 +255,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
                               hintText: Text(
-                                'Şifrenizi Tekrar Giriniz.',
+                                'Şifrenizi Tekrar Giriniz',
                                 style: kSmallTextStyle.copyWith(
                                     fontSize: isSmallScreen ? 10 : 14),
                               ),
@@ -266,6 +267,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                           Row(
                             children: [
                               Checkbox(
+                                activeColor: Colors.orange[500],
                                   value: Provider.of<BusinessAndUserData>(
                                           context,
                                           listen: false)
@@ -300,33 +302,38 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
                                               /// Privacy Policy ModalBottomSheet
-                                              showModalBottomSheet(
-                                                  enableDrag: false,
-                                                  isScrollControlled: true,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.vertical(
-                                                      top:
-                                                          Radius.circular(20.0),
-                                                    ),
-                                                  ),
-                                                  clipBehavior: Clip
-                                                      .antiAliasWithSaveLayer,
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    // return null;
-                                                    // privacyPolicyModalBottomSheet(
-                                                    //   context: context, setState: setState);
-                                                    return privacyPolicyModalBottomSheet(
-                                                        context: context,
-                                                        setState: setState);
-                                                  });
+                                              // showModalBottomSheet(
+                                              //     enableDrag: false,
+                                              //     isScrollControlled: true,
+                                              //     shape: RoundedRectangleBorder(
+                                              //       borderRadius:
+                                              //           BorderRadius.vertical(
+                                              //         top:
+                                              //             Radius.circular(20.0),
+                                              //       ),
+                                              //     ),
+                                              //     clipBehavior: Clip
+                                              //         .antiAliasWithSaveLayer,
+                                              //     context: context,
+                                              //     builder:
+                                              //         (BuildContext context) {
+                                              //       // return null;
+                                              //       // privacyPolicyModalBottomSheet(
+                                              //       //   context: context, setState: setState);
+                                              //       return privacyPolicyModalBottomSheet(
+                                              //           context: context,
+                                              //           setState: setState);
+                                              //     });
+                                              createSheet(
+                                                  context,
+                                                  privacyPolicyModalBottomSheet(
+                                                      context: context,
+                                                      setState: setState));
                                             },
                                           style: kSmallTextStyle.copyWith(
                                             fontSize: isSmallScreen ? 10 : 14,
                                             fontWeight: FontWeight.w500,
-                                            color: Colors.blue,
+                                            color: Colors.orange[500],
                                             fontStyle: FontStyle.italic,
                                             decoration:
                                                 TextDecoration.underline,
@@ -705,7 +712,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
               // ),
               /// manager login
               ///
-
             ],
           ),
         ),

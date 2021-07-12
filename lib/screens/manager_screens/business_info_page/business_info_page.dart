@@ -1,8 +1,5 @@
-import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/AboutSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/ImageSectionBusiness.dart';
@@ -10,15 +7,11 @@ import 'package:ayarla/screens/manager_screens/business_info_page/ServiceSection
 import 'package:ayarla/screens/manager_screens/business_info_page/section_contact.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
-import 'dart:math' as math;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
@@ -66,7 +59,6 @@ class IgnoreUnfocuser extends SingleChildRenderObjectWidget {
 class IgnoreUnfocuserRenderBox extends RenderPointerListener {}
 
 class BusinessInfoPage extends StatefulWidget {
-  static const id = 'BusinessInfoScreen';
   @override
   _BusinessInfoPageState createState() => _BusinessInfoPageState();
 }
@@ -299,6 +291,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
             AyarlaPage(
               child: ListView(
                 shrinkWrap: true,
+                controller: _photoController,
                 children: <Widget>[
                   /// Fotoğraf Ekleme/Çıkartma
                   /// TODO - File drag area for web.

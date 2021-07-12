@@ -97,6 +97,10 @@ class BottomSheetCard extends StatelessWidget {
 
 createSheet(BuildContext context, Widget content) {
   return showModalBottomSheet(
+    isScrollControlled: true,
+    enableDrag: false,
+    clipBehavior: Clip
+        .antiAliasWithSaveLayer,
     backgroundColor: Colors.transparent,
     context: context,
     builder: (BuildContext bc) {
@@ -110,6 +114,7 @@ createSheet(BuildContext context, Widget content) {
           ),
           child: Container(
             width: size.width <= 700 ? size.width : 700,
+            height: 600,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
