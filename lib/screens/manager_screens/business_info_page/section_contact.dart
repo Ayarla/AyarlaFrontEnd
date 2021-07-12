@@ -3,6 +3,7 @@ import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ContactSection extends StatelessWidget {
   @override
@@ -29,25 +30,11 @@ class ContactSection extends StatelessWidget {
         SizedBox(height: 10),
 
         /// TODO
-        AyarlaTextField(hintText: Text('Adres giriniz', maxLines: null)),
+        AyarlaTextFormField(
+          hintText: 'Adres giriniz',
+          keyboardType: TextInputType.multiline,
+        ),
         SizedBox(height: 10),
-        // Container(
-        //   width: size.width * 0.83,
-        //   child: TextFormField(
-        //       controller: TextEditingController(
-        //           text: Provider.of<BusinessAndUserData>(context,
-        //                   listen: true)
-        //               .pickedResult
-        //               .formattedAddress),
-        //       keyboardType: TextInputType.multiline,
-        //       autofocus: false,
-        //       decoration: InputDecoration(
-        //         hintText: 'Adres giriniz',
-        //         border: OutlineInputBorder(
-        //           borderRadius: BorderRadius.circular(20.0),
-        //         ),
-        //       )),
-        // ),
         SizedBox(height: 20),
 
         /// Telephone
@@ -55,35 +42,12 @@ class ContactSection extends StatelessWidget {
         SizedBox(height: 10),
 
         /// TODO
-        AyarlaTextField(hintText: Text('Telefon Giriniz - 555-555 555 55 55')),
+        AyarlaTextFormField(
+          hintText: 'Telefon Giriniz - 555-555 555 55 55',
+          keyboardType: TextInputType.number,
+          inputFormatter: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
+        ),
         SizedBox(height: 10),
-        // Container(
-        //   width: size.width * 0.35,
-        //   child: TextFormField(
-        //       controller: TextEditingController(
-        //           text: Provider.of<BusinessAndUserData>(context,
-        //                   listen: true)
-        //               .pickedResult
-        //               .formattedPhoneNumber),
-        //       maxLength: 13,
-        //       textAlign: TextAlign.center,
-        //       keyboardType: TextInputType.number,
-        //       inputFormatters: <TextInputFormatter>[
-        //         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-        //       ],
-        //       autofocus: false,
-        //       maxLines: null,
-        //       decoration: InputDecoration(
-        //         contentPadding: EdgeInsets.all(0),
-        //         counter: Offstage(),
-        //         hintText: '555-5555555',
-        //         hintStyle: kSmallTextStyle,
-        //         border: OutlineInputBorder(
-        //           borderRadius: new BorderRadius.circular(20.0),
-        //           borderSide: new BorderSide(),
-        //         ),
-        //       )),
-        // ),
       ],
     );
   }

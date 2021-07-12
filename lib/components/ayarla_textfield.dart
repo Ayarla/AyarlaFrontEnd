@@ -71,6 +71,8 @@ class AyarlaTextFormField extends StatelessWidget {
   final Color color;
   final EdgeInsets padding;
   final TextStyle style;
+  final bool obscureText;
+  final Key formKey;
 
   AyarlaTextFormField({
     this.keyboardType,
@@ -84,15 +86,18 @@ class AyarlaTextFormField extends StatelessWidget {
     this.color,
     this.padding,
     this.style,
+    this.obscureText,
+    this.formKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText ?? false,
       initialValue: initialValue,
       validator: validator,
       cursorColor: color ?? Colors.green,
-      controller: TextEditingController(text: text ?? ''),
+      // controller: TextEditingController(text: text),
       onChanged: onChanged,
       keyboardType: keyboardType ?? TextInputType.multiline,
       inputFormatters: inputFormatter ?? null,

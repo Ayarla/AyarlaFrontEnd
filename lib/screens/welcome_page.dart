@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/virtual_data_base/genderSelection.dart';
@@ -14,12 +11,7 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:provider/provider.dart';
 
-class WelcomePage extends StatefulWidget {
-  @override
-  _WelcomePageState createState() => _WelcomePageState();
-}
-
-class _WelcomePageState extends State<WelcomePage> {
+class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
