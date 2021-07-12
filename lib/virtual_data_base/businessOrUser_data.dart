@@ -11,7 +11,7 @@ class BusinessAndUserData extends ChangeNotifier {
   bool checkBox = false;
 
   List<ImageListItem> pages = [];
-  File userImage;
+  FileImage userImage;
   LatLong.LatLng markerPosition = LatLong.LatLng(41.015137, 28.979530);
   LatLong.LatLng currentPosition = LatLong.LatLng(41.015137, 28.979530);
   PickResult pickedResult = PickResult();
@@ -75,8 +75,14 @@ class BusinessAndUserData extends ChangeNotifier {
     notifyListeners();
   }
 
-  setUserImage(File image) {
-    userImage = image;
-    notifyListeners();
-  }
+  // setUserImage(File image) {
+    // userImage = image;
+  //   notifyListeners();
+  // }
+
+setUserImage(String imagePath) {
+    print(imagePath);
+    userImage = FileImage(File(imagePath));
+  notifyListeners();
+}
 }

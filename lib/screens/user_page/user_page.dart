@@ -87,15 +87,15 @@ class _UserPageState extends State<UserPage> {
                                         ? ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(50),
-                                            child: Image.file(
-                                              Provider.of<BusinessAndUserData>(
-                                                      context,
-                                                      listen: true)
-                                                  .userImage,
-                                              width: 100,
-                                              height: 100,
-                                              fit: BoxFit.cover,
-                                            ),
+                                            // child: Image.file(
+                                            //   Provider.of<BusinessAndUserData>(
+                                            //           context,
+                                            //           listen: true)
+                                            //       .userImage,
+                                            //   width: 100,
+                                            //   height: 100,
+                                            //   fit: BoxFit.cover,
+                                            // ),
                                           )
                                         : Container(
                                             decoration: BoxDecoration(

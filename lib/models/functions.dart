@@ -7,6 +7,7 @@ import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
@@ -103,27 +104,40 @@ class Functions {
       ),
     );
   }
+
   /// takes image from file
   /// TODO dart:io web desteği yok
   imageFromFile(context) async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['png', 'jpg', 'svg', 'jpeg']);
-
-    if (result != null) {
-      PlatformFile file = result.files.first;
-
-      if (Provider.of<Login>(context, listen: false).isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(file: File.fromRawPath(file.bytes), isFile: true, covered: true));
-      } else {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(File.fromRawPath(file.bytes));
-      }
-
-    } else {
-      // User canceled the picker
+    Image fromPicker = await ImagePickerWeb.getImage(outputType: ImageType.widget);
+    if (fromPicker != null) {
+      pickedImage = fromPicker;
     }
+    // Image fromPicker = await ImagePickerWeb.getImage(outputType: ImageType.widget);
+    // if (fromPicker != null) {
+    //   setState(() {
+    //     pickedImage = fromPicker;
+    //   });
+    // }
+
+    // FilePickerResult result = await FilePicker.platform.pickFiles(
+    //     type: FileType.image, allowedExtensions: ['png', 'jpg', 'jpeg']);
+    //
+    // if (result != null) {
+    //   PlatformFile file = result.files.first;
+    //
+    //   print('get');
+    //   print(file.name);
+    //   print(file.path);
+    //   print(file.extension);
+    //   Provider.of<BusinessAndUserData>(context, listen: false)
+    //       // .addImage(ImageListItem(file: File.fromRawPath(file.bytes), isFile: true, covered: true));
+    //       .addImage(ImageListItem(image: file.path));
+    //
+    //   print('set');
+    //   Provider.of<BusinessAndUserData>(context, listen: false)
+    //       .setUserImage(file.path);
+    //   // .setUserImage(ImageListItem(image: file.name));
+    // }
   }
 
   ///takes an image from camera and adds it to the list
@@ -137,7 +151,7 @@ class Functions {
             .addImage(ImageListItem(file: image, isFile: true, covered: true));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(image);
+            .setUserImage('image');
       }
     }
   }
@@ -153,10 +167,11 @@ class Functions {
             .addImage(ImageListItem(file: image, isFile: true, covered: true));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(image);
+            .setUserImage('image');
       }
     }
   }
+
 
   void showPicker(context) {
     showModalBottomSheet(
@@ -173,7 +188,7 @@ class Functions {
                   leading: new Icon(Icons.upload_file),
                   title: new Text('Dosya'),
                   tileColor: Colors.transparent,
-                  onTap: () {
+                  onTap: () async {
                     imageFromFile(context);
                     Navigator.of(context).pop();
                   },
@@ -182,7 +197,7 @@ class Functions {
                     leading: new Icon(Icons.photo_library),
                     title: new Text('Galeri'),
                     tileColor: Colors.transparent,
-                    onTap: () {
+                    onTap: () async {
                       imgFromGallery(context);
                       Navigator.of(context).pop();
                     }),
@@ -233,3 +248,4 @@ String fixTurkishCharacters(String string) {
     string = string.replaceAll(letter, charList2[charList.indexOf(letter)]);
   return string;
 }
+Image pickedImage;
