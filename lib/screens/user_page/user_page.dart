@@ -29,6 +29,11 @@ class _UserPageState extends State<UserPage> {
     return Scaffold(
       appBar: DefaultAppBar(
         showIconButton: false,
+        backButtonFunction: () {
+          Provider.of<BusinessAndUserData>(context, listen: false).checkBox =
+              false;
+          Navigator.pop(context);
+        },
         color: Colors.transparent,
         title: Center(
           child: Text(
@@ -43,11 +48,12 @@ class _UserPageState extends State<UserPage> {
           child: Column(
             children: [
               if (!Provider.of<Login>(context, listen: true).isLoggedIn)
-              SizedBox(height: 30),
+                SizedBox(height: 30),
               if (!Provider.of<Login>(context, listen: true).isLoggedIn)
-              UI.generalLogo,
+                UI.generalLogo,
               if (!Provider.of<Login>(context, listen: true).isLoggedIn)
-              SizedBox(height: 30),
+                SizedBox(height: 30),
+
               ///if the user is not logged in then it opens the authentication
               ///page for login or sign up
               if (!Provider.of<Login>(context, listen: true).isLoggedIn)

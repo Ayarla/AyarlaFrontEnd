@@ -1,5 +1,7 @@
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/screens/privacy_policy_page.dart';
+import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -30,6 +32,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
   bool switchValue = false;
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    bool isSmallScreen = size.width < 362;
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Form(
@@ -49,10 +53,24 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                 indicator: UnderlineTabIndicator(
                     borderSide:
                         BorderSide(width: 3.0, color: Colors.orange[500]),
-                    insets: EdgeInsets.symmetric(horizontal: -30.0)),
+                    insets: isSmallScreen
+                        ? EdgeInsets.zero
+                        : EdgeInsets.symmetric(horizontal: -30.0)),
                 tabs: [
-                  Tab(text: 'Giriş Yapın'),
-                  Tab(text: 'Kayıt Olun'),
+                  Tab(
+                    child: Text(
+                      "Giriş Yapın",
+                      style: kTextStyle.copyWith(
+                          fontSize: isSmallScreen ? 14 : 20),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Kayıt Olun",
+                      style: kTextStyle.copyWith(
+                          fontSize: isSmallScreen ? 14 : 20),
+                    ),
+                  ),
                 ],
               ),
               Padding(
@@ -69,7 +87,11 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             width: 500,
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
-                              hintText: Text('Mail adresinizi giriniz.'),
+                              hintText: Text(
+                                'Mail adresinizi giriniz.',
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize: isSmallScreen ? 10 : 14),
+                              ),
                               padding: EdgeInsets.all(20.0),
                               color: Colors.orange[500],
                             ),
@@ -78,7 +100,11 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             width: 500,
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
-                              hintText: Text('Şifrenizi giriniz.'),
+                              hintText: Text(
+                                'Şifrenizi giriniz.',
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize: isSmallScreen ? 10 : 14),
+                              ),
                               padding: EdgeInsets.all(20.0),
                               color: Colors.orange[500],
                             ),
@@ -93,7 +119,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 },
                                 child: Text('  Şifremi unuttum!',
                                     style: kSmallTextStyle.copyWith(
-                                        color: Colors.orange[300], fontSize: 15)),
+                                        color: Colors.orange[300],
+                                        fontSize: isSmallScreen ? 10 : 15)),
                               ),
                               Spacer(),
                               TextButton(
@@ -125,7 +152,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 child: Text(
                                   'Giriş',
                                   style: kTextStyle.copyWith(
-                                      color: Colors.white, fontSize: 25),
+                                      color: Colors.white,
+                                      fontSize: isSmallScreen ? 15 : 25),
                                 ),
                               ),
                             ],
@@ -139,38 +167,45 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                               padding: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
                                 "Lütfen hesap türünü seçiniz",
-                                style: kTitleStyle,
+                                style: kTextStyle.copyWith(
+                                    fontSize: isSmallScreen ? 14 : 20),
                               ),
                             ),
                           ),
+
                           Center(
-                            child: Container(
-                              width: 700,
-                              child: FlutterToggleTab(
-                                width: 40,
-                                borderRadius: 15,
-                                initialIndex: 0,
-                                selectedTextStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600),
-                                unSelectedTextStyle: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400),
-                                labels: ["Müşteri", "İşyeri"],
-                                icons: [Icons.person, Icons.pregnant_woman],
-                                selectedLabelIndex: (index) {
-                                  print("Selected Index $index");
-                                },
+                            child: FlutterToggleTab(
+                              width: MediaQuery.of(context).size.width > 1200
+                                  ? 20
+                                  : 50,
+                              borderRadius: 15,
+                              initialIndex: 0,
+                              selectedBackgroundColors: [Colors.orange[500]],
+                              selectedTextStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: isSmallScreen ? 10 : 18,
+                                  fontWeight: FontWeight.w600),
+                              unSelectedTextStyle: TextStyle(
+                                  color: Colors.orange[500],
+                                  fontSize: isSmallScreen ? 8 : 14,
+                                  fontWeight: FontWeight.w400),
+                              labels: ["Müşteri", "İşyeri"],
+                              icons: [Icons.person, Icons.work],
+                              selectedLabelIndex: (index) {
+                                print("Selected Index $index");
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            width: 500,
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child: AyarlaTextField(
+                              hintText: Text(
+                                'İsminizi Giriniz.',
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize: isSmallScreen ? 10 : 14),
                               ),
-                            ),
-                          ),
-                          Container(
-                            width: 500,
-                            padding: EdgeInsets.symmetric(vertical: 8.0),
-                            child: AyarlaTextField(
-                              hintText: Text('İsminizi Giriniz.'),
                               padding: EdgeInsets.all(20.0),
                               color: Colors.orange[500],
                             ),
@@ -179,7 +214,11 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             width: 500,
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
-                              hintText: Text('Soy İsminizi Giriniz.'),
+                              hintText: Text(
+                                'Soy İsminizi Giriniz.',
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize: isSmallScreen ? 10 : 14),
+                              ),
                               padding: EdgeInsets.all(20.0),
                               color: Colors.orange[500],
                             ),
@@ -188,7 +227,11 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             width: 500,
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
-                              hintText: Text('Mail Adresinizi Giriniz.'),
+                              hintText: Text(
+                                'Mail Adresinizi Giriniz.',
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize: isSmallScreen ? 10 : 14),
+                              ),
                               padding: EdgeInsets.all(20.0),
                               color: Colors.orange[500],
                             ),
@@ -197,7 +240,11 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             width: 500,
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
-                              hintText: Text('Şifrenizi Giriniz.'),
+                              hintText: Text(
+                                'Şifrenizi Giriniz.',
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize: isSmallScreen ? 10 : 14),
+                              ),
                               padding: EdgeInsets.all(20.0),
                               color: Colors.orange[500],
                             ),
@@ -206,67 +253,99 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             width: 500,
                             padding: EdgeInsets.symmetric(vertical: 8.0),
                             child: AyarlaTextField(
-                              hintText: Text('Şifrenizi Tekrar Giriniz.'),
+                              hintText: Text(
+                                'Şifrenizi Tekrar Giriniz.',
+                                style: kSmallTextStyle.copyWith(
+                                    fontSize: isSmallScreen ? 10 : 14),
+                              ),
                               padding: EdgeInsets.all(20.0),
                               color: Colors.orange[500],
                             ),
                           ),
+                          SizedBox(height: 10),
                           Row(
                             children: [
-                              Checkbox(value: true, onChanged: (value) {}),
-                              Container(
-                                width: 500,
-                                height: 50,
-                                child: RichText(
-                                  maxLines: 2,
-                                  text: TextSpan(
-                                    style: kSmallTextStyle.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            /// Privacy Policy ModalBottomSheet
-                                            showModalBottomSheet(
-                                                enableDrag: false,
-                                                isScrollControlled: true,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.vertical(
-                                                    top: Radius.circular(20.0),
+                              Checkbox(
+                                  value: Provider.of<BusinessAndUserData>(
+                                          context,
+                                          listen: false)
+                                      .checkBox,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      Provider.of<BusinessAndUserData>(context,
+                                                  listen: false)
+                                              .checkBox =
+                                          !Provider.of<BusinessAndUserData>(
+                                                  context,
+                                                  listen: false)
+                                              .checkBox;
+                                    });
+                                  }),
+                              SizedBox(width: 10),
+                              FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Container(
+                                  width:
+                                      size.width < 700 ? size.width / 1.7 : 500,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: kSmallTextStyle.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              /// Privacy Policy ModalBottomSheet
+                                              showModalBottomSheet(
+                                                  enableDrag: false,
+                                                  isScrollControlled: true,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                      top:
+                                                          Radius.circular(20.0),
+                                                    ),
                                                   ),
-                                                ),
-                                                clipBehavior:
-                                                    Clip.antiAliasWithSaveLayer,
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return null;
-                                                  // privacyPolicyModalBottomSheet(
-                                                  //   context: context, setState: setState);
-                                                });
-                                          },
-                                        style: kSmallTextStyle.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.blue,
-                                          fontStyle: FontStyle.italic,
-                                          decoration: TextDecoration.underline,
+                                                  clipBehavior: Clip
+                                                      .antiAliasWithSaveLayer,
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    // return null;
+                                                    // privacyPolicyModalBottomSheet(
+                                                    //   context: context, setState: setState);
+                                                    return privacyPolicyModalBottomSheet(
+                                                        context: context,
+                                                        setState: setState);
+                                                  });
+                                            },
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.blue,
+                                            fontStyle: FontStyle.italic,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: ' okudum, onaylıyorum.',
-                                      ),
-                                    ],
+                                        TextSpan(
+                                          text: ' okudum, onaylıyorum.',
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 20),
                           Center(
                             child: TextButton(
                               style: ButtonStyle(
@@ -297,7 +376,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                               child: Text(
                                 'Kayıt Ol',
                                 style: kTextStyle.copyWith(
-                                    color: Colors.white, fontSize: 25),
+                                    color: Colors.white,
+                                    fontSize: isSmallScreen ? 15 : 25),
                               ),
                             ),
                           ),
@@ -625,7 +705,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
               // ),
               /// manager login
               ///
-
             ],
           ),
         ),

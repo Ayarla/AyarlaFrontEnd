@@ -1,3 +1,5 @@
+import 'package:ayarla/screens/privacy_policy_page.dart';
+import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -143,13 +145,15 @@ class PopUp {
               onPressed: () async {
                 ///TODO eger kullanici kayit yaptirirsa burada yazilan mail kullanicin profiline eklenecek
                 if (_formKey.currentState.validate()) {
-                  Provider.of<AppointmentData>(context, listen: false).sendMail2(_typedMail);
+                  Provider.of<AppointmentData>(context, listen: false)
+                      .sendMail2(_typedMail);
                   if (!isMember) {
                     passwordFieldDialog(context: context);
                   } else {
                     // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                     // Navigator.pushNamed(context, ConfirmationPage.id);
-                    Provider.of<AppointmentData>(context, listen: false).confirmation();
+                    Provider.of<AppointmentData>(context, listen: false)
+                        .confirmation();
                   }
                 }
 
@@ -163,97 +167,11 @@ class PopUp {
     );
   }
 
-  privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
-    final Size size = MediaQuery.of(context).size;
-    final Functions functions = Functions();
-    return Container(
-      height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 10),
-      child: Scaffold(
-        backgroundColor: Color(0xFFE5EBEE),
-        body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Ayarla Gizlilik sozlesmesi',
-              ),
-              SizedBox(height: 10),
-              Text('sfhjskfjaksfhksafhjsahfjkshfksahdkfdskafksahfjkshagsgaskgkskagksadkgasgbsakjgfbskbfsjb'),
-            ],
-          ),
-        ),
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(left: 32.0),
-          child: Row(
-            children: <Widget>[
-              Container(
-                width: size.width - 4 * (size.width / 6),
-                decoration: BoxDecoration(
-                  gradient: functions.decideColor(context),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: FloatingActionButton.extended(
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  onPressed: () {
-                    setState(() {
-                      checkBox = false;
-                    });
-
-                    Navigator.pop(context);
-                  },
-                  label: FittedBox(
-                    fit: BoxFit.cover,
-                    child: Icon(
-                      FontAwesomeIcons.ban,
-                      size: 35,
-                    ),
-
-                    // child: Icon(
-                    //   Icons.ca,
-                    //   size: 40,
-                    // ),
-                  ),
-                ),
-              ),
-              Spacer(),
-              Container(
-                width: size.width - 4 * (size.width / 6),
-                decoration: BoxDecoration(
-                  gradient: functions.decideColor(context),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: FloatingActionButton.extended(
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  onPressed: () {
-                    setState(() {
-                      checkBox = true;
-                    });
-                    Navigator.pop(context);
-                  },
-                  label: FittedBox(
-                    fit: BoxFit.cover,
-                    child: Icon(
-                      FontAwesomeIcons.check,
-                      size: 35,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   String _typedPassword;
   String _typedPasswordCheck;
   String _name;
   String _surname;
   String _phoneNumber;
-  bool checkBox = false;
 
   passwordFieldDialog({BuildContext context}) {
     final _formKey = GlobalKey<FormState>();
@@ -266,7 +184,8 @@ class PopUp {
             builder: (context, setState) {
               return AlertDialog(
                 titlePadding: EdgeInsets.only(top: 20),
-                contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 24.0),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 5.0, horizontal: 24.0),
                 actionsPadding: EdgeInsets.all(0),
                 backgroundColor: Color(0xFFE5EBEE),
                 shape: RoundedRectangleBorder(
@@ -373,7 +292,8 @@ class PopUp {
                               return 'Boş Bırakılamaz';
                             } else if (_typed.length < 6) {
                               return 'Şifre en az 6 karakter içermelidir';
-                            } else if (_typedPasswordCheck != _typed && _typedPasswordCheck != '') {
+                            } else if (_typedPasswordCheck != _typed &&
+                                _typedPasswordCheck != '') {
                               return 'Şifreler birbiri ile uyuşmuyor';
                             } else {
                               return null;
@@ -414,7 +334,8 @@ class PopUp {
                               return 'Boş Bırakılamaz';
                             } else if (_typed.length < 6) {
                               return 'Şifre en az 6 karakter içermelidir';
-                            } else if (_typedPassword != _typed && _typedPassword != '') {
+                            } else if (_typedPassword != _typed &&
+                                _typedPassword != '') {
                               return 'Şifreler birbiri ile uyuşmuyor';
                             } else {
                               return null;
@@ -485,17 +406,27 @@ class PopUp {
 
                         /// Privacy Policy text
                         Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
+                          padding: EdgeInsets.only(top: 20.0),
                           child: Row(
                             children: [
                               SizedBox(
                                 width: 24,
                                 height: 24,
                                 child: Checkbox(
-                                    value: checkBox,
+                                    value: Provider.of<BusinessAndUserData>(
+                                            context,
+                                            listen: false)
+                                        .checkBox,
                                     onChanged: (value) {
                                       setState(() {
-                                        checkBox = !checkBox;
+                                        Provider.of<BusinessAndUserData>(
+                                                    context,
+                                                    listen: false)
+                                                .checkBox =
+                                            !Provider.of<BusinessAndUserData>(
+                                                    context,
+                                                    listen: false)
+                                                .checkBox;
                                       });
                                     }),
                               ),
@@ -503,7 +434,8 @@ class PopUp {
                               FittedBox(
                                 fit: BoxFit.fitWidth,
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width / 2.05,
+                                  width:
+                                      MediaQuery.of(context).size.width / 2.05,
                                   child: RichText(
                                     text: TextSpan(
                                       style: kSmallTextStyle.copyWith(
@@ -512,7 +444,8 @@ class PopUp {
                                       ),
                                       children: [
                                         TextSpan(
-                                          text: 'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
+                                          text:
+                                              'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
                                               /// Privacy Policy ModalBottomSheet
@@ -520,22 +453,28 @@ class PopUp {
                                                   enableDrag: false,
                                                   isScrollControlled: true,
                                                   shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.vertical(
-                                                      top: Radius.circular(20.0),
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                      top:
+                                                          Radius.circular(20.0),
                                                     ),
                                                   ),
-                                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                  clipBehavior: Clip
+                                                      .antiAliasWithSaveLayer,
                                                   context: context,
-                                                  builder: (BuildContext context) {
+                                                  builder:
+                                                      (BuildContext context) {
                                                     return privacyPolicyModalBottomSheet(
-                                                        context: context, setState: setState);
+                                                        context: context,
+                                                        setState: setState);
                                                   });
                                             },
                                           style: kSmallTextStyle.copyWith(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.blue,
                                             fontStyle: FontStyle.italic,
-                                            decoration: TextDecoration.underline,
+                                            decoration:
+                                                TextDecoration.underline,
                                           ),
                                         ),
                                         TextSpan(
@@ -559,31 +498,43 @@ class PopUp {
                     // padding: EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
                     child: Text(
                       'Kayıt Olmadan Devam',
-                      style: kSmallTextStyle.copyWith(color: Colors.red, fontWeight: FontWeight.bold),
+                      style: kSmallTextStyle.copyWith(
+                          color: Colors.red, fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
                       // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                       // Navigator.pushNamed(context, ConfirmationPage.id);
-                      Provider.of<AppointmentData>(context, listen: false).confirmation();
+                      Provider.of<AppointmentData>(context, listen: false)
+                          .confirmation();
                     },
                   ),
                   TextButton(
                     // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     // padding: EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
                     child: Text(
-                      checkBox ? 'Kayıt Ol ve Devam' : 'Kayıt olmak için Sözleşmeyi onayla',
+                      Provider.of<BusinessAndUserData>(context, listen: false)
+                              .checkBox
+                          ? 'Kayıt Ol ve Devam'
+                          : 'Kayıt olmak için Sözleşmeyi onayla',
                       style: kSmallTextStyle.copyWith(
-                        color: checkBox ? Colors.blue : Colors.grey,
+                        color: Provider.of<BusinessAndUserData>(context,
+                                    listen: false)
+                                .checkBox
+                            ? Colors.blue
+                            : Colors.grey,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     onPressed: () {
-                      if (checkBox) {
+                      if (Provider.of<BusinessAndUserData>(context,
+                              listen: false)
+                          .checkBox) {
                         if (_formKey.currentState.validate()) {
                           /// TODO kayit olmayi burada yapacagiz
                           // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                           // Navigator.pushNamed(context, ConfirmationPage.id);
-                          Provider.of<AppointmentData>(context, listen: false).confirmation();
+                          Provider.of<AppointmentData>(context, listen: false)
+                              .confirmation();
 
                           print(_phoneNumber);
                           print(_name);

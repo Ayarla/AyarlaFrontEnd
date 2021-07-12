@@ -38,7 +38,7 @@ dependencies:
   menu_button: ^1.4.1
   google_maps_place_picker: ^1.0.1
   flutter_slidable: ^0.5.7
-  syncfusion_flutter_sliders: ^19.1.55-beta
+  syncfusion_flutter_sliders: ^19.2.46
   fluro: ^1.7.8
   url_strategy: ^0.2.0
   universal_platform: ^0.1.3

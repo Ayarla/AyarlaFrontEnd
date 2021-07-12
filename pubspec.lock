@@ -769,14 +769,14 @@ packages:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.1.55"
+    version: "19.2.46"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.1.55-beta"
+    version: "19.2.46"
   term_glyph:
     dependency: transitive
     description:

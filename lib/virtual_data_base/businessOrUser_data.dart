@@ -7,6 +7,9 @@ import "package:latlong/latlong.dart" as LatLong;
 import 'package:mapbox_search/mapbox_search.dart';
 
 class BusinessAndUserData extends ChangeNotifier {
+  /// for privacy policy
+  bool checkBox = false;
+
   List<ImageListItem> pages = [];
   File userImage;
   LatLong.LatLng markerPosition = LatLong.LatLng(41.015137, 28.979530);
@@ -38,10 +41,12 @@ class BusinessAndUserData extends ChangeNotifier {
   setDefault() {
     print('as');
     markerPosition = LatLong.LatLng(41.015137, 28.979530);
-print(markerPosition);
+    print(markerPosition);
+
     /// from database
     currentPosition = LatLong.LatLng(41.015137, 28.979530);
-print(currentPosition);
+    print(currentPosition);
+
     /// from database
     notifyListeners();
   }
