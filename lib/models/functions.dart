@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
@@ -101,6 +103,28 @@ class Functions {
       ),
     );
   }
+  /// takes image from file
+  /// TODO dart:io web desteği yok
+  imageFromFile(context) async {
+    FilePickerResult result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['png', 'jpg', 'svg', 'jpeg']);
+
+    if (result != null) {
+      PlatformFile file = result.files.first;
+
+      if (Provider.of<Login>(context, listen: false).isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .addImage(ImageListItem(file: File.fromRawPath(file.bytes), isFile: true, covered: true));
+      } else {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .setUserImage(File.fromRawPath(file.bytes));
+      }
+
+    } else {
+      // User canceled the picker
+    }
+  }
 
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
@@ -145,6 +169,15 @@ class Functions {
             color: Colors.white,
             child: new Wrap(
               children: <Widget>[
+                new ListTile(
+                  leading: new Icon(Icons.upload_file),
+                  title: new Text('Dosya'),
+                  tileColor: Colors.transparent,
+                  onTap: () {
+                    imageFromFile(context);
+                    Navigator.of(context).pop();
+                  },
+                ),
                 new ListTile(
                     leading: new Icon(Icons.photo_library),
                     title: new Text('Galeri'),

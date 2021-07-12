@@ -164,7 +164,7 @@ class Routers {
     "/Isletme/:name",
     "/Isletme/:name/Yorumlar",
     // "/SaatSayfasi",
-    "/OnaySayfasi",
+    // "/OnaySayfasi",
 
     /// USER PAGES
     "/KullaniciSayfasi",
@@ -172,7 +172,7 @@ class Routers {
     "/Randevularım",
     "/Mesajlarım",
     "/GecmisRandevularım",
-    "/Profilimi Düzenle",
+    "/Profilimi%20Düzenle",
 
     /// MANAGER PAGES
     "/YoneticiAnasayfasi",

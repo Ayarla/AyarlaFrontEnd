@@ -13,6 +13,11 @@ class LoadingScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
       initialRoute: "/Hosgeldiniz",
+      theme: ThemeData(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+      ),
       onGenerateRoute: (settings) {
         if (Routers.routeNames.contains(settings.name)) {
           return Routers.router.generator(RouteSettings(name: settings.name));

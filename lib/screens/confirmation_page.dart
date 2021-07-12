@@ -252,6 +252,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             ),
             Divider(),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.asset(
                   'assets/store_badges/google-play-badge.png',
