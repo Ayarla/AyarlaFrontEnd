@@ -176,8 +176,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 } else {
                                   print("Not Validated");
                                 }
-                                // Provider.of<Login>(context, listen: false)
-                                //     .loggedInUser();
+                                Provider.of<Login>(context, listen: false)
+                                    .loggedInUser();
 
                                 ///TODO check and push somewhere
                               },

@@ -1,8 +1,15 @@
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/components/timeDropdown.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+// Icon(
+//   FontAwesomeIcons.edit,
+//   color: Colors.green.shade700,
+//   size: size.width <= 400 ? size.width / 16 : 25,
+// ),
 
 class AboutSectionBusiness extends StatelessWidget {
   @override
@@ -36,11 +43,7 @@ class AboutSectionBusiness extends StatelessWidget {
                   hintText: Text('İlçe Giriniz', style: kSmallTextStyle)),
             ),
             SizedBox(width: 10),
-            Icon(
-              FontAwesomeIcons.edit,
-              color: Colors.green.shade700,
-              size: size.width <= 400 ? size.width / 16 : 25,
-            ),
+
           ],
         ),
         SizedBox(height: 5),
@@ -68,7 +71,8 @@ class AboutSectionBusiness extends StatelessWidget {
             ],
           ),
         ),
-        Row(
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text('Randevu aralığı belirleyiniz: ',
                 style: kSmallTextStyle.copyWith(
@@ -87,7 +91,7 @@ class AboutSectionBusiness extends StatelessWidget {
           hintText: Text(
             'Kuaför hakkındaki bilgileri giriniz',
             style: kSmallTextStyle,
-            maxLines: 2,
+            maxLines: 3,
           ),
           keyboardType: TextInputType.multiline,
         ),

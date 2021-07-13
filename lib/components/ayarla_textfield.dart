@@ -64,6 +64,7 @@ class AyarlaTextFormField extends StatelessWidget {
   final FormFieldValidator validator;
   final List<TextInputFormatter> inputFormatter;
   final Function onChanged;
+  final Function onEditingComplete;
   final String initialValue;
   final TextStyle hintStyle;
   final Color color;
@@ -73,6 +74,7 @@ class AyarlaTextFormField extends StatelessWidget {
   final Key formKey;
   final TextAlign textAlign;
   final int maxLines;
+  final TextEditingController controller;
 
   AyarlaTextFormField({
     this.keyboardType,
@@ -90,6 +92,8 @@ class AyarlaTextFormField extends StatelessWidget {
     this.formKey,
     this.textAlign,
     this.maxLines,
+    this.onEditingComplete,
+    this.controller,
   });
 
   @override
@@ -100,7 +104,7 @@ class AyarlaTextFormField extends StatelessWidget {
       initialValue: initialValue,
       validator: validator,
       cursorColor: color ?? Colors.green,
-      // controller: TextEditingController(text: text),
+      controller: controller,
       onChanged: onChanged,
       keyboardType: keyboardType ?? TextInputType.multiline,
       inputFormatters: inputFormatter ?? null,
