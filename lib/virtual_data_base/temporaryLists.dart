@@ -1,4 +1,4 @@
-import 'package:ayarla/components/imageListItem.dart';
+import 'package:ayarla/components/image/imageListItem.dart';
 
 List<ImageListItem> images = [
   ImageListItem(

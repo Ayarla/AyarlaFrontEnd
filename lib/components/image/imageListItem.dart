@@ -9,8 +9,10 @@ class ImageListItem extends StatelessWidget {
   final File file;
   final bool covered;
   final bool isFile;
+  final bool isImage;
+  final Image fileImage;
 /// isFile koşulu imageListItem kullanılan yerlere eklenilecek
-  ImageListItem({this.image,this.covered,this.isFile,this.file});
+  ImageListItem({this.image,this.covered,this.isFile,this.file,this.isImage=false,this.fileImage});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +21,7 @@ class ImageListItem extends StatelessWidget {
         maxScale:  covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
         minScale: covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
         initialScale: covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
-        imageProvider:isFile!=null?Image.file(file).image:AssetImage(image),
+        imageProvider:isFile==true?Image.file(file).image:isImage==true?fileImage.image:AssetImage(image),
       ),
     );
   }

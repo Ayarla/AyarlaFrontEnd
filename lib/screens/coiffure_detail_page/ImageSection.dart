@@ -1,5 +1,5 @@
 import 'package:ayarla/components/UI/responsiveWidget.dart';
-import 'package:ayarla/components/imageListItem.dart';
+import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 

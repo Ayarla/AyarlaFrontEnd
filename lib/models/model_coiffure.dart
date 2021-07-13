@@ -1,4 +1,4 @@
-import 'package:ayarla/components/imageListItem.dart';
+import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 

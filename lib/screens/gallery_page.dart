@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/dotsIndicator.dart';
-import 'package:ayarla/components/imageListItem.dart';
+import 'package:ayarla/components/image/imageListItem.dart';
 
 class GalleryPage extends StatelessWidget {
   final int index;

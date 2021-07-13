@@ -63,6 +63,7 @@ dependencies:
 #  premium packages
   stories_for_flutter: ^0.1.8
 #  story: ^0.5.1
+  image_picker_web: ^2.0.3
 
 dev_dependencies:
   flutter_test:
