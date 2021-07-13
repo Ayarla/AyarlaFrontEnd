@@ -3,6 +3,7 @@ import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
+import 'package:ayarla/webService/user_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,10 @@ class _AuthenticationPageState extends State<AuthenticationPage>
   String _typedMail;
   String _typedPassword;
   String _typedPasswordCheck;
+  String _typedSurname;
+  String _typedName;
+  String _typedRoleName;
+
   bool isValidEmail() {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
@@ -199,7 +204,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             ),
                           ),
                         ),
-
                         Center(
                           child: FlutterToggleTab(
                             width: MediaQuery.of(context).size.width > 1200
@@ -219,6 +223,12 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             labels: ["Müşteri", "İşyeri"],
                             icons: [Icons.person, Icons.work],
                             selectedLabelIndex: (index) {
+                              if (index == 0) {
+                                _typedRoleName = 'User';
+                              } else if (index == 1) {
+                                /// TODO
+                                _typedRoleName = 'User';
+                              }
                               print("Selected Index $index");
                             },
                           ),
@@ -245,7 +255,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                     }
                                   },
                                   onChanged: (typed) {
-                                    // _typedSurname = typed;
+                                    _typedName = typed;
                                   },
                                 ),
                               ),
@@ -253,11 +263,9 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 width: 500,
                                 padding: EdgeInsets.symmetric(vertical: 8.0),
                                 child: AyarlaTextFormField(
-                                  hintText:
-                                    'Soy İsminizi Giriniz',
-                                    style: kSmallTextStyle.copyWith(
-                                        fontSize: isSmallScreen ? 10 : 14),
-
+                                  hintText: 'Soy İsminizi Giriniz',
+                                  style: kSmallTextStyle.copyWith(
+                                      fontSize: isSmallScreen ? 10 : 14),
                                   padding: EdgeInsets.all(20.0),
                                   color: Colors.orange[500],
                                   validator: (_typed) {
@@ -268,7 +276,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                     }
                                   },
                                   onChanged: (typed) {
-                                    // _typedSurname = typed;
+                                    _typedSurname = typed;
                                   },
                                 ),
                               ),
@@ -339,7 +347,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                     }
                                   },
                                   onChanged: (typed) {
-                                    _typedPassword = typed;
+                                    _typedPasswordCheck = typed;
                                   },
                                   obscureText: true,
                                 ),
@@ -347,7 +355,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             ],
                           ),
                         ),
-
                         SizedBox(height: 10),
                         Row(
                           children: [
@@ -429,12 +436,21 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             ),
                             onPressed: () {
                               if (_regFormKey.currentState.validate()) {
-                                print("Validated");
+                                print("Form Validated...");
+                                HttpUserFunctions().createUser(
+                                  userName: ' ',
+                                  name: _typedName,
+                                  surname: _typedSurname,
+                                  email: _typedMail,
+                                  password: _typedPassword,
+                                  roleNames: _typedRoleName,
+                                );
+                                // Provider.of<Login>(context, listen: false)
+                                //     .loggedInUser();
+
                               } else {
-                                print("Not Validated");
+                                print("Not Validated!");
                               }
-                              // Provider.of<Login>(context, listen: false)
-                              //     .loggedInUser();
 
                               ///TODO check and push somewhere
                             },
@@ -447,195 +463,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                           ),
                         ),
                         SizedBox(height: 10),
-
-                        // Form(
-                        //   // key: _formKey,
-
-                        //           TextFormField(
-                        //             validator: (_typed) {
-                        //               if (_typed.isEmpty) {
-                        //                 return 'Boş bırakılamaz.';
-                        //               } else {
-                        //                 return null;
-                        //               }
-                        //             },
-                        //             onChanged: (typed) {
-                        //               // _typedSurname = typed;
-                        //             },
-                        //             autocorrect: false,
-                        //             obscureText: false,
-                        //             decoration: InputDecoration(
-                        //               border: OutlineInputBorder(
-                        //                   borderRadius: BorderRadius.all(
-                        //                       Radius.circular(40))),
-                        //               prefixIcon: Padding(
-                        //                 padding: EdgeInsets.symmetric(
-                        //                     horizontal: 15.0),
-                        //                 child: Icon(
-                        //                   Icons.person_outline,
-                        //                   size: 20.0,
-                        //                 ),
-                        //               ),
-                        //               prefixIconConstraints: BoxConstraints(
-                        //                 maxHeight: 20.0,
-                        //                 maxWidth: 45.0,
-                        //               ),
-                        //               hintText: 'Soy isminizi Giriniz.',
-                        //               hintStyle: kSmallTextStyle.copyWith(
-                        //                 color: Colors.grey.withOpacity(0.8),
-                        //                 fontWeight: FontWeight.w400,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           TextFormField(
-                        //             validator: (_typedValue) {
-                        //               return (_typedValue.isEmpty)
-                        //                   ? 'Boş bırakılamaz.'
-                        //                   : isValidEmail()
-                        //                       ? null
-                        //                       : "Lütfen geçerli bir mail adresi giriniz";
-                        //             },
-                        //             onChanged: (typed) {
-                        //               _typedMail = typed;
-                        //             },
-                        //             decoration: InputDecoration(
-                        //               border: OutlineInputBorder(
-                        //                   borderRadius: BorderRadius.all(
-                        //                       Radius.circular(40))),
-                        //               prefixIcon: Padding(
-                        //                 padding: EdgeInsets.symmetric(
-                        //                     horizontal: 15.0),
-                        //                 child: Icon(
-                        //                   Icons.mail_outline,
-                        //                   size: 20.0,
-                        //                 ),
-                        //               ),
-                        //               prefixIconConstraints: BoxConstraints(
-                        //                 maxHeight: 20.0,
-                        //                 maxWidth: 45.0,
-                        //               ),
-                        //               hintText: 'E-posta adresinizi giriniz.',
-                        //               hintStyle: kSmallTextStyle.copyWith(
-                        //                 color: Colors.grey.withOpacity(0.8),
-                        //                 fontWeight: FontWeight.w400,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           TextFormField(
-                        //             // validator: (_typed) {
-                        //             //   if (_typed.isEmpty) {
-                        //             //     return 'Boş bırakılamaz.';
-                        //             //   } else if (_typed.length < 6) {
-                        //             //     return 'Şifre en az 6 karakter içermelidir.';
-                        //             //   } else if (_typedPasswordCheck != _typed &&
-                        //             //       _typedPasswordCheck != '') {
-                        //             //     return 'Şifreler birbiri ile uyuşmuyor.';
-                        //             //   } else {
-                        //             //     return null;
-                        //             //   }
-                        //             // },
-                        //             onChanged: (typed) {
-                        //               _typedPassword = typed;
-                        //             },
-                        //             autocorrect: false,
-                        //             obscureText: true,
-                        //             decoration: InputDecoration(
-                        //               border: OutlineInputBorder(
-                        //                   borderRadius: BorderRadius.all(
-                        //                       Radius.circular(40))),
-                        //               prefixIcon: Padding(
-                        //                 padding: EdgeInsets.symmetric(
-                        //                     horizontal: 15.0),
-                        //                 child: Icon(
-                        //                   Icons.vpn_key_outlined,
-                        //                   size: 20.0,
-                        //                 ),
-                        //               ),
-                        //               prefixIconConstraints: BoxConstraints(
-                        //                 maxHeight: 20.0,
-                        //                 maxWidth: 45.0,
-                        //               ),
-                        //               hintText: 'Şifrenizi Giriniz.',
-                        //               hintStyle: kSmallTextStyle.copyWith(
-                        //                 color: Colors.grey.withOpacity(0.8),
-                        //                 fontWeight: FontWeight.w400,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           TextFormField(
-                        //             validator: (_typed) {
-                        //               if (_typed.isEmpty) {
-                        //                 return 'Boş bırakılamaz.';
-                        //               } else if (_typed.length < 6) {
-                        //                 return 'Şifre en az 6 karakter içermelidir.';
-                        //               } else if (_typedPassword != _typed &&
-                        //                   _typedPassword != '') {
-                        //                 return 'Şifreler birbiri ile uyuşmuyor.';
-                        //               } else {
-                        //                 return null;
-                        //               }
-                        //             },
-                        //             onChanged: (typed) {
-                        //               // _typedPasswordCheck = typed;
-                        //             },
-                        //             obscureText: true,
-                        //             decoration: InputDecoration(
-                        //               border: OutlineInputBorder(
-                        //                   borderRadius: BorderRadius.all(
-                        //                       Radius.circular(40))),
-                        //               prefixIcon: Padding(
-                        //                 padding: EdgeInsets.symmetric(
-                        //                     horizontal: 15.0),
-                        //                 child: Icon(
-                        //                   Icons.vpn_key_outlined,
-                        //                   size: 20.0,
-                        //                 ),
-                        //               ),
-                        //               prefixIconConstraints: BoxConstraints(
-                        //                 maxHeight: 20.0,
-                        //                 maxWidth: 45.0,
-                        //               ),
-                        //               hintText: 'Şifrenizi Tekrar Giriniz.',
-                        //               hintStyle: kSmallTextStyle.copyWith(
-                        //                 color: Colors.grey.withOpacity(0.8),
-                        //                 fontWeight: FontWeight.w400,
-                        //               ),
-                        //             ),
-                        //           ),
-
-                        //           Center(
-                        //             child: Container(
-                        //               height: 45,
-                        //               width: 160,
-                        //               margin: EdgeInsets.only(top: 10.0),
-                        //               decoration: BoxDecoration(
-                        //                   color: Colors.orange[300],
-                        //                   gradient:
-                        //                       functions.decideColor(context),
-                        //                   borderRadius:
-                        //                       BorderRadius.circular(20)),
-                        //               child: TextButton(
-                        //                 onPressed: () {
-                        //                   Navigator.push(
-                        //                       context,
-                        //                       MaterialPageRoute(
-                        //                           builder: (context) =>
-                        //                               RegisterPage()));
-                        //                 },
-                        //                 child: Text(
-                        //                   'Kayıt',
-                        //                   style: kTextStyle.copyWith(
-                        //                       color: Colors.white,
-                        //                       fontSize: 25),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ],

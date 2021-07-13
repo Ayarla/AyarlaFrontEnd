@@ -1,4 +1,5 @@
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -6,8 +7,6 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class ManagerSendMessage extends StatefulWidget {
-  static const String id = "ManagerSendMessagePage";
-
   @override
   _ManagerSendMessageState createState() => _ManagerSendMessageState();
 }
@@ -29,72 +28,68 @@ class _ManagerSendMessageState extends State<ManagerSendMessage> {
         ),
         // showIconButton: false,
       ).build(context),
-      body: AyarlaPage(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: ListView(
-                reverse: true,
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+      body: Unfocuser(
+        child: AyarlaPage(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                child: ListView(
+                  reverse: true,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
 
-                /// reverse
-                children: Provider.of<AppointmentData>(context, listen: false)
-                    .messages
-                    .reversed
-                    .toList(),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+                  /// reverse
+                  children: Provider.of<AppointmentData>(context, listen: false)
+                      .messages
+                      .reversed
+                      .toList(),
                 ),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      controller: messageTextController,
-                      onChanged: (value) {
-                        message = value;
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.grey.shade200,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                        controller: messageTextController,
+                        onChanged: (value) {
+                          message = value;
+                        },
+                        style: kSmallTextStyle,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 20.0),
+                          hintText: 'Mesajınızı yazınız...',
+                          hintStyle: kSmallTextStyle,
+                          border: InputBorder.none,
+                          fillColor: Colors.grey.shade200,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        messageTextController.clear();
+                        setState(() {
+                          Provider.of<AppointmentData>(context, listen: false)
+                              .messages
+                              .add(
+                                MessageBubble(text: message),
+                              );
+                        });
                       },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
-                        hintText: 'Mesajınızı yazınız...',
-                        border: InputBorder.none,
-                      ),
+                      child: Text('Yolla', style: kSmallTextStyle),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      messageTextController.clear();
-                      setState(() {
-                        Provider.of<AppointmentData>(context, listen: false)
-                            .messages
-                            .add(
-                              MessageBubble(
-                                text: message,
-                              ),
-                            );
-                      });
-                    },
-                    child: Text(
-                      'Yolla',
-                      style: TextStyle(
-                        color: Colors.lightBlueAccent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -124,10 +119,7 @@ class MessageBubble extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
               child: Text(
                 text,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                ),
+                style: kSmallTextStyle.copyWith(color: Colors.white),
               ),
             ),
           ),

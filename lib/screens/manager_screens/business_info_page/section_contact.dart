@@ -28,20 +28,16 @@ class ContactSection extends StatelessWidget {
         ),
         Center(child: Text('veya', style: kSmallTextStyle)),
         SizedBox(height: 10),
-
-        /// TODO
         AyarlaTextFormField(
           hintText: 'Adres giriniz',
           keyboardType: TextInputType.multiline,
+          maxLines: 3,
         ),
-        SizedBox(height: 10),
-        SizedBox(height: 20),
+        SizedBox(height: 30),
 
         /// Telephone
         Text('Telefon', style: kTextStyle),
         SizedBox(height: 10),
-
-        /// TODO
         AyarlaTextFormField(
           hintText: 'Telefon Giriniz - 555-555 555 55 55',
           keyboardType: TextInputType.number,

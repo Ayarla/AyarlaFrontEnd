@@ -27,30 +27,27 @@ class ManagerNotes extends StatelessWidget {
       ).build(context),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-        child: Container(
-          height: size.height / 1.34,
-          child: TextFormField(
-            style: kSmallTextStyle,
-            initialValue: noteContent,
-            onChanged: (value) {
-              noteContent = value;
-            },
-            keyboardType: TextInputType.multiline,
-            autofocus: true,
-            maxLines: 100,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(
-                  width: 0,
-                  style: BorderStyle.none,
-                ),
+        child: TextFormField(
+          style: kSmallTextStyle,
+          initialValue: noteContent,
+          onChanged: (value) {
+            noteContent = value;
+          },
+          keyboardType: TextInputType.multiline,
+          autofocus: true,
+          maxLines: 100,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(
+                width: 0,
+                style: BorderStyle.none,
               ),
-              filled: true,
-              hintStyle: kSmallTextStyle,
-              hintText: "Notunuzu yazınız...",
-              fillColor: Colors.grey.shade200,
             ),
+            filled: true,
+            hintStyle: kSmallTextStyle,
+            hintText: "Notunuzu yazınız...",
+            fillColor: Colors.grey.shade200,
           ),
         ),
       ),

@@ -141,8 +141,8 @@ class _UserPageState extends State<UserPage> {
                                       text: nameList[index],
                                       iconColor: Colors.orange[300],
                                       onPressed: () {
-                                        Routers.router
-                                            .navigateTo(context, nameList[index]);
+                                        Routers.router.navigateTo(
+                                            context, nameList[index]);
                                         FirebaseAnalytics().logEvent(
                                             name: userFireBaseFunctions[index],
                                             parameters: null);
@@ -156,7 +156,8 @@ class _UserPageState extends State<UserPage> {
                                 iconColor: Colors.green,
                                 text: 'Çalışan Ayarlarım',
                                 onPressed: () {
-                                  Routers.router.navigateTo(context, "/Ayarlarim",
+                                  Routers.router.navigateTo(
+                                      context, "/Ayarlarim",
                                       clearStack: false, replace: false);
                                 },
                               ),
@@ -168,8 +169,8 @@ class _UserPageState extends State<UserPage> {
                                   FirebaseAnalytics().logEvent(
                                       name: 'user_edit_profile',
                                       parameters: null);
-                                  Routers.router
-                                      .navigateTo(context, "/Profilimi Düzenle");
+                                  Routers.router.navigateTo(
+                                      context, "/Profilimi Düzenle");
                                 },
                               ),
                               GenericButton(

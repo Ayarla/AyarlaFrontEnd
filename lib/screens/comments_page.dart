@@ -1,7 +1,9 @@
 import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_comment.dart';
+import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -17,30 +19,9 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage> {
   Functions functions = Functions();
-  double _filterValue = 0;
+  // double _filterValue = 0;
   List generatingList = [];
 
-  /// FILTERING SHEET
-  // _filterSheet(context) {
-  //   showModalBottomSheet(
-  //     backgroundColor: Colors.transparent,
-  //     context: context,
-  //     builder: (BuildContext bc) {
-  //       return StatefulBuilder(
-  //         builder: (BuildContext context, StateSetter setModalState) {
-  //           final size = MediaQuery.of(context).size;
-  //           return ResponsiveWidget(
-  //             smallScreen: CircularParent(
-  //               radius: 20,
-  //               direction: Directions.top,
-  //               color: Colors.white,
-  //               child: ListView(
-  //                 padding: EdgeInsets.all(20),
-  //                 physics: BouncingScrollPhysics(),
-  //                 children: [
-  //                   /// ACC TO STARS
-  //                   functions.createTitle(context, 'Yıldıza göre filtrele'),
-  //                   SizedBox(height: 10),
   //                   SfSlider(
   //                     min: 0.0,
   //                     max: 5.0,
@@ -65,105 +46,9 @@ class _CommentsPageState extends State<CommentsPage> {
   //                       });
   //                     },
   //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //             mediumScreen: Align(
-  //               alignment: Alignment.bottomCenter,
-  //               child: ConstrainedBox(
-  //                 constraints: BoxConstraints(maxWidth: size.width / 1.5),
-  //                 child: CircularParent(
-  //                   radius: 20,
-  //                   direction: Directions.top,
-  //                   color: Colors.white,
-  //                   child: ListView(
-  //                     padding: EdgeInsets.all(20),
-  //                     physics: BouncingScrollPhysics(),
-  //                     children: [
-  //                       /// ACC TO STARS
-  //                       functions.createTitle(context, 'Yıldıza göre filtrele'),
-  //                       SizedBox(height: 10),
-  //                       SfSlider(
-  //                         min: 0.0,
-  //                         max: 5.0,
-  //                         value: _filterValue,
-  //                         interval: 1,
-  //                         showTicks: true,
-  //                         showLabels: true,
-  //                         tooltipShape: SfRectangularTooltipShape(),
-  //                         minorTicksPerInterval: 2,
-  //                         onChanged: (dynamic value) {
-  //                           generatingList = Provider.of<AppointmentData>(
-  //                                   context,
-  //                                   listen: false)
-  //                               .currentList2;
-  //                           List returnList = generatingList;
-  //                           setModalState(() {
-  //                             _filterValue = value;
-  //                           });
-  //                           setState(() {
-  //                             generatingList = returnList
-  //                                 .where((element) => element.rating >= value)
-  //                                 .toList();
-  //                           });
-  //                         },
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //             largeScreen: Align(
-  //               alignment: Alignment.bottomCenter,
-  //               child: ConstrainedBox(
-  //                 constraints: BoxConstraints(maxWidth: size.width / 1.5),
-  //                 child: CircularParent(
-  //                   radius: 20,
-  //                   direction: Directions.top,
-  //                   color: Colors.white,
-  //                   child: ListView(
-  //                     padding: EdgeInsets.all(20),
-  //                     physics: BouncingScrollPhysics(),
-  //                     children: [
-  //                       /// ACC TO STARS
-  //                       functions.createTitle(context, 'Yıldıza göre filtrele'),
-  //                       SizedBox(height: 10),
-  //                       SfSlider(
-  //                         min: 0.0,
-  //                         max: 5.0,
-  //                         value: _filterValue,
-  //                         interval: 1,
-  //                         showTicks: true,
-  //                         showLabels: true,
-  //                         tooltipShape: SfRectangularTooltipShape(),
-  //                         minorTicksPerInterval: 2,
-  //                         onChanged: (dynamic value) {
-  //                           generatingList = Provider.of<AppointmentData>(
-  //                                   context,
-  //                                   listen: false)
-  //                               .currentList2;
-  //                           List returnList = generatingList;
-  //                           setModalState(() {
-  //                             _filterValue = value;
-  //                           });
-  //                           setState(() {
-  //                             generatingList = returnList
-  //                                 .where((element) => element.rating >= value)
-  //                                 .toList();
-  //                           });
-  //                         },
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
+
+  String _typedComment = '';
+  bool _hidePanel = false;
 
   @override
   void initState() {
@@ -251,7 +136,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: DefaultAppBar(
           title: Row(
@@ -350,25 +235,122 @@ class _CommentsPageState extends State<CommentsPage> {
           ),
         ],
       )).build(context),
-      body: ListView(
-        children: [
-          AyarlaPage(
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              itemCount: generatingList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                    children: [SizedBox(height: 10), generatingList[index]]);
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Divider(thickness: 1, height: 0);
-              },
+      body: Unfocuser(
+        child: ListView(
+          children: [
+            AyarlaPage(
+              child: ListView.separated(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                itemCount: generatingList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                      children: [SizedBox(height: 10), generatingList[index]]);
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return Divider(thickness: 1, height: 0);
+                },
+              ),
             ),
-          ),
-        ],
+            AyarlaPage(child: SizedBox(height: 150)),
+          ],
+        ),
       ),
+      floatingActionButton: _hidePanel
+          ? null
+          : AyarlaPageNoC(
+              child: Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        height: 120,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(width: 5),
+                                for (int i = 0; i < 5; i++)
+                                  Icon(Icons.star_border,
+                                      color: Colors.yellow.shade700, size: 20),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            AyarlaTextFormField(
+                              hintText: 'Yorumunuzu yazın',
+                              style: kSmallTextStyle,
+                              maxLines: 3,
+                              onChanged: (value) {
+                                setState(() {
+                                  _typedComment = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            generatingList.insert(
+                              0,
+                              CommentModel(
+                                name: 'Fatih Özkan',
+                                rating: 2,
+                                comment: _typedComment,
+                                image: 'assets/worker_1.png',
+                                date: '21.10.2018',
+                                like: 0,
+                                dislike: 0,
+                                expanded: true,
+                              ),
+                            );
+                            _hidePanel = true;
+                          });
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 12,
+                            bottom: 12,
+                            right: 8,
+                          ),
+                          child: Container(
+                            height: 70,
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: Colors.orange[500],
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Gönder',
+                                style: kSmallTextStyle.copyWith(
+                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

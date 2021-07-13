@@ -1,4 +1,5 @@
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,76 +28,80 @@ class _ManagerNotesPageState extends State<ManagerNotesPage> {
         ),
         // showIconButton: false,
       ).build(context),
-      body: AyarlaPage(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-          child: ListView(
-            children: [
-              Container(
-                height: 200,
-                width: double.infinity,
-                child: Expandable(
-                  padding: EdgeInsets.all(5.0),
-                  primaryWidget: NotesCard(
-                    title: 'Not ekle',
-                    icon: Icons.add,
-                    onTap: () {
-                      // Navigator.pushNamed(context, ManagerNotes.id)
-                      //     .then((value) => setState(() {}));
-                    },
-                    isGuide: true,
-                  ),
-                  secondaryWidget: Container(
-                    color: Colors.grey.shade200,
-                    height: 100,
-                    child: TextFormField(
-                      style: kSmallTextStyle,
-                      // initialValue: noteContent,
-                      onChanged: (value) {
-                        // noteContent = value;
+      body: Unfocuser(
+        child: AyarlaPage(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+            child: ListView(
+              children: [
+                Container(
+                  width: double.infinity,
+                  child: Expandable(
+                    padding: EdgeInsets.all(5.0),
+                    primaryWidget: NotesCard(
+                      title: 'Not ekle',
+                      icon: Icons.add,
+                      onTap: () {
+                        // Navigator.pushNamed(context, ManagerNotes.id)
+                        //     .then((value) => setState(() {}));
                       },
-                      keyboardType: TextInputType.multiline,
-                      autofocus: false,
-                      maxLines: 100,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
+                      isGuide: true,
+                    ),
+                    secondaryWidget: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey.shade200,
+                      ),
+                      height: 100,
+                      child: TextFormField(
+                        style: kSmallTextStyle,
+                        // initialValue: noteContent,
+                        onChanged: (value) {
+                          // noteContent = value;
+                        },
+                        keyboardType: TextInputType.multiline,
+                        autofocus: false,
+                        maxLines: 100,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
                           ),
+                          filled: true,
+                          hintStyle: kSmallTextStyle,
+                          hintText: "Notunuzu yazınız...",
+                          fillColor: Colors.grey.shade200,
                         ),
-                        filled: true,
-                        hintStyle: kSmallTextStyle,
-                        hintText: "Notunuzu yazınız...",
-                        fillColor: Colors.grey.shade200,
                       ),
                     ),
                   ),
                 ),
-              ),
-              for (Notes note
-                  in Provider.of<AppointmentData>(context, listen: true)
-                      .managerNotes)
-                NotesCard(
-                  title: note.notes,
-                  icon: Icons.chevron_right,
-                  onTap: () {
-                    /// TODO - fix
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ManagerNotes(
-                          noteContent: note.notes,
-                          index: note.index,
+                for (Notes note
+                    in Provider.of<AppointmentData>(context, listen: true)
+                        .managerNotes)
+                  NotesCard(
+                    title: note.notes,
+                    icon: Icons.chevron_right,
+                    onTap: () {
+                      /// TODO - fix
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ManagerNotes(
+                            noteContent: note.notes,
+                            index: note.index,
+                          ),
                         ),
-                      ),
-                    ).then((value) => setState(() {}));
-                  },
-                  index: note.index,
-                  isGuide: false,
-                ),
-            ],
+                      ).then((value) => setState(() {}));
+                    },
+                    index: note.index,
+                    isGuide: false,
+                  ),
+              ],
+            ),
           ),
         ),
       ),

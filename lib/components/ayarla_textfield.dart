@@ -57,8 +57,6 @@ class AyarlaTextField extends StatelessWidget {
   }
 }
 
-/// TODO - ASAP
-/// Initial value
 class AyarlaTextFormField extends StatelessWidget {
   final String text;
   final TextInputType keyboardType;
@@ -73,6 +71,8 @@ class AyarlaTextFormField extends StatelessWidget {
   final TextStyle style;
   final bool obscureText;
   final Key formKey;
+  final TextAlign textAlign;
+  final int maxLines;
 
   AyarlaTextFormField({
     this.keyboardType,
@@ -88,11 +88,14 @@ class AyarlaTextFormField extends StatelessWidget {
     this.style,
     this.obscureText,
     this.formKey,
+    this.textAlign,
+    this.maxLines,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textAlign: textAlign ?? TextAlign.start,
       obscureText: obscureText ?? false,
       initialValue: initialValue,
       validator: validator,
@@ -103,6 +106,7 @@ class AyarlaTextFormField extends StatelessWidget {
       inputFormatters: inputFormatter ?? null,
       style: style ?? kSmallTextStyle,
       autofocus: false,
+      maxLines: maxLines ?? 1,
       decoration: InputDecoration(
         hintText: hintText ?? 'Your Hint Text Here!',
         hintStyle: hintStyle ?? kSmallTextStyle,
