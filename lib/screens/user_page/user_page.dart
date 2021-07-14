@@ -69,18 +69,22 @@ class _UserPageState extends State<UserPage> {
                   if (!Provider.of<Login>(context, listen: true).isLoggedIn)
                     Center(child: AuthenticationPage()),
 
-                  ///otherwise it opens the profile of the user
-                  if (Provider.of<Login>(context, listen: true).isLoggedIn)
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Container(
-                          height: 618,
-                          child: ListView(
-                            children: [
-                              ///users photo and name
-                              Center(
-                                child: GestureDetector(
+              ///otherwise it opens the profile of the user
+              if (Provider.of<Login>(context, listen: true).isLoggedIn)
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Container(
+                      height: 618,
+                      child: ListView(
+                        // crossAxisAlignment: WrapCrossAlignment.start,
+                        // runSpacing: 10.0,
+                        children: [
+                          ///users photo and name
+                          Center(
+                            child: Stack(
+                              children: [
+                                GestureDetector(
                                   onTap: () => functions.showPicker(context),
                                   child: CircleAvatar(
                                     radius: 55,
@@ -93,15 +97,11 @@ class _UserPageState extends State<UserPage> {
                                         ? ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(50),
-                                            // child: Image.file(
-                                            //   Provider.of<BusinessAndUserData>(
-                                            //           context,
-                                            //           listen: true)
-                                            //       .userImage,
-                                            //   width: 100,
-                                            //   height: 100,
-                                            //   fit: BoxFit.cover,
-                                            // ),
+                                            child:
+                                              Provider.of<BusinessAndUserData>(
+                                                      context,
+                                                      listen: true)
+                                                  .userImage
                                           )
                                         : Container(
                                             decoration: BoxDecoration(

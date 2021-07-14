@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
@@ -11,7 +12,7 @@ import 'package:image_picker_web/image_picker_web.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
-import 'package:ayarla/components/imageListItem.dart';
+import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
@@ -104,41 +105,43 @@ class Functions {
       ),
     );
   }
-
   /// takes image from file
   /// TODO dart:io web desteği yok
   imageFromFile(context) async {
-    Image fromPicker = await ImagePickerWeb.getImage(outputType: ImageType.widget);
-    if (fromPicker != null) {
-      pickedImage = fromPicker;
-    }
-    // Image fromPicker = await ImagePickerWeb.getImage(outputType: ImageType.widget);
-    // if (fromPicker != null) {
-    //   setState(() {
-    //     pickedImage = fromPicker;
-    //   });
-    // }
 
-    // FilePickerResult result = await FilePicker.platform.pickFiles(
-    //     type: FileType.image, allowedExtensions: ['png', 'jpg', 'jpeg']);
-    //
-    // if (result != null) {
-    //   PlatformFile file = result.files.first;
-    //
-    //   print('get');
-    //   print(file.name);
-    //   print(file.path);
-    //   print(file.extension);
-    //   Provider.of<BusinessAndUserData>(context, listen: false)
-    //       // .addImage(ImageListItem(file: File.fromRawPath(file.bytes), isFile: true, covered: true));
-    //       .addImage(ImageListItem(image: file.path));
-    //
-    //   print('set');
-    //   Provider.of<BusinessAndUserData>(context, listen: false)
-    //       .setUserImage(file.path);
-    //   // .setUserImage(ImageListItem(image: file.name));
-    // }
-  }
+    Image fromPicker = await ImagePickerWeb.getImage(
+        outputType: ImageType.widget);
+    if (fromPicker != null) {
+      if (Provider
+          .of<Login>(context, listen: false)
+          .isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .addImage(ImageListItem(isFile:false,isImage: true, covered: true, fileImage: fromPicker,));
+      } else {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .setUserImage(UserImage(isFile:false,image: fromPicker));
+      }
+    }
+    }
+ /*   FilePickerResult result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['png', 'jpg', 'svg', 'jpeg']);
+
+    if (result != null) {
+      PlatformFile file = result.files.first;
+
+      if (Provider.of<Login>(context, listen: false).isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .addImage(ImageListItem(file: File.fromRawPath(file.bytes), isFile: true, covered: true));
+      } else {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .setUserImage(File.fromRawPath(file.bytes));
+      }
+
+    } else {
+      // User canceled the picker
+    }*/
+
 
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
@@ -151,7 +154,7 @@ class Functions {
             .addImage(ImageListItem(file: image, isFile: true, covered: true));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage('image');
+            .setUserImage(UserImage(isFile:true,fileImage: image));
       }
     }
   }
@@ -167,13 +170,22 @@ class Functions {
             .addImage(ImageListItem(file: image, isFile: true, covered: true));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage('image');
+            .setUserImage(UserImage(isFile:true,fileImage: image));
       }
     }
   }
 
-
   void showPicker(context) {
+    bool isWeb;
+    try{
+      if(Platform.isAndroid||Platform.isIOS) {
+        isWeb=false;
+      } else {
+        isWeb=true;
+      }
+    } catch(e){
+      isWeb=true;
+    }
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,
@@ -184,32 +196,39 @@ class Functions {
             color: Colors.white,
             child: new Wrap(
               children: <Widget>[
+                if(isWeb==true)
                 new ListTile(
                   leading: new Icon(Icons.upload_file),
                   title: new Text('Dosya'),
                   tileColor: Colors.transparent,
-                  onTap: () async {
+                  onTap: () {
                     imageFromFile(context);
                     Navigator.of(context).pop();
                   },
-                ),
-                new ListTile(
-                    leading: new Icon(Icons.photo_library),
-                    title: new Text('Galeri'),
-                    tileColor: Colors.transparent,
-                    onTap: () async {
-                      imgFromGallery(context);
-                      Navigator.of(context).pop();
-                    }),
-                new ListTile(
-                  leading: new Icon(Icons.photo_camera),
-                  title: new Text('Kamera'),
-                  tileColor: Colors.transparent,
-                  onTap: () {
-                    imgFromCamera(context);
-                    Navigator.of(context).pop();
-                  },
-                ),
+                )
+                else
+                  Column(
+                    children: [
+                      new ListTile(
+                          leading: new Icon(Icons.photo_library),
+                          title: new Text('Galeri'),
+                          tileColor: Colors.transparent,
+                          onTap: () {
+                            imgFromGallery(context);
+                            Navigator.of(context).pop();
+                          }),
+                      new ListTile(
+                        leading: new Icon(Icons.photo_camera),
+                        title: new Text('Kamera'),
+                        tileColor: Colors.transparent,
+                        onTap: () {
+                          imgFromCamera(context);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  )
+
               ],
             ),
           );
@@ -248,4 +267,3 @@ String fixTurkishCharacters(String string) {
     string = string.replaceAll(letter, charList2[charList.indexOf(letter)]);
   return string;
 }
-Image pickedImage;

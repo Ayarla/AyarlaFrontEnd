@@ -2,6 +2,7 @@ import 'package:ayarla/components/map/BusinessFlutterMap.dart';
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
+import 'package:ayarla/screens/manager_screens/employee_management_page/employee_manage_page.dart';
 import 'package:ayarla/screens/user_page/employee_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
@@ -98,6 +99,10 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           EmployeeManagement());
 
+  static Handler _employeeManage = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          EmployeeManage());
+
   static Handler _managerNotesPage = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           ManagerNotesPage());
@@ -145,7 +150,7 @@ class Routers {
     /// Manager Pages
     router.define("/YoneticiAnasayfasi", handler: _managerHome);
     router.define("/Isletmem", handler: _businessInfoPage);
-    router.define("/Calisanlarim", handler: _employeeManagement);
+    router.define("/Calisanlarim", handler: _employeeManage);
     router.define("/Notlarim", handler: _managerNotesPage);
     router.define("/MesajYolla", handler: _managerSendMessagePage);
     router.define("/Harita", handler: _flutterMap);
