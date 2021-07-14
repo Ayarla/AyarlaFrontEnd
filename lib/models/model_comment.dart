@@ -11,20 +11,12 @@ class CommentModel extends StatelessWidget {
   final int like;
   final int dislike;
   final int score;
-  final bool expanded;
 
-  // factory CommentModel.fromJson(json, int index) {
-  //   return CommentModel(
-  //     comment: json["comment"],
-  //     name: json[""],
-  //     rating: json["rating"],
-  //     image: json[""],
-  //     date: json[""],
-  //     like: json[""],
-  //     dislike: json[""],
-  //     score: json[""],
-  //   );
-  // }
+  ///
+  final bool expanded;
+  final bool editable;
+  final Function removeFunction;
+  final Function editFunction;
 
   CommentModel({
     @required this.rating,
@@ -35,7 +27,12 @@ class CommentModel extends StatelessWidget {
     this.like,
     this.dislike,
     this.score,
+
+    ///
     this.expanded = false,
+    this.editable = false,
+    this.editFunction,
+    this.removeFunction,
   });
 
   @override
@@ -50,7 +47,35 @@ class CommentModel extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: kSmallTextStyle),
+                editable
+                    ? Row(
+                        children: [
+                          Text(
+                            name,
+                            style: kSmallTextStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(width: 10),
+                          GestureDetector(
+                            child: Text(
+                              'Düzenle',
+                              style:
+                                  kSmallTextStyle.copyWith(color: Colors.green),
+                            ),
+                            onTap: editFunction,
+                          ),
+                          SizedBox(width: 10),
+                          GestureDetector(
+                            child: Text(
+                              'Kaldır',
+                              style:
+                                  kSmallTextStyle.copyWith(color: Colors.red),
+                            ),
+                            onTap: removeFunction,
+                          ),
+                        ],
+                      )
+                    : Text(name, style: kSmallTextStyle),
                 Row(
                   children: <Widget>[
                     for (int i = 0; i < rating; i++)
@@ -116,3 +141,16 @@ class CommentModel extends StatelessWidget {
     );
   }
 }
+
+// factory CommentModel.fromJson(json, int index) {
+//   return CommentModel(
+//     comment: json["comment"],
+//     name: json[""],
+//     rating: json["rating"],
+//     image: json[""],
+//     date: json[""],
+//     like: json[""],
+//     dislike: json[""],
+//     score: json[""],
+//   );
+// }

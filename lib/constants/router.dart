@@ -9,6 +9,7 @@ import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 import 'package:ayarla/screens/user_page/appointments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/message_page.dart';
+import 'package:ayarla/screens/user_page/user_comments_page.dart';
 import 'package:ayarla/webService/view_webFunctions.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,10 @@ class Routers {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
           UserMessagePage());
 
+  static Handler _userCommentsPage = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          UserCommentsPage());
+
   // static Handler _pastAppointmentPage = Handler(
   //     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
   //         PastAppointmentsPage());
@@ -146,6 +151,7 @@ class Routers {
     router.define("/Mesajlarım", handler: _userMessagePage);
     // router.define("/GecmisRandevularim", handler: _pastAppointmentPage);
     router.define("/Profilimi Düzenle", handler: _editProfilePage);
+    router.define("/Yorumlarım", handler: _userCommentsPage);
 
     /// Manager Pages
     router.define("/YoneticiAnasayfasi", handler: _managerHome);

@@ -17,6 +17,7 @@ import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/user_page/user_page.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class ConfirmationPage extends StatefulWidget {
   @override
@@ -250,23 +251,29 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               borderRadius: BorderRadius.circular(20.0),
               child: Container(height: 300, child: FlutterMapCoiffure()),
             ),
-            Divider(),
-            Center(
-                child: Text('Uygulamamızı İndirmek İster Misiniz?',
-                    style: kTitleStyle)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  'assets/store_badges/google-play-badge.png',
-                  height: 65,
-                ),
-                SvgPicture.asset(
-                  'assets/store_badges/app_store_badge.svg',
-                  height: 45,
-                ),
-              ],
-            ),
+            if (!Provider.of<Login>(context, listen: true).isLoggedIn &&
+                UniversalPlatform.isWeb)
+              Column(
+                children: [
+                  Divider(),
+                  Center(
+                      child: Text('Uygulamamızı İndirmek İster Misiniz?',
+                          style: kTitleStyle)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset(
+                        'assets/store_badges/google-play-badge.png',
+                        height: 65,
+                      ),
+                      SvgPicture.asset(
+                        'assets/store_badges/app_store_badge.svg',
+                        height: 45,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
           ],
         ),
       ),

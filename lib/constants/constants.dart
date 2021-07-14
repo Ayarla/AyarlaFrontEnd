@@ -166,8 +166,9 @@ List<String> nameList = [
   "Favorilerim",
   "Randevularım",
   "Mesajlarım",
-  "Profilimi Düzenle",
+  "Yorumlarım",
 ];
+
 List<Color> colorList = [
   Colors.red,
   Colors.green,
@@ -178,7 +179,7 @@ List<IconData> iconList = [
   Icons.favorite_border_outlined,
   Icons.date_range_outlined,
   Icons.chat_outlined,
-  Icons.settings_outlined,
+  Icons.chat_outlined,
 ];
 
 List<String> userFireBaseFunctions = [
@@ -187,5 +188,3 @@ List<String> userFireBaseFunctions = [
   'user_messages',
   'user_edit_profile',
 ];
-
-// 'user_past_appointments',
