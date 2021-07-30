@@ -31,64 +31,68 @@ class SearchPageState extends State<SearchPage> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
-      extendBodyBehindAppBar: true,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SearchAppBar(
-              onChanged: (value) {
-                setState(() {
-                  if (value.isNotEmpty) {
-                    Provider.of<AppointmentData>(context, listen: false).currentList =
-                        Provider.of<AppointmentData>(context, listen: false)
-                            .currentList
-                            .where((element) => element.name.contains(value))
-                            .toList();
-                  } else
-                    Provider.of<AppointmentData>(context, listen: false).currentList =
-                        generatingList;
-                });
+      body: SafeArea(
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverSafeArea(
+                sliver: SearchAppBar(
+                  onChanged: (value) {
+                    setState(() {
+                      if (value.isNotEmpty) {
+                        Provider.of<AppointmentData>(context, listen: false).currentList =
+                            Provider.of<AppointmentData>(context, listen: false)
+                                .currentList
+                                .where((element) => element.name.contains(value))
+                                .toList();
+                      } else
+                        Provider.of<AppointmentData>(context, listen: false).currentList =
+                            generatingList;
+                    });
 
-                /// Known issue - Need fix for entering wrong name.
-              },
+                    /// Known issue - Need fix for entering wrong name.
+                  },
+                ),
+              ),
+            ];
+          },
+          body: AyarlaPage(
+            child: OverScroll(
+              child: width < 580
+                  ? ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: false,
+                      itemCount:
+                          Provider.of<AppointmentData>(context, listen: true).currentList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.only(left: 5, right: 5, bottom: 15),
+                          child: SmallCoiffureCard(
+                              coiffureModel: Provider.of<AppointmentData>(context, listen: true)
+                                  .currentList[index]),
+                        );
+                      },
+                    )
+                  : GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                      padding: EdgeInsets.only(top: 0),
+                      itemCount:
+                          Provider.of<AppointmentData>(context, listen: true).currentList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Wrap(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: SmallCoiffureCard(
+                                  coiffureModel: Provider.of<AppointmentData>(context, listen: true)
+                                      .currentList[index]),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
             ),
-          ];
-        },
-        body: AyarlaPage(
-          child: OverScroll(
-            child: width < 580
-                ? ListView.builder(
-                    shrinkWrap: false,
-                    itemCount:
-                        Provider.of<AppointmentData>(context, listen: true).currentList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: EdgeInsets.only(left: 5, right: 5, bottom: 15),
-                        child: SmallCoiffureCard(
-                            coiffureModel: Provider.of<AppointmentData>(context, listen: true)
-                                .currentList[index]),
-                      );
-                    },
-                  )
-                : GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                    padding: EdgeInsets.only(top: 20),
-                    itemCount:
-                        Provider.of<AppointmentData>(context, listen: true).currentList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Wrap(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: SmallCoiffureCard(
-                                coiffureModel: Provider.of<AppointmentData>(context, listen: true)
-                                    .currentList[index]),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
           ),
         ),
       ),

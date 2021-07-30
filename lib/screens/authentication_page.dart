@@ -417,7 +417,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                             createSheet(
                                                 context,
                                                 privacyPolicyModalBottomSheet(
-                                                    context: context, setState: setState));
+                                                    context: context, setState: setState),
+                                                600);
                                           },
                                         style: kSmallTextStyle.copyWith(
                                           fontSize: isSmallScreen ? 10 : 14,

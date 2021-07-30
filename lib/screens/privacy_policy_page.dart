@@ -3,11 +3,8 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ayarla/models/functions.dart';
 
 privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
-  final Size size = MediaQuery.of(context).size;
-  final Functions functions = Functions();
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
     child: Container(
@@ -19,28 +16,7 @@ privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
           Expanded(
             child: ListView(
               children: [
-                Text(
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb'
-                    'sfhjskfjaksf\nhksafhjsahfjkshfksahdkfdskafksahfjkshagsg'
-                    'askgkskagk\nsadkgasgbsakjgfbskbfsjb',
-                    style: kSmallTextStyle),
+                Text('Ayarla Gizlilik Sözleşmesi', style: kSmallTextStyle),
               ],
             ),
           ),
@@ -52,33 +28,22 @@ privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
                 text: 'hayır',
                 onPressed: () {
                   setState(() {
-                    Provider.of<BusinessAndUserData>(context, listen: false)
-                        .checkBox = false;
+                    Provider.of<BusinessAndUserData>(context, listen: false).checkBox = false;
                   });
                   Navigator.pop(context);
                 },
-                iconContext: Icon(
-                  Icons.cancel_outlined,
-                  size: 30,
-                  color: Colors.red,
-                ),
+                iconContext: Icon(Icons.cancel_outlined, size: 30, color: Colors.red),
               ),
               Spacer(),
               GenericIconButton(
                 axis: Axis.horizontal,
                 height: 75,
                 width: 156,
-                iconContext: Icon(
-                  Icons.check,
-                  size: 30,
-                  color:Colors.green,
-                ),
+                iconContext: Icon(Icons.check, size: 30, color: Colors.green),
                 text: 'Onaylıyorum',
-                // Text(''),
                 onPressed: () {
                   setState(() {
-                    Provider.of<BusinessAndUserData>(context, listen: false)
-                        .checkBox = true;
+                    Provider.of<BusinessAndUserData>(context, listen: false).checkBox = true;
                   });
                   Navigator.pop(context);
                 },

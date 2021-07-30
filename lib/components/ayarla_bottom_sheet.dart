@@ -26,21 +26,13 @@ class BottomSheetCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.grey[300],
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black54,
-          //     blurRadius: 1.0,
-          //     offset: Offset(1, 1.2),
-          //   ),
-          // ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 10),
             Text(title ?? 'YOUR TITLE HERE',
-                style: kTitleStyle.copyWith(
-                    fontSize: width <= 400 ? width / 20 : 20)),
+                style: kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20)),
             SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -95,12 +87,11 @@ class BottomSheetCard extends StatelessWidget {
   }
 }
 
-createSheet(BuildContext context, Widget content) {
+createSheet(BuildContext context, Widget content, double height) {
   return showModalBottomSheet(
     isScrollControlled: true,
-    enableDrag: false,
-    clipBehavior: Clip
-        .antiAliasWithSaveLayer,
+    enableDrag: true,
+    clipBehavior: Clip.antiAliasWithSaveLayer,
     backgroundColor: Colors.transparent,
     context: context,
     builder: (BuildContext bc) {
@@ -114,7 +105,7 @@ createSheet(BuildContext context, Widget content) {
           ),
           child: Container(
             width: size.width <= 700 ? size.width : 700,
-            height: 600,
+            height: height,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(

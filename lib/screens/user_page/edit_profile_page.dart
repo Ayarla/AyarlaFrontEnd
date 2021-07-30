@@ -54,7 +54,7 @@ class _EditProfileState extends State<EditProfilePage> {
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
-                    colors: [Color(0xFFffa7ca), Color(0xFFca7799)],
+                    colors: [Color(0xffc69365), Color(0xffb37d1e)],
                   ),
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -69,15 +69,12 @@ class _EditProfileState extends State<EditProfilePage> {
                           child: CircleAvatar(
                             radius: 55,
                             backgroundColor: Colors.transparent,
-                            child: Provider.of<BusinessAndUserData>(context,
-                                            listen: true)
+                            child: Provider.of<BusinessAndUserData>(context, listen: true)
                                         .userImage !=
                                     null
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Provider.of<BusinessAndUserData>(
-                                            context,
-                                            listen: true)
+                                    child: Provider.of<BusinessAndUserData>(context, listen: true)
                                         .userImage)
                                 : Container(
                                     decoration: BoxDecoration(
@@ -112,8 +109,7 @@ class _EditProfileState extends State<EditProfilePage> {
                       children: [
                         Text(
                           "Nilsu Öz",
-                          style: kTextStyle.copyWith(
-                              color: Colors.white, fontSize: 25),
+                          style: kTextStyle.copyWith(color: Colors.white, fontSize: 25),
                         ),
                         // Text(
                         //   'xx.xx.xxxxden beri üye',
@@ -135,8 +131,7 @@ class _EditProfileState extends State<EditProfilePage> {
               ),
               Padding(
                 padding: EdgeInsets.all(4.0),
-                child: AyarlaTextFormField(
-                    hintText: 'Telefonunuzu Giriniz (Opsiyonel)'),
+                child: AyarlaTextFormField(hintText: 'Telefonunuzu Giriniz (Opsiyonel)'),
               ),
               SizedBox(height: 15),
 
@@ -156,8 +151,7 @@ class _EditProfileState extends State<EditProfilePage> {
               ),
               Padding(
                 padding: EdgeInsets.all(4.0),
-                child: AyarlaTextFormField(
-                    hintText: 'Yeni Şifrenizi Tekrar Giriniz'),
+                child: AyarlaTextFormField(hintText: 'Yeni Şifrenizi Tekrar Giriniz'),
               ),
 
               // Form(
