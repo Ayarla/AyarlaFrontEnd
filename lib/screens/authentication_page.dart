@@ -17,8 +17,7 @@ class AuthenticationPage extends StatefulWidget {
   _AuthenticationPageState createState() => _AuthenticationPageState();
 }
 
-class _AuthenticationPageState extends State<AuthenticationPage>
-    with TickerProviderStateMixin {
+class _AuthenticationPageState extends State<AuthenticationPage> with TickerProviderStateMixin {
   GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> _regFormKey = GlobalKey<FormState>();
   Functions functions = Functions();
@@ -28,6 +27,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
   String _typedSurname;
   String _typedName;
   String _typedRoleName;
+  bool _newPassword = false;
 
   bool isValidEmail() {
     return RegExp(
@@ -56,22 +56,19 @@ class _AuthenticationPageState extends State<AuthenticationPage>
               indicatorColor: Colors.orange[500],
               indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(width: 3.0, color: Colors.orange[500]),
-                  insets: isSmallScreen
-                      ? EdgeInsets.zero
-                      : EdgeInsets.symmetric(horizontal: -30.0)),
+                  insets:
+                      isSmallScreen ? EdgeInsets.zero : EdgeInsets.symmetric(horizontal: -30.0)),
               tabs: [
                 Tab(
                   child: Text(
                     "Giriş Yapın",
-                    style:
-                        kTextStyle.copyWith(fontSize: isSmallScreen ? 14 : 20),
+                    style: kTextStyle.copyWith(fontSize: isSmallScreen ? 14 : 20),
                   ),
                 ),
                 Tab(
                   child: Text(
                     "Kayıt Olun",
-                    style:
-                        kTextStyle.copyWith(fontSize: isSmallScreen ? 14 : 20),
+                    style: kTextStyle.copyWith(fontSize: isSmallScreen ? 14 : 20),
                   ),
                 ),
               ],
@@ -79,11 +76,11 @@ class _AuthenticationPageState extends State<AuthenticationPage>
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Container(
-                height: MediaQuery.of(context).size.height - 300,
+                height: MediaQuery.of(context).size.height,
                 child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     ListView(
-                      shrinkWrap: true,
                       children: [
                         Form(
                           key: _loginFormKey,
@@ -94,10 +91,10 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 padding: EdgeInsets.all(8),
                                 child: AyarlaTextFormField(
                                   hintText: 'Mail adresinizi giriniz',
-                                  hintStyle: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
-                                  style: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
+                                  hintStyle:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
+                                  style:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                   padding: EdgeInsets.all(20.0),
                                   color: Colors.orange[500],
                                   validator: (_typedValue) {
@@ -117,10 +114,10 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 padding: EdgeInsets.all(8),
                                 child: AyarlaTextFormField(
                                   hintText: 'Şifrenizi giriniz',
-                                  hintStyle: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
-                                  style: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
+                                  hintStyle:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
+                                  style:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                   padding: EdgeInsets.all(20.0),
                                   color: Colors.orange[500],
                                   validator: (_typed) {
@@ -147,9 +144,11 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                           children: [
                             TextButton(
                               onPressed: () {
-                                //TODO Forget password page
+                                setState(() {
+                                  _newPassword = true;
+                                });
                               },
-                              child: Text('  Şifremi unuttum!',
+                              child: Text('  Şifremi unuttum',
                                   style: kSmallTextStyle.copyWith(
                                       color: Colors.orange[300],
                                       fontSize: isSmallScreen ? 10 : 15)),
@@ -157,18 +156,12 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             Spacer(),
                             TextButton(
                               style: ButtonStyle(
-                                padding: MaterialStateProperty.all<
-                                        EdgeInsetsGeometry>(
-                                    EdgeInsets.symmetric(
-                                        vertical: 12, horizontal: 40)),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.orange[500]),
-                                shape:
-                                    MaterialStateProperty.all<OutlinedBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20))),
+                                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    EdgeInsets.symmetric(vertical: 12, horizontal: 40)),
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                                shape: MaterialStateProperty.all<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20))),
                               ),
                               onPressed: () {
                                 if (_loginFormKey.currentState.validate()) {
@@ -176,20 +169,57 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 } else {
                                   print("Not Validated");
                                 }
-                                Provider.of<Login>(context, listen: false)
-                                    .loggedInUser();
+                                Provider.of<Login>(context, listen: false).loggedInUser();
 
                                 ///TODO check and push somewhere
                               },
                               child: Text(
                                 'Giriş',
                                 style: kTextStyle.copyWith(
-                                    color: Colors.white,
-                                    fontSize: isSmallScreen ? 15 : 25),
+                                    color: Colors.white, fontSize: isSmallScreen ? 15 : 25),
                               ),
                             ),
                           ],
                         ),
+                        if (_newPassword)
+                          Column(
+                            children: [
+                              SizedBox(height: 10),
+                              AyarlaTextFormField(
+                                hintText: 'Mailinizi Giriniz',
+                                validator: (_typedValue) {
+                                  return (_typedValue.isEmpty)
+                                      ? 'Boş bırakılamaz'
+                                      : isValidEmail()
+                                          ? null
+                                          : "Lütfen geçerli bir mail adresi giriniz";
+                                },
+                              ),
+                              SizedBox(height: 10),
+                              TextButton(
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                      EdgeInsets.symmetric(vertical: 12, horizontal: 40)),
+                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20))),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _newPassword = false;
+                                  });
+
+                                  ///TODO - send mail.
+                                },
+                                child: Text(
+                                  'Gönder',
+                                  style: kTextStyle.copyWith(
+                                      color: Colors.white, fontSize: isSmallScreen ? 15 : 25),
+                                ),
+                              ),
+                            ],
+                          ),
                       ],
                     ),
                     ListView(
@@ -199,16 +229,13 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             padding: EdgeInsets.symmetric(vertical: 10.0),
                             child: Text(
                               "Lütfen hesap türünü seçiniz",
-                              style: kTextStyle.copyWith(
-                                  fontSize: isSmallScreen ? 14 : 20),
+                              style: kTextStyle.copyWith(fontSize: isSmallScreen ? 14 : 20),
                             ),
                           ),
                         ),
                         Center(
                           child: FlutterToggleTab(
-                            width: MediaQuery.of(context).size.width > 1200
-                                ? 20
-                                : 50,
+                            width: MediaQuery.of(context).size.width > 1200 ? 20 : 50,
                             borderRadius: 15,
                             initialIndex: 0,
                             selectedBackgroundColors: [Colors.orange[500]],
@@ -224,10 +251,10 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             icons: [Icons.person, Icons.work],
                             selectedLabelIndex: (index) {
                               if (index == 0) {
-                                _typedRoleName = 'User';
+                                _typedRoleName = 'USER';
                               } else if (index == 1) {
                                 /// TODO
-                                _typedRoleName = 'User';
+                                _typedRoleName = 'USER';
                               }
                               print("Selected Index $index");
                             },
@@ -243,8 +270,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 padding: EdgeInsets.symmetric(vertical: 8.0),
                                 child: AyarlaTextFormField(
                                   hintText: 'İsminizi Giriniz',
-                                  style: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
+                                  style:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                   padding: EdgeInsets.all(20.0),
                                   color: Colors.orange[500],
                                   validator: (_typed) {
@@ -264,8 +291,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 padding: EdgeInsets.symmetric(vertical: 8.0),
                                 child: AyarlaTextFormField(
                                   hintText: 'Soy İsminizi Giriniz',
-                                  style: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
+                                  style:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                   padding: EdgeInsets.all(20.0),
                                   color: Colors.orange[500],
                                   validator: (_typed) {
@@ -285,8 +312,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 padding: EdgeInsets.symmetric(vertical: 8.0),
                                 child: AyarlaTextFormField(
                                   hintText: 'Mail Adresinizi Giriniz',
-                                  style: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
+                                  style:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                   padding: EdgeInsets.all(20.0),
                                   color: Colors.orange[500],
                                   validator: (_typedValue) {
@@ -306,8 +333,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 padding: EdgeInsets.symmetric(vertical: 8.0),
                                 child: AyarlaTextFormField(
                                   hintText: 'Şifrenizi Giriniz',
-                                  style: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
+                                  style:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                   padding: EdgeInsets.all(20.0),
                                   color: Colors.orange[500],
                                   validator: (_typed) {
@@ -330,8 +357,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                 padding: EdgeInsets.symmetric(vertical: 8.0),
                                 child: AyarlaTextFormField(
                                   hintText: 'Şifrenizi Tekrar Giriniz',
-                                  style: kSmallTextStyle.copyWith(
-                                      fontSize: isSmallScreen ? 10 : 14),
+                                  style:
+                                      kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                   padding: EdgeInsets.all(20.0),
                                   color: Colors.orange[500],
                                   validator: (_typed) {
@@ -360,17 +387,13 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                           children: [
                             Checkbox(
                                 activeColor: Colors.orange[500],
-                                value: Provider.of<BusinessAndUserData>(context,
-                                        listen: false)
+                                value: Provider.of<BusinessAndUserData>(context, listen: false)
                                     .checkBox,
                                 onChanged: (value) {
                                   setState(() {
-                                    Provider.of<BusinessAndUserData>(context,
-                                                listen: false)
+                                    Provider.of<BusinessAndUserData>(context, listen: false)
                                             .checkBox =
-                                        !Provider.of<BusinessAndUserData>(
-                                                context,
-                                                listen: false)
+                                        !Provider.of<BusinessAndUserData>(context, listen: false)
                                             .checkBox;
                                   });
                                 }),
@@ -378,8 +401,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Container(
-                                width:
-                                    size.width < 700 ? size.width / 1.7 : 500,
+                                width: size.width < 700 ? size.width / 1.7 : 500,
                                 child: RichText(
                                   text: TextSpan(
                                     style: kSmallTextStyle.copyWith(
@@ -388,16 +410,14 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                                     ),
                                     children: [
                                       TextSpan(
-                                        text:
-                                            'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
+                                        text: 'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
                                             /// Privacy Policy ModalBottomSheet
                                             createSheet(
                                                 context,
                                                 privacyPolicyModalBottomSheet(
-                                                    context: context,
-                                                    setState: setState));
+                                                    context: context, setState: setState));
                                           },
                                         style: kSmallTextStyle.copyWith(
                                           fontSize: isSmallScreen ? 10 : 14,
@@ -424,26 +444,22 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                         Center(
                           child: TextButton(
                             style: ButtonStyle(
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      EdgeInsets.symmetric(
-                                          vertical: 12, horizontal: 40)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.orange[500]),
+                              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                  EdgeInsets.symmetric(vertical: 12, horizontal: 40)),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.orange[500]),
                               shape: MaterialStateProperty.all<OutlinedBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20))),
+                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                             ),
                             onPressed: () {
                               if (_regFormKey.currentState.validate()) {
                                 print("Form Validated...");
                                 HttpUserFunctions().createUser(
-                                  userName: ' ',
+                                  userName: _typedName,
                                   name: _typedName,
                                   surname: _typedSurname,
                                   email: _typedMail,
                                   password: _typedPassword,
-                                  roleNames: _typedRoleName,
+                                  roleNames: 'USER',
                                 );
                                 // Provider.of<Login>(context, listen: false)
                                 //     .loggedInUser();
@@ -457,8 +473,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                             child: Text(
                               'Kayıt Ol',
                               style: kTextStyle.copyWith(
-                                  color: Colors.white,
-                                  fontSize: isSmallScreen ? 15 : 25),
+                                  color: Colors.white, fontSize: isSmallScreen ? 15 : 25),
                             ),
                           ),
                         ),

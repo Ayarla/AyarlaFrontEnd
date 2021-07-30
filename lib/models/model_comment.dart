@@ -10,7 +10,6 @@ class CommentModel extends StatelessWidget {
   final String date;
   final int like;
   final int dislike;
-  final int score;
 
   ///
   final bool expanded;
@@ -26,7 +25,6 @@ class CommentModel extends StatelessWidget {
     this.date,
     this.like,
     this.dislike,
-    this.score,
 
     ///
     this.expanded = false,

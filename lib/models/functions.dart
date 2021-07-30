@@ -8,7 +8,6 @@ import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
@@ -107,22 +106,23 @@ class Functions {
   }
   /// takes image from file
   /// TODO dart:io web desteği yok
-  imageFromFile(context) async {
-
-    Image fromPicker = await ImagePickerWeb.getImage(
-        outputType: ImageType.widget);
-    if (fromPicker != null) {
-      if (Provider
-          .of<Login>(context, listen: false)
-          .isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(isFile:false,isImage: true, covered: true, fileImage: fromPicker,));
-      } else {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(isFile:false,image: fromPicker));
-      }
-    }
-    }
+  // imageFromFile(context) async {
+  //
+  //   Image fromPicker = await ImagePickerWeb.getImage(
+  //       outputType: ImageType.widget);
+  //   if (fromPicker != null) {
+  //     if (Provider
+  //         .of<Login>(context, listen: false)
+  //         .isManager) {
+  //       Provider.of<BusinessAndUserData>(context, listen: false)
+  //           .addImage(ImageListItem(isFile:false,isImage: true, covered: true, fileImage: fromPicker,));
+  //     } else {
+  //       Provider.of<BusinessAndUserData>(context, listen: false)
+  //           .setUserImage(UserImage(isFile:false,image: fromPicker));
+  //     }
+  //   }
+  //   }
+    ///
  /*   FilePickerResult result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['png', 'jpg', 'svg', 'jpeg']);
@@ -202,7 +202,7 @@ class Functions {
                   title: new Text('Dosya'),
                   tileColor: Colors.transparent,
                   onTap: () {
-                    imageFromFile(context);
+                    // imageFromFile(context);
                     Navigator.of(context).pop();
                   },
                 )

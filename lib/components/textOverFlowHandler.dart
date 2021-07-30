@@ -13,9 +13,9 @@ class TextOverFlowHandler extends StatefulWidget {
   TextOverFlowHandler({
     @required this.child,
     this.direction: Axis.horizontal,
-    this.animationDuration: const Duration(milliseconds: 3000),
+    this.animationDuration: const Duration(seconds: 4),
     this.backDuration: const Duration(milliseconds: 800),
-    this.pauseDuration: const Duration(milliseconds: 800),
+    this.pauseDuration: const Duration(seconds: 1),
   });
 
   @override
@@ -33,7 +33,7 @@ class _TextOverFlowHandlerState extends State<TextOverFlowHandler> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     scrollController.dispose();
     super.dispose();
   }
@@ -50,15 +50,12 @@ class _TextOverFlowHandlerState extends State<TextOverFlowHandler> {
   void scroll(_) async {
     while (scrollController.hasClients) {
       await Future.delayed(widget.pauseDuration);
-      if(scrollController.hasClients)
-        await scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: widget.animationDuration,
-            curve: Curves.ease);
+      if (scrollController.hasClients)
+        await scrollController.animateTo(scrollController.position.maxScrollExtent,
+            duration: widget.animationDuration, curve: Curves.ease);
       await Future.delayed(widget.pauseDuration);
-      if(scrollController.hasClients)
-        await scrollController.animateTo(0.0,
-            duration: widget.backDuration, curve: Curves.easeOut);
+      if (scrollController.hasClients)
+        await scrollController.animateTo(0.0, duration: widget.backDuration, curve: Curves.easeOut);
     }
   }
 }

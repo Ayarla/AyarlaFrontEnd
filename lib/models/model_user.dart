@@ -10,8 +10,8 @@ class UserModel {
   List<dynamic> roleNames;
   String password;
   String comments;
-  String favorites;
-  String appointments;
+  List favorites;
+  List appointments;
   int id;
 
   factory UserModel.fromJson(json, int index) {

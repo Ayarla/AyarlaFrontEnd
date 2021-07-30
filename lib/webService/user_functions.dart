@@ -12,7 +12,9 @@ class HttpUserFunctions extends HttpService {
       String password,
       String roleNames}) async {
     await getToken();
-    final String _url = '$baseUrl/api/services/app/User/Create';
+    final String _url =
+        // 'https://ayarlawebhost2021041011510.azurewebsites.net/api/services/app/User/Create';
+        '$baseUrl/api/services/app/User/Create';
 
     Map data = {
       "userName": userName,
@@ -41,12 +43,7 @@ class HttpUserFunctions extends HttpService {
 
   /// Update User
   Future updateUser(
-      {int id,
-      String userName,
-      String name,
-      String surname,
-      String email,
-      String password}) async {
+      {int id, String userName, String name, String surname, String email, String password}) async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/User/Update';
 
@@ -166,8 +163,7 @@ class HttpUserFunctions extends HttpService {
     );
   }
 
-  Future changeUserPassword(
-      {String newPassword, String currentPassword}) async {
+  Future changeUserPassword({String newPassword, String currentPassword}) async {
     await getToken();
     final String _url = '$baseUrl/api/services/app/User/ChangePassword';
 

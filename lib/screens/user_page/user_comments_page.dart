@@ -63,13 +63,8 @@ class _UserCommentsPageState extends State<UserCommentsPage> {
                 itemBuilder: (BuildContext bc, int index) {
                   return Card(
                     elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: myComments[index],
-                    ),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    child: Padding(padding: EdgeInsets.all(8.0), child: myComments[index]),
                   );
                 }),
           ),
@@ -80,27 +75,23 @@ class _UserCommentsPageState extends State<UserCommentsPage> {
           : AyarlaPageNoC(
               child: Card(
                 elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Expanded(
                       flex: 3,
                       child: Container(
-                        height: 120,
+                        height: 121,
                         padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
                         child: Column(
                           children: [
                             Row(
                               children: [
                                 SizedBox(width: 5),
                                 for (int i = 0; i < 5; i++)
-                                  Icon(Icons.star_border,
-                                      color: Colors.yellow.shade700, size: 20),
+                                  Icon(Icons.star_border, color: Colors.yellow.shade700, size: 20),
                               ],
                             ),
                             SizedBox(height: 10),
@@ -148,11 +139,7 @@ class _UserCommentsPageState extends State<UserCommentsPage> {
                           });
                         },
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 12,
-                            bottom: 12,
-                            right: 8,
-                          ),
+                          padding: EdgeInsets.only(top: 12, bottom: 12, right: 8),
                           child: Container(
                             height: 70,
                             padding: EdgeInsets.all(5),
@@ -163,8 +150,7 @@ class _UserCommentsPageState extends State<UserCommentsPage> {
                             child: Center(
                               child: Text(
                                 'Gönder',
-                                style: kSmallTextStyle.copyWith(
-                                    color: Colors.white),
+                                style: kSmallTextStyle.copyWith(color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
                             ),

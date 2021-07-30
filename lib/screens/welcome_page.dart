@@ -4,7 +4,6 @@ import 'package:ayarla/virtual_data_base/genderSelection.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/appBar.dart';
@@ -37,13 +36,11 @@ class WelcomePage extends StatelessWidget {
                 child: TextButton(
                   onPressed: () {
                     Routers.router.navigateTo(context, "YoneticiAnasayfasi");
-                    Provider.of<Login>(context, listen: false)
-                        .loggedInManager();
+                    Provider.of<Login>(context, listen: false).loggedInManager();
                   },
                   child: Text(
                     'Manager Girişi',
-                    style:
-                        kTextStyle.copyWith(color: Colors.black, fontSize: 25),
+                    style: kTextStyle.copyWith(color: Colors.black, fontSize: 25),
                   ),
                 ),
               ),
@@ -62,7 +59,7 @@ class WelcomePage extends StatelessWidget {
                   arrowWidget: Icon(
                     Icons.keyboard_arrow_up_rounded,
                     color: Colors.white,
-                    size: size.width < 423 ? 35 : 25,
+                    size: size.width <= 425 ? size.width / 20 : 25,
                   ),
                   primaryWidget: Container(
                     height: 80,
@@ -71,7 +68,7 @@ class WelcomePage extends StatelessWidget {
                         'Kuaför Randevumu Ayarla',
                         style: kTextStyle.copyWith(
                           color: Colors.white,
-                          fontSize: size.width < 423 ? 35 : 25,
+                          fontSize: size.width <= 425 ? size.width / 20 : 25,
                         ),
                       ),
                     ),
@@ -85,8 +82,7 @@ class WelcomePage extends StatelessWidget {
                             Provider.of<GenderSelection>(context, listen: false)
                                 .selectGender(Gender.female);
                             Routers.router.navigateTo(context, "/AramaSayfasi");
-                            FirebaseAnalytics().logEvent(
-                                name: 'female_button', parameters: null);
+                            FirebaseAnalytics().logEvent(name: 'female_button', parameters: null);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -113,8 +109,7 @@ class WelcomePage extends StatelessWidget {
                             Provider.of<GenderSelection>(context, listen: false)
                                 .selectGender(Gender.male);
                             Routers.router.navigateTo(context, "/AramaSayfasi");
-                            FirebaseAnalytics().logEvent(
-                                name: 'male_button', parameters: null);
+                            FirebaseAnalytics().logEvent(name: 'male_button', parameters: null);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -141,8 +136,7 @@ class WelcomePage extends StatelessWidget {
                             Provider.of<GenderSelection>(context, listen: false)
                                 .selectGender(Gender.unisex);
                             Routers.router.navigateTo(context, "/AramaSayfasi");
-                            FirebaseAnalytics().logEvent(
-                                name: 'unisex_button', parameters: null);
+                            FirebaseAnalytics().logEvent(name: 'unisex_button', parameters: null);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

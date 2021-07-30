@@ -1,4 +1,3 @@
-import 'package:ayarla/components/UI/responsiveWidget.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_coiffure.dart';
@@ -15,7 +14,6 @@ import 'package:ayarla/virtual_data_base/appointment_data.dart';
 class SmallCoiffureCard extends StatefulWidget {
   final CoiffureModel coiffureModel;
   SmallCoiffureCard({this.coiffureModel});
-
   @override
   _SmallCoiffureCardState createState() => _SmallCoiffureCardState();
 }
@@ -23,104 +21,65 @@ class SmallCoiffureCard extends StatefulWidget {
 class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final width = MediaQuery.of(context).size.width;
     return TextButton(
-      style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
-      ),
+      style: ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.transparent)),
       onPressed: () {
         Routers.router.navigateTo(
           context,
           "/Isletme/:name",
           routeSettings: RouteSettings(
-            name:
-                "/Isletme/${fixTurkishCharacters(createURL(widget.coiffureModel.name))}",
+            name: "/Isletme/${fixTurkishCharacters(createURL(widget.coiffureModel.name))}",
             arguments: CoiffureDetailPage(coiffureModel: widget.coiffureModel),
           ),
         );
-        FirebaseAnalytics().logEvent(
-            name: 'coiffueur_cart',
-            parameters: {'name': widget.coiffureModel.name});
+        FirebaseAnalytics()
+            .logEvent(name: 'coiffueur_cart', parameters: {'name': widget.coiffureModel.name});
       },
-      child: Padding(
-        padding: size.width < 375
-            ? EdgeInsets.only(left: 10, right: 10, bottom: 20)
-            : EdgeInsets.only(left: 20, right: 20, bottom: 20),
-        child: Stack(
-          children: [
-            cardBody(context),
-            Positioned(
-              top: 9,
-              right: 9,
-              child: Material(
-                shape: CircleBorder(),
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(32.0),
-                  ),
-                  onTap: () {
-                    var state =
-                        context.findAncestorStateOfType<SearchPageState>();
-                    state.setState(() {});
-                    Provider.of<AppointmentData>(context, listen: false)
-                        .myState = state;
-                    Provider.of<AppointmentData>(context, listen: false)
-                        .setOrChangeFav(widget.coiffureModel);
-                    if (Provider.of<AppointmentData>(context, listen: true)
-                        .favorites
-                        .contains(widget.coiffureModel)) {
-                      FirebaseAnalytics().logEvent(
-                          name: 'favorites_button',
-                          parameters: {
-                            'coiffeur': widget.coiffureModel.name,
-                            'state': 'added'
-                          });
-                    } else {
-                      FirebaseAnalytics().logEvent(
-                          name: 'favorites_button',
-                          parameters: {
-                            'coiffeur': widget.coiffureModel.name,
-                            'state': 'deleted'
-                          });
-                    }
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(7),
-                    child: ResponsiveWidget(
-                      smallScreen: Icon(
-                        Provider.of<AppointmentData>(context, listen: true)
-                                .favorites
-                                .contains(widget.coiffureModel)
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Colors.red,
-                        size: size.width / 25,
-                      ),
-                      mediumScreen: Icon(
-                        Provider.of<AppointmentData>(context, listen: true)
-                                .favorites
-                                .contains(widget.coiffureModel)
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Colors.red,
-                        // size: size.width / 17,
-                      ),
-                      largeScreen: Icon(
-                        Provider.of<AppointmentData>(context, listen: true)
-                                .favorites
-                                .contains(widget.coiffureModel)
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Colors.red,
-                        // size: size.width / 17,
-                      ),
-                    ),
+      child: Stack(
+        children: [
+          cardBody(context),
+          Positioned(
+            top: 9,
+            right: 9,
+            child: Material(
+              shape: CircleBorder(),
+              child: InkWell(
+                borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                onTap: () {
+                  var state = context.findAncestorStateOfType<SearchPageState>();
+                  state.setState(() {});
+                  Provider.of<AppointmentData>(context, listen: false).myState = state;
+                  Provider.of<AppointmentData>(context, listen: false)
+                      .setOrChangeFav(widget.coiffureModel);
+                  if (Provider.of<AppointmentData>(context, listen: true)
+                      .favorites
+                      .contains(widget.coiffureModel)) {
+                    FirebaseAnalytics().logEvent(
+                        name: 'favorites_button',
+                        parameters: {'coiffeur': widget.coiffureModel.name, 'state': 'added'});
+                  } else {
+                    FirebaseAnalytics().logEvent(
+                        name: 'favorites_button',
+                        parameters: {'coiffeur': widget.coiffureModel.name, 'state': 'deleted'});
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(7),
+                  child: Icon(
+                    Provider.of<AppointmentData>(context, listen: true)
+                            .favorites
+                            .contains(widget.coiffureModel)
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: Colors.red,
+                    size: width < 700 ? 20 : 25,
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -128,39 +87,18 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
   Container cardBody(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.6),
-            offset: const Offset(4, 4),
-            blurRadius: 20,
-          ),
-        ],
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        // boxShadow: <BoxShadow>[BoxShadow(color: Colors.grey, offset: Offset(1, 1), blurRadius: 5)],
       ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: <Widget>[
-              _cardImage(),
-              CardInfo(coiffureModel: widget.coiffureModel),
-            ],
-          ),
-        ),
+      child: Column(
+        children: <Widget>[_cardImage(), CardInfo(coiffureModel: widget.coiffureModel)],
       ),
     );
   }
 
-  AspectRatio _cardImage() {
-    return AspectRatio(
-      aspectRatio: 2,
-      child: Image.asset(
-        'assets/kuafor_0.png',
-        fit: BoxFit.cover,
-      ),
-    );
-  }
+  _cardImage() =>
+      ClipRRect(borderRadius: BorderRadius.circular(16), child: Image.asset('assets/kuafor_0.png'));
 }
 
 class CardInfo extends StatelessWidget {
@@ -169,106 +107,90 @@ class CardInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final width = MediaQuery.of(context).size.width;
     return Row(
       children: <Widget>[
         Expanded(
-          child: Container(
-            child: Padding(
-              padding: EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  /// name
-                  TextOverFlowHandler(
-                    child: Text(
-                      coiffureModel.name,
-                      style: kTextStyle.copyWith(fontSize: 20),
+          child: Padding(
+            padding: EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                /// name
+                TextOverFlowHandler(
+                    child: Text(coiffureModel.name,
+                        style: kTextStyle.copyWith(fontSize: width < 425 ? width / 20 : 20))),
+                SizedBox(height: 5),
+
+                /// First line
+                Row(
+                  children: <Widget>[
+                    SizedBox(width: 1),
+                    Icon(FontAwesomeIcons.mapMarkerAlt, size: 13, color: Colors.red),
+                    SizedBox(width: 7),
+                    Padding(
+                      padding: EdgeInsets.only(top: 1.0),
+                      child: Text(
+                        '${coiffureModel.city}, ${coiffureModel.district}',
+                        style: kSmallTextStyle.copyWith(
+                          color: Colors.grey.withOpacity(0.8),
+                          fontSize: 13,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5),
+                    Spacer(),
+                    Text('${coiffureModel.time}', style: kTextStyle.copyWith(fontSize: 13)),
+                    SizedBox(width: 1),
+                  ],
+                ),
+                SizedBox(height: 2),
 
-                  /// First line
-                  Row(
-                    children: <Widget>[
-                      SizedBox(width: 1),
-                      Icon(
-                        FontAwesomeIcons.mapMarkerAlt,
-                        size: 13,
-                        color: Colors.red,
-                      ),
-                      SizedBox(width: 7),
-                      Padding(
-                        padding: EdgeInsets.only(top: 1.0),
-                        child: Text(
-                          '${coiffureModel.city}, ${coiffureModel.district}',
-                          style: kSmallTextStyle.copyWith(
-                            color: Colors.grey.withOpacity(0.8),
-                            fontSize: 13,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        '${coiffureModel.time}',
-                        style: kTextStyle.copyWith(fontSize: 13),
-                      ),
-                      SizedBox(width: 1),
-                    ],
-                  ),
-                  SizedBox(height: 2),
-
-                  /// Second Line
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.star,
-                        color: Colors.yellow.shade700,
-                        size: 16,
-                      ),
-                      SizedBox(width: 4),
-                      Padding(
-                        padding: EdgeInsets.only(top: 4.0),
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '${coiffureModel.star}',
-                                style: kSmallTextStyle.copyWith(
-                                  color: Colors.grey.withOpacity(0.8),
-                                  fontSize: 13,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' (${coiffureModel.comments} yorum)',
-                                style: kSmallTextStyle.copyWith(
-                                  color: Colors.grey.withOpacity(0.8),
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      size.width < 340
-                          ? Container()
-                          : Padding(
-                              padding: EdgeInsets.only(top: 4.0),
-                              child: Text(
-                                'Çalışma Saatleri',
-                                style: kSmallTextStyle.copyWith(
-                                  color: Colors.grey.withOpacity(0.8),
-                                  fontSize: 13,
-                                ),
+                /// Second Line
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.star, color: Colors.yellow.shade700, size: 16),
+                    SizedBox(width: 4),
+                    Padding(
+                      padding: EdgeInsets.only(top: 4.0),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '${coiffureModel.star}',
+                              style: kSmallTextStyle.copyWith(
+                                color: Colors.grey.withOpacity(0.8),
+                                fontSize: 13,
                               ),
                             ),
-                      SizedBox(width: 1),
-                    ],
-                  ),
-                ],
-              ),
+                            TextSpan(
+                              text: ' (${coiffureModel.comments} yorum)',
+                              style: kSmallTextStyle.copyWith(
+                                color: Colors.grey.withOpacity(0.8),
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    width < 340
+                        ? Container()
+                        : Padding(
+                            padding: EdgeInsets.only(top: 4.0),
+                            child: Text(
+                              'Çalışma Saatleri',
+                              style: kSmallTextStyle.copyWith(
+                                color: Colors.grey.withOpacity(0.8),
+                                fontSize: 13,
+                              ),
+                            ),
+                          ),
+                    SizedBox(width: 1),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

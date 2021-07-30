@@ -33,14 +33,11 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   @override
   void initState() {
     super.initState();
-    isConfirmed =
-        Provider.of<AppointmentData>(context, listen: false).isConfirmed;
+    isConfirmed = Provider.of<AppointmentData>(context, listen: false).isConfirmed;
     Provider.of<AppointmentData>(context, listen: false).isConfirmed = false;
-    localList = Provider.of<AppointmentData>(context, listen: false)
-        .servicesAndEmployees;
+    localList = Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees;
 
-    for (ServiceModel x in Provider.of<AppointmentData>(context, listen: false)
-        .fullTimeServices) {
+    for (ServiceModel x in Provider.of<AppointmentData>(context, listen: false).fullTimeServices) {
       for (AppointmentInfo y in localList) {
         if (y.service == x.name) {
           localPriceList.add(x.price);
@@ -55,9 +52,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
 
     /// getting totalSum from Provider
     int total = Provider.of<AppointmentData>(context, listen: true).total;
-    DateTime dateTime = Provider.of<AppointmentData>(context, listen: false)
-        .servicesAndEmployees[0]
-        .dateTime;
+    DateTime dateTime =
+        Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees[0].dateTime;
 
     String lastDay = '${dateTime.day} '
         '${month[dateTime.month - 1]} '
@@ -76,26 +72,21 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         ),
         leading: IconButton(
           padding: EdgeInsets.only(left: 10),
-          icon: isConfirmed
-              ? Icon(Icons.home, color: Colors.white, size: 40.0)
-              : BackButton(),
+          icon: isConfirmed ? Icon(Icons.home, color: Colors.white, size: 40.0) : BackButton(),
           onPressed: () {
-            Routers.router
-                .navigateTo(context, "/Hosgeldiniz", clearStack: true);
+            Routers.router.navigateTo(context, "/Hosgeldiniz", clearStack: true);
           },
         ),
         title: Center(
             child: Text(
           "ayarla",
-          style: kTitleStyle.copyWith(
-              color: Colors.white, letterSpacing: 3, fontSize: 25),
+          style: kTitleStyle.copyWith(color: Colors.white, letterSpacing: 3, fontSize: 25),
         )),
         actions: [
           IconButton(
             padding: EdgeInsets.only(right: 30, left: 10),
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => UserPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserPage()));
             },
             icon: Icon(Icons.account_circle, color: Colors.white, size: 35),
           ),
@@ -105,12 +96,9 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(
-                  top: 20.0, bottom: 15.0, left: 10.0, right: 10.0),
+              padding: EdgeInsets.only(top: 20.0, bottom: 15.0, left: 10.0, right: 10.0),
               child: Text(
-                isConfirmed
-                    ? Provider.of<AppointmentData>(context).coiffureName
-                    : 'Randevu Özeti',
+                isConfirmed ? Provider.of<AppointmentData>(context).coiffureName : 'Randevu Özeti',
                 textAlign: TextAlign.center,
                 style: kTitleStyle,
               ),
@@ -121,11 +109,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                 initiallyExpanded: isConfirmed ? false : true,
                 padding: EdgeInsets.all(10),
                 elevation: 5,
-                additionalWidget: Text(
-                  'Randevu Detay',
-                  textAlign: TextAlign.center,
-                  style: kTitleStyle,
-                ),
+                additionalWidget:
+                    Text('Randevu Detay', textAlign: TextAlign.center, style: kTitleStyle),
                 primaryWidget: Container(
                   width: size.width < 600 ? size.width / 2 : size.width / 2.4,
                   child: Column(
@@ -135,11 +120,9 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                         isConfirmed
                             ? 'Randevu Talebiniz Alınmıştır,\n'
                                 'İşletmeden Onay Bekleniyor'
-                            : Provider.of<AppointmentData>(context)
-                                .coiffureName,
+                            : Provider.of<AppointmentData>(context).coiffureName,
                         textAlign: TextAlign.center,
-                        style: kTextStyle.copyWith(
-                            fontSize: 20, fontWeight: FontWeight.normal),
+                        style: kTextStyle.copyWith(fontSize: 20, fontWeight: FontWeight.normal),
                       ),
 
                       /// prints day
@@ -193,12 +176,10 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               children: [
                                 Text('Saat:', style: kSmallTextStyle),
                                 Spacer(),
-                                Text(localList[index].time,
-                                    style: kSmallTextStyle),
+                                Text(localList[index].time, style: kSmallTextStyle),
                                 Spacer(),
                                 Text('Saat:',
-                                    style: kSmallTextStyle.copyWith(
-                                        color: Colors.transparent)),
+                                    style: kSmallTextStyle.copyWith(color: Colors.transparent)),
                               ],
                             ),
                             Row(
@@ -206,11 +187,9 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               children: [
                                 Text('Hizmet:', style: kSmallTextStyle),
                                 Spacer(),
-                                Text(localList[index].service,
-                                    style: kSmallTextStyle),
+                                Text(localList[index].service, style: kSmallTextStyle),
                                 Spacer(),
-                                Text('${localPriceList[index]} TL',
-                                    style: kSmallTextStyle),
+                                Text('${localPriceList[index]} TL', style: kSmallTextStyle),
                               ],
                             ),
                             Row(
@@ -218,19 +197,16 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               children: [
                                 Text('Çalışan:', style: kSmallTextStyle),
                                 Spacer(),
-                                Text(localList[index].employee,
-                                    style: kSmallTextStyle),
+                                Text(localList[index].employee, style: kSmallTextStyle),
                                 Spacer(),
                                 Text('Çalışan:',
-                                    style: kSmallTextStyle.copyWith(
-                                        color: Colors.transparent)),
+                                    style: kSmallTextStyle.copyWith(color: Colors.transparent)),
                               ],
                             ),
                           ],
                         );
                       },
-                      separatorBuilder: (BuildContext bc, int index) =>
-                          Divider(thickness: 2),
+                      separatorBuilder: (BuildContext bc, int index) => Divider(thickness: 2),
                     ),
                     Divider(thickness: 2),
                     Row(
@@ -251,14 +227,11 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               borderRadius: BorderRadius.circular(20.0),
               child: Container(height: 300, child: FlutterMapCoiffure()),
             ),
-            if (!Provider.of<Login>(context, listen: true).isLoggedIn &&
-                UniversalPlatform.isWeb)
+            if (!Provider.of<Login>(context, listen: true).isLoggedIn && UniversalPlatform.isWeb)
               Column(
                 children: [
                   Divider(),
-                  Center(
-                      child: Text('Uygulamamızı İndirmek İster Misiniz?',
-                          style: kTitleStyle)),
+                  Center(child: Text('Uygulamamızı İndirmek İster Misiniz?', style: kTitleStyle)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -282,21 +255,17 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               text: 'Onayla',
               gradient: functions.decideColor(context),
               onPressed: () {
-                bool check =
-                    Provider.of<Login>(context, listen: false).isLoggedIn;
+                bool check = Provider.of<Login>(context, listen: false).isLoggedIn;
                 if (check == false) {
                   PopUp().mailFieldDialog(context: context);
                 } else if (check == true) {
                   ///TODO profildeki mail adresine mail gonderilecek
                   Routers.router.navigateTo(context, "/OnaySayfasi");
-                  Provider.of<AppointmentData>(context, listen: false)
-                      .confirmation();
+                  Provider.of<AppointmentData>(context, listen: false).confirmation();
                 }
                 for (AppointmentInfo x
-                    in Provider.of<AppointmentData>(context, listen: false)
-                        .servicesAndEmployees) {
-                  FirebaseAnalytics()
-                      .logEvent(name: 'selectDate_button', parameters: {
+                    in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees) {
+                  FirebaseAnalytics().logEvent(name: 'selectDate_button', parameters: {
                     'service': x.service,
                     'employee': x.employee,
                     'date': x.dateTime,

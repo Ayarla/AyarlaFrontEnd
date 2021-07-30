@@ -129,8 +129,7 @@ class _CommentsPageState extends State<CommentsPage> {
         expanded: true,
       ),
     ];
-    Provider.of<AppointmentData>(context, listen: false).currentList2 =
-        generatingList;
+    Provider.of<AppointmentData>(context, listen: false).currentList2 = generatingList;
     super.initState();
   }
 
@@ -183,15 +182,13 @@ class _CommentsPageState extends State<CommentsPage> {
                       title: 'Yıldıza göre sırala',
                       firstOptionFunction: () {
                         setState(() {
-                          generatingList
-                              .sort((a, b) => a.rating.compareTo(b.rating));
+                          generatingList.sort((a, b) => a.rating.compareTo(b.rating));
                         });
                         Routers.router.pop(context);
                       },
                       secondOptionFunction: () {
                         setState(() {
-                          generatingList
-                              .sort((b, a) => a.rating.compareTo(b.rating));
+                          generatingList.sort((b, a) => a.rating.compareTo(b.rating));
                         });
                         Routers.router.pop(context);
                       },
@@ -200,15 +197,13 @@ class _CommentsPageState extends State<CommentsPage> {
                       title: 'Beğeniye göre sırala',
                       firstOptionFunction: () {
                         setState(() {
-                          generatingList
-                              .sort((a, b) => a.like.compareTo(b.like));
+                          generatingList.sort((a, b) => a.like.compareTo(b.like));
                         });
                         Routers.router.pop(context);
                       },
                       secondOptionFunction: () {
                         setState(() {
-                          generatingList
-                              .sort((b, a) => a.like.compareTo(b.like));
+                          generatingList.sort((b, a) => a.like.compareTo(b.like));
                         });
                         Routers.router.pop(context);
                       },
@@ -217,15 +212,13 @@ class _CommentsPageState extends State<CommentsPage> {
                       title: 'Tarihe göre sırala',
                       firstOptionFunction: () {
                         setState(() {
-                          generatingList
-                              .sort((a, b) => a.date.compareTo(b.date));
+                          generatingList.sort((a, b) => a.date.compareTo(b.date));
                         });
                         Routers.router.pop(context);
                       },
                       secondOptionFunction: () {
                         setState(() {
-                          generatingList
-                              .sort((b, a) => a.date.compareTo(b.date));
+                          generatingList.sort((b, a) => a.date.compareTo(b.date));
                         });
                         Routers.router.pop(context);
                       },
@@ -245,8 +238,7 @@ class _CommentsPageState extends State<CommentsPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 itemCount: generatingList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                      children: [SizedBox(height: 10), generatingList[index]]);
+                  return Column(children: [SizedBox(height: 10), generatingList[index]]);
                 },
                 separatorBuilder: (BuildContext context, int index) {
                   return Divider(thickness: 1, height: 0);
@@ -262,8 +254,7 @@ class _CommentsPageState extends State<CommentsPage> {
           : AyarlaPageNoC(
               child: Card(
                 elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -281,8 +272,7 @@ class _CommentsPageState extends State<CommentsPage> {
                               children: [
                                 SizedBox(width: 5),
                                 for (int i = 0; i < 5; i++)
-                                  Icon(Icons.star_border,
-                                      color: Colors.yellow.shade700, size: 20),
+                                  Icon(Icons.star_border, color: Colors.yellow.shade700, size: 20),
                               ],
                             ),
                             SizedBox(height: 10),
@@ -337,8 +327,7 @@ class _CommentsPageState extends State<CommentsPage> {
                             child: Center(
                               child: Text(
                                 'Gönder',
-                                style: kSmallTextStyle.copyWith(
-                                    color: Colors.white),
+                                style: kSmallTextStyle.copyWith(color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
                             ),

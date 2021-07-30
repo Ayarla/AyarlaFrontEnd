@@ -18,8 +18,7 @@ class GenericButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return TextButton(
-      style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent)),
+      style: ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.transparent)),
       onPressed: onPressed,
       child: Container(
         height: 50,
@@ -28,13 +27,7 @@ class GenericButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0.0, 3),
-              blurRadius: 5,
-            ),
-          ],
+          boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0.0, 3), blurRadius: 5)],
         ),
         child: Row(
           children: [
@@ -48,8 +41,7 @@ class GenericButton extends StatelessWidget {
             ),
             Text(
               text,
-              style: kTextStyle.copyWith(
-                  fontSize: size.width <= 400 ? size.width / 20 : 20),
+              style: kTextStyle.copyWith(fontSize: size.width <= 400 ? size.width / 20 : 20),
             ),
             Spacer(),
             Padding(

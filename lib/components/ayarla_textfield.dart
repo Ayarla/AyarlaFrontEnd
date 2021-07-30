@@ -29,7 +29,6 @@ class AyarlaTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: TextEditingController(),
-      // onEditingComplete: () => FocusManager.instance.primaryFocus?.unfocus(),
       keyboardType: keyboardType ?? TextInputType.text,
       maxLines: hintText.maxLines ?? 1,
       cursorColor: color ?? Colors.green,
@@ -46,12 +45,9 @@ class AyarlaTextField extends StatelessWidget {
         fillColor: Colors.grey.shade200,
         filled: true,
         isDense: true,
-        contentPadding: padding ??
-            EdgeInsets.only(left: 15, top: 14, bottom: 14, right: 15),
+        contentPadding: padding ?? EdgeInsets.only(left: 15, top: 14, bottom: 14, right: 15),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide.none,
-        ),
+            borderRadius: BorderRadius.circular(20.0), borderSide: BorderSide.none),
       ),
     );
   }
@@ -115,9 +111,7 @@ class AyarlaTextFormField extends StatelessWidget {
         hintText: hintText ?? 'Your Hint Text Here!',
         hintStyle: hintStyle ?? kSmallTextStyle,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-          borderSide: BorderSide.none,
-        ),
+            borderRadius: BorderRadius.circular(20.0), borderSide: BorderSide.none),
         fillColor: Colors.grey.shade200,
         filled: true,
         isDense: true,
@@ -125,8 +119,7 @@ class AyarlaTextFormField extends StatelessWidget {
           borderSide: BorderSide(color: color ?? Colors.green, width: 2.0),
           borderRadius: BorderRadius.circular(25.0),
         ),
-        contentPadding: padding ??
-            EdgeInsets.only(left: 15, top: 14, bottom: 14, right: 15),
+        contentPadding: padding ?? EdgeInsets.only(left: 15, top: 14, bottom: 14, right: 15),
       ),
     );
   }

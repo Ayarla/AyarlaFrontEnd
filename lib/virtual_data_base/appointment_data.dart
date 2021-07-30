@@ -44,25 +44,13 @@ class AppointmentData extends ChangeNotifier {
       selected: false,
     ),
     EmployeeModel(
-        image: 'assets/worker_1.png',
-        name: 'Fatih Özkan',
-        selected: false,
-        gender: 'male'),
+        image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: 'male'),
     EmployeeModel(
-        image: 'assets/worker_2.jpg',
-        name: 'Bahadır İren',
-        selected: false,
-        gender: 'male'),
+        image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: 'male'),
     EmployeeModel(
-        image: 'assets/worker_1.png',
-        name: 'Semih Gümüş',
-        selected: false,
-        gender: 'male'),
+        image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: 'male'),
     EmployeeModel(
-        image: 'assets/worker_2.jpg',
-        name: 'Ahmed Akif Kaya',
-        selected: false,
-        gender: 'male'),
+        image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: 'male'),
   ];
 
   ///fullTimeService List
@@ -77,25 +65,13 @@ class AppointmentData extends ChangeNotifier {
         gender: "female",
       ),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Fatih Özkan',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Bahadır İren',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Semih Gümüş',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Ahmed Akif Kaya',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
     ]),
     ServiceModel(name: 'Sakal Kesimi', price: 10, selected: false, employees: [
       EmployeeModel(
@@ -105,25 +81,13 @@ class AppointmentData extends ChangeNotifier {
         gender: "female",
       ),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Fatih Özkan',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Bahadır İren',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Semih Gümüş',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Ahmed Akif Kaya',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
     ]),
     ServiceModel(name: 'Saç Boyama', price: 100, selected: false, employees: [
       EmployeeModel(
@@ -133,25 +97,13 @@ class AppointmentData extends ChangeNotifier {
         gender: "female",
       ),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Fatih Özkan',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Bahadır İren',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Semih Gümüş',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Ahmed Akif Kaya',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
     ]),
     ServiceModel(name: 'Manikür', price: 30, selected: false, employees: [
       EmployeeModel(
@@ -161,25 +113,13 @@ class AppointmentData extends ChangeNotifier {
         gender: "female",
       ),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Fatih Özkan',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Bahadır İren',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Semih Gümüş',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Ahmed Akif Kaya',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
     ]),
     ServiceModel(name: 'Pedikür', price: 30, selected: false, employees: [
       EmployeeModel(
@@ -189,25 +129,13 @@ class AppointmentData extends ChangeNotifier {
         gender: "female",
       ),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Fatih Özkan',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Bahadır İren',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Semih Gümüş',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Ahmed Akif Kaya',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
     ]),
     ServiceModel(name: 'Perma', price: 100, selected: false, employees: [
       EmployeeModel(
@@ -217,25 +145,13 @@ class AppointmentData extends ChangeNotifier {
         gender: "female",
       ),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Fatih Özkan',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Bahadır İren',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Semih Gümüş',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Ahmed Akif Kaya',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
     ]),
     ServiceModel(name: 'Saç Bakımı', price: 50, selected: false, employees: [
       EmployeeModel(
@@ -245,25 +161,13 @@ class AppointmentData extends ChangeNotifier {
         gender: "female",
       ),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Fatih Özkan',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Bahadır İren',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_1.png',
-          name: 'Semih Gümüş',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
       EmployeeModel(
-          image: 'assets/worker_2.jpg',
-          name: 'Ahmed Akif Kaya',
-          selected: false,
-          gender: "male"),
+          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
     ]),
   ];
 
@@ -286,25 +190,13 @@ class AppointmentData extends ChangeNotifier {
       gender: "female",
     ),
     EmployeeModel(
-        image: 'assets/worker_1.png',
-        name: 'Fatih Özkan',
-        selected: false,
-        gender: "male"),
+        image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
     EmployeeModel(
-        image: 'assets/worker_2.jpg',
-        name: 'Bahadır İren',
-        selected: false,
-        gender: "male"),
+        image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
     EmployeeModel(
-        image: 'assets/worker_1.png',
-        name: 'Semih Gümüş',
-        selected: false,
-        gender: "male"),
+        image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
     EmployeeModel(
-        image: 'assets/worker_2.jpg',
-        name: 'Ahmed Akif Kaya',
-        selected: false,
-        gender: "male"),
+        image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
   ]);
 
   EmployeeModel defaultEmployee = EmployeeModel(
@@ -354,10 +246,7 @@ class AppointmentData extends ChangeNotifier {
 
   addService(serviceName, price) {
     fullTimeServices.add(ServiceModel(
-        name: serviceName,
-        price: price,
-        selected: false,
-        employees: defaultService.employees));
+        name: serviceName, price: price, selected: false, employees: defaultService.employees));
     notifyListeners();
   }
 
@@ -367,13 +256,11 @@ class AppointmentData extends ChangeNotifier {
   }
 
   setEmployee(int serviceIndex, int employeeIndex) {
-    fullTimeServices[serviceIndex]
-        .employees
-        .insert(0, employeesList[employeeIndex]);
+    fullTimeServices[serviceIndex].employees.insert(0, employeesList[employeeIndex]);
     notifyListeners();
   }
 
-  deleteEmployeeDefault(int employeeIndex){
+  deleteEmployeeDefault(int employeeIndex) {
     defaultService.employees.removeAt(employeeIndex);
     notifyListeners();
   }
@@ -415,8 +302,7 @@ class AppointmentData extends ChangeNotifier {
                     Availability(time: '15:00 - 15:30', selected: false)
                   ],
                   time: '',
-                  dateTime: DateTime(DateTime.now().year, DateTime.now().month,
-                      DateTime.now().day),
+                  dateTime: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
                 ),
               );
             }
@@ -444,8 +330,7 @@ class AppointmentData extends ChangeNotifier {
                   Availability(time: '15:00 - 15:30', selected: false)
                 ],
                 time: '',
-                dateTime: DateTime(DateTime.now().year, DateTime.now().month,
-                    DateTime.now().day),
+                dateTime: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
               ),
             );
           }
@@ -501,9 +386,7 @@ class AppointmentData extends ChangeNotifier {
       for (AppointmentInfo y in servicesAndEmployees) {
         if (y.dateTime.day == DateTime.now().day) {
           availability = AvailabilityData(
-              dateTime: y.dateTime,
-              service: y.service,
-              availability: y.availability);
+              dateTime: y.dateTime, service: y.service, availability: y.availability);
           availableDataList.add(availability);
         }
         availability = AvailabilityData(
@@ -541,10 +424,8 @@ class AppointmentData extends ChangeNotifier {
   ///add the final appointment to the appointments list
   setFinalAppointment() {
     appointments.add(Appointment(
-        appointment: List.from(servicesAndEmployees),
-        name: coiffureName,
-        price: total));
-    print(servicesAndEmployees.length);
+        appointment: List.from(servicesAndEmployees), name: coiffureName, price: total));
+    // print(servicesAndEmployees.length);
     notifyListeners();
   }
 
@@ -721,9 +602,7 @@ class AppointmentData extends ChangeNotifier {
     List priceList = [];
     for (int i = 0; i < servicesAndEmployees.length; i++) {
       for (int j = 0; j < fullTimeServices.length; j++) {
-        if (fullTimeServices[j]
-            .name
-            .contains(servicesAndEmployees[i].service)) {
+        if (fullTimeServices[j].name.contains(servicesAndEmployees[i].service)) {
           priceList.add(fullTimeServices[j].price);
           // print(priceList);
         }

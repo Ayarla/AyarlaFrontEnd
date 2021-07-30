@@ -21,17 +21,12 @@ Map<String, String> headersWithAccountToken = {
 };
 
 class HttpService {
-  final String baseUrl =
-      'https://ayarlawebhost20210410115100.azurewebsites.net';
+  final String baseUrl = 'https://ayarlawebhost2021041011510.azurewebsites.net';
 
   Future getToken() async {
     final String _url = '$baseUrl/api/TokenAuth/Authenticate';
 
-    Map data = {
-      "userNameOrEmailAddress": "admin",
-      "password": "123qwe",
-      "rememberClient": true
-    };
+    Map data = {"userNameOrEmailAddress": "admin", "password": "123qwe", "rememberClient": true};
     var body = json.encode(data);
 
     http.Response response = await http.post(
@@ -42,9 +37,8 @@ class HttpService {
       body: body,
     );
 
-    _adminToken =
-        'Bearer ' + jsonDecode(response.body)['result']['accessToken'];
-    // print('ADMIN TOKEN : $_adminToken');
+    _adminToken = 'Bearer ' + jsonDecode(response.body)['result']['accessToken'];
+    print('ADMIN TOKEN : $_adminToken');
 
     await checkResponseStatus(
       successMessage: 'Token Çekildi!',
