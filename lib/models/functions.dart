@@ -1,14 +1,11 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
@@ -109,8 +106,10 @@ class Functions {
   /// TODO dart:io web desteği yok
   imageFromFile(context) async {
 
-    Image fromPicker = await ImagePickerWeb.getImage(
-        outputType: ImageType.widget);
+    ///Image fromPicker = await ImagePickerFoWeb.getImage(
+    ///    outputType: ImageType.widget);
+
+    PickedFile fromPicker = await ImagePicker().getImage(source: ImageSource.gallery);
     if (fromPicker != null) {
       if (Provider
           .of<Login>(context, listen: false)
@@ -123,25 +122,6 @@ class Functions {
       }
     }
     }
- /*   FilePickerResult result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['png', 'jpg', 'svg', 'jpeg']);
-
-    if (result != null) {
-      PlatformFile file = result.files.first;
-
-      if (Provider.of<Login>(context, listen: false).isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(file: File.fromRawPath(file.bytes), isFile: true, covered: true));
-      } else {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(File.fromRawPath(file.bytes));
-      }
-
-    } else {
-      // User canceled the picker
-    }*/
-
 
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {

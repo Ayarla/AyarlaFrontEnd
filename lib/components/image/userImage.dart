@@ -1,13 +1,12 @@
 import 'dart:io';
-
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 class UserImage extends StatelessWidget {
   final bool isFile;
   final File fileImage;
-  final Image image;
+  final PickedFile image;
   UserImage({this.isFile=false,this.fileImage,this.image});
 
   @override
@@ -23,7 +22,7 @@ class UserImage extends StatelessWidget {
               height: 100,
               fit: BoxFit.cover,
             ):
-        image
+            Image.network(image.path)
     );
   }
 }

@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
 import "package:latlong/latlong.dart" as LatLong;
 import 'package:mapbox_search/mapbox_search.dart';
 
