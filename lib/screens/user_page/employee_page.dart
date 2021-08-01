@@ -129,11 +129,11 @@ class _EmployeePageState extends State<EmployeePage> {
                                 child: Row(
                                   children: [
                                     TimeDropdown(
-                                        selected: '00.00',
+
                                         timeList: dividedHours),
                                     Text(' - '),
                                     TimeDropdown(
-                                        selected: '00.00',
+
                                         timeList: dividedHours),
                                   ],
                                 ),

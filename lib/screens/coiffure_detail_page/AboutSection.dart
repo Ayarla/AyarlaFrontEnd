@@ -33,7 +33,7 @@ class AboutSection extends StatelessWidget {
               '(${coiffureModel.comments} değerlendirme)',
               style: kSmallTextStyle.copyWith(
                 color: Colors.grey.withOpacity(0.8),
-                fontSize: size.width <= 400 ? size.width  / 25 : 16,
+                fontSize: size.width <= 400 ? size.width / 25 : 16,
               ),
             ),
           ],
@@ -43,14 +43,13 @@ class AboutSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Icon(FontAwesomeIcons.mapMarkerAlt,
-                size: size.width <= 400 ? size.width  / 25 : 16,
-                color: Colors.red),
+                size: size.width <= 400 ? size.width / 25 : 16, color: Colors.red),
             SizedBox(width: 4),
             Text(
               '${coiffureModel.city}, ${coiffureModel.district}',
               style: kSmallTextStyle.copyWith(
                 color: Colors.grey.withOpacity(0.8),
-                fontSize: size.width <= 400 ? size.width  / 25 : 16,
+                fontSize: size.width <= 400 ? size.width / 25 : 16,
               ),
             ),
           ],
@@ -62,7 +61,7 @@ class AboutSection extends StatelessWidget {
             Icon(
               Icons.access_time,
               color: Colors.grey.withOpacity(0.8),
-              size: size.width <= 400 ? size.width  / 25 : 16,
+              size: size.width <= 400 ? size.width / 25 : 16,
             ),
             SizedBox(width: 10),
             Padding(
@@ -71,7 +70,7 @@ class AboutSection extends StatelessWidget {
                 coiffureModel.time,
                 style: kSmallTextStyle.copyWith(
                   color: Colors.grey.withOpacity(0.8),
-                  fontSize: size.width <= 400 ? size.width  / 25 : 16,
+                  fontSize: size.width <= 400 ? size.width / 25 : 16,
                 ),
               ),
             ),
@@ -84,9 +83,7 @@ class AboutSection extends StatelessWidget {
             coiffureModel.text,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: kSmallTextStyle.copyWith(
-              fontSize: size.width <= 400 ? size.width  / 25 : 16,
-            ),
+            style: kSmallTextStyle.copyWith(fontSize: size.width <= 400 ? size.width / 25 : 16),
           ),
           animationDuration: Duration(milliseconds: 300),
           backGroundColor: Colors.transparent,

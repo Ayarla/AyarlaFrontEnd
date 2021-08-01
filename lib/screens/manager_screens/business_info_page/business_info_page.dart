@@ -5,7 +5,6 @@ import 'package:ayarla/screens/manager_screens/business_info_page/AboutSectionBu
 import 'package:ayarla/screens/manager_screens/business_info_page/ImageSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/ServiceSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/section_contact.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -67,8 +66,6 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   final ScrollController _photoController = ScrollController();
 
   Functions functions = Functions();
-  String selectedStart = '00:00';
-  String selectedEnd = '00:00';
   bool editService = false;
   bool editEmployee = false;
   bool isChanged = false;
