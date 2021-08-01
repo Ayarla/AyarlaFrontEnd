@@ -194,7 +194,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                 children: [
                                   SizedBox(height: 10),
                                   AyarlaTextFormField(
-                                    hintText: 'Mailinizi Giriniz',
+                                    hintText: 'Mail adresinizi giriniz',
+                                    padding: EdgeInsets.all(20.0),
                                     validator: (_typedValue) {
                                       return (_typedValue.isEmpty)
                                           ? 'Boş bırakılamaz'

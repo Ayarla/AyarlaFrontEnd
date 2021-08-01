@@ -18,7 +18,10 @@ class GenericButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return TextButton(
-      style: ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.transparent)),
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+      ),
       onPressed: onPressed,
       child: Container(
         height: 50,
