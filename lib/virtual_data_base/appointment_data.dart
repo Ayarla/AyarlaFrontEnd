@@ -18,6 +18,19 @@ class Availability {
   Availability({this.selected, this.time});
 }
 
+// class AppointmentDetails {
+//   String coiffureName;
+//   int total;
+//   DateTime date;
+//   DateTime hour;
+//   List appointmentDetails = [
+//     Appointment(serviceName: , time: , employee: ,),
+//     Appointment(serviceName: , time: , employee: ,),
+//     Appointment(serviceName: , time: , employee: ,),
+//     Appointment(serviceName: , time: , employee: ,),
+//   ];
+// }
+
 class AppointmentData extends ChangeNotifier {
   /// called in coiffure_detail_card initState
   String coiffureName = '';

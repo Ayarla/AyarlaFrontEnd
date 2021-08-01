@@ -650,10 +650,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
   @override
   Widget build(BuildContext context) {
     if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
-      /// TODO - has to be static.
-      print(MediaQuery.of(context).padding);
-      dy = 20;
-      print(dy);
+      dy = MediaQuery.of(context).padding.top;
     }
     final width = MediaQuery.of(context).size.width;
     return SliverAppBar(
@@ -661,134 +658,140 @@ class _SearchAppBarState extends State<SearchAppBar> {
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
       ),
       automaticallyImplyLeading: false,
-      expandedHeight: width <= 375 ? 130 + dy : 140 + dy,
+      expandedHeight: width <= 375 ? 130 + dy : 130 + dy,
       floating: false,
       pinned: true,
       snap: false,
+      title: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          GestureDetector(
+              child: Icon(Icons.arrow_back_sharp,
+                  color: Colors.white, size: width <= 375 ? width / 15.6 : 24),
+              onTap: () => Routers.router.pop(context)),
+          SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Merhaba Nilsu",
+                style: kTitleStyle.copyWith(
+                    color: Colors.white, fontSize: width < 425 ? width / 19.3 : 22),
+              ),
+              Text(
+                "Haydi randevunu ayarlayalım!",
+                style: kSmallTextStyle.copyWith(
+                    color: Colors.white, fontSize: width < 425 ? width / 30.3 : 14),
+              )
+            ],
+          ),
+          Spacer(),
+          GestureDetector(
+              child: NotificationBadge(
+                child: Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                  size: width <= 375 ? width / 10.4 : 36,
+                ),
+              ),
+              onTap: () => Routers.router.navigateTo(context, "/KullaniciSayfasi")),
+        ],
+      ),
       backgroundColor: Colors.orange,
       elevation: 0,
-      flexibleSpace: ListView(
-        physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(8),
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              GestureDetector(
-                  child: Icon(Icons.arrow_back_sharp,
-                      color: Colors.white, size: width <= 375 ? width / 15.6 : 24),
-                  onTap: () => Routers.router.pop(context)),
-              SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Merhaba Nilsu",
-                    style: kTitleStyle.copyWith(
-                        color: Colors.white, fontSize: width < 425 ? width / 19.3 : 22),
-                  ),
-                  Text(
-                    "Haydi randevunu ayarlayalım!",
-                    style: kSmallTextStyle.copyWith(
-                        color: Colors.white, fontSize: width < 425 ? width / 30.3 : 14),
-                  )
-                ],
-              ),
-              Spacer(),
-              GestureDetector(
-                  child: NotificationBadge(
-                    child: Icon(
-                      Icons.account_circle,
-                      color: Colors.white,
-                      size: width <= 375 ? width / 10.4 : 36,
+              SizedBox(height: 3),
+              width <= 375
+                  ? TextField(
+                      textCapitalization: TextCapitalization.words,
+                      autofocus: false,
+                      autocorrect: false,
+                      focusNode: FocusNode(canRequestFocus: false),
+                      onChanged: widget.onChanged,
+                      style: kSmallTextStyle.copyWith(fontSize: width / 30),
+                      decoration: InputDecoration(
+                        isDense: true,
+                        hintText: "Lütfen işletme adı veya kodu giriniz",
+                        hintStyle: kSmallTextStyle.copyWith(
+                            color: Colors.grey.withOpacity(0.8), fontSize: width / 35),
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIcon: Icon(Icons.search, size: width / 25),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                        ),
+                      ),
+                    )
+                  : TextField(
+                      textCapitalization: TextCapitalization.words,
+                      autofocus: false,
+                      autocorrect: false,
+                      focusNode: FocusNode(canRequestFocus: false),
+                      onChanged: widget.onChanged,
+                      style: kSmallTextStyle,
+                      decoration: InputDecoration(
+                        hintText: "Lütfen işletme adı veya kodu giriniz",
+                        hintStyle: kSmallTextStyle.copyWith(
+                            color: Colors.grey.withOpacity(0.8), fontSize: 12),
+                        filled: true,
+                        isDense: true,
+                        fillColor: Colors.white,
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                        ),
+                      ),
                     ),
-                  ),
-                  onTap: () => Routers.router.navigateTo(context, "/KullaniciSayfasi")),
-            ],
-          ),
-          SizedBox(height: 6),
-          width <= 375
-              ? TextField(
-                  textCapitalization: TextCapitalization.words,
-                  autofocus: false,
-                  autocorrect: false,
-                  focusNode: FocusNode(canRequestFocus: false),
-                  onChanged: widget.onChanged,
-                  style: kSmallTextStyle.copyWith(fontSize: width / 30),
-                  decoration: InputDecoration(
-                    isDense: true,
-                    hintText: "Lütfen işletme adı veya kodu giriniz",
-                    hintStyle: kSmallTextStyle.copyWith(
-                        color: Colors.grey.withOpacity(0.8), fontSize: width / 35),
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: Icon(Icons.search, size: width / 25),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      child: Row(children: [
+                        Icon(Icons.filter_alt_outlined,
+                            color: Colors.white, size: width <= 375 ? width / 20 : 25),
+                        SizedBox(width: 5),
+                        Text(
+                          'Filtrele',
+                          style: kSmallTextStyle.copyWith(
+                              color: Colors.white, fontSize: width <= 375 ? width / 22 : 18),
+                        ),
+                      ]),
+                      onPressed: () {
+                        setState(() {
+                          _filterSheet(context);
+                        });
+                      },
                     ),
-                  ),
-                )
-              : TextField(
-                  textCapitalization: TextCapitalization.words,
-                  autofocus: false,
-                  autocorrect: false,
-                  focusNode: FocusNode(canRequestFocus: false),
-                  onChanged: widget.onChanged,
-                  style: kSmallTextStyle,
-                  decoration: InputDecoration(
-                    hintText: "Lütfen işletme adı veya kodu giriniz",
-                    hintStyle:
-                        kSmallTextStyle.copyWith(color: Colors.grey.withOpacity(0.8), fontSize: 12),
-                    filled: true,
-                    isDense: true,
-                    fillColor: Colors.white,
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                    SizedBox(width: 20),
+                    TextButton(
+                      child: Row(children: [
+                        Icon(Icons.sort, color: Colors.white, size: width <= 375 ? width / 20 : 25),
+                        SizedBox(width: 5),
+                        Text(
+                          'Sırala',
+                          style: kSmallTextStyle.copyWith(
+                              color: Colors.white, fontSize: width <= 375 ? width / 22 : 18),
+                        ),
+                      ]),
+                      onPressed: () {
+                        setState(() {
+                          _orderSheet(context);
+                        });
+                      },
                     ),
-                  ),
+                  ],
                 ),
-          SizedBox(height: 6),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                child: Row(children: [
-                  Icon(Icons.filter_alt_outlined,
-                      color: Colors.white, size: width <= 375 ? width / 20 : 25),
-                  SizedBox(width: 5),
-                  Text(
-                    'Filtrele',
-                    style: kSmallTextStyle.copyWith(
-                        color: Colors.white, fontSize: width <= 375 ? width / 22 : 18),
-                  ),
-                ]),
-                onPressed: () {
-                  setState(() {
-                    _filterSheet(context);
-                  });
-                },
-              ),
-              SizedBox(width: 20),
-              TextButton(
-                child: Row(children: [
-                  Icon(Icons.sort, color: Colors.white, size: width <= 375 ? width / 20 : 25),
-                  SizedBox(width: 5),
-                  Text(
-                    'Sırala',
-                    style: kSmallTextStyle.copyWith(
-                        color: Colors.white, fontSize: width <= 375 ? width / 22 : 18),
-                  ),
-                ]),
-                onPressed: () {
-                  setState(() {
-                    _orderSheet(context);
-                  });
-                },
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
