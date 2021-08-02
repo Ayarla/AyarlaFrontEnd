@@ -115,42 +115,42 @@ class Functions {
           .of<Login>(context, listen: false)
           .isManager) {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(isFile:false,isImage: true, covered: true, fileImage: fromPicker,));
+            .addImage(ImageListItem(covered: true, pickedFile: fromPicker,isPicked: true,));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(isFile:false,image: fromPicker));
+            .setUserImage(UserImage(pickedFile: fromPicker));
       }
     }
     }
 
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
-    File image = await ImagePicker.pickImage(
+    PickedFile image = await ImagePicker().getImage(
         source: ImageSource.camera, imageQuality: 50);
 
     if (image != null) {
       if (Provider.of<Login>(context, listen: false).isManager) {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(file: image, isFile: true, covered: true));
+            .addImage(ImageListItem(covered: true, pickedFile: image,isPicked: true,));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(isFile:true,fileImage: image));
+            .setUserImage(UserImage(pickedFile: image));
       }
     }
   }
 
   ///takes an image from gallery and adds it to the list
   imgFromGallery(context) async {
-    File image = await ImagePicker.pickImage(
+    PickedFile image = await ImagePicker().getImage(
         source: ImageSource.gallery, imageQuality: 50);
 
     if (image != null) {
       if (Provider.of<Login>(context, listen: false).isManager) {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(file: image, isFile: true, covered: true));
+            .addImage(ImageListItem(covered: true, pickedFile: image, isPicked: true,));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(isFile:true,fileImage: image));
+            .setUserImage(UserImage(pickedFile: image));
       }
     }
   }

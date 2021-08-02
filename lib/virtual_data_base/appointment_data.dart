@@ -378,6 +378,22 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
+  ///remove employee account from coiffure
+  removeEmployee(int employeeIndex){
+    employeesList.removeAt(employeeIndex);
+    notifyListeners();
+  }
+
+  addEmployee(String name){
+    employeesList.add(
+      EmployeeModel(
+        name: name,
+        image: 'assets/default_employee.jpg',
+      )
+    );
+    notifyListeners();
+  }
+
   ///Stores selected information about appointment
   ///=> screens.coiffure_detail_page
   ///=> 'Saati Belirle' button
