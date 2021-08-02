@@ -108,7 +108,6 @@ class Functions {
 
     ///Image fromPicker = await ImagePickerFoWeb.getImage(
     ///    outputType: ImageType.widget);
-
     PickedFile fromPicker = await ImagePicker().getImage(source: ImageSource.gallery);
     if (fromPicker != null) {
       if (Provider

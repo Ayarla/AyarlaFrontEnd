@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
@@ -39,7 +41,7 @@ class EmployeeManageRow extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                              width: size.width / 7,
+                              width: size.width / 8,
                               child: Image.asset('assets/worker_1.png',
                                   fit: BoxFit.contain)),
                           Container(
@@ -115,7 +117,54 @@ class EmployeeManageRow extends StatelessWidget {
                       ),
                     ),
                   ),
-                  secondaryWidget: Text("hey"),
+                  secondaryWidget: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text("Çalıştığı Günler",style: kSmallTextStyle.copyWith(color:Colors.green.shade700,fontWeight: FontWeight.bold)),
+                              SizedBox(width:5),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 4.0),
+                                child: Icon(
+                                  FontAwesomeIcons.edit,
+                                  color: Colors.green.shade700,
+                                  size: size.width <= 400 ? size.width / 20 : 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Day(day: "Pazartesi",time:"09:00 - 17:00"),
+                          Day(day: "Salı",time:"09:00 - 12:00"),
+                          Day(day: "Çarşamba",time:"12:00 - 17:00"),
+                          Day(day: "Perşembe",time:"09:00 - 17:00"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text("Verdiği Hizmetler",style: kSmallTextStyle.copyWith(color:Colors.green.shade700,fontWeight: FontWeight.bold)),
+                              SizedBox(width:5),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 4.0),
+                                child: Icon(
+                                  FontAwesomeIcons.edit,
+                                  color: Colors.green.shade700,
+                                  size: size.width <= 400 ? size.width / 20 : 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text("Manikür",style: kSmallTextStyle,),
+                          Text("Pedikür",style: kSmallTextStyle,),
+                          Text("Saç Kesim",style: kSmallTextStyle,)
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -159,5 +208,26 @@ class EmployeeManageRow extends StatelessWidget {
         ),
       );
 
+  }
+}
+
+class Day extends StatelessWidget {
+  String day;
+  String time;
+  Day({@required this.day,this.time});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+      Wrap(crossAxisAlignment:WrapCrossAlignment.start
+          ,children: [Text(day,style: kSmallTextStyle,)]),
+      Padding(
+        padding: EdgeInsets.only(left: 8.0),
+        child: Wrap(crossAxisAlignment:WrapCrossAlignment.end,
+            children: [Text(time,style: kSmallTextStyle)]),
+      ),
+    ]);
   }
 }
