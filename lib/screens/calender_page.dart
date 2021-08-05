@@ -4,27 +4,23 @@ import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/overScroll.dart';
-import 'package:ayarla/components/smallCoiffureCard.dart';
 import 'package:ayarla/constants/router.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:ayarla/models/model_appointment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 
-class CalenderPage extends StatefulWidget {
-  List servicesAndEmployees;
-  CalenderPage({this.servicesAndEmployees});
+class CalendarPage extends StatefulWidget {
   @override
-  _CalenderPageState createState() => _CalenderPageState();
+  _CalendarPageState createState() => _CalendarPageState();
 }
 
-class _CalenderPageState extends State<CalenderPage> {
+class _CalendarPageState extends State<CalendarPage> {
   Functions functions = Functions();
 
   ///calender
@@ -33,21 +29,19 @@ class _CalenderPageState extends State<CalenderPage> {
   DateTime endDate = DateTime.now().add(Duration(days: 14));
   DateTime selectedDate;
 
+  List localList = [];
+  List timeList = [];
+
   ///calender strip package
   onSelect(data) {
-    Provider.of<AppointmentData>(context, listen: false).getAvailableData(data);
+    // Provider.of<AppointmentData>(context, listen: false).getAvailableData(data);
     setState(() {
       selectedDate = data;
-      for (AppointmentInfo x
-          in Provider.of<AppointmentData>(context, listen: false)
-              .servicesAndEmployees) {
-        x.dateTime = selectedDate;
-      }
-      widget.servicesAndEmployees =
-          Provider.of<AppointmentData>(context, listen: false)
-              .servicesAndEmployees;
     });
-    Provider.of<AppointmentData>(context, listen: false).getAvailableData(data);
+    Provider.of<AppointmentData>(context, listen: false).currentAppointment.date =
+        '${selectedDate.day} '
+        '${month[selectedDate.month - 1]} '
+        '${week[selectedDate.weekday - 1]}';
   }
 
   ///DON`T DELETE
@@ -77,23 +71,19 @@ class _CalenderPageState extends State<CalenderPage> {
   }
 
   ///calender strip packages, builds date timeline
-  dateTileBuilder(
-      date, selectedDate, rowIndex, dayName, isDateMarked, isDateOutOfRange) {
+  dateTileBuilder(date, selectedDate, rowIndex, dayName, isDateMarked, isDateOutOfRange) {
     bool isSelectedDate = date.compareTo(selectedDate) == 0;
 
     Color fontColor = isDateOutOfRange ? Colors.grey.shade400 : Colors.white;
-    TextStyle normalStyle =
-        kTextStyle.copyWith(fontWeight: FontWeight.normal, color: fontColor);
-    TextStyle selectedStyle =
-        kTextStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white);
+    TextStyle normalStyle = kTextStyle.copyWith(fontWeight: FontWeight.normal, color: fontColor);
+    TextStyle selectedStyle = kTextStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white);
     TextStyle dayNameStyle = kTextStyle.copyWith(color: fontColor);
 
     List<Widget> _children = [
       FittedBox(fit: BoxFit.cover, child: Text(dayName, style: dayNameStyle)),
       FittedBox(
         fit: BoxFit.cover,
-        child: Text(date.day.toString(),
-            style: !isSelectedDate ? normalStyle : selectedStyle),
+        child: Text(date.day.toString(), style: !isSelectedDate ? normalStyle : selectedStyle),
       ),
     ];
     return AnimatedContainer(
@@ -108,46 +98,27 @@ class _CalenderPageState extends State<CalenderPage> {
         ),
         borderRadius: BorderRadius.all(Radius.circular(30)),
       ),
-      child: Column(
-        children: _children,
-      ),
+      child: Column(children: _children),
     );
   }
 
   /// Builds time buttons
-  GestureDetector buildTimeButton(
-      {String time, bool selected, int whichService, int index}) {
+  GestureDetector buildTimeButton({String time, int index2}) {
+    print('index : $index2');
+    bool selected = false;
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         setState(() {
-          for (int i = 0; i < 8; i++) {
-            if (index == i) {
-              if (widget.servicesAndEmployees[whichService].availability[i]
-                  .selected ==
-                  false) {
-                widget.servicesAndEmployees[whichService].availability[i]
-                    .selected = true;
-              } else {
-                widget.servicesAndEmployees[whichService].availability[i]
-                    .selected = false;
-              }
-            } else {
-              widget.servicesAndEmployees[whichService].availability[i]
-                  .selected = false;
-            }
-
-            if (widget.servicesAndEmployees[whichService].availability[i]
-                .selected ==
-                true) {
-              Provider.of<AppointmentData>(context, listen: false)
-                  .servicesAndEmployees[whichService]
-                  .time =
-                  widget.servicesAndEmployees[whichService].availability[i]
-                      .time;
-            }
-          }
+          selected = !selected;
+          print(selected);
         });
+        Provider.of<AppointmentData>(context, listen: false).hoursList.add('00.00');
+        Provider.of<AppointmentData>(context, listen: false).hoursList[index2] = time;
+        Provider.of<AppointmentData>(context, listen: false).hoursList.length =
+            Provider.of<AppointmentData>(context, listen: false).serviceList.length;
+
+        print(Provider.of<AppointmentData>(context, listen: false).hoursList);
       },
       child: Container(
         width: size.width < 700 ? 150 : size.width / 5,
@@ -156,21 +127,13 @@ class _CalenderPageState extends State<CalenderPage> {
         decoration: BoxDecoration(
           color: selected ? Colors.green : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0.0, 5),
-              blurRadius: 10,
-            ),
-          ],
+          boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0.0, 5), blurRadius: 10)],
         ),
         child: Center(
           child: FittedBox(
             child: Text(
               time,
-              style: kTextStyle.copyWith(
-                color: selected ? Colors.white : Colors.black,
-              ),
+              style: kTextStyle.copyWith(color: selected ? Colors.white : Colors.black),
             ),
           ),
         ),
@@ -179,8 +142,7 @@ class _CalenderPageState extends State<CalenderPage> {
   }
 
   /// Builds time table for each service
-  Column servicesAndDates(
-      String serviceName, int whichService, String employeeName) {
+  Column servicesAndDates(String serviceName, String employeeName, int index2) {
     final Size size = MediaQuery.of(context).size;
     return Column(
       children: <Widget>[
@@ -191,8 +153,7 @@ class _CalenderPageState extends State<CalenderPage> {
               Text('$serviceName: ', style: kTextStyle.copyWith(fontSize: 16)),
               Text(
                 '$employeeName',
-                style: kSmallTextStyle.copyWith(
-                    fontSize: 15.0, fontStyle: FontStyle.italic),
+                style: kSmallTextStyle.copyWith(fontSize: 15.0, fontStyle: FontStyle.italic),
               ),
             ],
           ),
@@ -209,7 +170,7 @@ class _CalenderPageState extends State<CalenderPage> {
               color: Colors.transparent,
               child: GridView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: 8,
+                  itemCount: timeList.sublist(17, 37).length,
                   gridDelegate: size.width < 700
                       ? SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 200,
@@ -225,15 +186,8 @@ class _CalenderPageState extends State<CalenderPage> {
                     return Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Center(
-                        child: buildTimeButton(
-                          time: widget.servicesAndEmployees[whichService]
-                              .availability[index].time,
-                          selected: widget.servicesAndEmployees[whichService]
-                              .availability[index].selected,
-                          whichService: whichService,
-                          index: index,
-                        ),
-                      ),
+                          child: buildTimeButton(
+                              time: timeList.sublist(17, 37)[index], index2: index2)),
                     );
                   }),
             ),
@@ -247,8 +201,14 @@ class _CalenderPageState extends State<CalenderPage> {
   @override
   void initState() {
     super.initState();
-    selectedDate =
-        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    selectedDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    localList =
+        Provider.of<AppointmentData>(context, listen: false).currentAppointment.appointmentDetails;
+    Provider.of<AppointmentData>(context, listen: false).currentAppointment.date =
+        '${selectedDate.day} '
+        '${month[selectedDate.month - 1]} '
+        '${week[selectedDate.weekday - 1]}';
+    timeList = dividedHours;
   }
 
   @override
@@ -275,55 +235,35 @@ class _CalenderPageState extends State<CalenderPage> {
                       Padding(
                         padding: EdgeInsets.only(bottom: 15.0, top: 12),
                         child: CalendarStrip(
-                          containerHeight:
-                              size.width < 700 ? (90 + size.width / 20) : 125,
-                          addSwipeGesture: true,
-                          selectedDate: selectedDate,
-                          startDate: now,
-                          endDate: endDate,
-                          onWeekSelected: onWeekSelected,
-                          onDateSelected: onSelect,
-                          dateTileBuilder: dateTileBuilder,
-                          iconColor: Colors.white,
-                          monthNameWidget: _monthNameWidget,
-                          containerDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            gradient: functions.decideColor(context),
-                          ),
-                          leftIcon: size.width < 700
-                              ? Icon(
-                                  CupertinoIcons.left_chevron,
-                                  size: size.width / 23.3,
-                                  color: Colors.white,
-                                )
-                              : Icon(
-                                  CupertinoIcons.left_chevron,
-                                  size: 30,
-                                  color: Colors.white,
-                                ),
-                          rightIcon: size.width < 700
-                              ? Icon(
-                                  CupertinoIcons.right_chevron,
-                                  size: size.width / 23.3,
-                                  color: Colors.white,
-                                )
-                              : Icon(
-                                  CupertinoIcons.right_chevron,
-                                  size: 30,
-                                  color: Colors.white,
-                                ),
-                        ),
+                            containerHeight: size.width < 700 ? (90 + size.width / 20) : 125,
+                            addSwipeGesture: true,
+                            selectedDate: selectedDate,
+                            startDate: now,
+                            endDate: endDate,
+                            onWeekSelected: onWeekSelected,
+                            onDateSelected: onSelect,
+                            dateTileBuilder: dateTileBuilder,
+                            iconColor: Colors.white,
+                            monthNameWidget: _monthNameWidget,
+                            containerDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              gradient: functions.decideColor(context),
+                            ),
+                            leftIcon: Icon(CupertinoIcons.left_chevron,
+                                size: size.width < 700 ? size.width / 23.3 : 30,
+                                color: Colors.white),
+                            rightIcon: Icon(CupertinoIcons.right_chevron,
+                                size: size.width < 700 ? size.width / 23.3 : 30,
+                                color: Colors.white)),
                       ),
                       Text('Saat Seçin', style: kSmallTitleStyle),
                       SizedBox(height: 10),
                       Expanded(
                         child: ListView(
                           children: <Widget>[
-                            for (AppointmentInfo x in widget.servicesAndEmployees)
+                            for (AppointmentModel x in localList)
                               servicesAndDates(
-                                  x.service,
-                                  widget.servicesAndEmployees.indexOf(x),
-                                  x.employee),
+                                  x.serviceModel.name, x.employeeModel.name, localList.indexOf(x)),
                             SizedBox(height: 35),
                           ],
                         ),
@@ -348,7 +288,10 @@ class _CalenderPageState extends State<CalenderPage> {
             Spacer(),
             FloatingTextButton(
               text: 'Onayla',
-              onPressed: () => Routers.router.navigateTo(context, "/OnaySayfasi"),
+              onPressed: () {
+                Routers.router.navigateTo(context, "/OnaySayfasi");
+                Provider.of<AppointmentData>(context, listen: false).dateHandler();
+              },
               gradient: functions.decideColor(context),
             )
           ],

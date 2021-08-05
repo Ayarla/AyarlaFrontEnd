@@ -26,17 +26,14 @@ import 'package:ayarla/screens/welcome_page.dart';
 class Routers {
   static FluroRouter router = FluroRouter();
 
-  static Handler _loadingPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          LoadingScreen());
+  static Handler _loadingPage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => LoadingScreen());
 
-  static Handler _welcomePage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          WelcomePage());
+  static Handler _welcomePage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => WelcomePage());
 
-  static Handler _searchPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          SearchPage());
+  static Handler _searchPage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => SearchPage());
 
   static Handler _detailPage =
       Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
@@ -44,91 +41,70 @@ class Routers {
     return CoiffureDetailPage(coiffureModel: args.coiffureModel);
   });
 
-  static Handler _commentsPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          CommentsPage());
+  static Handler _commentsPage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => CommentsPage());
 
   static Handler _confirmationPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          ConfirmationPage());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => ConfirmationPage());
 
   static Handler _timeSelectionPage =
-      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    final CalenderPage args = ModalRoute.of(context).settings.arguments;
-    return CalenderPage(servicesAndEmployees: args.servicesAndEmployees);
-  });
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => CalendarPage());
 
   /// User Pages
-  static Handler _userPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          UserPage());
+  static Handler _userPage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => UserPage());
 
-  static Handler _favoritesPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          FavoritesPage());
+  static Handler _favoritesPage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => FavoritesPage());
 
   static Handler _appointmentsPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          AppointmentsPage());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => AppointmentsPage());
 
   static Handler _editProfilePage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          EditProfilePage());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => EditProfilePage());
 
   static Handler _userMessagePage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          UserMessagePage());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => UserMessagePage());
 
   static Handler _userCommentsPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          UserCommentsPage());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => UserCommentsPage());
 
   // static Handler _pastAppointmentPage = Handler(
   //     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
   //         PastAppointmentsPage());
 
-  static Handler _employeeSettingsPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          EmployeePage());
+  static Handler _employeeSettingsPage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => EmployeePage());
 
   /// Manager Pages
-  static Handler _managerHome = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          ManagerHome());
+  static Handler _managerHome =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => ManagerHome());
 
   static Handler _businessInfoPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          BusinessInfoPage());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => BusinessInfoPage());
 
   static Handler _employeeManagement = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          EmployeeManagement());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => EmployeeManagement());
 
-  static Handler _employeeManage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          EmployeeManage());
+  static Handler _employeeManage =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => EmployeeManage());
 
   static Handler _managerNotesPage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          ManagerNotesPage());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => ManagerNotesPage());
 
   static Handler _managerSendMessagePage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          ManagerSendMessage());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => ManagerSendMessage());
 
   static Handler _flutterMap = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          BusinessFlutterMap());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => BusinessFlutterMap());
 
   /// WebServices
   static Handler _webServicePage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          ViewWebFunctions());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => ViewWebFunctions());
 
   /// Reg
   static Handler _regPopUp = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
-          ViewWebFunctions());
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) => ViewWebFunctions());
 
   // static Handler _regPage = Handler(
   //     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>

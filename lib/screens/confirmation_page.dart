@@ -4,9 +4,7 @@ import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
-import 'package:ayarla/models/model_service.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -27,23 +25,21 @@ class ConfirmationPage extends StatefulWidget {
 class _ConfirmationPageState extends State<ConfirmationPage> {
   Functions functions = Functions();
   bool isConfirmed;
-  List<AppointmentInfo> localList = [];
-  List<int> localPriceList = [];
+  List localList = [];
 
+  /// TODO
+  /// We have a misunderstanding about isConfirmed.
+  ///
+  /// • Is it confirm action by user
+  ///
+  /// • or is it about coiffure confirming the appointment request that is sent by user.
   @override
   void initState() {
     super.initState();
-    isConfirmed = Provider.of<AppointmentData>(context, listen: false).isConfirmed;
-    Provider.of<AppointmentData>(context, listen: false).isConfirmed = false;
-    localList = Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees;
-
-    for (ServiceModel x in Provider.of<AppointmentData>(context, listen: false).fullTimeServices) {
-      for (AppointmentInfo y in localList) {
-        if (y.service == x.name) {
-          localPriceList.add(x.price);
-        }
-      }
-    }
+    isConfirmed =
+        Provider.of<AppointmentData>(context, listen: false).currentAppointment.isConfirmedByUser;
+    localList =
+        Provider.of<AppointmentData>(context, listen: false).currentAppointment.appointmentDetails;
   }
 
   @override
@@ -51,31 +47,19 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
     final Size size = MediaQuery.of(context).size;
 
     /// getting totalSum from Provider
-    int total = Provider.of<AppointmentData>(context, listen: true).total;
-    DateTime dateTime =
-        Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees[0].dateTime;
-
-    String lastDay = '${dateTime.day} '
-        '${month[dateTime.month - 1]} '
-        '${week[dateTime.weekday - 1]}';
-
-    Provider.of<AppointmentData>(context, listen: false).lastDate = lastDay;
+    Appointment currentAppointment =
+        Provider.of<AppointmentData>(context, listen: false).currentAppointment;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         flexibleSpace: CircularParent(
-          radius: 20,
-          gradient: functions.decideColor(context),
-          direction: Directions.bottom,
-        ),
+            radius: 20, gradient: functions.decideColor(context), direction: Directions.bottom),
         leading: IconButton(
           padding: EdgeInsets.only(left: 10),
           icon: isConfirmed ? Icon(Icons.home, color: Colors.white, size: 40.0) : BackButton(),
-          onPressed: () {
-            Routers.router.navigateTo(context, "/Hosgeldiniz", clearStack: true);
-          },
+          onPressed: () => Routers.router.navigateTo(context, "/Hosgeldiniz", clearStack: true),
         ),
         title: Center(
             child: Text(
@@ -98,13 +82,12 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             Padding(
               padding: EdgeInsets.only(top: 20.0, bottom: 15.0, left: 10.0, right: 10.0),
               child: Text(
-                isConfirmed ? Provider.of<AppointmentData>(context).coiffureName : 'Randevu Özeti',
+                isConfirmed ? '${currentAppointment.coiffureName}' : 'Randevu Özeti',
                 textAlign: TextAlign.center,
                 style: kTitleStyle,
               ),
             ),
             Center(
-              /// TODO : fix
               child: Expandable.extended(
                 initiallyExpanded: isConfirmed ? false : true,
                 padding: EdgeInsets.all(10),
@@ -116,11 +99,10 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   child: Column(
                     children: [
                       Text(
-                        ///prints coiffureName from Provider
                         isConfirmed
                             ? 'Randevu Talebiniz Alınmıştır,\n'
                                 'İşletmeden Onay Bekleniyor'
-                            : Provider.of<AppointmentData>(context).coiffureName,
+                            : currentAppointment.coiffureName,
                         textAlign: TextAlign.center,
                         style: kTextStyle.copyWith(fontSize: 20, fontWeight: FontWeight.normal),
                       ),
@@ -133,12 +115,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Text("Gün: ", style: kTitleStyle),
-                            Text(
-                              '${dateTime.day} '
-                              '${month[dateTime.month - 1]} '
-                              '${week[dateTime.weekday - 1]}',
-                              style: kTitleStyle,
-                            ),
+                            Text(currentAppointment.date, style: kTitleStyle),
                           ],
                         ),
                       ),
@@ -151,10 +128,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text("Saat: ", style: kTitleStyle),
-                            Text(
-                              "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
-                              style: kTitleStyle,
-                            ),
+                            Text(currentAppointment.hour, style: kTitleStyle),
                           ],
                         ),
                       ),
@@ -176,7 +150,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               children: [
                                 Text('Saat:', style: kSmallTextStyle),
                                 Spacer(),
-                                Text(localList[index].time, style: kSmallTextStyle),
+                                Text(localList[index].hour, style: kSmallTextStyle),
                                 Spacer(),
                                 Text('Saat:',
                                     style: kSmallTextStyle.copyWith(color: Colors.transparent)),
@@ -187,9 +161,10 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               children: [
                                 Text('Hizmet:', style: kSmallTextStyle),
                                 Spacer(),
-                                Text(localList[index].service, style: kSmallTextStyle),
+                                Text(localList[index].serviceModel.name, style: kSmallTextStyle),
                                 Spacer(),
-                                Text('${localPriceList[index]} TL', style: kSmallTextStyle),
+                                Text('${localList[index].serviceModel.price} TL',
+                                    style: kSmallTextStyle),
                               ],
                             ),
                             Row(
@@ -197,7 +172,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               children: [
                                 Text('Çalışan:', style: kSmallTextStyle),
                                 Spacer(),
-                                Text(localList[index].employee, style: kSmallTextStyle),
+                                Text(localList[index].employeeModel.name, style: kSmallTextStyle),
                                 Spacer(),
                                 Text('Çalışan:',
                                     style: kSmallTextStyle.copyWith(color: Colors.transparent)),
@@ -213,7 +188,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                       children: [
                         Text('Toplam', style: kSmallTextStyle),
                         Spacer(),
-                        Text('$total TL', style: kSmallTextStyle),
+                        Text('${currentAppointment.totalPrice} TL', style: kSmallTextStyle),
                       ],
                     ),
                   ],
@@ -263,15 +238,19 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   Routers.router.navigateTo(context, "/OnaySayfasi");
                   Provider.of<AppointmentData>(context, listen: false).confirmation();
                 }
-                for (AppointmentInfo x
-                    in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees) {
-                  FirebaseAnalytics().logEvent(name: 'selectDate_button', parameters: {
-                    'service': x.service,
-                    'employee': x.employee,
-                    'date': x.dateTime,
-                    'state': 'confirmed'
-                  });
-                }
+                Provider.of<AppointmentData>(context, listen: false)
+                    .waitingAppointments
+                    .add(currentAppointment);
+                isConfirmed = !isConfirmed;
+                // for (AppointmentInfo x
+                //     in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees) {
+                //   FirebaseAnalytics().logEvent(name: 'selectDate_button', parameters: {
+                //     'service': x.service,
+                //     'employee': x.employee,
+                //     'date': x.dateTime,
+                //     'state': 'confirmed'
+                //   });
+                // }
               },
             )
           : AyarlaPageNoC(

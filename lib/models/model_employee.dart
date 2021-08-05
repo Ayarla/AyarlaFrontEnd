@@ -1,4 +1,3 @@
-import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/model_service.dart';
 
 class EmployeeModel {

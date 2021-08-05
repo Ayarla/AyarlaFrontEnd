@@ -5,6 +5,7 @@ import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:badges/badges.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
 
   @override
   void initState() {
-    localServiceList =
-        Provider.of<AppointmentData>(context, listen: false).fullTimeServices;
+    localServiceList = fullTimeServices;
     super.initState();
   }
 
@@ -37,24 +37,15 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     TextStyle responsiveTextStyle = kTextStyle.copyWith(
-        fontWeight: FontWeight.normal,
-        fontSize: width <= 400 ? width / 20 : 20);
+        fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 20 : 20);
 
     openAlertBox(int serviceIndex) {
       List boolList = [];
-      for (int i = 0;
-          i <
-              Provider.of<AppointmentData>(context, listen: false)
-                  .employeesList
-                  .length;
-          i++) {
+      for (int i = 0; i < employeesList.length; i++) {
         boolList.add(false);
       }
       bool isValid(String name) {
-        for (EmployeeModel x
-            in Provider.of<AppointmentData>(context, listen: false)
-                .fullTimeServices[serviceIndex]
-                .employees) {
+        for (EmployeeModel x in fullTimeServices[serviceIndex].employees) {
           if (x.name == name) {
             return true;
           }
@@ -65,11 +56,10 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
       return showDialog(
           context: context,
           builder: (BuildContext context) {
-            return StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState1) {
+            return StatefulBuilder(builder: (BuildContext context, StateSetter setState1) {
               return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                shape:
+                    RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
                 contentPadding: EdgeInsets.only(top: 10.0),
                 content: Container(
                   width: 300.0,
@@ -94,36 +84,18 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                           padding: EdgeInsets.only(left: 30.0, right: 30.0),
                           child: Column(
                             children: [
-                              for (EmployeeModel x
-                                  in Provider.of<AppointmentData>(context,
-                                          listen: true)
-                                      .employeesList)
+                              for (EmployeeModel x in employeesList)
                                 (isValid(x.name)
                                     ? SizedBox(width: 0, height: 0)
                                     : Row(
                                         children: [
                                           Text(x.name, style: kTextStyle),
                                           Checkbox(
-                                              value: boolList[
-                                                  Provider.of<AppointmentData>(
-                                                          context,
-                                                          listen: false)
-                                                      .employeesList
-                                                      .indexOf(x)],
+                                              value: boolList[employeesList.indexOf(x)],
                                               onChanged: (value) {
                                                 setState1(() {
-                                                  boolList[Provider.of<
-                                                              AppointmentData>(
-                                                          context,
-                                                          listen: false)
-                                                      .employeesList
-                                                      .indexOf(
-                                                          x)] = !boolList[
-                                                      Provider.of<AppointmentData>(
-                                                              context,
-                                                              listen: false)
-                                                          .employeesList
-                                                          .indexOf(x)];
+                                                  boolList[employeesList.indexOf(x)] =
+                                                      !boolList[employeesList.indexOf(x)];
                                                 });
                                               })
                                         ],
@@ -136,29 +108,22 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                                       int index = 0;
                                       for (bool x in boolList) {
                                         if (x == true) {
-                                          Provider.of<AppointmentData>(context,
-                                                  listen: false)
+                                          Provider.of<AppointmentData>(context, listen: false)
                                               .setEmployee(serviceIndex, index);
                                         }
                                         index++;
                                       }
-                                      Navigator.of(context, rootNavigator: true)
-                                          .pop();
+                                      Navigator.of(context, rootNavigator: true).pop();
                                     },
                                     style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                             RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
+                                          borderRadius: BorderRadius.circular(12.0),
                                         )),
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.grey)),
+                                        backgroundColor: MaterialStateProperty.all(Colors.grey)),
                                     child: Text(
                                       "Onayla",
-                                      style: kTextStyle.copyWith(
-                                          color: Colors.white),
+                                      style: kTextStyle.copyWith(color: Colors.white),
                                     ),
                                   )
                                 ],
@@ -189,14 +154,10 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                   children: [
                     SizedBox(width: 10),
                     Text(serviceModel.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: responsiveTextStyle),
+                        overflow: TextOverflow.ellipsis, style: responsiveTextStyle),
                     Spacer(),
-                    Text(serviceModel.price.toString(),
-                        style: responsiveTextStyle),
-                    Text(" ₺",
-                        style: TextStyle(
-                            fontSize: width <= 400 ? width / 20 : 20)),
+                    Text(serviceModel.price.toString(), style: responsiveTextStyle),
+                    Text(" ₺", style: TextStyle(fontSize: width <= 400 ? width / 20 : 20)),
                     SizedBox(width: 10),
                     IconButton(
                       splashRadius: 20,
@@ -237,10 +198,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                             size: width <= 400 ? width / 8 : 50,
                             // size: 50,
                           ),
-                          text: Provider.of<AppointmentData>(context,
-                                  listen: true)
-                              .defaultEmployee
-                              .name,
+                          text: defaultEmployee.name,
                           width: width <= 400 ? width / 2.75 : 150,
                           textStyle: kTextStyle.copyWith(
                               fontWeight: FontWeight.normal,
@@ -250,9 +208,8 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                           onPressed: () => openAlertBox(0),
                         ),
                       ),
-                      for (EmployeeModel employeeModel in localServiceList[
-                              functions.findIndex(serviceModel, context)]
-                          .employees)
+                      for (EmployeeModel employeeModel
+                          in localServiceList[functions.findIndex(serviceModel, context)].employees)
                         GenericIconButton(
                           width: width <= 400 ? width / 2.75 : 150,
                           text: employeeModel.name,
@@ -267,8 +224,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                               onTap: () {
                                 /// TODO - does not work
                                 setState(() {
-                                  localServiceList[functions.findIndex(
-                                          serviceModel, context)]
+                                  localServiceList[functions.findIndex(serviceModel, context)]
                                       .employees
                                       .remove(employeeModel);
                                 });
@@ -299,8 +255,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
         /// Add new service
         Card(
           elevation: 5,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
             padding: EdgeInsets.all(5.0),
             child: Container(
@@ -333,9 +288,8 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                   Container(
                     width: width <= 517 ? null : 227,
                     child: Row(
-                      mainAxisAlignment: width <= 517
-                          ? MainAxisAlignment.end
-                          : MainAxisAlignment.start,
+                      mainAxisAlignment:
+                          width <= 517 ? MainAxisAlignment.end : MainAxisAlignment.start,
                       children: [
                         Container(
                           width: 150,
@@ -348,8 +302,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                             hintStyle: kTextStyle.copyWith(
                                 fontWeight: FontWeight.normal,
                                 fontSize: width <= 400 ? width / 20 : 20),
-                            padding:
-                                EdgeInsets.only(top: 14, bottom: 14, right: 15),
+                            padding: EdgeInsets.only(top: 14, bottom: 14, right: 15),
                             onChanged: (value) {
                               setState(() {
                                 price = int.parse(value);
@@ -357,14 +310,10 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                             },
                             controller: _priceController,
                             keyboardType: TextInputType.number,
-                            inputFormatter: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
+                            inputFormatter: [FilteringTextInputFormatter.digitsOnly],
                           ),
                         ),
-                        Text(' ₺',
-                            style: TextStyle(
-                                fontSize: width <= 400 ? width / 20 : 20)),
+                        Text(' ₺', style: TextStyle(fontSize: width <= 400 ? width / 20 : 20)),
                         SizedBox(width: 8),
                         IconButton(
                           splashRadius: 20,

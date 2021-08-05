@@ -1,12 +1,10 @@
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/models/model_service.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
@@ -17,18 +15,10 @@ class AppointmentsPage extends StatefulWidget {
 
 class _AppointmentsPageState extends State<AppointmentsPage> {
   Functions functions = Functions();
-  List appointments = [];
-  List<AppointmentInfo> localList = [];
-  List<int> localPriceList = [];
-  DateTime dateTime;
-  int total = 0;
+  List waitingAppointments = [];
 
   Widget body(double width, int index) {
-    DateTime dateTime =
-        Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees[0].dateTime;
-
-    String lastDay = '${dateTime.day} ${month[dateTime.month - 1]} ${week[dateTime.weekday - 1]}';
-
+    print(waitingAppointments[index].appointmentDetails[index].hour);
     return Column(
       children: [
         Expandable.extended(
@@ -41,7 +31,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
             child: Column(
               children: [
                 Text(
-                  Provider.of<AppointmentData>(context).coiffureName,
+                  waitingAppointments[index].coiffureName,
                   textAlign: TextAlign.center,
                   style: kTextStyle.copyWith(fontSize: 20, fontWeight: FontWeight.normal),
                 ),
@@ -54,7 +44,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Text("Gün: ", style: kTitleStyle),
-                      Text(lastDay, style: kTitleStyle),
+                      Text(waitingAppointments[index].date, style: kTitleStyle),
                     ],
                   ),
                 ),
@@ -68,7 +58,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                     children: <Widget>[
                       Text("Saat: ", style: kTitleStyle),
                       Text(
-                        "${Provider.of<AppointmentData>(context).servicesAndEmployees[0].time}",
+                        waitingAppointments[index].hour,
                         style: kTitleStyle,
                       ),
                     ],
@@ -83,8 +73,8 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
               Divider(thickness: 2),
               ListView.separated(
                 shrinkWrap: true,
-                itemCount: localList.length,
-                itemBuilder: (BuildContext bc, int index) {
+                itemCount: waitingAppointments[index].appointmentDetails.length,
+                itemBuilder: (BuildContext bc, int index2) {
                   return Column(
                     children: <Widget>[
                       Row(
@@ -92,7 +82,8 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                         children: [
                           Text('Saat:', style: kSmallTextStyle),
                           Spacer(),
-                          Text(localList[index].time, style: kSmallTextStyle),
+                          Text(waitingAppointments[index].appointmentDetails[index2].hour,
+                              style: kSmallTextStyle),
                           Spacer(),
                           Text('Saat:', style: kSmallTextStyle.copyWith(color: Colors.transparent)),
                         ],
@@ -102,9 +93,16 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                         children: [
                           Text('Hizmet:', style: kSmallTextStyle),
                           Spacer(),
-                          Text(localList[index].service, style: kSmallTextStyle),
+                          Text(
+                              waitingAppointments[index]
+                                  .appointmentDetails[index2]
+                                  .serviceModel
+                                  .name,
+                              style: kSmallTextStyle),
                           Spacer(),
-                          Text('${localPriceList[index]} TL', style: kSmallTextStyle),
+                          Text(
+                              '${waitingAppointments[index].appointmentDetails[index2].serviceModel.price} TL',
+                              style: kSmallTextStyle),
                         ],
                       ),
                       Row(
@@ -112,7 +110,12 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                         children: [
                           Text('Çalışan:', style: kSmallTextStyle),
                           Spacer(),
-                          Text(localList[index].employee, style: kSmallTextStyle),
+                          Text(
+                              waitingAppointments[index]
+                                  .appointmentDetails[index2]
+                                  .employeeModel
+                                  .name,
+                              style: kSmallTextStyle),
                           Spacer(),
                           Text('Çalışan:',
                               style: kSmallTextStyle.copyWith(color: Colors.transparent)),
@@ -128,7 +131,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                 children: [
                   Text('Toplam', style: kSmallTextStyle),
                   Spacer(),
-                  Text('$total TL', style: kSmallTextStyle),
+                  Text('${waitingAppointments[index].totalPrice} TL', style: kSmallTextStyle),
                 ],
               ),
             ],
@@ -140,25 +143,23 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                 padding: EdgeInsets.all(8),
                 decoration:
                     BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(15)),
-                child:
-                    Text('Randevumu İptal Et', style: kTitleStyle.copyWith(color: Colors.white))),
-            onPressed: () {}),
+                child: Text('Bu Randevumu İptal Et',
+                    style: kTitleStyle.copyWith(color: Colors.white))),
+            onPressed: () {
+              setState(() {
+                Provider.of<AppointmentData>(context, listen: false)
+                    .waitingAppointments
+                    .remove(waitingAppointments[index]);
+                waitingAppointments.remove(index);
+              });
+            }),
       ],
     );
   }
 
   @override
   void initState() {
-    appointments = Provider.of<AppointmentData>(context, listen: false).appointments;
-    localList = Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees;
-
-    for (ServiceModel x in Provider.of<AppointmentData>(context, listen: false).fullTimeServices) {
-      for (AppointmentInfo y in localList) {
-        if (y.service == x.name) {
-          localPriceList.add(x.price);
-        }
-      }
-    }
+    waitingAppointments = Provider.of<AppointmentData>(context, listen: false).waitingAppointments;
     super.initState();
   }
 
@@ -175,13 +176,19 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
         ),
       ).build(context),
       body: AyarlaPage(
-        child: appointments.isEmpty
+        child: waitingAppointments.isEmpty
             ? Center(child: Text('Henüz bir randevunuz yok.', style: kTextStyle))
             : CarouselSlider(
-                options: CarouselOptions(enlargeCenterPage: true, enableInfiniteScroll: false),
+                options: CarouselOptions(
+                  height: 500,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                ),
 
                 /// TODO - need index & proper height
-                items: localList.map((index) => body(width, 0)).toList(),
+                items: waitingAppointments
+                    .map((element) => body(width, waitingAppointments.indexOf(element)))
+                    .toList(),
               ),
       ),
     );

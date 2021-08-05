@@ -22,13 +22,10 @@ class Ayarla extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppointmentData>(
-            create: (context) => AppointmentData()),
-        ChangeNotifierProvider<GenderSelection>(
-            create: (context) => GenderSelection()),
+        ChangeNotifierProvider<AppointmentData>(create: (context) => AppointmentData()),
+        ChangeNotifierProvider<GenderSelection>(create: (context) => GenderSelection()),
         ChangeNotifierProvider<Login>(create: (context) => Login()),
-        ChangeNotifierProvider<BusinessAndUserData>(
-            create: (context) => BusinessAndUserData()),
+        ChangeNotifierProvider<BusinessAndUserData>(create: (context) => BusinessAndUserData()),
       ],
       child: LoadingScreen(),
     );

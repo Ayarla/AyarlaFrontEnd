@@ -5,6 +5,7 @@ import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
+import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/coiffure_detail_page/AboutSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
@@ -33,11 +34,19 @@ class CoiffureDetailPage extends StatefulWidget {
 class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
   List<ImageListItem> _pages = images;
   ScrollController _listViewController = ScrollController();
+  int total = 0;
 
   @override
   void initState() {
-    Provider.of<AppointmentData>(context, listen: false)
-        .setName(widget.coiffureModel.name);
+    Provider.of<AppointmentData>(context, listen: false).currentAppointment = Appointment(
+      coiffureName: '',
+      totalPrice: 0,
+      isConfirmedByUser: false,
+      isConfirmedByCoiffure: false,
+      date: '',
+      hour: '',
+      appointmentDetails: [],
+    );
     super.initState();
   }
 
@@ -50,7 +59,9 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    int total = Provider.of<AppointmentData>(context, listen: true).total;
+    TextStyle _titleStyle = kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
+    TextStyle _textStyle = kTextStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
+    total = Provider.of<AppointmentData>(context, listen: true).currentAppointment.totalPrice;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(
@@ -73,33 +84,21 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   ImageSection(pages: _pages),
                   SizedBox(height: 10),
                   IconsRow(coiffureModel: widget.coiffureModel),
-                  Text(
-                    "Hakkında",
-                    style: kTitleStyle.copyWith(
-                        fontSize: width <= 400 ? width / 20 : 20),
-                  ),
-                  AboutSection(widget.coiffureModel,
-                      controller: _listViewController),
+                  Text("Hakkında", style: _titleStyle),
+                  AboutSection(widget.coiffureModel, controller: _listViewController),
                   SizedBox(height: 5),
                   ServicesSection(),
                   SizedBox(height: 10),
-                  Text(
-                    'Personeller',
-                    style: kTextStyle.copyWith(
-                        fontSize: width <= 400 ? width / 20 : 20),
-                  ),
+                  Text('Personeller', style: _textStyle),
                   SizedBox(height: 10),
                   EmployeeRow(),
                   Row(
                     children: [
-                      Text('Yorumlar',
-                          style: kTextStyle.copyWith(
-                              fontSize: width <= 400 ? width / 20 : 20)),
+                      Text('Yorumlar', style: _textStyle),
                       Spacer(),
                       TextButton(
                         child: Text('Tümünü Gör',
-                            style: kTextStyle.copyWith(
-                                fontSize: 12, color: Colors.blue)),
+                            style: kTextStyle.copyWith(fontSize: 12, color: Colors.blue)),
                         onPressed: () {
                           Routers.router.navigateTo(
                             context,
@@ -122,11 +121,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   /// Map
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 320,
-                      width: 300,
-                      child: FlutterMapCoiffure(),
-                    ),
+                    child: Container(height: 320, width: 300, child: FlutterMapCoiffure()),
                   ),
 
                   /// create enough space for map
@@ -149,19 +144,11 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   FloatingTextButton(
                     text: "Saati Belirle",
                     onPressed: () async {
-                      await Provider.of<AppointmentData>(context, listen: false)
-                          .getServicesWithEmployee();
-                      Routers.router.navigateTo(
-                        context,
-                        'SaatSayfasi',
-                        routeSettings: RouteSettings(
-                          arguments: CalenderPage(
-                              servicesAndEmployees:
-                                  Provider.of<AppointmentData>(context,
-                                          listen: false)
-                                      .servicesAndEmployees),
-                        ),
-                      );
+                      Provider.of<AppointmentData>(context, listen: false)
+                          .currentAppointment
+                          .coiffureName = widget.coiffureModel.name;
+                      Provider.of<AppointmentData>(context, listen: false).appointmentAddHandler();
+                      Routers.router.navigateTo(context, 'SaatSayfasi');
                     },
                   ),
                 ],

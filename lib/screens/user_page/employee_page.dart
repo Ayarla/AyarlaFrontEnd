@@ -1,5 +1,6 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/models/model_service.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +27,7 @@ class _EmployeePageState extends State<EmployeePage> {
     for (String x in week) {
       weekBoolList.add(false);
     }
-    services =
-        Provider.of<AppointmentData>(context, listen: false).fullTimeServices;
+    services = fullTimeServices;
     for (ServiceModel x in services) {
       serviceBoolList.add(false);
     }
@@ -58,9 +58,7 @@ class _EmployeePageState extends State<EmployeePage> {
                 showArrowIcon: true,
                 primaryWidget: Container(
                     height: 30,
-                    child: Center(
-                        child: Text('Çalışma Günlerinizi Seçiniz',
-                            style: kTextStyle))),
+                    child: Center(child: Text('Çalışma Günlerinizi Seçiniz', style: kTextStyle))),
                 secondaryWidget: Column(
                   children: [
                     Container(
@@ -128,13 +126,9 @@ class _EmployeePageState extends State<EmployeePage> {
                                 color: Colors.transparent,
                                 child: Row(
                                   children: [
-                                    TimeDropdown(
-
-                                        timeList: dividedHours),
+                                    TimeDropdown(timeList: dividedHours),
                                     Text(' - '),
-                                    TimeDropdown(
-
-                                        timeList: dividedHours),
+                                    TimeDropdown(timeList: dividedHours),
                                   ],
                                 ),
                               ),
@@ -143,8 +137,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                   value: weekBoolList[index],
                                   onChanged: (value) {
                                     setState(() {
-                                      weekBoolList[index] =
-                                          !weekBoolList[index];
+                                      weekBoolList[index] = !weekBoolList[index];
                                     });
                                   }),
                             ],
@@ -164,8 +157,7 @@ class _EmployeePageState extends State<EmployeePage> {
                 centralizePrimaryWidget: true,
                 primaryWidget: Container(
                     height: 30,
-                    child: Center(
-                        child: Text('Hizmet Belirleyiniz', style: kTextStyle))),
+                    child: Center(child: Text('Hizmet Belirleyiniz', style: kTextStyle))),
                 secondaryWidget: Column(
                   children: [
                     SizedBox(height: 15),
@@ -175,8 +167,7 @@ class _EmployeePageState extends State<EmployeePage> {
                         Text(
                           'Hizmetler',
                           style: kTitleStyle.copyWith(
-                              fontSize:
-                                  size.width <= 400 ? size.width / 20 : 20),
+                              fontSize: size.width <= 400 ? size.width / 20 : 20),
                         ),
                       ],
                     ),
@@ -194,9 +185,7 @@ class _EmployeePageState extends State<EmployeePage> {
                               Text(
                                 services[index].name,
                                 style: kSmallTextStyle.copyWith(
-                                    fontSize: size.width <= 400
-                                        ? size.width / 20
-                                        : 20),
+                                    fontSize: size.width <= 400 ? size.width / 20 : 20),
                               ),
                               Spacer(),
                               Checkbox(
@@ -204,8 +193,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                 value: serviceBoolList[index],
                                 onChanged: (value) {
                                   setState(() {
-                                    serviceBoolList[index] =
-                                        !serviceBoolList[index];
+                                    serviceBoolList[index] = !serviceBoolList[index];
                                   });
                                 },
                               ),

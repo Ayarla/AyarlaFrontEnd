@@ -1,11 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
@@ -20,8 +19,7 @@ import 'package:flutter/rendering.dart';
 
 class Functions {
   decideColor(context) {
-    Gender selectedGender =
-        Provider.of<GenderSelection>(context, listen: false).currentGender[0];
+    Gender selectedGender = Provider.of<GenderSelection>(context, listen: false).currentGender[0];
     if (selectedGender == Gender.female) {
       return LinearGradient(
         begin: Alignment.centerLeft,
@@ -104,6 +102,7 @@ class Functions {
       ),
     );
   }
+
   /// takes image from file
   /// TODO dart:io web desteği yok
   // imageFromFile(context) async {
@@ -122,8 +121,8 @@ class Functions {
   //     }
   //   }
   //   }
-    ///
- /*   FilePickerResult result = await FilePicker.platform.pickFiles(
+  ///
+  /*   FilePickerResult result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['png', 'jpg', 'svg', 'jpeg']);
 
@@ -142,11 +141,9 @@ class Functions {
       // User canceled the picker
     }*/
 
-
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+    File image = await ImagePicker.pickImage(source: ImageSource.camera, imageQuality: 50);
 
     if (image != null) {
       if (Provider.of<Login>(context, listen: false).isManager) {
@@ -154,15 +151,14 @@ class Functions {
             .addImage(ImageListItem(file: image, isFile: true, covered: true));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(isFile:true,fileImage: image));
+            .setUserImage(UserImage(isFile: true, fileImage: image));
       }
     }
   }
 
   ///takes an image from gallery and adds it to the list
   imgFromGallery(context) async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50);
+    File image = await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50);
 
     if (image != null) {
       if (Provider.of<Login>(context, listen: false).isManager) {
@@ -170,21 +166,21 @@ class Functions {
             .addImage(ImageListItem(file: image, isFile: true, covered: true));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(isFile:true,fileImage: image));
+            .setUserImage(UserImage(isFile: true, fileImage: image));
       }
     }
   }
 
   void showPicker(context) {
     bool isWeb;
-    try{
-      if(Platform.isAndroid||Platform.isIOS) {
-        isWeb=false;
+    try {
+      if (Platform.isAndroid || Platform.isIOS) {
+        isWeb = false;
       } else {
-        isWeb=true;
+        isWeb = true;
       }
-    } catch(e){
-      isWeb=true;
+    } catch (e) {
+      isWeb = true;
     }
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -196,16 +192,16 @@ class Functions {
             color: Colors.white,
             child: new Wrap(
               children: <Widget>[
-                if(isWeb==true)
-                new ListTile(
-                  leading: new Icon(Icons.upload_file),
-                  title: new Text('Dosya'),
-                  tileColor: Colors.transparent,
-                  onTap: () {
-                    // imageFromFile(context);
-                    Navigator.of(context).pop();
-                  },
-                )
+                if (isWeb == true)
+                  new ListTile(
+                    leading: new Icon(Icons.upload_file),
+                    title: new Text('Dosya'),
+                    tileColor: Colors.transparent,
+                    onTap: () {
+                      // imageFromFile(context);
+                      Navigator.of(context).pop();
+                    },
+                  )
                 else
                   Column(
                     children: [
@@ -228,7 +224,6 @@ class Functions {
                       ),
                     ],
                   )
-
               ],
             ),
           );
@@ -236,22 +231,15 @@ class Functions {
   }
 
   int findIndex(ServiceModel x, context) {
-    return Provider.of<AppointmentData>(context, listen: false)
-        .fullTimeServices
-        .indexOf(x);
+    return fullTimeServices.indexOf(x);
   }
 
   int findIndexOfEmployee(int employeeIndex, EmployeeModel y, context) {
-    return Provider.of<AppointmentData>(context, listen: false)
-        .fullTimeServices[employeeIndex]
-        .employees
-        .indexOf(y);
+    return fullTimeServices[employeeIndex].employees.indexOf(y);
   }
 
   int findIndexEmployee(EmployeeModel y, context) {
-    return Provider.of<AppointmentData>(context, listen: false)
-        .employeesList
-        .indexOf(y);
+    return employeesList.indexOf(y);
   }
 }
 

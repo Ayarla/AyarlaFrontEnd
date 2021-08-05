@@ -5,6 +5,7 @@ import 'package:ayarla/screens/manager_screens/business_info_page/AboutSectionBu
 import 'package:ayarla/screens/manager_screens/business_info_page/ImageSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/ServiceSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/section_contact.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -28,8 +29,7 @@ class Unfocuser extends StatelessWidget {
         rb.hitTest(result, position: e.position);
 
         for (final e in result.path) {
-          if (e.target is RenderEditable ||
-              e.target is IgnoreUnfocuserRenderBox) {
+          if (e.target is RenderEditable || e.target is IgnoreUnfocuserRenderBox) {
             return;
           }
         }
@@ -51,8 +51,7 @@ class IgnoreUnfocuser extends SingleChildRenderObjectWidget {
   final Widget child;
 
   @override
-  IgnoreUnfocuserRenderBox createRenderObject(BuildContext context) =>
-      IgnoreUnfocuserRenderBox();
+  IgnoreUnfocuserRenderBox createRenderObject(BuildContext context) => IgnoreUnfocuserRenderBox();
 }
 
 class IgnoreUnfocuserRenderBox extends RenderPointerListener {}
@@ -73,19 +72,11 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   ///popup to add employee
   openAlertBox(int serviceIndex) {
     List boolList = [];
-    for (int i = 0;
-        i <
-            Provider.of<AppointmentData>(context, listen: false)
-                .employeesList
-                .length;
-        i++) {
+    for (int i = 0; i < employeesList.length; i++) {
       boolList.add(false);
     }
     bool isValid(String name) {
-      for (EmployeeModel x
-          in Provider.of<AppointmentData>(context, listen: false)
-              .fullTimeServices[serviceIndex]
-              .employees) {
+      for (EmployeeModel x in fullTimeServices[serviceIndex].employees) {
         if (x.name == name) {
           return true;
         }
@@ -96,11 +87,9 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState1) {
+          return StatefulBuilder(builder: (BuildContext context, StateSetter setState1) {
             return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
               contentPadding: EdgeInsets.only(top: 10.0),
               content: Container(
                 width: 300.0,
@@ -125,36 +114,18 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                         padding: EdgeInsets.only(left: 30.0, right: 30.0),
                         child: Column(
                           children: [
-                            for (EmployeeModel x
-                                in Provider.of<AppointmentData>(context,
-                                        listen: true)
-                                    .employeesList)
+                            for (EmployeeModel x in employeesList)
                               (isValid(x.name)
                                   ? SizedBox(width: 0, height: 0)
                                   : Row(
                                       children: [
                                         Text(x.name, style: kTextStyle),
                                         Checkbox(
-                                            value: boolList[
-                                                Provider.of<AppointmentData>(
-                                                        context,
-                                                        listen: false)
-                                                    .employeesList
-                                                    .indexOf(x)],
+                                            value: boolList[employeesList.indexOf(x)],
                                             onChanged: (value) {
                                               setState1(() {
-                                                boolList[Provider.of<
-                                                            AppointmentData>(
-                                                        context,
-                                                        listen: false)
-                                                    .employeesList
-                                                    .indexOf(
-                                                        x)] = !boolList[
-                                                    Provider.of<AppointmentData>(
-                                                            context,
-                                                            listen: false)
-                                                        .employeesList
-                                                        .indexOf(x)];
+                                                boolList[employeesList.indexOf(x)] =
+                                                    !boolList[employeesList.indexOf(x)];
                                               });
                                             })
                                       ],
@@ -167,29 +138,22 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                     int index = 0;
                                     for (bool x in boolList) {
                                       if (x == true) {
-                                        Provider.of<AppointmentData>(context,
-                                                listen: false)
+                                        Provider.of<AppointmentData>(context, listen: false)
                                             .setEmployee(serviceIndex, index);
                                       }
                                       index++;
                                     }
-                                    Navigator.of(context, rootNavigator: true)
-                                        .pop();
+                                    Navigator.of(context, rootNavigator: true).pop();
                                   },
                                   style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: BorderRadius.circular(12.0),
                                       )),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.grey)),
+                                      backgroundColor: MaterialStateProperty.all(Colors.grey)),
                                   child: Text(
                                     "Onayla",
-                                    style: kTextStyle.copyWith(
-                                        color: Colors.white),
+                                    style: kTextStyle.copyWith(color: Colors.white),
                                   ),
                                 )
                               ],

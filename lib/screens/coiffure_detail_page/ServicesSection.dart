@@ -1,8 +1,9 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
-import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +15,17 @@ class ServicesSection extends StatefulWidget {
 }
 
 class _ServicesSectionState extends State<ServicesSection> {
+  List<ServiceModel> serviceList = [];
+  List<EmployeeModel> employeeList = [EmployeeModel()];
+
   /// returns the index of the service
-  int findIndex(ServiceModel x) {
-    return Provider.of<AppointmentData>(context, listen: false)
-        .fullTimeServices
-        .indexOf(x);
+  int findIndex(ServiceModel x) => fullTimeServices.indexOf(x);
+
+  @override
+  void initState() {
+    Provider.of<AppointmentData>(context, listen: false).serviceList.clear();
+    Provider.of<AppointmentData>(context, listen: false).employeeList.clear();
+    super.initState();
   }
 
   @override
@@ -32,22 +39,23 @@ class _ServicesSectionState extends State<ServicesSection> {
           style: kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20),
         ),
         SizedBox(height: 10),
-        for (ServiceModel x
-            in Provider.of<AppointmentData>(context, listen: false)
-                .fullTimeServices)
+        for (ServiceModel serviceModel in fullTimeServices)
           Padding(
             padding: EdgeInsets.symmetric(vertical: 5.0),
             child: Expandable(
               padding: EdgeInsets.all(5.0),
               onPressed: () {
-                Provider.of<AppointmentData>(context, listen: false)
-                    .changeSelectedService(findIndex(x));
-                FirebaseAnalytics().logEvent(
-                    name: 'service_expandable',
-                    parameters: {
-                      'name': x.name,
-                      'state': x.selected ? 'opened' : 'closed'
-                    });
+                if (!serviceList.contains(serviceModel)) {
+                  serviceList.add(serviceModel);
+                } else if (serviceList.contains(serviceModel)) {
+                  serviceList.remove(serviceModel);
+                }
+                Provider.of<AppointmentData>(context, listen: false).serviceList = serviceList;
+                Provider.of<AppointmentData>(context, listen: false).priceHandler();
+                FirebaseAnalytics().logEvent(name: 'service_expandable', parameters: {
+                  'name': serviceModel.name,
+                  'state': serviceModel.selected ? 'opened' : 'closed'
+                });
               },
               elevation: 5,
               primaryWidget: Container(
@@ -56,26 +64,20 @@ class _ServicesSectionState extends State<ServicesSection> {
                 child: Row(
                   children: [
                     SizedBox(width: 10),
-                    Text(x.name,
+                    Text(serviceModel.name,
                         overflow: TextOverflow.ellipsis,
                         style: kTextStyle.copyWith(
                             fontWeight: FontWeight.normal,
                             fontSize: width <= 400 ? width / 20 : 20)),
                     Spacer(),
-                    Text(x.price.toString(),
+                    Text(serviceModel.price.toString(),
                         style: kTextStyle.copyWith(
                             fontWeight: FontWeight.normal,
                             fontSize: width <= 400 ? width / 20 : 20)),
-                    Text(" ₺",
-                        style: TextStyle(
-                            fontSize: width <= 400 ? width / 20 : 20)),
+                    Text(" ₺", style: TextStyle(fontSize: width <= 400 ? width / 20 : 20)),
                     SizedBox(width: 10),
                     Icon(
-                      Provider.of<AppointmentData>(context, listen: false)
-                              .fullTimeServices[findIndex(x)]
-                              .selected
-                          ? Icons.remove
-                          : Icons.add,
+                      fullTimeServices[findIndex(serviceModel)].selected ? Icons.remove : Icons.add,
                       size: width <= 400 ? width / 16.6 : 24,
                     ),
                     SizedBox(width: 10),
@@ -85,84 +87,63 @@ class _ServicesSectionState extends State<ServicesSection> {
               secondaryWidget: Container(
                 height: 100,
                 child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (BuildContext bc, int index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4.0),
-                      child: Container(
-                        width: 120,
-                        child: GenericIconButton(
-                          color: Provider.of<AppointmentData>(context,
-                                      listen: false)
-                                  .fullTimeServices[
-                                      Provider.of<AppointmentData>(context,
-                                              listen: false)
-                                          .fullTimeServices
-                                          .indexOf(x)]
-                                  .employees[index]
-                                  .selected
-                              ? Provider.of<AppointmentData>(context,
-                                              listen: false)
-                                          .fullTimeServices[
-                                              Provider.of<AppointmentData>(
-                                                      context,
-                                                      listen: false)
-                                                  .fullTimeServices
-                                                  .indexOf(x)]
-                                          .employees[index]
-                                          .gender ==
-                                      'female'
-                                  ? Colors.pink[200]
-                                  : Colors.blue
-                              : null,
-                          iconContext: Container(
-                            padding: EdgeInsets.only(top: 5),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image(
-                                    height: 40,
-                                    image: AssetImage(
-                                      Provider.of<AppointmentData>(context,
-                                              listen: false)
-                                          .employeesList[index]
-                                          .image,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 5,
+                    itemBuilder: (BuildContext bc, int index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                        child: Container(
+                          width: 120,
+                          child: GenericIconButton(
+                              color: fullTimeServices[fullTimeServices.indexOf(serviceModel)]
+                                      .employees[index]
+                                      .selected
+                                  ? fullTimeServices[fullTimeServices.indexOf(serviceModel)]
+                                              .employees[index]
+                                              .gender ==
+                                          'female'
+                                      ? Colors.pink[200]
+                                      : Colors.blue
+                                  : null,
+                              iconContext: Container(
+                                padding: EdgeInsets.only(top: 5),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image(
+                                          height: 40,
+                                          image: AssetImage(employeesList[index].image)),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          textStyle: kTextStyle.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: width <= 400 ? width / 30 : 14),
-                          text: Provider.of<AppointmentData>(context,
-                                  listen: false)
-                              .employeesList[index]
-                              .name,
-                          onPressed: () {
-                            setState(() {
-                              Provider.of<AppointmentData>(context,
-                                      listen: false)
-                                  .changeSelectedEmployee(
-                                      Provider.of<AppointmentData>(context,
-                                              listen: false)
-                                          .fullTimeServices
-                                          .indexOf(x),
-                                      index);
-                            });
-                          },
+                              ),
+                              textStyle: kTextStyle.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: width <= 400 ? width / 30 : 14),
+                              text: employeesList[index].name,
+                              onPressed: () {
+                                employeeList.add(EmployeeModel());
+                                employeeList[serviceList.indexOf(serviceModel)] =
+                                    employeesList[index];
+
+                                List holder =
+                                    employeeList.where((element) => element.name != null).toList();
+                                holder.length = serviceList.length;
+                                // print(holder);
+                                // for (EmployeeModel x in holder) {
+                                //   print(x.name);
+                                // }
+                                Provider.of<AppointmentData>(context, listen: false).employeeList =
+                                    holder;
+                              }),
                         ),
-                      ),
-                    );
-                  },
-                ),
+                      );
+                    }),
               ),
             ),
-          )
+          ),
       ],
     );
   }

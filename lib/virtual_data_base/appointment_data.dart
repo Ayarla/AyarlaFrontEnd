@@ -1,8 +1,8 @@
-import 'dart:math';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/models/model_user.dart';
 import 'package:ayarla/screens/search_page.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:ayarla/webService/user_functions.dart';
 // import 'package:firebase/firebase.dart';
 // import 'package:firebase_database/firebase_database.dart';
@@ -12,250 +12,90 @@ import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 
-class Availability {
-  String time;
-  bool selected;
-  Availability({this.selected, this.time});
-}
-
-// class AppointmentDetails {
-//   String coiffureName;
-//   int total;
-//   DateTime date;
-//   DateTime hour;
-//   List appointmentDetails = [
-//     Appointment(serviceName: , time: , employee: ,),
-//     Appointment(serviceName: , time: , employee: ,),
-//     Appointment(serviceName: , time: , employee: ,),
-//     Appointment(serviceName: , time: , employee: ,),
-//   ];
+// class Availability {
+//   String time;
+//   bool selected;
+//   Availability({this.selected, this.time});
 // }
 
 class AppointmentData extends ChangeNotifier {
-  /// called in coiffure_detail_card initState
-  String coiffureName = '';
-  setName(String name) {
-    coiffureName = name;
+  Appointment currentAppointment = Appointment(
+    coiffureName: '',
+    totalPrice: 0,
+    isConfirmedByUser: false,
+    isConfirmedByCoiffure: false,
+    date: '',
+    hour: '',
+    appointmentDetails: [],
+  );
+
+  List<Appointment> waitingAppointments = [];
+
+  List<ServiceModel> serviceList = [];
+  List<EmployeeModel> employeeList = [];
+  List<String> hoursList = [];
+
+  appointmentAddHandler() {
+    currentAppointment.appointmentDetails.clear();
+
+    for (int i = 0; i < serviceList.length; i++) {
+      if (employeeList[i] == null) {
+        employeeList[i] = employeesList[0];
+      }
+    }
+
+    for (int i = 0; i < serviceList.length; i++) {
+      currentAppointment.appointmentDetails.add(
+        AppointmentModel(
+          serviceModel: serviceList[i],
+          employeeModel: employeeList[i],
+        ),
+      );
+    }
+    priceHandler();
   }
 
-  List<ServiceModel> newServiceList = [
-    ServiceModel(name: 'Saç Kesimi', price: 20, selected: false),
-    ServiceModel(name: 'Sakal Kesimi', price: 10, selected: false),
-    ServiceModel(name: 'Saç Boyama', price: 100, selected: false),
-    ServiceModel(name: 'Manikür', price: 30, selected: false),
-    ServiceModel(name: 'Pedikür', price: 30, selected: false),
-    ServiceModel(name: 'Perma', price: 100, selected: false),
-    ServiceModel(name: 'Saç Bakımı', price: 50, selected: false),
-  ];
+  dateHandler() {
+    currentAppointment.appointmentDetails.clear();
+    for (int i = 0; i < hoursList.length; i++) {
+      currentAppointment.appointmentDetails.add(
+        AppointmentModel(
+          serviceModel: serviceList[i],
+          employeeModel: employeeList[i],
+          hour: hoursList[i],
+        ),
+      );
+    }
+    List sorted = hoursList;
+    sorted.sort();
+    currentAppointment.hour = sorted[0];
+  }
 
-  //used in coiffure_detail card
-  List<EmployeeModel> employeesList = [
-    EmployeeModel(
-      name: 'Nilsu Öz',
-      image: 'assets/worker_3.png',
-      gender: 'female',
-      selected: false,
-    ),
-    EmployeeModel(
-        image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: 'male'),
-    EmployeeModel(
-        image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: 'male'),
-    EmployeeModel(
-        image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: 'male'),
-    EmployeeModel(
-        image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: 'male'),
-  ];
-
-  ///fullTimeService List
-  ///=> used in coiffure_detail card
-  ///TODO halfTime services should be added.
-  List<ServiceModel> fullTimeServices = [
-    ServiceModel(name: 'Saç Kesimi', price: 20, selected: false, employees: [
-      EmployeeModel(
-        image: 'assets/worker_3.png',
-        name: 'Nilsu Öz',
-        selected: false,
-        gender: "female",
-      ),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
-    ]),
-    ServiceModel(name: 'Sakal Kesimi', price: 10, selected: false, employees: [
-      EmployeeModel(
-        image: 'assets/worker_3.png',
-        name: 'Nilsu Öz',
-        selected: false,
-        gender: "female",
-      ),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
-    ]),
-    ServiceModel(name: 'Saç Boyama', price: 100, selected: false, employees: [
-      EmployeeModel(
-        image: 'assets/worker_3.png',
-        name: 'Nilsu Öz',
-        selected: false,
-        gender: "female",
-      ),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
-    ]),
-    ServiceModel(name: 'Manikür', price: 30, selected: false, employees: [
-      EmployeeModel(
-        image: 'assets/worker_3.png',
-        name: 'Nilsu Öz',
-        selected: false,
-        gender: "female",
-      ),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
-    ]),
-    ServiceModel(name: 'Pedikür', price: 30, selected: false, employees: [
-      EmployeeModel(
-        image: 'assets/worker_3.png',
-        name: 'Nilsu Öz',
-        selected: false,
-        gender: "female",
-      ),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
-    ]),
-    ServiceModel(name: 'Perma', price: 100, selected: false, employees: [
-      EmployeeModel(
-        image: 'assets/worker_3.png',
-        name: 'Nilsu Öz',
-        selected: false,
-        gender: "female",
-      ),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
-    ]),
-    ServiceModel(name: 'Saç Bakımı', price: 50, selected: false, employees: [
-      EmployeeModel(
-        image: 'assets/worker_3.png',
-        name: 'Nilsu Öz',
-        selected: false,
-        gender: "female",
-      ),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
-      EmployeeModel(
-          image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
-    ]),
-  ];
-
-  ///Opens the employee selection row if selected
-  ///=> used in coiffure_detail card
-  ///=> Hizmetler Card
-  bool serviceSelected = false;
-  changeSelectedService(int index) {
-    fullTimeServices[index].selected = !fullTimeServices[index].selected;
-    calculateTotalPrice();
+  priceHandler() {
+    currentAppointment.totalPrice = 0;
+    for (ServiceModel x in serviceList) {
+      currentAppointment.totalPrice += x.price;
+    }
     notifyListeners();
   }
-
-  ServiceModel defaultService =
-      ServiceModel(name: 'Hizmet Adı', price: 20, selected: false, employees: [
-    EmployeeModel(
-      image: 'assets/worker_3.png',
-      name: 'Nilsu Öz',
-      selected: false,
-      gender: "female",
-    ),
-    EmployeeModel(
-        image: 'assets/worker_1.png', name: 'Fatih Özkan', selected: false, gender: "male"),
-    EmployeeModel(
-        image: 'assets/worker_2.jpg', name: 'Bahadır İren', selected: false, gender: "male"),
-    EmployeeModel(
-        image: 'assets/worker_1.png', name: 'Semih Gümüş', selected: false, gender: "male"),
-    EmployeeModel(
-        image: 'assets/worker_2.jpg', name: 'Ahmed Akif Kaya', selected: false, gender: "male"),
-  ]);
-
-  EmployeeModel defaultEmployee = EmployeeModel(
-    image: 'assets/default_employee.jpg',
-    name: 'Çalışan Ekle',
-    selected: false,
-    gender: "female",
-  );
 
   removeEmployeeFromService(int serviceIndex, int employeeIndex) {
     fullTimeServices[serviceIndex].employees.removeAt(employeeIndex);
     notifyListeners();
   }
 
-  ///Calculates the total price everytime we change something
-  ///=> used in coiffure_detail card
-  ///=> Hizmetler Card
-  int total = 0;
-  calculateTotalPrice() {
-    total = 0;
-    for (ServiceModel x in fullTimeServices) {
-      if (x.selected == true) {
-        total += x.price;
-      }
-    }
-    notifyListeners();
-  }
-
-  calculateTotalPrice2(int price) {
-    total += price;
-    print(total);
-    notifyListeners();
-  }
-
   ///Chooses the selected employee and discards the others
   ///=> used in coiffure_detail card
-  changeSelectedEmployee(int serviceIndex, int index) {
-    for (EmployeeModel y in fullTimeServices[serviceIndex].employees) {
-      if (y == fullTimeServices[serviceIndex].employees[index]) {
-        y.selected = !y.selected;
-      } else {
-        y.selected = false;
-      }
-    }
-    notifyListeners();
-  }
+  // changeSelectedEmployee(int serviceIndex, int index) {
+  //   for (EmployeeModel y in fullTimeServices[serviceIndex].employees) {
+  //     if (y == fullTimeServices[serviceIndex].employees[index]) {
+  //       y.selected = !y.selected;
+  //     } else {
+  //       y.selected = false;
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
 
   addService(serviceName, price) {
     fullTimeServices.add(ServiceModel(
@@ -278,167 +118,86 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
-  ///Stores selected information about appointment
-  ///=> screens.coiffure_detail_page
-  ///=> 'Saati Belirle' button
+  // Stores selected information about appointment
+  // => screens.coiffure_detail_page
+  // => 'Saati Belirle' button
 
-  List<AppointmentInfo> servicesAndEmployees = [];
-  getServicesWithEmployee() {
-    servicesAndEmployees.clear();
-    for (ServiceModel x in fullTimeServices) {
-      int index = fullTimeServices.indexOf(x);
-      if (x.selected == true) {
-        int counter = 0;
-        for (EmployeeModel y in fullTimeServices[index].employees) {
-          if (y.selected == true) {
-            counter--;
-            bool isNew = true;
-            for (AppointmentInfo z in servicesAndEmployees) {
-              if (z.service == x.name) {
-                z.employee = y.name;
-                isNew = false;
-              }
-            }
-            if (isNew) {
-              servicesAndEmployees.add(
-                AppointmentInfo(
-                  service: x.name,
-                  employee: y.name,
-                  availability: [
-                    Availability(time: '10:00 - 10:30', selected: false),
-                    Availability(time: '10:30 - 11:00', selected: false),
-                    Availability(time: '11:30 - 12:00', selected: false),
-                    Availability(time: '12:00 - 12:30', selected: false),
-                    Availability(time: '12:30 - 13:00', selected: false),
-                    Availability(time: '13:30 - 14:00', selected: false),
-                    Availability(time: '14:00 - 14:30', selected: false),
-                    Availability(time: '15:00 - 15:30', selected: false)
-                  ],
-                  time: '',
-                  dateTime: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
-                ),
-              );
-            }
-          } else if (y.selected == false) {
-            counter++;
-          }
+  // List servicesAndEmployees = [];
+  // getServicesWithEmployee() {
+  //   servicesAndEmployees.clear();
+  //   for (ServiceModel x in fullTimeServices) {
+  //     int index = fullTimeServices.indexOf(x);
+  //     if (x.selected == true) {
+  //       int counter = 0;
+  //     }
+  //   }
+  //   setInitialTime();
+  // }
 
-          /// Assigning random employees.
-          if (counter == fullTimeServices[index].employees.length) {
-            // print(fullTimeServices[index].employees.length);
-            var random = Random();
-            String y = employeesList[random.nextInt(employeesList.length)].name;
-            servicesAndEmployees.add(
-              AppointmentInfo(
-                service: x.name,
-                employee: y,
-                availability: [
-                  Availability(time: '10:00 - 10:30', selected: false),
-                  Availability(time: '10:30 - 11:00', selected: false),
-                  Availability(time: '11:30 - 12:00', selected: false),
-                  Availability(time: '12:00 - 12:30', selected: false),
-                  Availability(time: '12:30 - 13:00', selected: false),
-                  Availability(time: '13:30 - 14:00', selected: false),
-                  Availability(time: '14:00 - 14:30', selected: false),
-                  Availability(time: '15:00 - 15:30', selected: false)
-                ],
-                time: '',
-                dateTime: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
-              ),
-            );
-          }
-        }
-      }
-    }
-    setInitialTime();
-  }
+  // setInitialTime() {
+  //   int lastI = 0;
+  //
+  //   /// Saat secmeden ilerlmeyi sagliyor
+  //   getAvailableData(
+  //     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+  //   );
+  // }
 
-  setInitialTime() {
-    int lastI = 0;
-    for (AppointmentInfo x in servicesAndEmployees) {
-      bool checked = false;
+  // ///calendar_page
+  // List availableDataList = [];
+  // getAvailableData(DateTime date) {
+  //   // bool check = false;
+  //   // for (AvailabilityData x in availableDataList) {
+  //   //   if (x.dateTime.day == date.day) {
+  //   //     for (AppointmentInfo y in servicesAndEmployees) {
+  //   //       if (x.service == y.service) {
+  //   //         y.availability = x.availability;
+  //   //         check = true;
+  //   //       }
+  //   //     }
+  //   //   }
+  //   // }
+  //   // if (check == false) {
+  //   //   for (AppointmentInfo y in servicesAndEmployees) {
+  //   //     if (y.dateTime.day == DateTime.now().day) {
+  //   //       availability = AvailabilityData(
+  //   //           dateTime: y.dateTime, service: y.service, availability: y.availability);
+  //   //       availableDataList.add(availability);
+  //   //     }
+  //   //     availability = AvailabilityData(
+  //   //       dateTime: date,
+  //   //       service: y.service,
+  //   //       availability: [
+  //   //         Availability(time: '10:00 - 10:30', selected: false),
+  //   //         Availability(time: '10:30 - 11:00', selected: false),
+  //   //         Availability(time: '11:30 - 12:00', selected: false),
+  //   //         Availability(time: '12:00 - 12:30', selected: false),
+  //   //         Availability(time: '12:30 - 13:00', selected: false),
+  //   //         Availability(time: '13:30 - 14:00', selected: false),
+  //   //         Availability(time: '14:00 - 14:30', selected: false),
+  //   //         Availability(time: '15:00 - 15:30', selected: false)
+  //   //       ],
+  //   //     );
+  //   //
+  //   //     availableDataList.add(availability);
+  //   //     y.availability = availability.availability;
+  //   //   }
+  //   //   setInitialTime();
+  //   // }
+  //   // for (AppointmentInfo x in servicesAndEmployees) {
+  //   //   for (int i = 0; i < 8; i++) {
+  //   //     if (x.availability[i].selected == true) {
+  //   //       x.time = x.availability[i].time;
+  //   //     }
+  //   //   }
+  //   // }
+  //   // notifyListeners();
+  // }
 
-      for (int i = (lastI % 8); i < 8; i++) {
-        if (checked == false) {
-          if (x.availability[i].selected == false) {
-            x.availability[i].selected = true;
-            lastI = i + 1;
-            checked = true;
-          } else {
-            lastI = i + 1;
-            checked = true;
-          }
-        } else {
-          x.availability[i].selected = false;
-        }
-      }
-    }
-
-    /// Saat secmeden ilerlmeyi sagliyor
-    getAvailableData(
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
-    );
-  }
-
-  ///calendar_page
-  List<AvailabilityData> availableDataList = [];
-  AvailabilityData availability;
-  getAvailableData(DateTime date) {
-    bool check = false;
-    for (AvailabilityData x in availableDataList) {
-      if (x.dateTime.day == date.day) {
-        for (AppointmentInfo y in servicesAndEmployees) {
-          if (x.service == y.service) {
-            y.availability = x.availability;
-            check = true;
-          }
-        }
-      }
-    }
-    if (check == false) {
-      for (AppointmentInfo y in servicesAndEmployees) {
-        if (y.dateTime.day == DateTime.now().day) {
-          availability = AvailabilityData(
-              dateTime: y.dateTime, service: y.service, availability: y.availability);
-          availableDataList.add(availability);
-        }
-        availability = AvailabilityData(
-          dateTime: date,
-          service: y.service,
-          availability: [
-            Availability(time: '10:00 - 10:30', selected: false),
-            Availability(time: '10:30 - 11:00', selected: false),
-            Availability(time: '11:30 - 12:00', selected: false),
-            Availability(time: '12:00 - 12:30', selected: false),
-            Availability(time: '12:30 - 13:00', selected: false),
-            Availability(time: '13:30 - 14:00', selected: false),
-            Availability(time: '14:00 - 14:30', selected: false),
-            Availability(time: '15:00 - 15:30', selected: false)
-          ],
-        );
-
-        availableDataList.add(availability);
-        y.availability = availability.availability;
-      }
-      setInitialTime();
-    }
-    for (AppointmentInfo x in servicesAndEmployees) {
-      for (int i = 0; i < 8; i++) {
-        if (x.availability[i].selected == true) {
-          x.time = x.availability[i].time;
-        }
-      }
-    }
-    notifyListeners();
-  }
-
-  List<Appointment> appointments = [];
+  // List<Appointment> appointments = [];
 
   ///add the final appointment to the appointments list
   setFinalAppointment() {
-    appointments.add(Appointment(
-        appointment: List.from(servicesAndEmployees), name: coiffureName, price: total));
-    // print(servicesAndEmployees.length);
     notifyListeners();
   }
 
@@ -519,18 +278,6 @@ class AppointmentData extends ChangeNotifier {
     }, 0),
   ];
 
-  // DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
-  // Future<List> getAllCoiffures() async {
-  //   //   DataSnapshot dataSnapshot = await databaseReference.once();
-  //   //   for (int i = 0; i <= 10; i++) {
-  //   //     databaseReference.child('$i').onValue.listen((event) {
-  //   //       coiffureList.add(CoiffureModel.fromJson(event.snapshot.value, i));
-  //   //       print('Data received successfully!');
-  //   //     });
-  //   //   }
-  //   return coiffureList;
-  // }
-
   HttpUserFunctions httpUserFunctions = HttpUserFunctions();
   List userList = [];
   Future<List> getAllUsers() async {
@@ -546,102 +293,102 @@ class AppointmentData extends ChangeNotifier {
     return userList;
   }
 
-  finalDate() {
-    notifyListeners();
-  }
+  // finalDate() {
+  //   notifyListeners();
+  // }
 
-  String lastDate;
+  // String lastDate;
 
-  /// Send mail v2
-  sendMail2(String recipients) {
-    var options = new YandexSmtpOptions()
-      ..username = 'ozet@ayarla.app'
-      ..password = 'aa112233';
-
-    var emailTransport = new SmtpTransport(options);
-
-    // Create our mail/envelope.
-    var envelope = new Envelope()
-      ..from = 'ozet@ayarla.app'
-      ..recipients.add(recipients)
-      // ..bccRecipients.add('hidden@recipient.com')
-      ..subject = 'Testing the Dart Mailer library'
-      // ..attachments.add(null)
-      ..text = 'This is a cool email message. Whats up?'
-      ..html = getHTML();
-
-    // Email it.
-    emailTransport
-        .send(envelope)
-        .then((envelope) => print('Email sent!'))
-        .catchError((e) => print('Error occurred: $e'));
-  }
-
-  getHTML() {
-    List returnList = createSummaryBody();
-    String summaryFinal = '';
-    for (int i = 0; i < returnList.length; i++) {
-      summaryFinal = '$summaryFinal' + '${returnList[i]}';
-    }
-
-    String context = '<html>'
-        '<body>'
-        '</div>'
-        '<img src="https://bcm.ist/images/png.png" width="350px">'
-        '<div align="center" style="border-style: outset; width: 350px; position: fixed; left: 30%; padding-left:10px; padding-right:10px; padding-top:10px;">'
-        '<div>$coiffureName</div>'
-        '<div>Randevu Talebiniz Alınmıştır.</div>'
-        '<div>İşletmeden Onay Bekleniyor.</div>'
-        '<div><b>Gün: $lastDate</b></div>'
-        '<div><b>Saat: ${servicesAndEmployees[0].time}<b/></div>'
-        '<hr>'
-        '<div align="left"> $summaryFinal</div>'
-        '<table style="width:100%">'
-        '<tr>'
-        '<td align="left">Toplam:</td>'
-        '<td> </td>'
-        '<td align="right"> $total TL</td>'
-        ' </tr>'
-        '</table>'
-        '<div>AYARLA her gün genişleyen işletme ağı ile ve çok yakında randevu gerektiren diğer sektörlerde de benzer kullanıcı deneyimi ile hizmetinizde.</div>'
-        '</div>'
-        '</body>'
-        '</html>';
-    return context;
-  }
-
-  createSummaryBody() {
-    List holder = [];
-    List priceList = [];
-    for (int i = 0; i < servicesAndEmployees.length; i++) {
-      for (int j = 0; j < fullTimeServices.length; j++) {
-        if (fullTimeServices[j].name.contains(servicesAndEmployees[i].service)) {
-          priceList.add(fullTimeServices[j].price);
-          // print(priceList);
-        }
-      }
-    }
-
-    for (int i = 0; i < servicesAndEmployees.length; i++) {
-      holder.add('<table style="width:100%">'
-          '<tr>'
-          '<td>Saat:</td>'
-          '<td align="center">${servicesAndEmployees[i].time}</td>'
-          '</tr>'
-          '<tr>'
-          '<td>Hizmet:</td>'
-          '<td align="center">${servicesAndEmployees[i].service}</td>'
-          '<td align="end">${priceList[i]} TL</td>'
-          '</tr>'
-          '<tr>'
-          '<td>Çalışan:</td>'
-          '<td align="center">${servicesAndEmployees[i].employee}</td>'
-          '</tr>'
-          '</table>'
-          '<hr>');
-    }
-    return holder;
-  }
+  // /// Send mail v2
+  // sendMail2(String recipients) {
+  //   var options = new YandexSmtpOptions()
+  //     ..username = 'ozet@ayarla.app'
+  //     ..password = 'aa112233';
+  //
+  //   var emailTransport = new SmtpTransport(options);
+  //
+  //   // Create our mail/envelope.
+  //   var envelope = new Envelope()
+  //     ..from = 'ozet@ayarla.app'
+  //     ..recipients.add(recipients)
+  //     // ..bccRecipients.add('hidden@recipient.com')
+  //     ..subject = 'Testing the Dart Mailer library'
+  //     // ..attachments.add(null)
+  //     ..text = 'This is a cool email message. Whats up?'
+  //     ..html = getHTML();
+  //
+  //   // Email it.
+  //   emailTransport
+  //       .send(envelope)
+  //       .then((envelope) => print('Email sent!'))
+  //       .catchError((e) => print('Error occurred: $e'));
+  // }
+  //
+  // getHTML() {
+  //   List returnList = createSummaryBody();
+  //   String summaryFinal = '';
+  //   for (int i = 0; i < returnList.length; i++) {
+  //     summaryFinal = '$summaryFinal' + '${returnList[i]}';
+  //   }
+  //
+  //   String context = '<html>'
+  //       '<body>'
+  //       '</div>'
+  //       '<img src="https://bcm.ist/images/png.png" width="350px">'
+  //       '<div align="center" style="border-style: outset; width: 350px; position: fixed; left: 30%; padding-left:10px; padding-right:10px; padding-top:10px;">'
+  //       '<div>coiffureName</div>'
+  //       '<div>Randevu Talebiniz Alınmıştır.</div>'
+  //       '<div>İşletmeden Onay Bekleniyor.</div>'
+  //       '<div><b>Gün: $lastDate</b></div>'
+  //       '<div><b>Saat: ${servicesAndEmployees[0].time}<b/></div>'
+  //       '<hr>'
+  //       '<div align="left"> $summaryFinal</div>'
+  //       '<table style="width:100%">'
+  //       '<tr>'
+  //       '<td align="left">Toplam:</td>'
+  //       '<td> </td>'
+  //       '<td align="right">total TL</td>'
+  //       ' </tr>'
+  //       '</table>'
+  //       '<div>AYARLA her gün genişleyen işletme ağı ile ve çok yakında randevu gerektiren diğer sektörlerde de benzer kullanıcı deneyimi ile hizmetinizde.</div>'
+  //       '</div>'
+  //       '</body>'
+  //       '</html>';
+  //   return context;
+  // }
+  //
+  // createSummaryBody() {
+  //   List holder = [];
+  //   List priceList = [];
+  //   for (int i = 0; i < servicesAndEmployees.length; i++) {
+  //     for (int j = 0; j < fullTimeServices.length; j++) {
+  //       if (fullTimeServices[j].name.contains(servicesAndEmployees[i].service)) {
+  //         priceList.add(fullTimeServices[j].price);
+  //         // print(priceList);
+  //       }
+  //     }
+  //   }
+  //
+  //   for (int i = 0; i < servicesAndEmployees.length; i++) {
+  //     holder.add('<table style="width:100%">'
+  //         '<tr>'
+  //         '<td>Saat:</td>'
+  //         '<td align="center">${servicesAndEmployees[i].time}</td>'
+  //         '</tr>'
+  //         '<tr>'
+  //         '<td>Hizmet:</td>'
+  //         '<td align="center">${servicesAndEmployees[i].service}</td>'
+  //         '<td align="end">${priceList[i]} TL</td>'
+  //         '</tr>'
+  //         '<tr>'
+  //         '<td>Çalışan:</td>'
+  //         '<td align="center">${servicesAndEmployees[i].employee}</td>'
+  //         '</tr>'
+  //         '</table>'
+  //         '<hr>');
+  //   }
+  //   return holder;
+  // }
 
   bool isConfirmed = false;
   confirmation() {

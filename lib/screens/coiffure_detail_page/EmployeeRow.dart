@@ -2,10 +2,8 @@ import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/model_employee.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class EmployeeRow extends StatelessWidget {
   @override
@@ -22,9 +20,7 @@ class EmployeeRow extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 children: [
-                  for (EmployeeModel employeeModel
-                      in Provider.of<AppointmentData>(context, listen: false)
-                          .employeesList)
+                  for (EmployeeModel employeeModel in employeesList)
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: GenericIconButton(
@@ -32,14 +28,10 @@ class EmployeeRow extends StatelessWidget {
                         width: 150,
                         iconContext: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image(
-                            height: 40,
-                            image: AssetImage(employeeModel.image),
-                          ),
+                          child: Image(height: 40, image: AssetImage(employeeModel.image)),
                         ),
                         text: employeeModel.name,
-                        textStyle:
-                            kSmallTextStyle.copyWith(color: Colors.black),
+                        textStyle: kSmallTextStyle.copyWith(color: Colors.black),
                         spaceBetween: 15,
                       ),
                     ),

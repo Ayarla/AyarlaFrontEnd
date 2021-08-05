@@ -145,8 +145,8 @@ class PopUp {
               onPressed: () async {
                 ///TODO eger kullanici kayit yaptirirsa burada yazilan mail kullanicin profiline eklenecek
                 if (_formKey.currentState.validate()) {
-                  Provider.of<AppointmentData>(context, listen: false)
-                      .sendMail2(_typedMail);
+                  // Provider.of<AppointmentData>(context, listen: false)
+                  //     .sendMail2(_typedMail);
                   if (!isMember) {
                     passwordFieldDialog(context: context);
                   } else {
