@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -49,11 +50,11 @@ class _EditProfileState extends State<EditProfilePage> {
             Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Color(0xFFffa7ca), Color(0xFFca7799)],
-                ),
+                // gradient: LinearGradient(
+                //   begin: Alignment.centerLeft,
+                //   end: Alignment.centerRight,
+                //   colors: [Color(0xFFffa7ca), Color(0xFFca7799)],
+                // ),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
@@ -63,45 +64,50 @@ class _EditProfileState extends State<EditProfilePage> {
                   Stack(
                     children: [
                       GestureDetector(
-                        onTap: () => functions.showPicker(context),
+                        onTap: () async {
+                          Image fromPicker = await ImagePickerWeb.getImage(
+                              outputType: ImageType.widget);
+                          if (fromPicker != null) {
+                            setState(() {
+                              pickedImage = fromPicker;
+                            });
+                          }
+                        },
                         child: CircleAvatar(
                           radius: 55,
                           backgroundColor: Colors.transparent,
-                          child: Provider.of<BusinessAndUserData>(context,
-                                          listen: true)
-                                      .userImage !=
-                                  null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child:
-                                    Provider.of<BusinessAndUserData>(context,
-                                            listen: true)
-                                        .userImage
-                                  
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(50),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black54,
-                                        blurRadius: 5.0,
-                                        //spreadRadius: 1.0,
-                                        offset: Offset(
-                                          1.0,
-                                          1.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  width: 100,
-                                  height: 100,
-                                  child: Icon(
-                                    Icons.add_a_photo_rounded,
-                                    color: Colors.grey[800],
-                                  ),
-                                ),
+                          child: pickedImage,
+                              // ClipRRect(
+                              //         borderRadius: BorderRadius.circular(50),
+                              //         child: Image(image:
+                              //           Provider.of<BusinessAndUserData>(context,
+                              //               listen: true)
+                              //               .userImage
+                              //         )
+                              //       )
+                              // : Container(
+                              //     decoration: BoxDecoration(
+                              //       color: Colors.grey[200],
+                              //       borderRadius: BorderRadius.circular(50),
+                              //       boxShadow: [
+                              //         BoxShadow(
+                              //           color: Colors.black54,
+                              //           blurRadius: 5.0,
+                              //           //spreadRadius: 1.0,
+                              //           offset: Offset(
+                              //             1.0,
+                              //             1.0,
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //     width: 100,
+                              //     height: 100,
+                              //     child: Icon(
+                              //       Icons.add_a_photo_rounded,
+                              //       color: Colors.grey[800],
+                              //     ),
+                              //   ),
                         ),
                       ),
                     ],

@@ -45,482 +45,446 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
               fit: BoxFit.scaleDown,
               child: Text("Randevularım",
                   style: kTitleStyle.copyWith(
-                      color: Colors.white,
-                      letterSpacing: 2,
-                      fontSize: 25))),
+                      color: Colors.white, letterSpacing: 2, fontSize: 25))),
         ),
       ).build(context),
       body: AyarlaPage(
         child: Padding(
           padding: EdgeInsets.all(10.0),
-          child: ListView(
-            children: [
-              Center(
-                child: Container(
-                  child: Text("Onaylandı", style: kTitleStyle),
-                ),
-              ),
-              if (Provider.of<AppointmentData>(context, listen: false)
-                      .appointments
-                      .length !=
-                  0)
+          child:
+              (Provider.of<AppointmentData>(context, listen: false)
+                          .appointments
+                          .length !=
+                      0)
+                  ? ListView(
+                      children: [
+                        Center(
+                          child: Container(
+                            child: Text("Onaylandı", style: kTitleStyle),
+                          ),
+                        ),
 
-                ///TODO widget yap iki kere kullanıyosun
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: CarouselSlider(
-                      options: CarouselOptions(
-                        height: size.height * 2 / 3,
-                        enableInfiniteScroll: false,
-                        enlargeCenterPage: true,
-                        // autoPlay: true,
-                      ),
-                      items: integerList.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ListView(
-                              physics: BouncingScrollPhysics(),
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16.0)),
-                                    boxShadow: <BoxShadow>[
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.6),
-                                        offset: const Offset(4, 4),
-                                        blurRadius: 15,
-                                      ),
-                                    ],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16.0)),
-                                    child: Container(
-                                      color: Colors.green.shade100,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
+                        ///TODO widget yap iki kere kullanıyosun
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          child: CarouselSlider(
+                              options: CarouselOptions(
+                                height: size.height * 2 / 3,
+                                enableInfiniteScroll: false,
+                                enlargeCenterPage: true,
+                                // autoPlay: true,
+                              ),
+                              items: integerList.map((i) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return ListView(
+                                      physics: BouncingScrollPhysics(),
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(16.0)),
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.6),
+                                                offset: const Offset(4, 4),
+                                                blurRadius: 15,
+                                              ),
+                                            ],
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(16.0)),
                                             child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  4,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10, top: 8, bottom: 8),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 4.0),
-                                                      child: Container(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 8.0),
-                                                          child: Column(
-                                                            children: <Widget>[
-                                                              Text(
-                                                                Provider.of<AppointmentData>(
-                                                                        context)
-                                                                    .appointments[
-                                                                        i]
-                                                                    .name,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: kTextStyle.copyWith(
-                                                                    fontSize: 18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal),
-                                                              ),
-                                                              SizedBox(height: 7),
+                                              color: Colors.green.shade100,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              4,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 10,
+                                                                top: 8,
+                                                                bottom: 8),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      bottom:
+                                                                          4.0),
+                                                              child: Container(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          8.0),
+                                                                  child: Column(
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(
+                                                                        Provider.of<AppointmentData>(context)
+                                                                            .appointments[i]
+                                                                            .name,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: kTextStyle.copyWith(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.normal),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              7),
 
-                                                              /// prints day
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: <
-                                                                    Widget>[
-                                                                  Text(
-                                                                    "Gün: ",
-                                                                    style: kTitleStyle
-                                                                        .copyWith(
-                                                                            fontSize:
-                                                                                18),
-                                                                  ),
-                                                                  Text(
-                                                                    '${Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.day} '
-                                                                    '${month[Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.month - 1]} '
-                                                                    '${week[Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.weekday - 1]}',
-                                                                    style: kTitleStyle
-                                                                        .copyWith(
-                                                                            fontSize:
-                                                                                18),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              SizedBox(height: 7),
-
-                                                              /// prints hour
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: <
-                                                                    Widget>[
-                                                                  Text(
-                                                                    "Saat: ",
-                                                                    style: kTitleStyle
-                                                                        .copyWith(
-                                                                            fontSize:
-                                                                                18),
-                                                                  ),
-                                                                  Text(
-                                                                    "${Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].time}",
-                                                                    style: kTitleStyle
-                                                                        .copyWith(
-                                                                            fontSize:
-                                                                                18),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              SizedBox(
-                                                                height: 5,
-                                                              ),
-                                                              Container(
-                                                                child: Column(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Divider(
-                                                                          thickness:
-                                                                              2,
-                                                                        ),
-
-                                                                        /// prints services for all services in the servicesAndEmployees list
-                                                                        for (AppointmentInfo x in Provider.of<AppointmentData>(
-                                                                                context,
-                                                                                listen:
-                                                                                    false)
-                                                                            .appointments[
-                                                                                i]
-                                                                            .appointment)
-                                                                          UserBuildColumn(
-                                                                            time:
-                                                                                x.time,
-                                                                            service:
-                                                                                x.service,
-                                                                            employee:
-                                                                                x.employee,
-                                                                          ),
-                                                                      ],
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsets.only(
-                                                                          top:
-                                                                              4.0,
-                                                                          bottom:
-                                                                              4.0,
-                                                                          right:
-                                                                              16.0,
-                                                                          left:
-                                                                              25.0),
-                                                                      child: Row(
+                                                                      /// prints day
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
                                                                         children: <
                                                                             Widget>[
                                                                           Text(
-                                                                            'Toplam:',
-                                                                            style: kTextStyle.copyWith(
-                                                                                fontWeight: FontWeight.normal,
-                                                                                fontSize: 14),
-                                                                          ),
-                                                                          Spacer(),
-                                                                          Text(
-                                                                            '${Provider.of<AppointmentData>(context, listen: true).appointments[i].price} TL',
+                                                                            "Gün: ",
                                                                             style:
-                                                                                kTextStyle.copyWith(fontSize: 18),
-                                                                          )
+                                                                                kTitleStyle.copyWith(fontSize: 18),
+                                                                          ),
+                                                                          Text(
+                                                                            '${Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.day} '
+                                                                            '${month[Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.month - 1]} '
+                                                                            '${week[Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.weekday - 1]}',
+                                                                            style:
+                                                                                kTitleStyle.copyWith(fontSize: 18),
+                                                                          ),
                                                                         ],
                                                                       ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              7),
 
-                                                    ///TODO randevu özeti confirmation page'den kopyalandı alternatif bulunabilir?
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }).toList()),
-                ),
-              Center(
-                child: Container(
-                  child: Text("Onay Bekleniyor", style: kTitleStyle),
-                ),
-              ),
-              if (Provider.of<AppointmentData>(context, listen: false)
-                      .appointments
-                      .length !=
-                  0)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: CarouselSlider(
-                      options: CarouselOptions(
-                        height: size.height * 2 / 3,
-                        enableInfiniteScroll: false,
-                        enlargeCenterPage: true,
-                        // autoPlay: true,
-                      ),
-                      items: integerList.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ListView(
-                              physics: BouncingScrollPhysics(),
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16.0)),
-                                    boxShadow: <BoxShadow>[
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.6),
-                                        offset: const Offset(4, 4),
-                                        blurRadius: 15,
-                                      ),
-                                    ],
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16.0)),
-                                    child: Container(
-                                      color: Colors.yellow.shade100,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  4,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10, top: 8, bottom: 8),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 4.0),
-                                                      child: Container(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 8.0),
-                                                          child: Column(
-                                                            children: <Widget>[
-                                                              Text(
-                                                                Provider.of<AppointmentData>(
-                                                                        context)
-                                                                    .appointments[
-                                                                        i]
-                                                                    .name,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: kTextStyle.copyWith(
-                                                                    fontSize: 18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal),
-                                                              ),
-                                                              SizedBox(height: 7),
-
-                                                              /// prints day
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: <
-                                                                    Widget>[
-                                                                  Text(
-                                                                    "Gün: ",
-                                                                    style: kTitleStyle
-                                                                        .copyWith(
-                                                                            fontSize:
-                                                                                18),
-                                                                  ),
-                                                                  Text(
-                                                                    '${Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.day} '
-                                                                    '${month[Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.month - 1]} '
-                                                                    '${week[Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.weekday - 1]}',
-                                                                    style: kTitleStyle
-                                                                        .copyWith(
-                                                                            fontSize:
-                                                                                18),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              SizedBox(height: 7),
-
-                                                              /// prints hour
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: <
-                                                                    Widget>[
-                                                                  Text(
-                                                                    "Saat: ",
-                                                                    style: kTitleStyle
-                                                                        .copyWith(
-                                                                            fontSize:
-                                                                                18),
-                                                                  ),
-                                                                  Text(
-                                                                    "${Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].time}",
-                                                                    style: kTitleStyle
-                                                                        .copyWith(
-                                                                            fontSize:
-                                                                                18),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              SizedBox(
-                                                                height: 5,
-                                                              ),
-                                                              Container(
-                                                                child: Column(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Divider(
-                                                                          thickness:
-                                                                              2,
-                                                                        ),
-
-                                                                        /// prints services for all services in the servicesAndEmployees list
-                                                                        for (AppointmentInfo x in Provider.of<AppointmentData>(
-                                                                                context,
-                                                                                listen:
-                                                                                    false)
-                                                                            .appointments[
-                                                                                i]
-                                                                            .appointment)
-                                                                          UserBuildColumn(
-                                                                            time:
-                                                                                x.time,
-                                                                            service:
-                                                                                x.service,
-                                                                            employee:
-                                                                                x.employee,
-                                                                          ),
-                                                                      ],
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsets.only(
-                                                                          top:
-                                                                              4.0,
-                                                                          bottom:
-                                                                              4.0,
-                                                                          right:
-                                                                              16.0,
-                                                                          left:
-                                                                              25.0),
-                                                                      child: Row(
+                                                                      /// prints hour
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
                                                                         children: <
                                                                             Widget>[
                                                                           Text(
-                                                                            'Toplam:',
-                                                                            style: kTextStyle.copyWith(
-                                                                                fontWeight: FontWeight.normal,
-                                                                                fontSize: 14),
-                                                                          ),
-                                                                          Spacer(),
-                                                                          Text(
-                                                                            '${Provider.of<AppointmentData>(context, listen: true).appointments[i].price} TL',
+                                                                            "Saat: ",
                                                                             style:
-                                                                                kTextStyle.copyWith(fontSize: 18),
-                                                                          )
+                                                                                kTitleStyle.copyWith(fontSize: 18),
+                                                                          ),
+                                                                          Text(
+                                                                            "${Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].time}",
+                                                                            style:
+                                                                                kTitleStyle.copyWith(fontSize: 18),
+                                                                          ),
                                                                         ],
                                                                       ),
-                                                                    ),
-                                                                  ],
+                                                                      SizedBox(
+                                                                        height:
+                                                                            5,
+                                                                      ),
+                                                                      Container(
+                                                                        child:
+                                                                            Column(
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: <Widget>[
+                                                                                Divider(
+                                                                                  thickness: 2,
+                                                                                ),
+
+                                                                                /// prints services for all services in the servicesAndEmployees list
+                                                                                for (AppointmentInfo x in Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment)
+                                                                                  UserBuildColumn(
+                                                                                    time: x.time,
+                                                                                    service: x.service,
+                                                                                    employee: x.employee,
+                                                                                  ),
+                                                                              ],
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsets.only(top: 4.0, bottom: 4.0, right: 16.0, left: 25.0),
+                                                                              child: Row(
+                                                                                children: <Widget>[
+                                                                                  Text(
+                                                                                    'Toplam:',
+                                                                                    style: kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: 14),
+                                                                                  ),
+                                                                                  Spacer(),
+                                                                                  Text(
+                                                                                    '${Provider.of<AppointmentData>(context, listen: true).appointments[i].price} TL',
+                                                                                    style: kTextStyle.copyWith(fontSize: 18),
+                                                                                  )
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ],
-                                                          ),
+                                                            ),
+
+                                                            ///TODO randevu özeti confirmation page'den kopyalandı alternatif bulunabilir?
+                                                          ],
                                                         ),
                                                       ),
                                                     ),
-
-                                                    ///TODO randevu özeti confirmation page'den kopyalandı alternatif bulunabilir?
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }).toList()),
-                ),
-            ],
-          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }).toList()),
+                        ),
+
+                        Center(
+                          child: Container(
+                            child: Text("Onay Bekleniyor", style: kTitleStyle),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          child: CarouselSlider(
+                              options: CarouselOptions(
+                                height: size.height * 2 / 3,
+                                enableInfiniteScroll: false,
+                                enlargeCenterPage: true,
+                                // autoPlay: true,
+                              ),
+                              items: integerList.map((i) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return ListView(
+                                      physics: BouncingScrollPhysics(),
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(16.0)),
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.6),
+                                                offset: const Offset(4, 4),
+                                                blurRadius: 15,
+                                              ),
+                                            ],
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(16.0)),
+                                            child: Container(
+                                              color: Colors.yellow.shade100,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              4,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 10,
+                                                                top: 8,
+                                                                bottom: 8),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      bottom:
+                                                                          4.0),
+                                                              child: Container(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          8.0),
+                                                                  child: Column(
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(
+                                                                        Provider.of<AppointmentData>(context)
+                                                                            .appointments[i]
+                                                                            .name,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: kTextStyle.copyWith(
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.normal),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              7),
+
+                                                                      /// prints day
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                            "Gün: ",
+                                                                            style:
+                                                                                kTitleStyle.copyWith(fontSize: 18),
+                                                                          ),
+                                                                          Text(
+                                                                            '${Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.day} '
+                                                                            '${month[Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.month - 1]} '
+                                                                            '${week[Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].dateTime.weekday - 1]}',
+                                                                            style:
+                                                                                kTitleStyle.copyWith(fontSize: 18),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              7),
+
+                                                                      /// prints hour
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                            "Saat: ",
+                                                                            style:
+                                                                                kTitleStyle.copyWith(fontSize: 18),
+                                                                          ),
+                                                                          Text(
+                                                                            "${Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment[0].time}",
+                                                                            style:
+                                                                                kTitleStyle.copyWith(fontSize: 18),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            5,
+                                                                      ),
+                                                                      Container(
+                                                                        child:
+                                                                            Column(
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: <Widget>[
+                                                                                Divider(
+                                                                                  thickness: 2,
+                                                                                ),
+
+                                                                                /// prints services for all services in the servicesAndEmployees list
+                                                                                for (AppointmentInfo x in Provider.of<AppointmentData>(context, listen: false).appointments[i].appointment)
+                                                                                  UserBuildColumn(
+                                                                                    time: x.time,
+                                                                                    service: x.service,
+                                                                                    employee: x.employee,
+                                                                                  ),
+                                                                              ],
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsets.only(top: 4.0, bottom: 4.0, right: 16.0, left: 25.0),
+                                                                              child: Row(
+                                                                                children: <Widget>[
+                                                                                  Text(
+                                                                                    'Toplam:',
+                                                                                    style: kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: 14),
+                                                                                  ),
+                                                                                  Spacer(),
+                                                                                  Text(
+                                                                                    '${Provider.of<AppointmentData>(context, listen: true).appointments[i].price} TL',
+                                                                                    style: kTextStyle.copyWith(fontSize: 18),
+                                                                                  )
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+
+                                                            ///TODO randevu özeti confirmation page'den kopyalandı alternatif bulunabilir?
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }).toList()),
+                        ),
+                      ],
+                    )
+                  : Center(
+                      child: Text(
+                        'Henüz bir randevunuz yok.',
+                        style: kTextStyle,
+                      ),
+                    ),
         ),
       ),
     );

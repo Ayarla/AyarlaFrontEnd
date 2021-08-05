@@ -251,6 +251,9 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               child: Container(height: 300, child: FlutterMapCoiffure()),
             ),
             Divider(),
+            Center(
+                child: Text('Uygulamamızı İndirmek İster Misiniz?',
+                    style: kTitleStyle)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

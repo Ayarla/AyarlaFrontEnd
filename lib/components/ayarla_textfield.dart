@@ -1,4 +1,5 @@
 import 'package:ayarla/constants/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -27,6 +28,8 @@ class AyarlaTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: TextEditingController(),
+      // onEditingComplete: () => FocusManager.instance.primaryFocus?.unfocus(),
       keyboardType: keyboardType ?? TextInputType.text,
       maxLines: hintText.maxLines ?? 1,
       cursorColor: color ?? Colors.green,
@@ -60,33 +63,45 @@ class AyarlaTextFormField extends StatelessWidget {
   final String text;
   final TextInputType keyboardType;
   final String hintText;
-  final FormFieldValidator formFieldValidator;
+  final FormFieldValidator validator;
   final List<TextInputFormatter> inputFormatter;
   final Function onChanged;
   final String initialValue;
   final TextStyle hintStyle;
+  final Color color;
+  final EdgeInsets padding;
+  final TextStyle style;
+  final bool obscureText;
+  final Key formKey;
 
   AyarlaTextFormField({
     this.keyboardType,
     this.text,
     this.hintText,
-    this.formFieldValidator,
+    this.validator,
     this.inputFormatter,
     this.onChanged,
     this.initialValue,
     this.hintStyle,
+    this.color,
+    this.padding,
+    this.style,
+    this.obscureText,
+    this.formKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText ?? false,
       initialValue: initialValue,
-      validator: formFieldValidator,
-      cursorColor: Colors.green,
-      controller: TextEditingController(text: text ?? ''),
+      validator: validator,
+      cursorColor: color ?? Colors.green,
+      // controller: TextEditingController(text: text),
       onChanged: onChanged,
       keyboardType: keyboardType ?? TextInputType.multiline,
       inputFormatters: inputFormatter ?? null,
+      style: style ?? kSmallTextStyle,
       autofocus: false,
       decoration: InputDecoration(
         hintText: hintText ?? 'Your Hint Text Here!',
@@ -99,9 +114,11 @@ class AyarlaTextFormField extends StatelessWidget {
         filled: true,
         isDense: true,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green, width: 2.0),
+          borderSide: BorderSide(color: color ?? Colors.green, width: 2.0),
           borderRadius: BorderRadius.circular(25.0),
         ),
+        contentPadding: padding ??
+            EdgeInsets.only(left: 15, top: 14, bottom: 14, right: 15),
       ),
     );
   }

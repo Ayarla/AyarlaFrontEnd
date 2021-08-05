@@ -25,7 +25,8 @@ dependencies:
   url_launcher: ^5.7.10
   rating_dialog: ^2.0.0
   carousel_slider: ^3.0.0
-  modal_bottom_sheet: ^1.0.0+1
+#  modal_bottom_sheet: ^1.0.0+1
+  modal_bottom_sheet: ^2.0.0
   # image imports
   image: ^2.1.12
   flutter_svg: ^0.19.3

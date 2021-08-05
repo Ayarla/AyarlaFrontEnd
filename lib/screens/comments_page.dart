@@ -1,10 +1,10 @@
-import 'package:ayarla/components/UI/responsiveWidget.dart';
+import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_comment.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -21,428 +21,149 @@ class _CommentsPageState extends State<CommentsPage> {
   List generatingList = [];
 
   /// FILTERING SHEET
-  _filterSheet(context) {
-    showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (BuildContext bc) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setModalState) {
-            final size = MediaQuery.of(context).size;
-            return ResponsiveWidget(
-              smallScreen: CircularParent(
-                radius: 20,
-                direction: Directions.top,
-                color: Colors.white,
-                child: ListView(
-                  padding: EdgeInsets.all(20),
-                  physics: BouncingScrollPhysics(),
-                  children: [
-                    /// ACC TO STARS
-                    functions.createTitle(context, 'Yıldıza göre filtrele'),
-                    SizedBox(height: 10),
-                    SfSlider(
-                      min: 0.0,
-                      max: 5.0,
-                      value: _filterValue,
-                      interval: 1,
-                      showTicks: true,
-                      showLabels: true,
-                      tooltipShape: SfRectangularTooltipShape(),
-                      minorTicksPerInterval: 2,
-                      onChanged: (dynamic value) {
-                        generatingList =
-                            Provider.of<AppointmentData>(context, listen: false)
-                                .currentList2;
-                        List returnList = generatingList;
-                        setModalState(() {
-                          _filterValue = value;
-                        });
-                        setState(() {
-                          generatingList = returnList
-                              .where((element) => element.rating >= value)
-                              .toList();
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              mediumScreen: Align(
-                alignment: Alignment.bottomCenter,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: size.width / 1.5),
-                  child: CircularParent(
-                    radius: 20,
-                    direction: Directions.top,
-                    color: Colors.white,
-                    child: ListView(
-                      padding: EdgeInsets.all(20),
-                      physics: BouncingScrollPhysics(),
-                      children: [
-                        /// ACC TO STARS
-                        functions.createTitle(context, 'Yıldıza göre filtrele'),
-                        SizedBox(height: 10),
-                        SfSlider(
-                          min: 0.0,
-                          max: 5.0,
-                          value: _filterValue,
-                          interval: 1,
-                          showTicks: true,
-                          showLabels: true,
-                          tooltipShape: SfRectangularTooltipShape(),
-                          minorTicksPerInterval: 2,
-                          onChanged: (dynamic value) {
-                            generatingList = Provider.of<AppointmentData>(
-                                    context,
-                                    listen: false)
-                                .currentList2;
-                            List returnList = generatingList;
-                            setModalState(() {
-                              _filterValue = value;
-                            });
-                            setState(() {
-                              generatingList = returnList
-                                  .where((element) => element.rating >= value)
-                                  .toList();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              largeScreen: Align(
-                alignment: Alignment.bottomCenter,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: size.width / 1.5),
-                  child: CircularParent(
-                    radius: 20,
-                    direction: Directions.top,
-                    color: Colors.white,
-                    child: ListView(
-                      padding: EdgeInsets.all(20),
-                      physics: BouncingScrollPhysics(),
-                      children: [
-                        /// ACC TO STARS
-                        functions.createTitle(context, 'Yıldıza göre filtrele'),
-                        SizedBox(height: 10),
-                        SfSlider(
-                          min: 0.0,
-                          max: 5.0,
-                          value: _filterValue,
-                          interval: 1,
-                          showTicks: true,
-                          showLabels: true,
-                          tooltipShape: SfRectangularTooltipShape(),
-                          minorTicksPerInterval: 2,
-                          onChanged: (dynamic value) {
-                            generatingList = Provider.of<AppointmentData>(
-                                    context,
-                                    listen: false)
-                                .currentList2;
-                            List returnList = generatingList;
-                            setModalState(() {
-                              _filterValue = value;
-                            });
-                            setState(() {
-                              generatingList = returnList
-                                  .where((element) => element.rating >= value)
-                                  .toList();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  List orderings = [
-    'Yıldıza göre sırala',
-    'Beğeniye göre sırala',
-    'Tarihe göre sırala',
-  ];
-
-  /// ORDERING SHEET
-  _orderSheet(context) {
-    final size = MediaQuery.of(context).size;
-    return showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (BuildContext bc) {
-        return ResponsiveWidget(
-          smallScreen: CircularParent(
-            color: Colors.white,
-            radius: 20,
-            direction: Directions.top,
-            child: ListView.separated(
-              padding: EdgeInsets.all(20),
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    SizedBox(height: 5),
-                    functions.createTitle(context, orderings[index]),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                          child: FittedBox(
-                              fit: BoxFit.cover,
-                              child:
-                                  Text('Azdan Çoka', style: kSmallTextStyle)),
-                          onPressed: () {
-                            setState(() {
-                              if (index == 0) {
-                                generatingList.sort(
-                                    (a, b) => a.rating.compareTo(b.rating));
-                              } else if (index == 1) {
-                                generatingList
-                                    .sort((a, b) => a.like.compareTo(b.like));
-                              } else if (index == 2) {
-                                generatingList
-                                    .sort((a, b) => a.date.compareTo(b.date));
-                              }
-                            });
-                            Navigator.pop(context);
-                          },
-                        ),
-                        Icon(
-                          Icons.arrow_circle_down_rounded,
-                          color: Colors.blue,
-                          size: 20,
-                        ),
-                        SizedBox(width: 20),
-                        TextButton(
-                          child: Center(
-                              child:
-                                  Text('Çoktan Aza', style: kSmallTextStyle)),
-                          onPressed: () {
-                            setState(() {
-                              if (index == 0) {
-                                generatingList.sort(
-                                    (b, a) => a.rating.compareTo(b.rating));
-                              } else if (index == 1) {
-                                generatingList
-                                    .sort((b, a) => a.like.compareTo(b.like));
-                              } else if (index == 2) {
-                                generatingList
-                                    .sort((b, a) => a.date.compareTo(b.date));
-                              }
-                            });
-                            Navigator.pop(context);
-                          },
-                        ),
-                        Icon(
-                          Icons.arrow_circle_up_rounded,
-                          color: Colors.blue,
-                          size: 20,
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width / 10),
-                  child: Divider(thickness: 1),
-                );
-              },
-              itemCount: orderings.length,
-            ),
-          ),
-          mediumScreen: Align(
-            alignment: Alignment.bottomCenter,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: size.width / 1.5),
-              child: CircularParent(
-                color: Colors.white,
-                radius: 20,
-                direction: Directions.top,
-                child: ListView.separated(
-                  padding: EdgeInsets.all(20),
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        SizedBox(height: 5),
-                        functions.createTitle(context, orderings[index]),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextButton(
-                              child: FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: Text('Azdan Çoka',
-                                      style: kSmallTextStyle)),
-                              onPressed: () {
-                                setState(() {
-                                  if (index == 0) {
-                                    generatingList.sort(
-                                        (a, b) => a.rating.compareTo(b.rating));
-                                  } else if (index == 1) {
-                                    generatingList.sort(
-                                        (a, b) => a.like.compareTo(b.like));
-                                  } else if (index == 2) {
-                                    generatingList.sort(
-                                        (a, b) => a.date.compareTo(b.date));
-                                  }
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                            Icon(
-                              Icons.arrow_circle_down_rounded,
-                              color: Colors.blue,
-                              size: 20,
-                            ),
-                            SizedBox(width: 20),
-                            TextButton(
-                              child: Center(
-                                  child: Text('Çoktan Aza',
-                                      style: kSmallTextStyle)),
-                              onPressed: () {
-                                setState(() {
-                                  if (index == 0) {
-                                    generatingList.sort(
-                                        (b, a) => a.rating.compareTo(b.rating));
-                                  } else if (index == 1) {
-                                    generatingList.sort(
-                                        (b, a) => a.like.compareTo(b.like));
-                                  } else if (index == 2) {
-                                    generatingList.sort(
-                                        (b, a) => a.date.compareTo(b.date));
-                                  }
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                            Icon(
-                              Icons.arrow_circle_up_rounded,
-                              color: Colors.blue,
-                              size: 20,
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width / 10),
-                      child: Divider(thickness: 1),
-                    );
-                  },
-                  itemCount: orderings.length,
-                ),
-              ),
-            ),
-          ),
-          largeScreen: Align(
-            alignment: Alignment.bottomCenter,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: size.width / 1.5),
-              child: CircularParent(
-                color: Colors.white,
-                radius: 20,
-                direction: Directions.top,
-                child: ListView.separated(
-                  padding: EdgeInsets.all(20),
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        SizedBox(height: 5),
-                        functions.createTitle(context, orderings[index]),
-                        SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextButton(
-                              child: FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: Text('Azdan Çoka',
-                                      style: kSmallTextStyle)),
-                              onPressed: () {
-                                setState(() {
-                                  if (index == 0) {
-                                    generatingList.sort(
-                                        (a, b) => a.rating.compareTo(b.rating));
-                                  } else if (index == 1) {
-                                    generatingList.sort(
-                                        (a, b) => a.like.compareTo(b.like));
-                                  } else if (index == 2) {
-                                    generatingList.sort(
-                                        (a, b) => a.date.compareTo(b.date));
-                                  }
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                            Icon(
-                              Icons.arrow_circle_down_rounded,
-                              color: Colors.blue,
-                              size: 20,
-                            ),
-                            SizedBox(width: 20),
-                            TextButton(
-                              child: Center(
-                                  child: Text('Çoktan Aza',
-                                      style: kSmallTextStyle)),
-                              onPressed: () {
-                                setState(() {
-                                  if (index == 0) {
-                                    generatingList.sort(
-                                        (b, a) => a.rating.compareTo(b.rating));
-                                  } else if (index == 1) {
-                                    generatingList.sort(
-                                        (b, a) => a.like.compareTo(b.like));
-                                  } else if (index == 2) {
-                                    generatingList.sort(
-                                        (b, a) => a.date.compareTo(b.date));
-                                  }
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                            Icon(
-                              Icons.arrow_circle_up_rounded,
-                              color: Colors.blue,
-                              size: 20,
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width / 10),
-                      child: Divider(thickness: 1),
-                    );
-                  },
-                  itemCount: orderings.length,
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // _filterSheet(context) {
+  //   showModalBottomSheet(
+  //     backgroundColor: Colors.transparent,
+  //     context: context,
+  //     builder: (BuildContext bc) {
+  //       return StatefulBuilder(
+  //         builder: (BuildContext context, StateSetter setModalState) {
+  //           final size = MediaQuery.of(context).size;
+  //           return ResponsiveWidget(
+  //             smallScreen: CircularParent(
+  //               radius: 20,
+  //               direction: Directions.top,
+  //               color: Colors.white,
+  //               child: ListView(
+  //                 padding: EdgeInsets.all(20),
+  //                 physics: BouncingScrollPhysics(),
+  //                 children: [
+  //                   /// ACC TO STARS
+  //                   functions.createTitle(context, 'Yıldıza göre filtrele'),
+  //                   SizedBox(height: 10),
+  //                   SfSlider(
+  //                     min: 0.0,
+  //                     max: 5.0,
+  //                     value: _filterValue,
+  //                     interval: 1,
+  //                     showTicks: true,
+  //                     showLabels: true,
+  //                     tooltipShape: SfRectangularTooltipShape(),
+  //                     minorTicksPerInterval: 2,
+  //                     onChanged: (dynamic value) {
+  //                       generatingList =
+  //                           Provider.of<AppointmentData>(context, listen: false)
+  //                               .currentList2;
+  //                       List returnList = generatingList;
+  //                       setModalState(() {
+  //                         _filterValue = value;
+  //                       });
+  //                       setState(() {
+  //                         generatingList = returnList
+  //                             .where((element) => element.rating >= value)
+  //                             .toList();
+  //                       });
+  //                     },
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             mediumScreen: Align(
+  //               alignment: Alignment.bottomCenter,
+  //               child: ConstrainedBox(
+  //                 constraints: BoxConstraints(maxWidth: size.width / 1.5),
+  //                 child: CircularParent(
+  //                   radius: 20,
+  //                   direction: Directions.top,
+  //                   color: Colors.white,
+  //                   child: ListView(
+  //                     padding: EdgeInsets.all(20),
+  //                     physics: BouncingScrollPhysics(),
+  //                     children: [
+  //                       /// ACC TO STARS
+  //                       functions.createTitle(context, 'Yıldıza göre filtrele'),
+  //                       SizedBox(height: 10),
+  //                       SfSlider(
+  //                         min: 0.0,
+  //                         max: 5.0,
+  //                         value: _filterValue,
+  //                         interval: 1,
+  //                         showTicks: true,
+  //                         showLabels: true,
+  //                         tooltipShape: SfRectangularTooltipShape(),
+  //                         minorTicksPerInterval: 2,
+  //                         onChanged: (dynamic value) {
+  //                           generatingList = Provider.of<AppointmentData>(
+  //                                   context,
+  //                                   listen: false)
+  //                               .currentList2;
+  //                           List returnList = generatingList;
+  //                           setModalState(() {
+  //                             _filterValue = value;
+  //                           });
+  //                           setState(() {
+  //                             generatingList = returnList
+  //                                 .where((element) => element.rating >= value)
+  //                                 .toList();
+  //                           });
+  //                         },
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //             largeScreen: Align(
+  //               alignment: Alignment.bottomCenter,
+  //               child: ConstrainedBox(
+  //                 constraints: BoxConstraints(maxWidth: size.width / 1.5),
+  //                 child: CircularParent(
+  //                   radius: 20,
+  //                   direction: Directions.top,
+  //                   color: Colors.white,
+  //                   child: ListView(
+  //                     padding: EdgeInsets.all(20),
+  //                     physics: BouncingScrollPhysics(),
+  //                     children: [
+  //                       /// ACC TO STARS
+  //                       functions.createTitle(context, 'Yıldıza göre filtrele'),
+  //                       SizedBox(height: 10),
+  //                       SfSlider(
+  //                         min: 0.0,
+  //                         max: 5.0,
+  //                         value: _filterValue,
+  //                         interval: 1,
+  //                         showTicks: true,
+  //                         showLabels: true,
+  //                         tooltipShape: SfRectangularTooltipShape(),
+  //                         minorTicksPerInterval: 2,
+  //                         onChanged: (dynamic value) {
+  //                           generatingList = Provider.of<AppointmentData>(
+  //                                   context,
+  //                                   listen: false)
+  //                               .currentList2;
+  //                           List returnList = generatingList;
+  //                           setModalState(() {
+  //                             _filterValue = value;
+  //                           });
+  //                           setState(() {
+  //                             generatingList = returnList
+  //                                 .where((element) => element.rating >= value)
+  //                                 .toList();
+  //                           });
+  //                         },
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           );
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   void initState() {
@@ -482,7 +203,6 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 13,
         dislike: 1,
         expanded: true,
-
       ),
       CommentModel(
         name: 'Fatih Özkan',
@@ -493,7 +213,6 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 5,
         dislike: 0,
         expanded: true,
-
       ),
       CommentModel(
         name: 'Nixu',
@@ -507,7 +226,6 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 9,
         dislike: 4,
         expanded: true,
-
       ),
       CommentModel(
         name: 'Bahadır İren',
@@ -524,7 +242,6 @@ class _CommentsPageState extends State<CommentsPage> {
         like: 13,
         dislike: 1,
         expanded: true,
-
       ),
     ];
     Provider.of<AppointmentData>(context, listen: false).currentList2 =
@@ -534,27 +251,35 @@ class _CommentsPageState extends State<CommentsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: DefaultAppBar(
           title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextButton(
-            child: Row(children: [
-              Icon(Icons.filter_alt_outlined, color: Colors.white),
-              SizedBox(width: 5),
-              Text(
-                'Filtrele',
-                style: kSmallTextStyle.copyWith(color: Colors.white),
-              ),
-            ]),
-            onPressed: () {
-              setState(() {
-                _filterSheet(context);
-              });
-            },
+            child: Row(
+              children: [
+                Icon(Icons.filter_alt_outlined, color: Colors.white),
+                SizedBox(width: 5),
+                Text(
+                  'Filtrele',
+                  style: kSmallTextStyle.copyWith(color: Colors.white),
+                ),
+              ],
+            ),
+            onPressed: () => createSheet(
+                context,
+                ListView(
+                  shrinkWrap: true,
+                  children: [
+                    BottomSheetCard(
+                      title: 'Yıldıza göre filtrele',
+                    ),
+                  ],
+                )),
           ),
-          SizedBox(width: 10),
+          SizedBox(width: 20),
           TextButton(
             child: Row(children: [
               Icon(Icons.sort, color: Colors.white),
@@ -564,11 +289,64 @@ class _CommentsPageState extends State<CommentsPage> {
                 style: kSmallTextStyle.copyWith(color: Colors.white),
               ),
             ]),
-            onPressed: () {
-              setState(() {
-                _orderSheet(context);
-              });
-            },
+            onPressed: () => createSheet(
+                context,
+                ListView(
+                  shrinkWrap: true,
+                  children: [
+                    BottomSheetCard(
+                      title: 'Yıldıza göre sırala',
+                      firstOptionFunction: () {
+                        setState(() {
+                          generatingList
+                              .sort((a, b) => a.rating.compareTo(b.rating));
+                        });
+                        Routers.router.pop(context);
+                      },
+                      secondOptionFunction: () {
+                        setState(() {
+                          generatingList
+                              .sort((b, a) => a.rating.compareTo(b.rating));
+                        });
+                        Routers.router.pop(context);
+                      },
+                    ),
+                    BottomSheetCard(
+                      title: 'Beğeniye göre sırala',
+                      firstOptionFunction: () {
+                        setState(() {
+                          generatingList
+                              .sort((a, b) => a.like.compareTo(b.like));
+                        });
+                        Routers.router.pop(context);
+                      },
+                      secondOptionFunction: () {
+                        setState(() {
+                          generatingList
+                              .sort((b, a) => a.like.compareTo(b.like));
+                        });
+                        Routers.router.pop(context);
+                      },
+                    ),
+                    BottomSheetCard(
+                      title: 'Tarihe göre sırala',
+                      firstOptionFunction: () {
+                        setState(() {
+                          generatingList
+                              .sort((a, b) => a.date.compareTo(b.date));
+                        });
+                        Routers.router.pop(context);
+                      },
+                      secondOptionFunction: () {
+                        setState(() {
+                          generatingList
+                              .sort((b, a) => a.date.compareTo(b.date));
+                        });
+                        Routers.router.pop(context);
+                      },
+                    ),
+                  ],
+                )),
           ),
         ],
       )).build(context),
