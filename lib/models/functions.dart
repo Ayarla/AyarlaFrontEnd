@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:ayarla/components/image/imageListItem.dart';
+import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
@@ -10,7 +12,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
-import 'package:ayarla/components/imageListItem.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:ayarla/virtual_data_base/login.dart';
