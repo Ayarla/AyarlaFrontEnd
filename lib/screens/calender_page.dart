@@ -34,7 +34,6 @@ class _CalendarPageState extends State<CalendarPage> {
 
   ///calender strip package
   onSelect(data) {
-    // Provider.of<AppointmentData>(context, listen: false).getAvailableData(data);
     setState(() {
       selectedDate = data;
     });
@@ -102,23 +101,21 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 
+  bool selected = false;
+
   /// Builds time buttons
   GestureDetector buildTimeButton({String time, int index2}) {
-    print('index : $index2');
-    bool selected = false;
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
+        selected = !selected;
         setState(() {
-          selected = !selected;
           print(selected);
         });
         Provider.of<AppointmentData>(context, listen: false).hoursList.add('00.00');
         Provider.of<AppointmentData>(context, listen: false).hoursList[index2] = time;
         Provider.of<AppointmentData>(context, listen: false).hoursList.length =
             Provider.of<AppointmentData>(context, listen: false).serviceList.length;
-
-        print(Provider.of<AppointmentData>(context, listen: false).hoursList);
       },
       child: Container(
         width: size.width < 700 ? 150 : size.width / 5,
@@ -186,8 +183,13 @@ class _CalendarPageState extends State<CalendarPage> {
                     return Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Center(
-                          child: buildTimeButton(
-                              time: timeList.sublist(17, 37)[index], index2: index2)),
+                        child: Dummy(
+                          selected: selected,
+                          time: timeList.sublist(17, 37)[index],
+                          nextTime: timeList.sublist(18, 38)[index],
+                          index2: index2,
+                        ),
+                      ),
                     );
                   }),
             ),
@@ -295,6 +297,70 @@ class _CalendarPageState extends State<CalendarPage> {
               gradient: functions.decideColor(context),
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class Dummy extends StatefulWidget {
+  bool selected;
+  String time;
+  String nextTime;
+  int index2;
+
+  Dummy({
+    this.selected,
+    this.index2,
+    this.time,
+    this.nextTime,
+  });
+
+  @override
+  _DummyState createState() => _DummyState();
+}
+
+class _DummyState extends State<Dummy> {
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.selected = !widget.selected;
+        });
+        /// TODO - do at local then push to provider.
+        ///
+        /// fix initial hour.
+        if (widget.selected) {
+          Provider.of<AppointmentData>(context, listen: false).hoursList.add('00.00');
+          Provider.of<AppointmentData>(context, listen: false).hoursList[widget.index2] =
+              '${widget.time} - ${widget.nextTime}';
+          // widget.time;
+          Provider.of<AppointmentData>(context, listen: false).hoursList.length =
+              Provider.of<AppointmentData>(context, listen: false).serviceList.length;
+        } else if (!widget.selected) {
+          Provider.of<AppointmentData>(context, listen: false)
+              .hoursList
+              .remove('${widget.time} - ${widget.nextTime}');
+        }
+      },
+      child: Container(
+        width: size.width < 700 ? 150 : size.width / 5,
+        height: 50,
+        margin: EdgeInsets.symmetric(vertical: 7, horizontal: 1),
+        decoration: BoxDecoration(
+          color: widget.selected ? Colors.green : Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0.0, 5), blurRadius: 10)],
+        ),
+        child: Center(
+          child: FittedBox(
+            child: Text(
+              '${widget.time} - ${widget.nextTime}',
+              style: kTextStyle.copyWith(color: widget.selected ? Colors.white : Colors.black),
+            ),
+          ),
         ),
       ),
     );

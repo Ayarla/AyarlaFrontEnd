@@ -30,6 +30,7 @@ class AppointmentData extends ChangeNotifier {
   );
 
   List<Appointment> waitingAppointments = [];
+  List<Appointment> confirmedAppointments = [];
 
   List<ServiceModel> serviceList = [];
   List<EmployeeModel> employeeList = [];

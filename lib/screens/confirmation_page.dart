@@ -27,12 +27,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   bool isConfirmed;
   List localList = [];
 
-  /// TODO
-  /// We have a misunderstanding about isConfirmed.
-  ///
-  /// • Is it confirm action by user
-  ///
-  /// • or is it about coiffure confirming the appointment request that is sent by user.
   @override
   void initState() {
     super.initState();
@@ -45,8 +39,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
-    /// getting totalSum from Provider
     Appointment currentAppointment =
         Provider.of<AppointmentData>(context, listen: false).currentAppointment;
     return Scaffold(

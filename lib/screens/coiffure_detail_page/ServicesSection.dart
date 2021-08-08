@@ -77,7 +77,7 @@ class _ServicesSectionState extends State<ServicesSection> {
                     Text(" ₺", style: TextStyle(fontSize: width <= 400 ? width / 20 : 20)),
                     SizedBox(width: 10),
                     Icon(
-                      fullTimeServices[findIndex(serviceModel)].selected ? Icons.remove : Icons.add,
+                      serviceList.contains(serviceModel) ? Icons.remove : Icons.add,
                       size: width <= 400 ? width / 16.6 : 24,
                     ),
                     SizedBox(width: 10),
@@ -95,15 +95,13 @@ class _ServicesSectionState extends State<ServicesSection> {
                         child: Container(
                           width: 120,
                           child: GenericIconButton(
-                              color: fullTimeServices[fullTimeServices.indexOf(serviceModel)]
-                                      .employees[index]
-                                      .selected
-                                  ? fullTimeServices[fullTimeServices.indexOf(serviceModel)]
-                                              .employees[index]
-                                              .gender ==
-                                          'female'
+
+                              /// TODO.
+                              color: serviceList.contains(serviceModel) &&
+                                      serviceModel.employees[index].selected
+                                  ? serviceModel.employees[index].gender == 'female'
                                       ? Colors.pink[200]
-                                      : Colors.blue
+                                      : Colors.blue[400]
                                   : null,
                               iconContext: Container(
                                 padding: EdgeInsets.only(top: 5),
@@ -124,17 +122,18 @@ class _ServicesSectionState extends State<ServicesSection> {
                                   fontSize: width <= 400 ? width / 30 : 14),
                               text: employeesList[index].name,
                               onPressed: () {
+                                for (EmployeeModel x in serviceModel.employees) {
+                                  x.selected = false;
+                                }
+                                serviceModel.employees[index].selected =
+                                    !serviceModel.employees[index].selected;
+                                setState(() {});
                                 employeeList.add(EmployeeModel());
                                 employeeList[serviceList.indexOf(serviceModel)] =
                                     employeesList[index];
-
                                 List holder =
                                     employeeList.where((element) => element.name != null).toList();
                                 holder.length = serviceList.length;
-                                // print(holder);
-                                // for (EmployeeModel x in holder) {
-                                //   print(x.name);
-                                // }
                                 Provider.of<AppointmentData>(context, listen: false).employeeList =
                                     holder;
                               }),

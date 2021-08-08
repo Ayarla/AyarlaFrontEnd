@@ -78,6 +78,9 @@ class WelcomePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TextButton(
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                          ),
                           onPressed: () {
                             Provider.of<GenderSelection>(context, listen: false)
                                 .selectGender(Gender.female);
@@ -103,8 +106,12 @@ class WelcomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 5),
+                        // SizedBox(height: 5),
                         TextButton(
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                          ),
                           onPressed: () {
                             Provider.of<GenderSelection>(context, listen: false)
                                 .selectGender(Gender.male);
@@ -130,8 +137,12 @@ class WelcomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 5),
+                        // SizedBox(height: 5),
                         TextButton(
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                          ),
                           onPressed: () {
                             Provider.of<GenderSelection>(context, listen: false)
                                 .selectGender(Gender.unisex);
