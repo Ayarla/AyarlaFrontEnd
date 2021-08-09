@@ -25,7 +25,7 @@ class _IconsRowState extends State<IconsRow> {
           iconContext: Icon(
             Icons.call,
             color: Colors.green,
-            size: 40,
+            size: 30,
           ),
           height: 70,
           width: 70,
@@ -43,18 +43,14 @@ class _IconsRowState extends State<IconsRow> {
                 ? Icons.favorite
                 : Icons.favorite_border,
             color: Colors.red,
-            size: 40,
+            size: 30,
           ),
           height: 70,
           width: 70,
           onPressed: () {
             setState(() {
-              if (Provider.of<AppointmentData>(context, listen: false)
-                  .myState
-                  .mounted) {
-                Provider.of<AppointmentData>(context, listen: false)
-                    .myState
-                    .setState(() {});
+              if (Provider.of<AppointmentData>(context, listen: false).myState.mounted) {
+                Provider.of<AppointmentData>(context, listen: false).myState.setState(() {});
               }
               Provider.of<AppointmentData>(context, listen: false)
                   .setOrChangeFav(widget.coiffureModel);
@@ -67,7 +63,7 @@ class _IconsRowState extends State<IconsRow> {
           iconContext: Icon(
             Icons.ios_share,
             color: Colors.blue,
-            size: 40,
+            size: 30,
           ),
           text: 'Paylaş',
           textStyle: kSmallTextStyle.copyWith(color: Colors.blue),

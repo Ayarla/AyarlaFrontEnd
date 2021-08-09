@@ -3,6 +3,7 @@ import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/components/overScroll.dart';
+import 'package:ayarla/components/pop-up.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
@@ -15,6 +16,8 @@ import 'package:ayarla/screens/coiffure_detail_page/ImageSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ServicesSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/screens/comments_page.dart';
+import 'package:ayarla/screens/manager_screens/manager_info_message_page.dart';
+import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,6 +65,16 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     TextStyle _titleStyle = kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
     TextStyle _textStyle = kTextStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
     total = Provider.of<AppointmentData>(context, listen: true).currentAppointment.totalPrice;
+
+    /// if manager sent an information message it will be shown directly once the coiffure page opens
+    if (Provider.of<ManagerData>(context).managerInformationMessage?.isNotEmpty ?? false) {
+      Future.delayed(
+        Duration.zero,
+        () => PopUp().managerInformationMessagePopUp(
+            context: context,
+            message: Provider.of<ManagerData>(context, listen: false).managerInformationMessage),
+      );
+    }
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(

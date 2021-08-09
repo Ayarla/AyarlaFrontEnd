@@ -1,5 +1,6 @@
 import 'package:ayarla/screens/loading_screen.dart';
 import 'package:ayarla/services/locator.dart';
+import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
@@ -26,6 +27,7 @@ class Ayarla extends StatelessWidget {
         ChangeNotifierProvider<GenderSelection>(create: (context) => GenderSelection()),
         ChangeNotifierProvider<Login>(create: (context) => Login()),
         ChangeNotifierProvider<BusinessAndUserData>(create: (context) => BusinessAndUserData()),
+        ChangeNotifierProvider<ManagerData>(create: (context) => ManagerData()),
       ],
       child: LoadingScreen(),
     );

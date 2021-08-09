@@ -10,7 +10,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/model_coiffure.dart';
-import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 
 // class Availability {
 //   String time;
@@ -398,9 +397,6 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Notes> managerNotes = [];
-  List<MessageBubble> messages = [];
-
   /// for manager pages & trial vers.
   List currentList;
   setList(List list) {
@@ -415,11 +411,4 @@ class AppointmentData extends ChangeNotifier {
   }
 
   State myState = SearchPage().createState();
-}
-
-class Notes {
-  String notes;
-  final int index;
-
-  Notes({this.notes, this.index});
 }

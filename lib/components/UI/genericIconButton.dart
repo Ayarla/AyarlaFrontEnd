@@ -54,12 +54,14 @@ class GenericIconButton extends StatelessWidget {
                   children: [
                     iconContext,
                     SizedBox(height: spaceBetween ?? 5),
-                    TextOverFlowHandler(
-                      child: Text(
-                        text,
-                        style: textStyle ??
-                            kTextStyle.copyWith(
-                                fontSize: 18, color: Color(0xFF2D3B4A)),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: TextOverFlowHandler(
+                        child: Text(
+                          text,
+                          style: textStyle ??
+                              kTextStyle.copyWith(fontSize: 18, color: Color(0xFF2D3B4A)),
+                        ),
                       ),
                     ),
                   ],
@@ -74,8 +76,7 @@ class GenericIconButton extends StatelessWidget {
                       child: Text(
                         text,
                         style: textStyle ??
-                            kTextStyle.copyWith(
-                                fontSize: 18, color: Color(0xFF2D3B4A)),
+                            kTextStyle.copyWith(fontSize: 18, color: Color(0xFF2D3B4A)),
                       ),
                     ),
                   ],

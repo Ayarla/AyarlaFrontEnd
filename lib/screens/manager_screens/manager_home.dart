@@ -17,6 +17,7 @@ class _ManagerHomeState extends State<ManagerHome> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    bool isSmallScreen = size.width < 650;
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Color(0xFFeceff1),
@@ -35,59 +36,54 @@ class _ManagerHomeState extends State<ManagerHome> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              SizedBox(height: 80),
+              isSmallScreen ? SizedBox(height: 40) : SizedBox(),
               UI.generalLogo,
               SizedBox(height: 15),
-              Text("İşletme Yönetim Paneli",
-                  textAlign: TextAlign.center, style: kTitleStyle),
-              SizedBox(height: 15),
+              Text("İşletme Yönetim Paneli", textAlign: TextAlign.center, style: kTitleStyle),
+              isSmallScreen ? SizedBox(height: 15) : SizedBox(height: 50),
               GridView.count(
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.all(20),
                 shrinkWrap: true,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                crossAxisCount: 2,
+                crossAxisCount: size.width < 650 ? 2 : 4,
                 children: <Widget>[
                   GenericIconButton(
                     iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      size: isSmallScreen ? size.width / 6 : 500 / 6,
                       iconName: homeIconName,
                     ),
                     color: Colors.white.withOpacity(.4),
                     text: 'İşletmem',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/Isletmem"),
+                    onPressed: () => Routers.router.navigateTo(context, "/Isletmem"),
                   ),
                   GenericIconButton(
                     iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      size: isSmallScreen ? size.width / 6 : 500 / 6,
                       iconName: employeesIconName,
                     ),
                     color: Colors.white.withOpacity(.4),
                     text: 'Çalışanlarım',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/Calisanlarim"),
+                    onPressed: () => Routers.router.navigateTo(context, "/Calisanlarim"),
                   ),
                   GenericIconButton(
                     iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      size: isSmallScreen ? size.width / 6 : 500 / 6,
                       iconName: notesIconName,
                     ),
                     color: Colors.white.withOpacity(.4),
-                    text: 'Notlarım',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/Notlarim"),
+                    text: 'Bilgilendirme Mesajlarım',
+                    onPressed: () => Routers.router.navigateTo(context, "/BilgilendirmeMesaji"),
                   ),
                   GenericIconButton(
                     iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
+                      size: isSmallScreen ? size.width / 6 : 500 / 6,
                       iconName: messageIconName,
                     ),
                     color: Colors.white.withOpacity(.4),
                     text: 'Mesajlaşma',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/MesajYolla"),
+                    onPressed: () => Routers.router.navigateTo(context, "/MesajYolla"),
                   ),
                 ],
               ),
