@@ -292,7 +292,7 @@ class EmployeeManage extends StatelessWidget {
                 },
                 child: Row(
                     children: [
-                      Text(Provider.of<AppointmentData>(context, listen: false).employeesList.length.toString(), style: kTextStyle,),
+                      Text("${Provider.of<AppointmentData>(context, listen: false).employeesList.length.toString()} Çalışan", style: kTextStyle,),
                       Spacer(),
                       Container(
                         decoration: BoxDecoration(

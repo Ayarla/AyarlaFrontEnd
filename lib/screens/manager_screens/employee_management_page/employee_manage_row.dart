@@ -61,97 +61,113 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
               showArrowIcon: true,
               hoverOn: false,
               elevation: 5,
-              primaryWidget: Container(
-                width: size.width<=650? size.width/1.5:550,
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(left: 0, top: 8, bottom: 8, right: 10),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                          flex:1,
-                          child: Image.asset('assets/worker_1.png',
-                              fit: BoxFit.contain)),
-                      Expanded(
-                        flex:4,
-                        ///width: size.width / 5,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            /// name
-
-                            Text(
-                              widget.name,
-                              style: kTextStyle.copyWith(fontSize: size.width <= 400 ? size.width / 20 : 20),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(height: 5),
-
-                            /// First line
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.yellow.shade700,
-                                  size: 16,
-                                ),
-                                SizedBox(width: 4),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 4.0),
-                                  child: RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: '4.5',
-                                          style: kSmallTextStyle.copyWith(
-                                            color:
-                                                Colors.grey.withOpacity(0.8),
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 2),
-
-                            /// Second Line
-                            Row(
-                              children: <Widget>[
-                                SizedBox(width: 1),
-                                Icon(
-                                  Icons.circle,
-                                  size: 13,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(width: 7),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 1.0),
-                                  child: Text(
-                                    'Dolu',
-                                    style: kSmallTextStyle.copyWith(
-                                      color: Colors.grey.withOpacity(0.8),
-                                      fontSize: 13,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+              primaryWidget: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                          color: Colors.red,
+                          icon:Icon(Icons.delete),
+                          onPressed: () {
+                            Provider.of<AppointmentData>(context, listen: false)
+                                .removeEmployee(widget.index);
+                          }),
+                    ),
                   ),
-                ),
+                  Container(
+                    width: size.width<=650? size.width/1.5:550,
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(left: 0, top: 8, bottom: 8, right: 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                              flex:1,
+                              child: Image.asset('assets/worker_1.png',
+                                  fit: BoxFit.contain)),
+                          Expanded(
+                            flex:4,
+                            ///width: size.width / 5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                /// name
+
+                                Text(
+                                  widget.name,
+                                  style: kTextStyle.copyWith(fontSize: size.width <= 400 ? size.width / 20 : 20),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 5),
+
+                                /// First line
+                                Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.yellow.shade700,
+                                      size: 16,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 4.0),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '4.5',
+                                              style: kSmallTextStyle.copyWith(
+                                                color:
+                                                    Colors.grey.withOpacity(0.8),
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 2),
+
+                                /// Second Line
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(width: 1),
+                                    Icon(
+                                      Icons.circle,
+                                      size: 13,
+                                      color: Colors.red,
+                                    ),
+                                    SizedBox(width: 7),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 1.0),
+                                      child: Text(
+                                        'Dolu',
+                                        style: kSmallTextStyle.copyWith(
+                                          color: Colors.grey.withOpacity(0.8),
+                                          fontSize: 13,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
               secondaryWidget: Flex(
-                direction: Axis.vertical,
-                ///mainAxisAlignment: MainAxisAlignment.spaceAround,
+                direction: size.width<=650 ? Axis.horizontal:Axis.vertical,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
                     children: [

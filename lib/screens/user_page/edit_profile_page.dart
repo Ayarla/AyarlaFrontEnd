@@ -14,13 +14,14 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfilePage> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _accountFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _passwordFormKey = GlobalKey<FormState>();
   Functions functions = Functions();
   String _typedMail;
+  String _typedPhone;
   String _typedPassword;
   String _typedPasswordCheck;
-  String _typedName;
-  String _typedSurname;
+  String _typedOldPassword;
 
   bool isValidEmail() {
     return RegExp(
@@ -31,7 +32,8 @@ class _EditProfileState extends State<EditProfilePage> {
   //
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
+    bool isSmallScreen = size.width < 362;
     return Scaffold(
       appBar: DefaultAppBar(
         showIconButton: false,
@@ -47,9 +49,12 @@ class _EditProfileState extends State<EditProfilePage> {
           children: [
             SizedBox(height: 15),
             Container(
+              width: size.width<=650? size.width/1.5:550,
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                // gradient: LinearGradient(
+                color: Colors.orange[500],
+                 //gradient: functions.decideColor(context),
+                 //LinearGradient(
                 //   begin: Alignment.centerLeft,
                 //   end: Alignment.centerRight,
                 //   colors: [Color(0xFFffa7ca), Color(0xFFca7799)],
@@ -113,11 +118,12 @@ class _EditProfileState extends State<EditProfilePage> {
                       Text(
                         "Nilsu Öz",
                         style: kTextStyle.copyWith(
-                            color: Colors.white, fontSize: 25),
+                            color: Colors.white, fontSize: size.width <= 400 ? size.width / 20 : 25),
                       ),
                       Text(
                         'xx.xx.xxxxden beri üye',
-                        style: kSmallTextStyle.copyWith(color: Colors.white),
+                        style: kSmallTextStyle.copyWith(color: Colors.white,fontSize: size.width <= 400 ? size.width / 30 : 15),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
@@ -125,40 +131,207 @@ class _EditProfileState extends State<EditProfilePage> {
               ),
             ),
             SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text('Hesap Bilgilerim', style: kSmallTitleStyle),
-            ),
-            Padding(
-              padding: EdgeInsets.all(4.0),
-              child: AyarlaTextFormField(hintText: 'Mailimi Güncelle'),
-            ),
-            Padding(
-              padding: EdgeInsets.all(4.0),
-              child: AyarlaTextFormField(
-                  hintText: 'Telefonunuzu Giriniz (Opsiyonel)'),
+            Form(
+              key: _accountFormKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Text('Hesap Bilgilerim', style: kSmallTitleStyle),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: AyarlaTextFormField(
+                        hintText: 'Mailimi Güncelle',
+                        style: kSmallTextStyle.copyWith(
+                            fontSize: isSmallScreen ? 10 : 14),
+                        padding: EdgeInsets.all(20.0),
+                        color: Colors.orange[500],
+                        validator: (_typedValue) {
+                          return (_typedValue.isEmpty)
+                              ? 'Boş bırakılamaz'
+                              : isValidEmail()
+                              ? null
+                              : "Lütfen geçerli bir mail adresi giriniz";
+                        },
+                        onChanged: (typed) {
+                          _typedMail = typed;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: AyarlaTextFormField(
+                        hintText: 'Telefonunuzu Giriniz (Opsiyonel)',
+                        style: kSmallTextStyle.copyWith(
+                            fontSize: isSmallScreen ? 10 : 14),
+                        padding: EdgeInsets.all(20.0),
+                        color: Colors.orange[500],
+                        validator: (_typedValue) {
+                          return (_typedValue.isEmpty)
+                              ? 'Boş bırakılamaz'
+                              : null;
+                        },
+                        onChanged: (typed) {
+                          _typedPhone = typed;
+                        },
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.all(4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                    EdgeInsets.symmetric(
+                                        vertical: 12, horizontal: 35)),
+                                backgroundColor:
+                                MaterialStateProperty.all<Color>(
+                                    Colors.orange[500]),
+                                shape:
+                                MaterialStateProperty.all<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(20))),
+                              ),
+                              onPressed: () {
+                                if (_accountFormKey.currentState.validate()) {
+                                  /// function
+                                  print("Validated");
+                                } else {
+                                  print("Not Validated");
+                                }
+                              },
+                              child: Text(
+                                'Kaydet',
+                                style: kTextStyle.copyWith(
+                                    color: Colors.white,
+                                    fontSize: isSmallScreen ? 15 : 20),
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
+                  ],
+                )
             ),
             SizedBox(height: 15),
+            Form(
+              key: _passwordFormKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Text('Şifrem', style: kSmallTitleStyle,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: AyarlaTextFormField(
+                          hintText: 'Eski Şifrenizi Giriniz',
+                        style: kSmallTextStyle.copyWith(
+                            fontSize: isSmallScreen ? 10 : 14),
+                        padding: EdgeInsets.all(20.0),
+                        color: Colors.orange[500],
+                        validator: (_typedValue) {
+                          return (_typedValue.isEmpty)
+                              ? 'Boş bırakılamaz'
+                              : null;
+                        },
+                        onChanged: (typed) {
+                          _typedOldPassword = typed;
+                        },
+                      ),
+                    ),
 
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text('Şifrem', style: kSmallTitleStyle),
-            ),
-            Padding(
-              padding: EdgeInsets.all(4.0),
-              child: AyarlaTextFormField(hintText: 'Eski Şifrenizi Giriniz'),
+                    /// TODO - if
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: AyarlaTextFormField(
+                          hintText: 'Yeni Şifrenizi Giriniz',
+                        style: kSmallTextStyle.copyWith(
+                            fontSize: isSmallScreen ? 10 : 14),
+                        padding: EdgeInsets.all(20.0),
+                        color: Colors.orange[500],
+                        validator: (_typedValue) {
+                          return (_typedValue.isEmpty)
+                              ? 'Boş bırakılamaz'
+                              : null;
+                        },
+                        onChanged: (typed) {
+                          _typedPassword = typed;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: AyarlaTextFormField(
+                          hintText: 'Yeni Şifrenizi Tekrar Giriniz',
+                        style: kSmallTextStyle.copyWith(
+                            fontSize: isSmallScreen ? 10 : 14),
+                        padding: EdgeInsets.all(20.0),
+                        color: Colors.orange[500],
+                        validator: (_typedValue) {
+                          if (_typedValue.isEmpty) {
+                            return 'Boş bırakılamaz.';
+                          } else if (_typedValue.length < 6) {
+                            return 'Şifre en az 6 karakter içermelidir.';
+                          } else if (_typedPasswordCheck != _typedPassword) {
+                            return 'Şifreler birbiri ile uyuşmuyor.';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (typed) {
+                          _typedPasswordCheck = typed;
+                        },
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.all(4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                    EdgeInsets.symmetric(
+                                        vertical: 12, horizontal: 35)),
+                                backgroundColor:
+                                MaterialStateProperty.all<Color>(
+                                    Colors.orange[500]),
+                                shape:
+                                MaterialStateProperty.all<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(20))),
+                              ),
+                              onPressed: () {
+                                if (_passwordFormKey.currentState.validate()) {
+                                  /// function
+                                  print("Validated");
+                                } else {
+                                  print("Not Validated");
+                                }
+                              },
+                              child: Text(
+                                'Kaydet',
+                                style: kTextStyle.copyWith(
+                                    color: Colors.white,
+                                    fontSize: isSmallScreen ? 15 : 20),
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
+                  ],
+                )
             ),
 
-            /// TODO - if
-            Padding(
-              padding: EdgeInsets.all(4.0),
-              child: AyarlaTextFormField(hintText: 'Yeni Şifrenizi Giriniz'),
-            ),
-            Padding(
-              padding: EdgeInsets.all(4.0),
-              child: AyarlaTextFormField(
-                  hintText: 'Yeni Şifrenizi Tekrar Giriniz'),
-            ),
 
             // Form(
             //   key: _formKey,
