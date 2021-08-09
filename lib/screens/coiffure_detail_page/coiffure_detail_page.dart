@@ -6,7 +6,6 @@ import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
-import 'package:ayarla/screens/calender_page.dart';
 import 'package:ayarla/screens/coiffure_detail_page/AboutSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ContactSection.dart';
@@ -23,6 +22,7 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:toast/toast.dart';
 
 class CoiffureDetailPage extends StatefulWidget {
   final CoiffureModel coiffureModel;
@@ -147,8 +147,24 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                       Provider.of<AppointmentData>(context, listen: false)
                           .currentAppointment
                           .coiffureName = widget.coiffureModel.name;
-                      Provider.of<AppointmentData>(context, listen: false).appointmentAddHandler();
-                      Routers.router.navigateTo(context, 'SaatSayfasi');
+                      if (Provider.of<AppointmentData>(context, listen: false)
+                              .employeeList
+                              .length !=
+                          Provider.of<AppointmentData>(context, listen: false).serviceList.length) {
+                        Toast.show(
+                          "Lütfen Çalışan Seçiniz",
+                          context,
+                          duration: 2,
+                          backgroundColor: Colors.red[200],
+                        );
+                      } else if (Provider.of<AppointmentData>(context, listen: false)
+                              .employeeList
+                              .length ==
+                          Provider.of<AppointmentData>(context, listen: false).serviceList.length) {
+                        Provider.of<AppointmentData>(context, listen: false)
+                            .appointmentAddHandler();
+                        Routers.router.navigateTo(context, 'SaatSayfasi');
+                      }
                     },
                   ),
                 ],

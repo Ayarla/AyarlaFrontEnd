@@ -63,7 +63,7 @@ class SearchPageState extends State<SearchPage> {
                         Provider.of<AppointmentData>(context, listen: true).currentList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: EdgeInsets.only(left: 5, right: 5, bottom: 15),
+                        padding: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 10),
                         child: SmallCoiffureCard(
                             coiffureModel: Provider.of<AppointmentData>(context, listen: true)
                                 .currentList[index]),
@@ -73,7 +73,7 @@ class SearchPageState extends State<SearchPage> {
                 : GridView.builder(
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                    padding: EdgeInsets.only(top: 0),
+                    padding: EdgeInsets.only(top: 5),
                     itemCount:
                         Provider.of<AppointmentData>(context, listen: true).currentList.length,
                     itemBuilder: (BuildContext context, int index) {

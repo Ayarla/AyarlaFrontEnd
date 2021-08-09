@@ -120,7 +120,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text("Saat: ", style: kTitleStyle),
-                            Text(currentAppointment.hour, style: kTitleStyle),
+                            Text(currentAppointment.hour.substring(0, 5), style: kTitleStyle),
                           ],
                         ),
                       ),

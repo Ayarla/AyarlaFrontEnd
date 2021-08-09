@@ -28,8 +28,10 @@ class _ServicesSectionState extends State<ServicesSection> {
     super.initState();
   }
 
+  /// TODO - test everything.
   @override
   Widget build(BuildContext context) {
+    // print(Provider.of<AppointmentData>(context, listen: false).employeeList);
     final width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,6 +50,14 @@ class _ServicesSectionState extends State<ServicesSection> {
                 if (!serviceList.contains(serviceModel)) {
                   serviceList.add(serviceModel);
                 } else if (serviceList.contains(serviceModel)) {
+                  for (int i = 0; i < serviceModel.employees.length; i++) {
+                    setState(() {
+                      serviceModel.employees[i].selected = false;
+                    });
+                  }
+                  Provider.of<AppointmentData>(context, listen: false)
+                      .employeeList
+                      .removeAt(serviceList.indexOf(serviceModel));
                   serviceList.remove(serviceModel);
                 }
                 Provider.of<AppointmentData>(context, listen: false).serviceList = serviceList;
@@ -95,8 +105,6 @@ class _ServicesSectionState extends State<ServicesSection> {
                         child: Container(
                           width: 120,
                           child: GenericIconButton(
-
-                              /// TODO.
                               color: serviceList.contains(serviceModel) &&
                                       serviceModel.employees[index].selected
                                   ? serviceModel.employees[index].gender == 'female'

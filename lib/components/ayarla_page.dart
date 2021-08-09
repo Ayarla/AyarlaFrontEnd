@@ -10,7 +10,8 @@ class AyarlaPage extends StatelessWidget {
         ? Center(child: Container(width: 650, child: child))
         : Center(
             child: Container(
-              child: Padding(padding: EdgeInsets.all(8.0), child: child),
+              child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 1, horizontal: 8.0), child: child),
             ),
           );
   }

@@ -120,6 +120,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2+dart2"
+  dependencies:
+    dependency: "direct main"
+    description:
+      name: dependencies
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
+  disposables:
+    dependency: transitive
+    description:
+      name: disposables
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   expandable_widgets:
     dependency: "direct main"
     description:
@@ -798,6 +812,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19"
+  toast:
+    dependency: "direct main"
+    description:
+      name: toast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
   transparent_image:
     dependency: transitive
     description:

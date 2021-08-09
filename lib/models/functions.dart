@@ -79,68 +79,6 @@ class Functions {
     }
   }
 
-  /// Will be removed.
-  createTitle(BuildContext context, String title) {
-    final size = MediaQuery.of(context).size;
-    Functions functions = Functions();
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: size.width / 10),
-      decoration: BoxDecoration(
-          gradient: functions.decideColor(context),
-          borderRadius: BorderRadius.all(Radius.circular(15))),
-      child: Padding(
-        padding: EdgeInsets.all(5.0),
-        child: Center(
-          child: FittedBox(
-            fit: BoxFit.cover,
-            child: Text(
-              title,
-              style: kTitleStyle.copyWith(color: Colors.white),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// takes image from file
-  /// TODO dart:io web desteği yok
-  // imageFromFile(context) async {
-  //
-  //   Image fromPicker = await ImagePickerWeb.getImage(
-  //       outputType: ImageType.widget);
-  //   if (fromPicker != null) {
-  //     if (Provider
-  //         .of<Login>(context, listen: false)
-  //         .isManager) {
-  //       Provider.of<BusinessAndUserData>(context, listen: false)
-  //           .addImage(ImageListItem(isFile:false,isImage: true, covered: true, fileImage: fromPicker,));
-  //     } else {
-  //       Provider.of<BusinessAndUserData>(context, listen: false)
-  //           .setUserImage(UserImage(isFile:false,image: fromPicker));
-  //     }
-  //   }
-  //   }
-  ///
-  /*   FilePickerResult result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['png', 'jpg', 'svg', 'jpeg']);
-
-    if (result != null) {
-      PlatformFile file = result.files.first;
-
-      if (Provider.of<Login>(context, listen: false).isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(file: File.fromRawPath(file.bytes), isFile: true, covered: true));
-      } else {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(File.fromRawPath(file.bytes));
-      }
-
-    } else {
-      // User canceled the picker
-    }*/
-
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
     File image = await ImagePicker.pickImage(source: ImageSource.camera, imageQuality: 50);
