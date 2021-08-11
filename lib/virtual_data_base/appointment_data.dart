@@ -4,29 +4,21 @@ import 'package:ayarla/models/model_user.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:ayarla/webService/user_functions.dart';
-// import 'package:firebase/firebase.dart';
-// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
 
-// class Availability {
-//   String time;
-//   bool selected;
-//   Availability({this.selected, this.time});
-// }
-
 class AppointmentData extends ChangeNotifier {
   Appointment currentAppointment = Appointment(
     coiffureName: '',
-    totalPrice: 0,
-    isConfirmedByUser: false,
-    isConfirmedByCoiffure: false,
     date: '',
     hour: '',
+    totalPrice: 0,
     appointmentDetails: [],
+    isConfirmedByUser: false,
+    isConfirmedByCoiffure: false,
   );
 
   List<Appointment> waitingAppointments = [];
@@ -40,17 +32,8 @@ class AppointmentData extends ChangeNotifier {
     currentAppointment.appointmentDetails.clear();
 
     for (int i = 0; i < serviceList.length; i++) {
-      if (employeeList[i] == null) {
-        employeeList[i] = employeesList[0];
-      }
-    }
-
-    for (int i = 0; i < serviceList.length; i++) {
       currentAppointment.appointmentDetails.add(
-        AppointmentModel(
-          serviceModel: serviceList[i],
-          employeeModel: employeeList[i],
-        ),
+        AppointmentModel(serviceModel: serviceList[i], employeeModel: employeeList[i]),
       );
     }
     priceHandler();
@@ -80,23 +63,11 @@ class AppointmentData extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// olds
   removeEmployeeFromService(int serviceIndex, int employeeIndex) {
     fullTimeServices[serviceIndex].employees.removeAt(employeeIndex);
     notifyListeners();
   }
-
-  ///Chooses the selected employee and discards the others
-  ///=> used in coiffure_detail card
-  // changeSelectedEmployee(int serviceIndex, int index) {
-  //   for (EmployeeModel y in fullTimeServices[serviceIndex].employees) {
-  //     if (y == fullTimeServices[serviceIndex].employees[index]) {
-  //       y.selected = !y.selected;
-  //     } else {
-  //       y.selected = false;
-  //     }
-  //   }
-  //   notifyListeners();
-  // }
 
   addService(serviceName, price) {
     fullTimeServices.add(ServiceModel(

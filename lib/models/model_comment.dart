@@ -57,8 +57,7 @@ class CommentModel extends StatelessWidget {
                           GestureDetector(
                             child: Text(
                               'Düzenle',
-                              style:
-                                  kSmallTextStyle.copyWith(color: Colors.green),
+                              style: kSmallTextStyle.copyWith(color: Colors.green),
                             ),
                             onTap: editFunction,
                           ),
@@ -66,8 +65,7 @@ class CommentModel extends StatelessWidget {
                           GestureDetector(
                             child: Text(
                               'Kaldır',
-                              style:
-                                  kSmallTextStyle.copyWith(color: Colors.red),
+                              style: kSmallTextStyle.copyWith(color: Colors.red),
                             ),
                             onTap: removeFunction,
                           ),
@@ -83,15 +81,13 @@ class CommentModel extends StatelessWidget {
                         size: 20,
                       ),
                     for (int i = rating; i < 5; i++)
-                      Icon(Icons.star_border,
-                          color: Colors.yellow.shade700, size: 20),
+                      Icon(Icons.star_border, color: Colors.yellow.shade700, size: 20),
                   ],
                 ),
                 SizedBox(width: 10),
                 Text(
                   date,
-                  style: kSmallTextStyle.copyWith(
-                      fontSize: 12, color: Colors.grey),
+                  style: kSmallTextStyle.copyWith(fontSize: 12, color: Colors.grey),
                 ),
               ],
             ),
@@ -119,8 +115,7 @@ class CommentModel extends StatelessWidget {
       children: [
         SizedBox(width: 35),
         IconButton(
-          icon: Icon(FontAwesomeIcons.thumbsUp,
-              size: 20, color: Colors.lightGreen),
+          icon: Icon(FontAwesomeIcons.thumbsUp, size: 20, color: Colors.lightGreen),
           onPressed: () {
             ///
           },
@@ -128,8 +123,7 @@ class CommentModel extends StatelessWidget {
         Text(like.toString(), style: kSmallTextStyle),
         SizedBox(width: 10),
         IconButton(
-          icon: Icon(FontAwesomeIcons.thumbsDown,
-              size: 20, color: Colors.redAccent),
+          icon: Icon(FontAwesomeIcons.thumbsDown, size: 20, color: Colors.redAccent),
           onPressed: () {
             ///
           },

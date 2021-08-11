@@ -6,6 +6,7 @@ class EmployeeModel {
   bool selected;
   final String gender;
   List<ServiceModel> services;
+  List<String> availableHours;
 
   EmployeeModel({
     this.image,
@@ -13,5 +14,6 @@ class EmployeeModel {
     this.selected,
     this.gender,
     this.services,
+    this.availableHours,
   });
 }

@@ -1,5 +1,5 @@
 import 'package:ayarla/components/map/BusinessFlutterMap.dart';
-import 'package:ayarla/screens/calender_page.dart';
+import 'package:ayarla/screens/calendar_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management.dart';
 import 'package:ayarla/screens/manager_screens/employee_management_page/employee_manage_page.dart';

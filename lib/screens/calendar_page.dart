@@ -16,15 +16,7 @@ import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:toast/toast.dart';
 
-class HourSelection {
-  String time;
-  bool selected;
-
-  HourSelection({
-    this.selected,
-    this.time,
-  });
-}
+List<String> selectedHourList = [];
 
 class CalendarPage extends StatefulWidget {
   @override
@@ -40,8 +32,7 @@ class _CalendarPageState extends State<CalendarPage> {
   DateTime endDate = DateTime.now().add(Duration(days: 14));
   DateTime selectedDate;
 
-  List localList = [];
-  // List timeList = [];
+  List appointmentDetails = [];
 
   ///calender strip package
   onSelect(data) {
@@ -112,24 +103,21 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 
-  bool selected = false;
-  List hourTileList = [];
-  List timeList = [];
-
   @override
   void initState() {
     super.initState();
     selectedDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-    localList =
+    appointmentDetails =
         Provider.of<AppointmentData>(context, listen: false).currentAppointment.appointmentDetails;
     Provider.of<AppointmentData>(context, listen: false).currentAppointment.date =
         '${selectedDate.day} '
         '${month[selectedDate.month - 1]} '
         '${week[selectedDate.weekday - 1]}';
-    timeList = dividedHours.sublist(17, 34);
-    for (int i = 0; i < timeList.length; i++) {
-      hourTileList.add(HourSelection(selected: false, time: timeList[i]));
+    for (AppointmentModel x in appointmentDetails) {
+      x.employeeModel.availableHours = dividedHours.sublist(17, 34);
     }
+    selectedHourList.clear();
+    selectedHourList.length = appointmentDetails.length;
   }
 
   @override
@@ -172,12 +160,12 @@ class _CalendarPageState extends State<CalendarPage> {
               SizedBox(height: 10),
               Column(
                 children: <Widget>[
-                  for (AppointmentModel x in localList)
+                  for (AppointmentModel x in appointmentDetails)
                     HourContainer(
                       serviceName: x.serviceModel.name,
                       employeeName: x.employeeModel.name,
-                      serviceIndex: localList.indexOf(x),
-                      hourTileList: hourTileList,
+                      serviceIndex: appointmentDetails.indexOf(x),
+                      hourTileList: x.employeeModel.availableHours,
                     ),
                   SizedBox(height: 65),
                 ],
@@ -198,19 +186,14 @@ class _CalendarPageState extends State<CalendarPage> {
             Spacer(),
             FloatingTextButton(
               text: 'Onayla',
-              onPressed: () {
-                if (Provider.of<AppointmentData>(context, listen: false).hoursList.length !=
-                    localList.length) {
-                  Toast.show(
-                    "Lütfen Saat Seçiniz",
-                    context,
-                    duration: 2,
-                    backgroundColor: Colors.red[200],
-                  );
-                } else if (Provider.of<AppointmentData>(context, listen: false).hoursList.length ==
-                    localList.length) {
+              onPressed: () async {
+                if (selectedHourList.contains(null)) {
+                  Toast.show("Lütfen Saat Seçiniz", context,
+                      duration: 2, backgroundColor: Colors.red[200]);
+                } else if (selectedHourList.length == appointmentDetails.length) {
+                  Provider.of<AppointmentData>(context, listen: false).hoursList = selectedHourList;
+                  await Provider.of<AppointmentData>(context, listen: false).dateHandler();
                   Routers.router.navigateTo(context, "/OnaySayfasi");
-                  Provider.of<AppointmentData>(context, listen: false).dateHandler();
                 }
               },
               gradient: functions.decideColor(context),
@@ -220,6 +203,16 @@ class _CalendarPageState extends State<CalendarPage> {
       ),
     );
   }
+}
+
+class HourSelection {
+  String time;
+  bool selected;
+
+  HourSelection({
+    this.selected,
+    this.time,
+  });
 }
 
 class HourContainer extends StatefulWidget {
@@ -240,6 +233,16 @@ class HourContainer extends StatefulWidget {
 }
 
 class _HourContainerState extends State<HourContainer> {
+  List<HourSelection> hourTileList = [];
+
+  @override
+  void initState() {
+    for (int i = 0; i < widget.hourTileList.length; i++) {
+      hourTileList.add(HourSelection(time: widget.hourTileList[i], selected: false));
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -282,40 +285,24 @@ class _HourContainerState extends State<HourContainer> {
                           mainAxisExtent: 100,
                         ),
                   itemBuilder: (BuildContext context, int index) {
+                    String clearTime =
+                        '${hourTileList.sublist(0, widget.hourTileList.length - 1)[index].time}' +
+                            ' - ' +
+                            '${hourTileList[index + 1].time}';
                     return GestureDetector(
                       onTap: () {
-                        for (int i = 0; i < widget.hourTileList.length; i++) {
-                          widget.hourTileList[i].selected = false;
-                        }
                         setState(() {
-                          widget.hourTileList[index].selected =
-                              !widget.hourTileList[index].selected;
+                          hourTileList.forEach((element) => element.selected = false);
+                          hourTileList[index].selected = !hourTileList[index].selected;
+                          if (hourTileList[index].selected == true) {
+                            if (selectedHourList.isNotEmpty) {
+                              selectedHourList.removeAt(widget.serviceIndex);
+                            }
+                            selectedHourList.insert(widget.serviceIndex, clearTime);
+                          }
                         });
-                        if (widget.hourTileList[index].selected) {
-                          Provider.of<AppointmentData>(context, listen: false)
-                              .hoursList
-                              .add('00.00');
-                          Provider.of<AppointmentData>(context, listen: false)
-                                  .hoursList[widget.serviceIndex] =
-                              '${widget.hourTileList[index].time} - ${widget.hourTileList[index + 1].time}';
-                          Provider.of<AppointmentData>(context, listen: false).hoursList.length =
-                              Provider.of<AppointmentData>(context, listen: false)
-                                  .serviceList
-                                  .length;
-                        } else if (!widget.hourTileList[index].selected) {
-                          Provider.of<AppointmentData>(context, listen: false)
-                              .hoursList
-                              .removeAt(widget.serviceIndex);
-                        }
                       },
-                      child: HourTiles(
-                        selected: widget.hourTileList[index].selected,
-                        time: widget.hourTileList
-                            .sublist(0, widget.hourTileList.length - 1)[index]
-                            .time,
-                        nextTime: widget.hourTileList[index + 1].time,
-                        index2: widget.serviceIndex,
-                      ),
+                      child: HourTiles(selected: hourTileList[index].selected, time: clearTime),
                     );
                   }),
             ),
@@ -327,24 +314,12 @@ class _HourContainerState extends State<HourContainer> {
   }
 }
 
-class HourTiles extends StatefulWidget {
+class HourTiles extends StatelessWidget {
   bool selected;
   String time;
-  String nextTime;
-  int index2;
 
-  HourTiles({
-    this.selected,
-    this.index2,
-    this.time,
-    this.nextTime,
-  });
+  HourTiles({this.selected, this.time});
 
-  @override
-  _HourTilesState createState() => _HourTilesState();
-}
-
-class _HourTilesState extends State<HourTiles> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -356,15 +331,15 @@ class _HourTilesState extends State<HourTiles> {
           height: 50,
           margin: EdgeInsets.symmetric(vertical: 7, horizontal: 1),
           decoration: BoxDecoration(
-            color: widget.selected ? Colors.green : Colors.grey.shade200,
+            color: selected ? Colors.green : Colors.grey.shade200,
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0.0, 5), blurRadius: 10)],
           ),
           child: Center(
             child: FittedBox(
               child: Text(
-                '${widget.time} - ${widget.nextTime}',
-                style: kTextStyle.copyWith(color: widget.selected ? Colors.white : Colors.black),
+                time,
+                style: kTextStyle.copyWith(color: selected ? Colors.white : Colors.black),
               ),
             ),
           ),
