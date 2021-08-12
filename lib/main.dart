@@ -2,6 +2,7 @@ import 'package:ayarla/screens/loading_screen.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:ayarla/services/service_management.dart';
 import 'package:ayarla/services/service_user.dart';
+import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/services/service_appointment.dart';
@@ -30,6 +31,7 @@ class Ayarla extends StatelessWidget {
         ChangeNotifierProvider<GenderService>(create: (context) => GenderService()),
         ChangeNotifierProvider<LoginService>(create: (context) => LoginService()),
         ChangeNotifierProvider<BusinessAndUserData>(create: (context) => BusinessAndUserData()),
+        ChangeNotifierProvider<ManagerData>(create: (context) => ManagerData()),
       ],
       child: LoadingScreen(),
     );
