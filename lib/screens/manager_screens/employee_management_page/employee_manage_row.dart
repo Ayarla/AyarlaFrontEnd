@@ -68,28 +68,77 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                           color: Colors.red,
-                          icon:Icon(Icons.delete),
+                          icon: Icon(Icons.delete),
                           onPressed: () {
-                            Provider.of<AppointmentData>(context, listen: false)
-                                .removeEmployee(widget.index);
+                            showDialog<void>(
+                                context: context,
+                                barrierDismissible:
+                                    false, // user must tap button!
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                      backgroundColor: Color(0xFFE5EBEE),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(25.0),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        'Onay',
+                                        style: kSmallTitleStyle,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      content: Text("Çalışanı silmek istediğine emin misin?"),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text(
+                                            'Hayır',
+                                            style: kSmallTextStyle.copyWith(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            ///function
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: Text(
+                                            'Evet',
+                                            style: kSmallTextStyle.copyWith(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Provider.of<AppointmentData>(
+                                                    context,
+                                                    listen: false)
+                                                .removeEmployee(widget.index);
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ]);
+                                });
                           }),
                     ),
                   ),
                   Container(
-                    width: size.width<=650? size.width/1.5:550,
+                    width: size.width <= 650 ? size.width / 1.5 : 550,
                     child: Padding(
-                      padding:
-                          EdgeInsets.only(left: 0, top: 8, bottom: 8, right: 10),
+                      padding: EdgeInsets.only(
+                          left: 0, top: 8, bottom: 8, right: 10),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Expanded(
-                              flex:1,
+                              flex: 1,
                               child: Image.asset('assets/worker_1.png',
                                   fit: BoxFit.contain)),
                           Expanded(
-                            flex:4,
+                            flex: 4,
+
                             ///width: size.width / 5,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +147,10 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
 
                                 Text(
                                   widget.name,
-                                  style: kTextStyle.copyWith(fontSize: size.width <= 400 ? size.width / 20 : 20),
+                                  style: kTextStyle.copyWith(
+                                      fontSize: size.width <= 400
+                                          ? size.width / 20
+                                          : 20),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(height: 5),
@@ -120,8 +172,8 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                             TextSpan(
                                               text: '4.5',
                                               style: kSmallTextStyle.copyWith(
-                                                color:
-                                                    Colors.grey.withOpacity(0.8),
+                                                color: Colors.grey
+                                                    .withOpacity(0.8),
                                                 fontSize: 13,
                                               ),
                                             ),
@@ -166,7 +218,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                 ],
               ),
               secondaryWidget: Flex(
-                direction: size.width<=650 ? Axis.horizontal:Axis.vertical,
+                direction: size.width <= 650 ? Axis.horizontal : Axis.vertical,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
@@ -223,8 +275,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                                               kSmallTextStyle),
                                                       SizedBox(width: 5),
                                                       Checkbox(
-                                                          value:
-                                                              allDayCheckBox,
+                                                          value: allDayCheckBox,
                                                           onChanged: (value) {
                                                             setState(() {
                                                               if (allDayCheckBox ==
@@ -232,57 +283,41 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                                                 weekBoolList
                                                                     .clear();
                                                                 weekBoolList
-                                                                    .add(
-                                                                        true);
+                                                                    .add(true);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        true);
+                                                                    .add(true);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        true);
+                                                                    .add(true);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        true);
+                                                                    .add(true);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        true);
+                                                                    .add(true);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        true);
+                                                                    .add(true);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        true);
+                                                                    .add(true);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        true);
+                                                                    .add(true);
                                                               } else if (allDayCheckBox ==
                                                                   true) {
                                                                 weekBoolList
                                                                     .clear();
                                                                 weekBoolList
-                                                                    .add(
-                                                                        false);
+                                                                    .add(false);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        false);
+                                                                    .add(false);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        false);
+                                                                    .add(false);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        false);
+                                                                    .add(false);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        false);
+                                                                    .add(false);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        false);
+                                                                    .add(false);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        false);
+                                                                    .add(false);
                                                                 weekBoolList
-                                                                    .add(
-                                                                        false);
+                                                                    .add(false);
                                                               }
                                                               allDayCheckBox =
                                                                   !allDayCheckBox;
@@ -362,8 +397,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                             TextButton(
                                               child: Text(
                                                 'İptal',
-                                                style:
-                                                    kSmallTextStyle.copyWith(
+                                                style: kSmallTextStyle.copyWith(
                                                   color: Colors.red,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -376,8 +410,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                             TextButton(
                                               child: Text(
                                                 'Onayla',
-                                                style:
-                                                    kSmallTextStyle.copyWith(
+                                                style: kSmallTextStyle.copyWith(
                                                   color: Colors.blue,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -393,17 +426,20 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                               child: Icon(
                                 FontAwesomeIcons.edit,
                                 color: Colors.green.shade700,
-                                size:
-                                    size.width <= 400 ? size.width / 20 : 18,
+                                size: size.width <= 400 ? size.width / 20 : 18,
                               ),
                             ),
                           ),
                         ],
                       ),
-                      Day(day: "Pazartesi", time: "09:00 - 17:00", size: size,),
-                      Day(day: "Salı", time: "09:00 - 12:00",size: size),
-                      Day(day: "Çarşamba", time: "12:00 - 17:00",size: size),
-                      Day(day: "Perşembe", time: "09:00 - 17:00",size: size),
+                      Day(
+                        day: "Pazartesi",
+                        time: "09:00 - 17:00",
+                        size: size,
+                      ),
+                      Day(day: "Salı", time: "09:00 - 12:00", size: size),
+                      Day(day: "Çarşamba", time: "12:00 - 17:00", size: size),
+                      Day(day: "Perşembe", time: "09:00 - 17:00", size: size),
                     ],
                   ),
                   Column(
@@ -428,77 +464,102 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                           false, // user must tap button!
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          backgroundColor: Color(0xFFE5EBEE),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(25.0),
+                                            backgroundColor: Color(0xFFE5EBEE),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(25.0),
+                                              ),
                                             ),
-                                          ),
-                                          title: Text(
-                                            'Çalışan Çalışma Günleri',
-                                            style: kSmallTitleStyle,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          content: SingleChildScrollView(
-                                            child: Column(
-                                              children: [
-                                                SizedBox(height: 15),
-                                                Row(
-                                                  children: [
-                                                    SizedBox(width: 20),
-                                                    Text(
-                                                      'Hizmetler',
-                                                      style: kTitleStyle.copyWith(
-                                                          fontSize:
-                                                          size.width <= 400 ? size.width / 20 : 20),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: 5),
-                                                Container(
-                                                  height: size.height / 2,
-                                                  width: size.width,
-                                                  child: ListView.separated(
-                                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                                    physics: BouncingScrollPhysics(),
-                                                    itemCount: services.length,
-                                                    itemBuilder: (BuildContext context, int index) {
-                                                      return Row(
-                                                        children: [
-                                                          Text(
-                                                            services[index].name,
-                                                            style: kSmallTextStyle.copyWith(
-                                                                fontSize: size.width <= 400
-                                                                    ? size.width / 20
-                                                                    : 20),
-                                                          ),
-                                                          Spacer(),
-                                                          Checkbox(
-                                                            activeColor: Colors.green.shade700,
-                                                            value: serviceBoolList[index],
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                serviceBoolList[index] =
-                                                                !serviceBoolList[index];
-                                                              });
-                                                            },
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                    separatorBuilder: (BuildContext context, int index) {
-                                                      return Divider(thickness: 1);
-                                                    },
+                                            title: Text(
+                                              'Çalışan Çalışma Günleri',
+                                              style: kSmallTitleStyle,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            content: SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: 15),
+                                                  Row(
+                                                    children: [
+                                                      SizedBox(width: 20),
+                                                      Text(
+                                                        'Hizmetler',
+                                                        style: kTitleStyle.copyWith(
+                                                            fontSize: size
+                                                                        .width <=
+                                                                    400
+                                                                ? size.width /
+                                                                    20
+                                                                : 20),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ),
-                                              ],
+                                                  SizedBox(height: 5),
+                                                  Container(
+                                                    height: size.height / 2,
+                                                    width: size.width,
+                                                    child: ListView.separated(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 20.0),
+                                                      physics:
+                                                          BouncingScrollPhysics(),
+                                                      itemCount:
+                                                          services.length,
+                                                      itemBuilder:
+                                                          (BuildContext context,
+                                                              int index) {
+                                                        return Row(
+                                                          children: [
+                                                            Text(
+                                                              services[index]
+                                                                  .name,
+                                                              style: kSmallTextStyle.copyWith(
+                                                                  fontSize: size
+                                                                              .width <=
+                                                                          400
+                                                                      ? size.width /
+                                                                          20
+                                                                      : 20),
+                                                            ),
+                                                            Spacer(),
+                                                            Checkbox(
+                                                              activeColor:
+                                                                  Colors.green
+                                                                      .shade700,
+                                                              value:
+                                                                  serviceBoolList[
+                                                                      index],
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  serviceBoolList[
+                                                                          index] =
+                                                                      !serviceBoolList[
+                                                                          index];
+                                                                });
+                                                              },
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                      separatorBuilder:
+                                                          (BuildContext context,
+                                                              int index) {
+                                                        return Divider(
+                                                            thickness: 1);
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
                                             actions: <Widget>[
                                               TextButton(
                                                 child: Text(
                                                   'İptal',
-                                                  style: kSmallTextStyle.copyWith(
+                                                  style:
+                                                      kSmallTextStyle.copyWith(
                                                     color: Colors.red,
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -511,26 +572,25 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                               TextButton(
                                                 child: Text(
                                                   'Onayla',
-                                                  style: kSmallTextStyle.copyWith(
+                                                  style:
+                                                      kSmallTextStyle.copyWith(
                                                     color: Colors.blue,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                onPressed: ()  {
+                                                onPressed: () {
                                                   ///function
                                                   Navigator.pop(context);
                                                 },
                                               ),
-                                            ]
-                                        );
+                                            ]);
                                       });
                                 }
                               },
                               child: Icon(
                                 FontAwesomeIcons.edit,
                                 color: Colors.green.shade700,
-                                size:
-                                    size.width <= 400 ? size.width / 20 : 18,
+                                size: size.width <= 400 ? size.width / 20 : 18,
                               ),
                             ),
                           ),
@@ -571,7 +631,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
               ),
             ),
           ),*/
-       /* Expanded(
+        /* Expanded(
           child: Padding(
             padding: EdgeInsets.all(8),
             child: Container(
@@ -601,7 +661,7 @@ class Day extends StatelessWidget {
   String day;
   String time;
   Size size;
-  Day({@required this.day, this.time,this.size});
+  Day({@required this.day, this.time, this.size});
 
   @override
   Widget build(BuildContext context) {
