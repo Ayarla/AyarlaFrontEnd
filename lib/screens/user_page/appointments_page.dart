@@ -1,12 +1,12 @@
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class AppointmentsPage extends StatefulWidget {
   @override
@@ -147,7 +147,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                     style: kTitleStyle.copyWith(color: Colors.white))),
             onPressed: () {
               setState(() {
-                Provider.of<AppointmentData>(context, listen: false)
+                Provider.of<UserService>(context, listen: false)
                     .waitingAppointments
                     .remove(waitingAppointments[index]);
                 waitingAppointments.remove(index);
@@ -159,7 +159,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
 
   @override
   void initState() {
-    waitingAppointments = Provider.of<AppointmentData>(context, listen: false).waitingAppointments;
+    waitingAppointments = Provider.of<UserService>(context, listen: false).waitingAppointments;
     super.initState();
   }
 

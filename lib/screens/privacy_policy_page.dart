@@ -1,6 +1,6 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
+import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

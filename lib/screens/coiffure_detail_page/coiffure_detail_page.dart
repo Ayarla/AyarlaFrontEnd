@@ -21,7 +21,7 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:toast/toast.dart';
 
 class CoiffureDetailPage extends StatefulWidget {
@@ -38,15 +38,6 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
 
   @override
   void initState() {
-    Provider.of<AppointmentData>(context, listen: false).currentAppointment = Appointment(
-      coiffureName: '',
-      totalPrice: 0,
-      isConfirmedByUser: false,
-      isConfirmedByCoiffure: false,
-      date: '',
-      hour: '',
-      appointmentDetails: [],
-    );
     super.initState();
   }
 
@@ -61,7 +52,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     final width = MediaQuery.of(context).size.width;
     TextStyle _titleStyle = kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
     TextStyle _textStyle = kTextStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
-    total = Provider.of<AppointmentData>(context, listen: true).currentAppointment.totalPrice;
+    total = Provider.of<AppointmentService>(context, listen: true).currentAppointment.totalPrice;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(
@@ -144,24 +135,23 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   FloatingTextButton(
                     text: "Saati Belirle",
                     onPressed: () async {
-                      Provider.of<AppointmentData>(context, listen: false)
+                      Provider.of<AppointmentService>(context, listen: false)
                           .currentAppointment
                           .coiffureName = widget.coiffureModel.name;
-                      if (Provider.of<AppointmentData>(context, listen: false)
-                              .employeeList
-                              .length !=
-                          Provider.of<AppointmentData>(context, listen: false).serviceList.length) {
+                      if (employeeList.length != serviceList.length ||
+                          employeeList.contains(null)) {
                         Toast.show(
                           "Lütfen Çalışan Seçiniz",
                           context,
                           duration: 2,
                           backgroundColor: Colors.red[200],
                         );
-                      } else if (Provider.of<AppointmentData>(context, listen: false)
-                              .employeeList
-                              .length ==
-                          Provider.of<AppointmentData>(context, listen: false).serviceList.length) {
-                        Provider.of<AppointmentData>(context, listen: false)
+                      } else if (employeeList.length == serviceList.length &&
+                          !employeeList.contains(null)) {
+                        print(employeeList);
+                        Provider.of<AppointmentService>(context, listen: false).employeeList =
+                            employeeList;
+                        Provider.of<AppointmentService>(context, listen: false)
                             .appointmentAddHandler();
                         Routers.router.navigateTo(context, 'SaatSayfasi');
                       }

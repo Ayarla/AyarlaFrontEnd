@@ -2,6 +2,7 @@ import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/search_page.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class SmallCoiffureCard extends StatefulWidget {
   final CoiffureModel coiffureModel;
@@ -49,10 +49,10 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                 onTap: () {
                   var state = context.findAncestorStateOfType<SearchPageState>();
                   state.setState(() {});
-                  Provider.of<AppointmentData>(context, listen: false).myState = state;
-                  Provider.of<AppointmentData>(context, listen: false)
+                  Provider.of<UserService>(context, listen: false).myState = state;
+                  Provider.of<UserService>(context, listen: false)
                       .setOrChangeFav(widget.coiffureModel);
-                  if (Provider.of<AppointmentData>(context, listen: true)
+                  if (Provider.of<UserService>(context, listen: true)
                       .favorites
                       .contains(widget.coiffureModel)) {
                     FirebaseAnalytics().logEvent(
@@ -67,7 +67,7 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                 child: Padding(
                   padding: EdgeInsets.all(7),
                   child: Icon(
-                    Provider.of<AppointmentData>(context, listen: true)
+                    Provider.of<UserService>(context, listen: true)
                             .favorites
                             .contains(widget.coiffureModel)
                         ? Icons.favorite

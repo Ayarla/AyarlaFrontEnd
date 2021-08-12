@@ -1,8 +1,6 @@
 import 'dart:io';
-
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 class UserImage extends StatelessWidget {
   final bool isFile;

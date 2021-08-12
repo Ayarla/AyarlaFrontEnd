@@ -1,6 +1,7 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -13,11 +14,8 @@ import 'package:ayarla/components/smallCoiffureCard.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
 
 class FavoritesPage extends StatefulWidget {
-  static const id = 'FavoritesPage';
-
   @override
   _FavoritesPageState createState() => _FavoritesPageState();
 }
@@ -55,7 +53,7 @@ class _FavoritesPageState extends State<FavoritesPage>
 
   @override
   void initState() {
-    localList = Provider.of<AppointmentData>(context, listen: false).favorites;
+    localList = Provider.of<UserService>(context, listen: false).favorites;
     super.initState();
   }
 
@@ -115,11 +113,11 @@ class _FavoritesPageState extends State<FavoritesPage>
                                   color: Colors.transparent,
                                   icon: Icons.delete,
                                   onTap: () {
-                                    if (Provider.of<AppointmentData>(context,
+                                    if (Provider.of<UserService>(context,
                                             listen: false)
                                         .myState
                                         .mounted) {
-                                      Provider.of<AppointmentData>(context,
+                                      Provider.of<UserService>(context,
                                               listen: false)
                                           .myState
                                           .setState(() {});
@@ -192,12 +190,12 @@ class _FavoritesPageState extends State<FavoritesPage>
                                         color: Colors.transparent,
                                         icon: Icons.delete,
                                         onTap: () {
-                                          if (Provider.of<AppointmentData>(
+                                          if (Provider.of<UserService>(
                                                   context,
                                                   listen: false)
                                               .myState
                                               .mounted) {
-                                            Provider.of<AppointmentData>(context,
+                                            Provider.of<UserService>(context,
                                                     listen: false)
                                                 .myState
                                                 .setState(() {});

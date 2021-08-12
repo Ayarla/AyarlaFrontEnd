@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,14 +11,14 @@ import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
-import 'package:ayarla/virtual_data_base/login.dart';
-import '../virtual_data_base/genderSelection.dart';
+import 'package:ayarla/services/businessOrUser_data.dart';
+import 'package:ayarla/services/service_login.dart';
+import '../services/service_gender.dart';
 import 'package:flutter/rendering.dart';
 
 class Functions {
   decideColor(context) {
-    Gender selectedGender = Provider.of<GenderSelection>(context, listen: false).currentGender[0];
+    Gender selectedGender = Provider.of<GenderService>(context, listen: false).currentGender[0];
     if (selectedGender == Gender.female) {
       return LinearGradient(
         begin: Alignment.centerLeft,
@@ -84,7 +83,7 @@ class Functions {
     File image = await ImagePicker.pickImage(source: ImageSource.camera, imageQuality: 50);
 
     if (image != null) {
-      if (Provider.of<Login>(context, listen: false).isManager) {
+      if (Provider.of<LoginService>(context, listen: false).isManager) {
         Provider.of<BusinessAndUserData>(context, listen: false)
             .addImage(ImageListItem(file: image, isFile: true, covered: true));
       } else {
@@ -99,7 +98,7 @@ class Functions {
     File image = await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50);
 
     if (image != null) {
-      if (Provider.of<Login>(context, listen: false).isManager) {
+      if (Provider.of<LoginService>(context, listen: false).isManager) {
         Provider.of<BusinessAndUserData>(context, listen: false)
             .addImage(ImageListItem(file: image, isFile: true, covered: true));
       } else {

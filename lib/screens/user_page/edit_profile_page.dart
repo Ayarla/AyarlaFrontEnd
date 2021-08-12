@@ -1,7 +1,7 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
+import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';

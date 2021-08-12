@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 
 class ManagerSendMessage extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class _ManagerSendMessageState extends State<ManagerSendMessage> {
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
 
                   /// reverse
-                  children: Provider.of<AppointmentData>(context, listen: false)
+                  children: Provider.of<AppointmentService>(context, listen: false)
                       .messages
                       .reversed
                       .toList(),
@@ -76,7 +76,7 @@ class _ManagerSendMessageState extends State<ManagerSendMessage> {
                       onPressed: () {
                         messageTextController.clear();
                         setState(() {
-                          Provider.of<AppointmentData>(context, listen: false)
+                          Provider.of<AppointmentService>(context, listen: false)
                               .messages
                               .add(
                                 MessageBubble(text: message),

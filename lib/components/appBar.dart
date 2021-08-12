@@ -11,7 +11,7 @@ import 'package:ayarla/components/circularParent.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:ayarla/components/UI/responsiveWidget.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 
 class DefaultAppBar extends StatelessWidget {
   final Widget title;
@@ -283,11 +283,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         ancestralState.setState(() {});
 
                         setState(() {
-                          Provider.of<AppointmentData>(context, listen: false)
+                          Provider.of<AppointmentService>(context, listen: false)
                               .currentList
                               .sort((a, b) => a.star.compareTo(b.star));
-                          Provider.of<AppointmentData>(context, listen: false).setList(
-                              Provider.of<AppointmentData>(context, listen: false).currentList);
+                          Provider.of<AppointmentService>(context, listen: false).setList(
+                              Provider.of<AppointmentService>(context, listen: false).currentList);
                         });
                         Navigator.pop(context);
                       },
@@ -305,11 +305,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         var ancestralState = context.findAncestorStateOfType<SearchPageState>();
                         ancestralState.setState(() {});
                         setState(() {
-                          Provider.of<AppointmentData>(context, listen: false)
+                          Provider.of<AppointmentService>(context, listen: false)
                               .currentList
                               .sort((b, a) => a.star.compareTo(b.star));
-                          Provider.of<AppointmentData>(context, listen: false).setList(
-                              Provider.of<AppointmentData>(context, listen: false).currentList);
+                          Provider.of<AppointmentService>(context, listen: false).setList(
+                              Provider.of<AppointmentService>(context, listen: false).currentList);
                         });
                         Navigator.pop(context);
                       },
@@ -341,11 +341,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         ancestralState.setState(() {});
 
                         setState(() {
-                          Provider.of<AppointmentData>(context, listen: false)
+                          Provider.of<AppointmentService>(context, listen: false)
                               .currentList
                               .sort((a, b) => a.comments.compareTo(b.comments));
-                          Provider.of<AppointmentData>(context, listen: false).setList(
-                              Provider.of<AppointmentData>(context, listen: false).currentList);
+                          Provider.of<AppointmentService>(context, listen: false).setList(
+                              Provider.of<AppointmentService>(context, listen: false).currentList);
                         });
                         Navigator.pop(context);
                       },
@@ -363,11 +363,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         var ancestralState = context.findAncestorStateOfType<SearchPageState>();
                         ancestralState.setState(() {});
                         setState(() {
-                          Provider.of<AppointmentData>(context, listen: false)
+                          Provider.of<AppointmentService>(context, listen: false)
                               .currentList
                               .sort((b, a) => a.comments.compareTo(b.comments));
-                          Provider.of<AppointmentData>(context, listen: false).setList(
-                              Provider.of<AppointmentData>(context, listen: false).currentList);
+                          Provider.of<AppointmentService>(context, listen: false).setList(
+                              Provider.of<AppointmentService>(context, listen: false).currentList);
                         });
                         Navigator.pop(context);
                       },
@@ -413,11 +413,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             ancestralState.setState(() {});
 
                             setState(() {
-                              Provider.of<AppointmentData>(context, listen: false)
+                              Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
                                   .sort((a, b) => a.star.compareTo(b.star));
-                              Provider.of<AppointmentData>(context, listen: false).setList(
-                                  Provider.of<AppointmentData>(context, listen: false).currentList);
+                              Provider.of<AppointmentService>(context, listen: false).setList(
+                                  Provider.of<AppointmentService>(context, listen: false).currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -435,11 +435,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             var ancestralState = context.findAncestorStateOfType<SearchPageState>();
                             ancestralState.setState(() {});
                             setState(() {
-                              Provider.of<AppointmentData>(context, listen: false)
+                              Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
                                   .sort((b, a) => a.star.compareTo(b.star));
-                              Provider.of<AppointmentData>(context, listen: false).setList(
-                                  Provider.of<AppointmentData>(context, listen: false).currentList);
+                              Provider.of<AppointmentService>(context, listen: false).setList(
+                                  Provider.of<AppointmentService>(context, listen: false).currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -471,11 +471,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             ancestralState.setState(() {});
 
                             setState(() {
-                              Provider.of<AppointmentData>(context, listen: false)
+                              Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
                                   .sort((a, b) => a.comments.compareTo(b.comments));
-                              Provider.of<AppointmentData>(context, listen: false).setList(
-                                  Provider.of<AppointmentData>(context, listen: false).currentList);
+                              Provider.of<AppointmentService>(context, listen: false).setList(
+                                  Provider.of<AppointmentService>(context, listen: false).currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -493,11 +493,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             var ancestralState = context.findAncestorStateOfType<SearchPageState>();
                             ancestralState.setState(() {});
                             setState(() {
-                              Provider.of<AppointmentData>(context, listen: false)
+                              Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
                                   .sort((b, a) => a.comments.compareTo(b.comments));
-                              Provider.of<AppointmentData>(context, listen: false).setList(
-                                  Provider.of<AppointmentData>(context, listen: false).currentList);
+                              Provider.of<AppointmentService>(context, listen: false).setList(
+                                  Provider.of<AppointmentService>(context, listen: false).currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -545,11 +545,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             ancestralState.setState(() {});
 
                             setState(() {
-                              Provider.of<AppointmentData>(context, listen: false)
+                              Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
                                   .sort((a, b) => a.star.compareTo(b.star));
-                              Provider.of<AppointmentData>(context, listen: false).setList(
-                                  Provider.of<AppointmentData>(context, listen: false).currentList);
+                              Provider.of<AppointmentService>(context, listen: false).setList(
+                                  Provider.of<AppointmentService>(context, listen: false).currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -567,11 +567,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             var ancestralState = context.findAncestorStateOfType<SearchPageState>();
                             ancestralState.setState(() {});
                             setState(() {
-                              Provider.of<AppointmentData>(context, listen: false)
+                              Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
                                   .sort((b, a) => a.star.compareTo(b.star));
-                              Provider.of<AppointmentData>(context, listen: false).setList(
-                                  Provider.of<AppointmentData>(context, listen: false).currentList);
+                              Provider.of<AppointmentService>(context, listen: false).setList(
+                                  Provider.of<AppointmentService>(context, listen: false).currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -603,11 +603,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             ancestralState.setState(() {});
 
                             setState(() {
-                              Provider.of<AppointmentData>(context, listen: false)
+                              Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
                                   .sort((a, b) => a.comments.compareTo(b.comments));
-                              Provider.of<AppointmentData>(context, listen: false).setList(
-                                  Provider.of<AppointmentData>(context, listen: false).currentList);
+                              Provider.of<AppointmentService>(context, listen: false).setList(
+                                  Provider.of<AppointmentService>(context, listen: false).currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -625,11 +625,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             var ancestralState = context.findAncestorStateOfType<SearchPageState>();
                             ancestralState.setState(() {});
                             setState(() {
-                              Provider.of<AppointmentData>(context, listen: false)
+                              Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
                                   .sort((b, a) => a.comments.compareTo(b.comments));
-                              Provider.of<AppointmentData>(context, listen: false).setList(
-                                  Provider.of<AppointmentData>(context, listen: false).currentList);
+                              Provider.of<AppointmentService>(context, listen: false).setList(
+                                  Provider.of<AppointmentService>(context, listen: false).currentList);
                             });
                             Navigator.pop(context);
                           },

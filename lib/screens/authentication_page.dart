@@ -1,8 +1,8 @@
 import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
-import 'package:ayarla/virtual_data_base/login.dart';
+import 'package:ayarla/services/businessOrUser_data.dart';
+import 'package:ayarla/services/service_login.dart';
 import 'package:ayarla/webService/user_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -174,7 +174,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     } else {
                                       print("Not Validated");
                                     }
-                                    Provider.of<Login>(context, listen: false).loggedInUser();
+                                    Provider.of<LoginService>(context, listen: false).loggedInUser();
 
                                     ///TODO check and push somewhere
                                   },

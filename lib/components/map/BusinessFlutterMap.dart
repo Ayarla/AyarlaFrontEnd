@@ -4,7 +4,7 @@ import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
+import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import "package:latlong/latlong.dart" as Latlong;

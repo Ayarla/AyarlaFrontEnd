@@ -1,7 +1,7 @@
 import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
+import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

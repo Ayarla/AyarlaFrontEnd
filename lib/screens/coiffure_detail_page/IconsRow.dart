@@ -1,7 +1,7 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/model_coiffure.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -37,7 +37,7 @@ class _IconsRowState extends State<IconsRow> {
         ),
         GenericIconButton(
           iconContext: Icon(
-            Provider.of<AppointmentData>(context, listen: false)
+            Provider.of<UserService>(context, listen: false)
                     .favorites
                     .contains(widget.coiffureModel)
                 ? Icons.favorite
@@ -49,14 +49,10 @@ class _IconsRowState extends State<IconsRow> {
           width: 70,
           onPressed: () {
             setState(() {
-              if (Provider.of<AppointmentData>(context, listen: false)
-                  .myState
-                  .mounted) {
-                Provider.of<AppointmentData>(context, listen: false)
-                    .myState
-                    .setState(() {});
+              if (Provider.of<UserService>(context, listen: false).myState.mounted) {
+                Provider.of<UserService>(context, listen: false).myState.setState(() {});
               }
-              Provider.of<AppointmentData>(context, listen: false)
+              Provider.of<UserService>(context, listen: false)
                   .setOrChangeFav(widget.coiffureModel);
             });
           },

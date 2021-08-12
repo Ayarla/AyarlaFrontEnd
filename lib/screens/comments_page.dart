@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:ayarla/models/functions.dart';
 
@@ -115,7 +115,7 @@ class _CommentsPageState extends State<CommentsPage> {
         expanded: true,
       ),
     ];
-    Provider.of<AppointmentData>(context, listen: false).currentList2 = generatingList;
+    Provider.of<AppointmentService>(context, listen: false).currentList2 = generatingList;
     super.initState();
   }
 

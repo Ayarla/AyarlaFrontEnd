@@ -4,7 +4,7 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_management.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:badges/badges.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
@@ -108,7 +108,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                                       int index = 0;
                                       for (bool x in boolList) {
                                         if (x == true) {
-                                          Provider.of<AppointmentData>(context, listen: false)
+                                          Provider.of<ManagementService>(context, listen: false)
                                               .setEmployee(serviceIndex, index);
                                         }
                                         index++;

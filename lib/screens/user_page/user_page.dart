@@ -14,8 +14,8 @@ import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/authentication_page.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
-import 'package:ayarla/virtual_data_base/login.dart';
+import 'package:ayarla/services/businessOrUser_data.dart';
+import 'package:ayarla/services/service_login.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -52,16 +52,16 @@ class _UserPageState extends State<UserPage> {
             child: OverScroll(
               child: Column(
                 children: [
-                  if (!Provider.of<Login>(context, listen: true).isLoggedIn) SizedBox(height: 30),
-                  if (!Provider.of<Login>(context, listen: true).isLoggedIn) UI.generalLogo,
-                  if (!Provider.of<Login>(context, listen: true).isLoggedIn) SizedBox(height: 30),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) SizedBox(height: 30),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) UI.generalLogo,
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) SizedBox(height: 30),
 
                   ///if the user is not logged in then it opens the authentication
                   ///page for login or sign up
-                  if (!Provider.of<Login>(context, listen: true).isLoggedIn) AuthenticationPage(),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) AuthenticationPage(),
 
                   ///otherwise it opens the profile of the user
-                  if (Provider.of<Login>(context, listen: true).isLoggedIn)
+                  if (Provider.of<LoginService>(context, listen: true).isLoggedIn)
                     Flexible(
                       child: Column(
                         children: [
@@ -159,7 +159,7 @@ class _UserPageState extends State<UserPage> {
                                     iconColor: Colors.red,
                                     text: 'Çıkış Yap',
                                     onPressed: () {
-                                      Provider.of<Login>(context, listen: false).loggedInUser();
+                                      Provider.of<LoginService>(context, listen: false).loggedInUser();
                                       Routers.router.navigateTo(context, '/KullaniciSayfasi',
                                           clearStack: false, replace: true);
                                     },

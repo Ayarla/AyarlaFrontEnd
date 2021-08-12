@@ -5,13 +5,13 @@ import 'package:ayarla/screens/manager_screens/business_info_page/AboutSectionBu
 import 'package:ayarla/screens/manager_screens/business_info_page/ImageSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/ServiceSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/section_contact.dart';
+import 'package:ayarla/services/service_management.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
@@ -138,7 +138,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                     int index = 0;
                                     for (bool x in boolList) {
                                       if (x == true) {
-                                        Provider.of<AppointmentData>(context, listen: false)
+                                        Provider.of<ManagementService>(context, listen: false)
                                             .setEmployee(serviceIndex, index);
                                       }
                                       index++;

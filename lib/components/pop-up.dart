@@ -1,13 +1,9 @@
 import 'package:ayarla/screens/privacy_policy_page.dart';
-import 'package:ayarla/virtual_data_base/businessOrUser_data.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
 import 'package:provider/provider.dart';
 
 class PopUp {
@@ -152,8 +148,6 @@ class PopUp {
                   } else {
                     // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                     // Navigator.pushNamed(context, ConfirmationPage.id);
-                    Provider.of<AppointmentData>(context, listen: false)
-                        .confirmation();
                   }
                 }
 
@@ -502,10 +496,7 @@ class PopUp {
                           color: Colors.red, fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                      // Navigator.pushNamed(context, ConfirmationPage.id);
-                      Provider.of<AppointmentData>(context, listen: false)
-                          .confirmation();
+
                     },
                   ),
                   TextButton(
@@ -531,10 +522,7 @@ class PopUp {
                           .checkBox) {
                         if (_formKey.currentState.validate()) {
                           /// TODO kayit olmayi burada yapacagiz
-                          // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
-                          // Navigator.pushNamed(context, ConfirmationPage.id);
-                          Provider.of<AppointmentData>(context, listen: false)
-                              .confirmation();
+
 
                           print(_phoneNumber);
                           print(_name);

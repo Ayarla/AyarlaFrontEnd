@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:toast/toast.dart';
 
@@ -39,7 +39,7 @@ class _CalendarPageState extends State<CalendarPage> {
     setState(() {
       selectedDate = data;
     });
-    Provider.of<AppointmentData>(context, listen: false).currentAppointment.date =
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment.date =
         '${selectedDate.day} '
         '${month[selectedDate.month - 1]} '
         '${week[selectedDate.weekday - 1]}';
@@ -108,8 +108,8 @@ class _CalendarPageState extends State<CalendarPage> {
     super.initState();
     selectedDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     appointmentDetails =
-        Provider.of<AppointmentData>(context, listen: false).currentAppointment.appointmentDetails;
-    Provider.of<AppointmentData>(context, listen: false).currentAppointment.date =
+        Provider.of<AppointmentService>(context, listen: false).currentAppointment.appointmentDetails;
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment.date =
         '${selectedDate.day} '
         '${month[selectedDate.month - 1]} '
         '${week[selectedDate.weekday - 1]}';
@@ -191,8 +191,9 @@ class _CalendarPageState extends State<CalendarPage> {
                   Toast.show("Lütfen Saat Seçiniz", context,
                       duration: 2, backgroundColor: Colors.red[200]);
                 } else if (selectedHourList.length == appointmentDetails.length) {
-                  Provider.of<AppointmentData>(context, listen: false).hoursList = selectedHourList;
-                  await Provider.of<AppointmentData>(context, listen: false).dateHandler();
+                  Provider.of<AppointmentService>(context, listen: false).hoursList = selectedHourList;
+                  await Provider.of<AppointmentService>(context, listen: false).dateHandler();
+                  print(Provider.of<AppointmentService>(context, listen: false).currentAppointment.appointmentDetails.length);
                   Routers.router.navigateTo(context, "/OnaySayfasi");
                 }
               },

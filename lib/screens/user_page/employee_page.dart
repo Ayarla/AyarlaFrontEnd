@@ -8,7 +8,7 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/timeDropdown.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 
 class EmployeePage extends StatefulWidget {
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 
 class ManagerNotes extends StatelessWidget {
   static const String id = "ManagerNotes";
@@ -61,16 +61,16 @@ class ManagerNotes extends StatelessWidget {
         child: FloatingActionButton.extended(
           onPressed: () {
             if (index == null) {
-              Provider.of<AppointmentData>(context, listen: false)
+              Provider.of<AppointmentService>(context, listen: false)
                   .managerNotes
                   .add(Notes(
                       notes: noteContent,
                       index:
-                          Provider.of<AppointmentData>(context, listen: false)
+                          Provider.of<AppointmentService>(context, listen: false)
                               .managerNotes
                               .length));
             } else {
-              Provider.of<AppointmentData>(context, listen: false)
+              Provider.of<AppointmentService>(context, listen: false)
                   .managerNotes[index]
                   .notes = noteContent;
             }

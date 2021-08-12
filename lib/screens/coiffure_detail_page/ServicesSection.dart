@@ -2,7 +2,7 @@ import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -14,24 +14,26 @@ class ServicesSection extends StatefulWidget {
   _ServicesSectionState createState() => _ServicesSectionState();
 }
 
+List<ServiceModel> serviceList = [];
+List<EmployeeModel> employeeList = [];
+
 class _ServicesSectionState extends State<ServicesSection> {
-  List<ServiceModel> serviceList = [];
-  List<EmployeeModel> employeeList = [EmployeeModel()];
-
-  /// returns the index of the service
-  int findIndex(ServiceModel x) => fullTimeServices.indexOf(x);
-
   @override
   void initState() {
-    Provider.of<AppointmentData>(context, listen: false).serviceList.clear();
-    Provider.of<AppointmentData>(context, listen: false).employeeList.clear();
+    serviceList.clear();
+    employeeList.clear();
+    Provider.of<AppointmentService>(context, listen: false).serviceList.clear();
+    Provider.of<AppointmentService>(context, listen: false).employeeList.clear();
     super.initState();
   }
 
   /// TODO - test everything.
   @override
   Widget build(BuildContext context) {
-    // print(Provider.of<AppointmentData>(context, listen: false).employeeList);
+    // print(employeeList.length);
+    // for (EmployeeModel x in employeeList) {
+    //   print(x.name);
+    // }
     final width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,19 +51,15 @@ class _ServicesSectionState extends State<ServicesSection> {
               onPressed: () {
                 if (!serviceList.contains(serviceModel)) {
                   serviceList.add(serviceModel);
+                  Provider.of<AppointmentService>(context, listen: false).serviceList = serviceList;
                 } else if (serviceList.contains(serviceModel)) {
-                  for (int i = 0; i < serviceModel.employees.length; i++) {
-                    setState(() {
-                      serviceModel.employees[i].selected = false;
-                    });
-                  }
-                  Provider.of<AppointmentData>(context, listen: false)
-                      .employeeList
-                      .removeAt(serviceList.indexOf(serviceModel));
-                  serviceList.remove(serviceModel);
+                  setState(() {
+                    serviceModel.employees.forEach((element) => element.selected = false);
+                    serviceList.remove(serviceModel);
+                  });
                 }
-                Provider.of<AppointmentData>(context, listen: false).serviceList = serviceList;
-                Provider.of<AppointmentData>(context, listen: false).priceHandler();
+                employeeList.length = serviceList.length;
+                Provider.of<AppointmentService>(context, listen: false).priceHandler();
                 FirebaseAnalytics().logEvent(name: 'service_expandable', parameters: {
                   'name': serviceModel.name,
                   'state': serviceModel.selected ? 'opened' : 'closed'
@@ -100,6 +98,7 @@ class _ServicesSectionState extends State<ServicesSection> {
                     scrollDirection: Axis.horizontal,
                     itemCount: 5,
                     itemBuilder: (BuildContext bc, int index) {
+                      employeeList.length = serviceList.length;
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 4.0),
                         child: Container(
@@ -130,20 +129,16 @@ class _ServicesSectionState extends State<ServicesSection> {
                                   fontSize: width <= 400 ? width / 30 : 14),
                               text: employeesList[index].name,
                               onPressed: () {
-                                for (EmployeeModel x in serviceModel.employees) {
-                                  x.selected = false;
-                                }
-                                serviceModel.employees[index].selected =
-                                    !serviceModel.employees[index].selected;
-                                setState(() {});
-                                employeeList.add(EmployeeModel());
-                                employeeList[serviceList.indexOf(serviceModel)] =
-                                    employeesList[index];
-                                List holder =
-                                    employeeList.where((element) => element.name != null).toList();
-                                holder.length = serviceList.length;
-                                Provider.of<AppointmentData>(context, listen: false).employeeList =
-                                    holder;
+                                setState(() {
+                                  serviceModel.employees
+                                      .forEach((element) => element.selected = false);
+                                  serviceModel.employees[index].selected =
+                                      !serviceModel.employees[index].selected;
+                                });
+                                employeeList.insert(
+                                    serviceList.indexOf(serviceModel), employeesList[index]);
+                                // Provider.of<AppointmentData>(context, listen: false).employeeList =
+                                //     employeeList;
                               }),
                         ),
                       );

@@ -1,10 +1,11 @@
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/smallCoiffureCard.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:ayarla/models/functions.dart';
 
 class SearchPage extends StatefulWidget {
@@ -15,15 +16,15 @@ class SearchPage extends StatefulWidget {
 class SearchPageState extends State<SearchPage> {
   Functions functions = Functions();
   List generatingList = [];
-  List coiffureList;
+  List localCoiffureList;
 
   @override
   initState() {
     super.initState();
     functions.getLocation();
-    coiffureList = Provider.of<AppointmentData>(context, listen: false).coiffureList;
-    generatingList = coiffureList;
-    Provider.of<AppointmentData>(context, listen: false).currentList = generatingList;
+    localCoiffureList = coiffureList;
+    generatingList = localCoiffureList;
+    Provider.of<AppointmentService>(context, listen: false).currentList = generatingList;
   }
 
   @override
@@ -38,13 +39,13 @@ class SearchPageState extends State<SearchPage> {
               onChanged: (value) {
                 setState(() {
                   if (value.isNotEmpty) {
-                    Provider.of<AppointmentData>(context, listen: false).currentList =
-                        Provider.of<AppointmentData>(context, listen: false)
+                    Provider.of<AppointmentService>(context, listen: false).currentList =
+                        Provider.of<AppointmentService>(context, listen: false)
                             .currentList
                             .where((element) => element.name.contains(value))
                             .toList();
                   } else
-                    Provider.of<AppointmentData>(context, listen: false).currentList =
+                    Provider.of<AppointmentService>(context, listen: false).currentList =
                         generatingList;
                 });
 
@@ -60,12 +61,12 @@ class SearchPageState extends State<SearchPage> {
                     padding: EdgeInsets.zero,
                     shrinkWrap: false,
                     itemCount:
-                        Provider.of<AppointmentData>(context, listen: true).currentList.length,
+                        Provider.of<AppointmentService>(context, listen: true).currentList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 10),
                         child: SmallCoiffureCard(
-                            coiffureModel: Provider.of<AppointmentData>(context, listen: true)
+                            coiffureModel: Provider.of<AppointmentService>(context, listen: true)
                                 .currentList[index]),
                       );
                     },
@@ -75,15 +76,16 @@ class SearchPageState extends State<SearchPage> {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                     padding: EdgeInsets.only(top: 5),
                     itemCount:
-                        Provider.of<AppointmentData>(context, listen: true).currentList.length,
+                        Provider.of<AppointmentService>(context, listen: true).currentList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Wrap(
                         children: [
                           Padding(
                             padding: EdgeInsets.all(8.0),
                             child: SmallCoiffureCard(
-                                coiffureModel: Provider.of<AppointmentData>(context, listen: true)
-                                    .currentList[index]),
+                                coiffureModel:
+                                    Provider.of<AppointmentService>(context, listen: true)
+                                        .currentList[index]),
                           ),
                         ],
                       );

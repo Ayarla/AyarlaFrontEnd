@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/screens/manager_screens/manager_notes.dart';
-import 'package:ayarla/virtual_data_base/appointment_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 
 class ManagerNotesPage extends StatefulWidget {
   @override
@@ -80,7 +80,7 @@ class _ManagerNotesPageState extends State<ManagerNotesPage> {
                   ),
                 ),
                 for (Notes note
-                    in Provider.of<AppointmentData>(context, listen: true)
+                    in Provider.of<AppointmentService>(context, listen: true)
                         .managerNotes)
                   NotesCard(
                     title: note.notes,

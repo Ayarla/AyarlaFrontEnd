@@ -10,7 +10,6 @@ import 'package:ayarla/screens/user_page/appointments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';
 import 'package:ayarla/screens/user_page/message_page.dart';
 import 'package:ayarla/screens/user_page/user_comments_page.dart';
-import 'package:ayarla/webService/view_webFunctions.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/screens/comments_page.dart';
@@ -98,13 +97,13 @@ class Routers {
   static Handler _flutterMap = Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) => BusinessFlutterMap());
 
-  /// WebServices
-  static Handler _webServicePage = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) => ViewWebFunctions());
-
-  /// Reg
-  static Handler _regPopUp = Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) => ViewWebFunctions());
+  // /// WebServices
+  // static Handler _webServicePage = Handler(
+  //     handlerFunc: (BuildContext context, Map<String, dynamic> params) => ViewWebFunctions());
+  //
+  // /// Reg
+  // static Handler _regPopUp = Handler(
+  //     handlerFunc: (BuildContext context, Map<String, dynamic> params) => ViewWebFunctions());
 
   // static Handler _regPage = Handler(
   //     handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
@@ -138,8 +137,8 @@ class Routers {
     router.define("/Harita", handler: _flutterMap);
 
     /// Test
-    router.define("/WebServisleri", handler: _webServicePage);
-    router.define("/KayitPopUp", handler: _regPopUp);
+    // router.define("/WebServisleri", handler: _webServicePage);
+    // router.define("/KayitPopUp", handler: _regPopUp);
     // router.define("/KayitSayfasi", handler: _regPage);
     router.define("/Ayarlarim", handler: _employeeSettingsPage);
   }

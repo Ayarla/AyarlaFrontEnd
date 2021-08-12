@@ -3,21 +3,21 @@ import 'package:ayarla/models/model_service.dart';
 
 class Appointment {
   String coiffureName;
-  int totalPrice;
   String date;
   String hour;
+  int totalPrice;
   bool isConfirmedByUser;
   bool isConfirmedByCoiffure;
   List<AppointmentModel> appointmentDetails;
 
   Appointment({
     this.coiffureName,
+    this.hour,
+    this.date,
     this.totalPrice,
     this.isConfirmedByUser,
     this.isConfirmedByCoiffure,
-    this.date,
     this.appointmentDetails,
-    this.hour,
   });
 }
 
