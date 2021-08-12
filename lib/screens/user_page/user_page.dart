@@ -30,6 +30,7 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         showIconButton: false,
         backButtonFunction: () {
@@ -52,13 +53,16 @@ class _UserPageState extends State<UserPage> {
             child: OverScroll(
               child: Column(
                 children: [
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) SizedBox(height: 30),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
+                    SizedBox(height: 30),
                   if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) UI.generalLogo,
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) SizedBox(height: 30),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
+                    SizedBox(height: 30),
 
                   ///if the user is not logged in then it opens the authentication
                   ///page for login or sign up
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) AuthenticationPage(),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
+                    AuthenticationPage(),
 
                   ///otherwise it opens the profile of the user
                   if (Provider.of<LoginService>(context, listen: true).isLoggedIn)
@@ -109,8 +113,8 @@ class _UserPageState extends State<UserPage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   GenericButton(
-                                    icon: Icons.business_center_outlined,
-                                    iconColor: Colors.green,
+                                    icon: Icons.favorite_border_rounded,
+                                    iconColor: Colors.red,
                                     text: 'Favorilerim',
                                     onPressed: () {
                                       Routers.router.navigateTo(context, "/Favorilerim",
@@ -118,8 +122,8 @@ class _UserPageState extends State<UserPage> {
                                     },
                                   ),
                                   GenericButton(
-                                    icon: Icons.business_center_outlined,
-                                    iconColor: Colors.green,
+                                    icon: Icons.calendar_today_rounded,
+                                    iconColor: Colors.blue,
                                     text: 'Randevularım',
                                     onPressed: () {
                                       Routers.router.navigateTo(context, "/Randevularım",
@@ -127,7 +131,7 @@ class _UserPageState extends State<UserPage> {
                                     },
                                   ),
                                   GenericButton(
-                                    icon: Icons.business_center_outlined,
+                                    icon: Icons.message_rounded,
                                     iconColor: Colors.green,
                                     text: 'Mesajlarım',
                                     onPressed: () {
@@ -159,7 +163,8 @@ class _UserPageState extends State<UserPage> {
                                     iconColor: Colors.red,
                                     text: 'Çıkış Yap',
                                     onPressed: () {
-                                      Provider.of<LoginService>(context, listen: false).loggedInUser();
+                                      Provider.of<LoginService>(context, listen: false)
+                                          .loggedInUser();
                                       Routers.router.navigateTo(context, '/KullaniciSayfasi',
                                           clearStack: false, replace: true);
                                     },

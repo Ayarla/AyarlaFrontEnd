@@ -41,7 +41,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
 
   @override
   void initState() {
-    Provider.of<AppointmentData>(context, listen: false).currentAppointment = Appointment(
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment = Appointment(
       coiffureName: '',
       totalPrice: 0,
       isConfirmedByUser: false,
@@ -64,7 +64,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     final width = MediaQuery.of(context).size.width;
     TextStyle _titleStyle = kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
     TextStyle _textStyle = kTextStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
-    total = Provider.of<AppointmentData>(context, listen: true).currentAppointment.totalPrice;
+    total = Provider.of<AppointmentService>(context, listen: true).currentAppointment.totalPrice;
 
     /// if manager sent an information message it will be shown directly once the coiffure page opens
     if (Provider.of<ManagerData>(context).managerInformationMessage?.isNotEmpty ?? false) {

@@ -1,5 +1,6 @@
 import 'package:ayarla/screens/privacy_policy_page.dart';
 import 'package:ayarla/services/businessOrUser_data.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -148,7 +149,7 @@ class PopUp {
                   } else {
                     // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                     // Navigator.pushNamed(context, ConfirmationPage.id);
-                    Provider.of<AppointmentData>(context, listen: false).confirmation();
+                    // Provider.of<AppointmentService>(context, listen: false).confirmation();
                   }
                 }
 
@@ -481,7 +482,7 @@ class PopUp {
                   onPressed: () {
                     // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                     // Navigator.pushNamed(context, ConfirmationPage.id);
-                    Provider.of<AppointmentData>(context, listen: false).confirmation();
+                    // Provider.of<AppointmentService>(context, listen: false).confirmation();
                   },
                 ),
                 TextButton(
@@ -504,7 +505,7 @@ class PopUp {
                         /// TODO kayit olmayi burada yapacagiz
                         // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));
                         // Navigator.pushNamed(context, ConfirmationPage.id);
-                        Provider.of<AppointmentData>(context, listen: false).confirmation();
+                        // Provider.of<AppointmentService>(context, listen: false).confirmation();
 
                         print(_phoneNumber);
                         print(_name);
