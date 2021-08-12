@@ -18,8 +18,7 @@ import 'package:flutter/rendering.dart';
 
 class Functions {
   decideColor(context) {
-    Gender selectedGender =
-        Provider.of<GenderSelection>(context, listen: false).currentGender[0];
+    Gender selectedGender = Provider.of<GenderService>(context, listen: false).currentGender[0];
     if (selectedGender == Gender.female) {
       return LinearGradient(
         begin: Alignment.centerLeft,
@@ -102,35 +101,38 @@ class Functions {
       ),
     );
   }
+
   /// takes image from file
   /// TODO dart:io web desteği yok
   imageFromFile(context) async {
-
     ///Image fromPicker = await ImagePickerFoWeb.getImage(
     ///    outputType: ImageType.widget);
     PickedFile fromPicker = await ImagePicker().getImage(source: ImageSource.gallery);
     if (fromPicker != null) {
-      if (Provider
-          .of<Login>(context, listen: false)
-          .isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(covered: true, pickedFile: fromPicker,isPicked: true,));
+      if (Provider.of<LoginService>(context, listen: false).isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false).addImage(ImageListItem(
+          covered: true,
+          pickedFile: fromPicker,
+          isPicked: true,
+        ));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
             .setUserImage(UserImage(pickedFile: fromPicker));
       }
     }
-    }
+  }
 
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
-    PickedFile image = await ImagePicker().getImage(
-        source: ImageSource.camera, imageQuality: 50);
+    PickedFile image = await ImagePicker().getImage(source: ImageSource.camera, imageQuality: 50);
 
     if (image != null) {
-      if (Provider.of<Login>(context, listen: false).isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(covered: true, pickedFile: image,isPicked: true,));
+      if (Provider.of<LoginService>(context, listen: false).isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false).addImage(ImageListItem(
+          covered: true,
+          pickedFile: image,
+          isPicked: true,
+        ));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
             .setUserImage(UserImage(pickedFile: image));
@@ -140,13 +142,15 @@ class Functions {
 
   ///takes an image from gallery and adds it to the list
   imgFromGallery(context) async {
-    PickedFile image = await ImagePicker().getImage(
-        source: ImageSource.gallery, imageQuality: 50);
+    PickedFile image = await ImagePicker().getImage(source: ImageSource.gallery, imageQuality: 50);
 
     if (image != null) {
-      if (Provider.of<Login>(context, listen: false).isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(covered: true, pickedFile: image, isPicked: true,));
+      if (Provider.of<LoginService>(context, listen: false).isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false).addImage(ImageListItem(
+          covered: true,
+          pickedFile: image,
+          isPicked: true,
+        ));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
             .setUserImage(UserImage(pickedFile: image));
@@ -156,14 +160,14 @@ class Functions {
 
   void showPicker(context) {
     bool isWeb;
-    try{
-      if(Platform.isAndroid||Platform.isIOS) {
-        isWeb=false;
+    try {
+      if (Platform.isAndroid || Platform.isIOS) {
+        isWeb = false;
       } else {
-        isWeb=true;
+        isWeb = true;
       }
-    } catch(e){
-      isWeb=true;
+    } catch (e) {
+      isWeb = true;
     }
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -175,16 +179,16 @@ class Functions {
             color: Colors.white,
             child: new Wrap(
               children: <Widget>[
-                if(isWeb==true)
-                new ListTile(
-                  leading: new Icon(Icons.upload_file),
-                  title: new Text('Dosya'),
-                  tileColor: Colors.transparent,
-                  onTap: () {
-                    imageFromFile(context);
-                    Navigator.of(context).pop();
-                  },
-                )
+                if (isWeb == true)
+                  new ListTile(
+                    leading: new Icon(Icons.upload_file),
+                    title: new Text('Dosya'),
+                    tileColor: Colors.transparent,
+                    onTap: () {
+                      imageFromFile(context);
+                      Navigator.of(context).pop();
+                    },
+                  )
                 else
                   Column(
                     children: [
@@ -207,7 +211,6 @@ class Functions {
                       ),
                     ],
                   )
-
               ],
             ),
           );
@@ -215,22 +218,15 @@ class Functions {
   }
 
   int findIndex(ServiceModel x, context) {
-    return Provider.of<AppointmentData>(context, listen: false)
-        .fullTimeServices
-        .indexOf(x);
+    return fullTimeServices.indexOf(x);
   }
 
   int findIndexOfEmployee(int employeeIndex, EmployeeModel y, context) {
-    return Provider.of<AppointmentData>(context, listen: false)
-        .fullTimeServices[employeeIndex]
-        .employees
-        .indexOf(y);
+    return employeesList.indexOf(y);
   }
 
   int findIndexEmployee(EmployeeModel y, context) {
-    return Provider.of<AppointmentData>(context, listen: false)
-        .employeesList
-        .indexOf(y);
+    return employeesList.indexOf(y);
   }
 }
 

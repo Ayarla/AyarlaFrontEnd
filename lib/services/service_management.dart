@@ -1,3 +1,4 @@
+import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,16 @@ class ManagementService extends ChangeNotifier {
 
   deleteService(int index) {
     fullTimeServices.remove(fullTimeServices[index]);
+    notifyListeners();
+  }
+
+  addEmployee(String name) {
+    employeesList.add(EmployeeModel(name: name, image: 'assets/default_employee.jpg'));
+    notifyListeners();
+  }
+
+  removeEmployee(int employeeIndex){
+    employeesList.removeAt(employeeIndex);
     notifyListeners();
   }
 
