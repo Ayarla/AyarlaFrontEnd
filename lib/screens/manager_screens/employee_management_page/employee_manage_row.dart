@@ -218,7 +218,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                 ],
               ),
               secondaryWidget: Flex(
-                direction: size.width <= 650 ? Axis.horizontal : Axis.vertical,
+                direction: size.width >= 650 ? Axis.horizontal : Axis.vertical,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(

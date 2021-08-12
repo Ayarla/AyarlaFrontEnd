@@ -242,92 +242,98 @@ class _EditProfileState extends State<EditProfilePage> {
                               : null;
                         },
                         onChanged: (typed) {
-                          _typedOldPassword = typed;
+                            setState(() {
+                              _typedOldPassword = typed;
+                            });
                         },
                       ),
                     ),
 
-                    /// TODO - if
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: AyarlaTextFormField(
-                          hintText: 'Yeni Şifrenizi Giriniz',
-                        style: kSmallTextStyle.copyWith(
-                            fontSize: isSmallScreen ? 10 : 14),
-                        padding: EdgeInsets.all(20.0),
-                        color: Colors.orange[500],
-                        validator: (_typedValue) {
-                          return (_typedValue.isEmpty)
-                              ? 'Boş bırakılamaz'
-                              : null;
-                        },
-                        onChanged: (typed) {
-                          _typedPassword = typed;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: AyarlaTextFormField(
-                          hintText: 'Yeni Şifrenizi Tekrar Giriniz',
-                        style: kSmallTextStyle.copyWith(
-                            fontSize: isSmallScreen ? 10 : 14),
-                        padding: EdgeInsets.all(20.0),
-                        color: Colors.orange[500],
-                        validator: (_typedValue) {
-                          if (_typedValue.isEmpty) {
-                            return 'Boş bırakılamaz.';
-                          } else if (_typedValue.length < 6) {
-                            return 'Şifre en az 6 karakter içermelidir.';
-                          } else if (_typedPasswordCheck != _typedPassword) {
-                            return 'Şifreler birbiri ile uyuşmuyor.';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onChanged: (typed) {
-                          _typedPasswordCheck = typed;
-                        },
-                      ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.all(4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all<
-                                    EdgeInsetsGeometry>(
-                                    EdgeInsets.symmetric(
-                                        vertical: 12, horizontal: 35)),
-                                backgroundColor:
-                                MaterialStateProperty.all<Color>(
-                                    Colors.orange[500]),
-                                shape:
-                                MaterialStateProperty.all<OutlinedBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(20))),
-                              ),
-                              onPressed: () {
-                                if (_passwordFormKey.currentState.validate()) {
-                                  /// function
-                                  print("Validated");
+                    if (_typedOldPassword != null)
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: AyarlaTextFormField(
+                              hintText: 'Yeni Şifrenizi Giriniz',
+                              style: kSmallTextStyle.copyWith(
+                                  fontSize: isSmallScreen ? 10 : 14),
+                              padding: EdgeInsets.all(20.0),
+                              color: Colors.orange[500],
+                              validator: (_typedValue) {
+                                return (_typedValue.isEmpty)
+                                    ? 'Boş bırakılamaz'
+                                    : null;
+                              },
+                              onChanged: (typed) {
+                                _typedPassword = typed;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: AyarlaTextFormField(
+                              hintText: 'Yeni Şifrenizi Tekrar Giriniz',
+                              style: kSmallTextStyle.copyWith(
+                                  fontSize: isSmallScreen ? 10 : 14),
+                              padding: EdgeInsets.all(20.0),
+                              color: Colors.orange[500],
+                              validator: (_typedValue) {
+                                if (_typedValue.isEmpty) {
+                                  return 'Boş bırakılamaz.';
+                                } else if (_typedValue.length < 6) {
+                                  return 'Şifre en az 6 karakter içermelidir.';
+                                } else if (_typedPasswordCheck != _typedPassword) {
+                                  return 'Şifreler birbiri ile uyuşmuyor.';
                                 } else {
-                                  print("Not Validated");
+                                  return null;
                                 }
                               },
-                              child: Text(
-                                'Kaydet',
-                                style: kTextStyle.copyWith(
-                                    color: Colors.white,
-                                    fontSize: isSmallScreen ? 15 : 20),
-                              ),
+                              onChanged: (typed) {
+                                _typedPasswordCheck = typed;
+                              },
                             ),
-                          ],
-                        )
-                    ),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  TextButton(
+                                    style: ButtonStyle(
+                                      padding: MaterialStateProperty.all<
+                                          EdgeInsetsGeometry>(
+                                          EdgeInsets.symmetric(
+                                              vertical: 12, horizontal: 35)),
+                                      backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.orange[500]),
+                                      shape:
+                                      MaterialStateProperty.all<OutlinedBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(20))),
+                                    ),
+                                    onPressed: () {
+                                      if (_passwordFormKey.currentState.validate()) {
+                                        /// function
+                                        print("Validated");
+                                      } else {
+                                        print("Not Validated");
+                                      }
+                                    },
+                                    child: Text(
+                                      'Kaydet',
+                                      style: kTextStyle.copyWith(
+                                          color: Colors.white,
+                                          fontSize: isSmallScreen ? 15 : 20),
+                                    ),
+                                  ),
+                                ],
+                              )
+                          ),
+                        ],
+                      )
                   ],
                 )
             ),
