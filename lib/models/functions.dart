@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
@@ -9,7 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
-import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_login.dart';
@@ -18,7 +18,8 @@ import 'package:flutter/rendering.dart';
 
 class Functions {
   decideColor(context) {
-    Gender selectedGender = Provider.of<GenderService>(context, listen: false).currentGender[0];
+    Gender selectedGender =
+        Provider.of<GenderSelection>(context, listen: false).currentGender[0];
     if (selectedGender == Gender.female) {
       return LinearGradient(
         begin: Alignment.centerLeft,
@@ -78,46 +79,91 @@ class Functions {
     }
   }
 
-  ///takes an image from camera and adds it to the list
-  imgFromCamera(context) async {
-    File image = await ImagePicker.pickImage(source: ImageSource.camera, imageQuality: 50);
+  /// Will be removed.
+  createTitle(BuildContext context, String title) {
+    final size = MediaQuery.of(context).size;
+    Functions functions = Functions();
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: size.width / 10),
+      decoration: BoxDecoration(
+          gradient: functions.decideColor(context),
+          borderRadius: BorderRadius.all(Radius.circular(15))),
+      child: Padding(
+        padding: EdgeInsets.all(5.0),
+        child: Center(
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: Text(
+              title,
+              style: kTitleStyle.copyWith(color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  /// takes image from file
+  /// TODO dart:io web desteği yok
+  imageFromFile(context) async {
 
-    if (image != null) {
-      if (Provider.of<LoginService>(context, listen: false).isManager) {
+    ///Image fromPicker = await ImagePickerFoWeb.getImage(
+    ///    outputType: ImageType.widget);
+    PickedFile fromPicker = await ImagePicker().getImage(source: ImageSource.gallery);
+    if (fromPicker != null) {
+      if (Provider
+          .of<Login>(context, listen: false)
+          .isManager) {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(file: image, isFile: true, covered: true));
+            .addImage(ImageListItem(covered: true, pickedFile: fromPicker,isPicked: true,));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(isFile: true, fileImage: image));
+            .setUserImage(UserImage(pickedFile: fromPicker));
+      }
+    }
+    }
+
+  ///takes an image from camera and adds it to the list
+  imgFromCamera(context) async {
+    PickedFile image = await ImagePicker().getImage(
+        source: ImageSource.camera, imageQuality: 50);
+
+    if (image != null) {
+      if (Provider.of<Login>(context, listen: false).isManager) {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .addImage(ImageListItem(covered: true, pickedFile: image,isPicked: true,));
+      } else {
+        Provider.of<BusinessAndUserData>(context, listen: false)
+            .setUserImage(UserImage(pickedFile: image));
       }
     }
   }
 
   ///takes an image from gallery and adds it to the list
   imgFromGallery(context) async {
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+    PickedFile image = await ImagePicker().getImage(
+        source: ImageSource.gallery, imageQuality: 50);
 
     if (image != null) {
-      if (Provider.of<LoginService>(context, listen: false).isManager) {
+      if (Provider.of<Login>(context, listen: false).isManager) {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .addImage(ImageListItem(file: image, isFile: true, covered: true));
+            .addImage(ImageListItem(covered: true, pickedFile: image, isPicked: true,));
       } else {
         Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(isFile: true, fileImage: image));
+            .setUserImage(UserImage(pickedFile: image));
       }
     }
   }
 
   void showPicker(context) {
     bool isWeb;
-    try {
-      if (Platform.isAndroid || Platform.isIOS) {
-        isWeb = false;
+    try{
+      if(Platform.isAndroid||Platform.isIOS) {
+        isWeb=false;
       } else {
-        isWeb = true;
+        isWeb=true;
       }
-    } catch (e) {
-      isWeb = true;
+    } catch(e){
+      isWeb=true;
     }
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -129,16 +175,16 @@ class Functions {
             color: Colors.white,
             child: new Wrap(
               children: <Widget>[
-                if (isWeb == true)
-                  new ListTile(
-                    leading: new Icon(Icons.upload_file),
-                    title: new Text('Dosya'),
-                    tileColor: Colors.transparent,
-                    onTap: () {
-                      // imageFromFile(context);
-                      Navigator.of(context).pop();
-                    },
-                  )
+                if(isWeb==true)
+                new ListTile(
+                  leading: new Icon(Icons.upload_file),
+                  title: new Text('Dosya'),
+                  tileColor: Colors.transparent,
+                  onTap: () {
+                    imageFromFile(context);
+                    Navigator.of(context).pop();
+                  },
+                )
                 else
                   Column(
                     children: [
@@ -161,6 +207,7 @@ class Functions {
                       ),
                     ],
                   )
+
               ],
             ),
           );
@@ -168,15 +215,22 @@ class Functions {
   }
 
   int findIndex(ServiceModel x, context) {
-    return fullTimeServices.indexOf(x);
+    return Provider.of<AppointmentData>(context, listen: false)
+        .fullTimeServices
+        .indexOf(x);
   }
 
   int findIndexOfEmployee(int employeeIndex, EmployeeModel y, context) {
-    return fullTimeServices[employeeIndex].employees.indexOf(y);
+    return Provider.of<AppointmentData>(context, listen: false)
+        .fullTimeServices[employeeIndex]
+        .employees
+        .indexOf(y);
   }
 
   int findIndexEmployee(EmployeeModel y, context) {
-    return employeesList.indexOf(y);
+    return Provider.of<AppointmentData>(context, listen: false)
+        .employeesList
+        .indexOf(y);
   }
 }
 

@@ -1,18 +1,17 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:ayarla/constants/constants.dart';
 
 class ImageListItem extends StatelessWidget {
   final String image;
-  final File file;
   final bool covered;
-  final bool isFile;
-  final bool isImage;
-  final Image fileImage;
+  final bool isPicked;
+  final PickedFile  pickedFile;
 /// isFile koşulu imageListItem kullanılan yerlere eklenilecek
-  ImageListItem({this.image,this.covered,this.isFile,this.file,this.isImage=false,this.fileImage});
+  ImageListItem({this.image,this.covered,this.isPicked=false,this.pickedFile});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +20,7 @@ class ImageListItem extends StatelessWidget {
         maxScale:  covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
         minScale: covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
         initialScale: covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
-        imageProvider:isFile==true?Image.file(file).image:isImage==true?fileImage.image:AssetImage(image),
+        imageProvider:isPicked==true?NetworkImage(pickedFile.path):AssetImage(image),
       ),
     );
   }

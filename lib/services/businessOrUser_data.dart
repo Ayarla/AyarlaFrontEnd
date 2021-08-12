@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import "package:latlong/latlong.dart" as LatLong;
@@ -40,12 +40,10 @@ class BusinessAndUserData extends ChangeNotifier {
   setDefault() {
     print('as');
     markerPosition = LatLong.LatLng(41.015137, 28.979530);
-    print(markerPosition);
-
+print(markerPosition);
     /// from database
     currentPosition = LatLong.LatLng(41.015137, 28.979530);
-    print(currentPosition);
-
+print(currentPosition);
     /// from database
     notifyListeners();
   }
