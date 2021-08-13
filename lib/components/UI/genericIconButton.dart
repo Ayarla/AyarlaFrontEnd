@@ -71,7 +71,7 @@ class GenericIconButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     iconContext,
-                    SizedBox(height: spaceBetween ?? 5),
+                    SizedBox(width: spaceBetween ?? 5),
                     TextOverFlowHandler(
                       child: Text(
                         text,

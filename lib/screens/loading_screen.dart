@@ -2,14 +2,16 @@ import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/services/analytics_service.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
+import 'package:ayarla/webService/http_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ayarla/services/service_appointment.dart';
 import 'coiffure_detail_page/coiffure_detail_page.dart';
 
 class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    /// TODO gets Token once the application opens
+    // HttpService().getToken();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],

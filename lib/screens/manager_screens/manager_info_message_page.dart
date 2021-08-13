@@ -134,7 +134,7 @@ class _ManagerNotesPageState extends State<ManagerInformationMessagePage> {
                               Provider.of<ManagerData>(context, listen: false)
                                       .managerInformationMessage =
 
-                                  /// in order remove whitespace in the text
+                                  /// in order to remove whitespace in the text
                                   messageContent.trimLeft();
                             });
                           },

@@ -4,7 +4,6 @@ import 'dart:convert';
 
 class HttpRoleFunctions extends HttpService {
   Future createRole() async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Role/Create';
 
     var data = {
@@ -30,7 +29,6 @@ class HttpRoleFunctions extends HttpService {
   }
 
   Future getRoleWithPermission({String permission}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Role/GetRoles';
 
     http.Response response = await http.get(
@@ -46,7 +44,6 @@ class HttpRoleFunctions extends HttpService {
   }
 
   Future updateRole() async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Role/Update';
 
     var data = {
@@ -73,7 +70,6 @@ class HttpRoleFunctions extends HttpService {
   }
 
   Future deleteRole({int id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Role/Delete';
 
     http.Response response = await http.delete(
@@ -88,7 +84,6 @@ class HttpRoleFunctions extends HttpService {
   }
 
   Future getAllPermissions() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/Role/GetAllPermissions";
 
     http.Response response = await http.get(
@@ -105,7 +100,6 @@ class HttpRoleFunctions extends HttpService {
   }
 
   Future getRoleForEdit({int id}) async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/Role/GetRoleForEdit";
 
     http.Response response = await http.get(
@@ -122,7 +116,6 @@ class HttpRoleFunctions extends HttpService {
   }
 
   Future getRoleWithId({int id}) async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/Role/Get";
 
     http.Response response = await http.get(
@@ -139,7 +132,6 @@ class HttpRoleFunctions extends HttpService {
   }
 
   Future getAllRoles() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/Role/GetAll";
 
     http.Response response = await http.get(

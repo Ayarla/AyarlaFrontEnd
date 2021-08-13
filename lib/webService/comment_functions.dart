@@ -5,7 +5,6 @@ import 'dart:convert';
 
 class HttpCommentFunctions extends HttpService {
   Future createComment({CommentModel commentModel}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Comment/Create';
 
     var data = {
@@ -28,7 +27,6 @@ class HttpCommentFunctions extends HttpService {
   }
 
   Future getComment({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Comment/Get';
 
     http.Response response = await http.get(
@@ -44,7 +42,6 @@ class HttpCommentFunctions extends HttpService {
   }
 
   Future getAllComment() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/Comment/GetAll";
 
     http.Response response = await http.get(
@@ -61,7 +58,6 @@ class HttpCommentFunctions extends HttpService {
   }
 
   Future updateComment({CommentModel commentModel, int userId}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Comment/Update';
 
     var data = {
@@ -85,7 +81,6 @@ class HttpCommentFunctions extends HttpService {
   }
 
   Future deleteComment({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Comment/Delete';
 
     http.Response response = await http.delete(

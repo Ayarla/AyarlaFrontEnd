@@ -445,7 +445,7 @@ class PopUp {
                                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                                 context: context,
                                                 builder: (BuildContext context) {
-                                                  return privacyPolicyModalBottomSheet(
+                                                  return privacyOrAgreementModalBottomSheet(
                                                       context: context, setState: setState);
                                                 });
                                           },

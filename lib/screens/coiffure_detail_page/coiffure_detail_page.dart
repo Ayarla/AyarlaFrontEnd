@@ -50,7 +50,24 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
       hour: '',
       appointmentDetails: [],
     );
+
+    checkManagerInformationMessage();
     super.initState();
+  }
+
+  /// if manager sent an information message it will be shown directly once the coiffure page opens
+  void checkManagerInformationMessage() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (Provider.of<ManagerData>(context, listen: false).managerInformationMessage?.isNotEmpty ??
+          false) {
+        Future.delayed(
+          Duration.zero,
+          () => PopUp().managerInformationMessagePopUp(
+              context: context,
+              message: Provider.of<ManagerData>(context, listen: false).managerInformationMessage),
+        );
+      }
+    });
   }
 
   @override
@@ -65,16 +82,6 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     TextStyle _titleStyle = kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
     TextStyle _textStyle = kTextStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
     total = Provider.of<AppointmentService>(context, listen: true).currentAppointment.totalPrice;
-
-    /// if manager sent an information message it will be shown directly once the coiffure page opens
-    if (Provider.of<ManagerData>(context).managerInformationMessage?.isNotEmpty ?? false) {
-      Future.delayed(
-        Duration.zero,
-        () => PopUp().managerInformationMessagePopUp(
-            context: context,
-            message: Provider.of<ManagerData>(context, listen: false).managerInformationMessage),
-      );
-    }
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(
