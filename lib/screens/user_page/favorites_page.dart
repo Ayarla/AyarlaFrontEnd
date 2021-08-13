@@ -88,7 +88,7 @@ class _FavoritesPageState extends State<FavoritesPage>
                               "/Isletme/:name",
                               routeSettings: RouteSettings(
                                 name:
-                                    "/Isletme/${createURL(localList[index].name.toString())}",
+                                    "/Isletme/${createURL(localList[index].userName.toString())}",
                                 arguments: CoiffureDetailPage(
                                     coiffureModel: localList[index]),
                               ),
@@ -126,7 +126,7 @@ class _FavoritesPageState extends State<FavoritesPage>
                                       removeFavorite(index, localList[index]);
                                     });
                                     FirebaseAnalytics().logEvent(name: 'favorites_button',
-                                        parameters:{'coiffeur': localList[index].name, 'state': 'deleted'});
+                                        parameters:{'coiffeur': localList[index].userName, 'state': 'deleted'});
                                   }),
                             ),
                           ),
@@ -163,7 +163,7 @@ class _FavoritesPageState extends State<FavoritesPage>
                                       "/Isletme/:name",
                                       routeSettings: RouteSettings(
                                         name:
-                                            "/Isletme/${createURL(localList[index].name.toString())}",
+                                            "/Isletme/${createURL(localList[index].userName.toString())}",
                                         arguments: CoiffureDetailPage(
                                             coiffureModel: localList[index],
                                       ),

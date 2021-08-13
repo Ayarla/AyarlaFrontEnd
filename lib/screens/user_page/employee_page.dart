@@ -183,7 +183,7 @@ class _EmployeePageState extends State<EmployeePage> {
                           return Row(
                             children: [
                               Text(
-                                services[index].name,
+                                services[index].userName,
                                 style: kSmallTextStyle.copyWith(
                                     fontSize: size.width <= 400 ? size.width / 20 : 20),
                               ),

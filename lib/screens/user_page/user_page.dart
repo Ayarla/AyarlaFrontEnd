@@ -100,7 +100,10 @@ class _UserPageState extends State<UserPage> {
                             child: FittedBox(
                               fit: BoxFit.cover,
                               child: Text(
-                                "Nilsu Öz",
+                                Provider.of<LoginService>(context, listen: false)
+                                        .userModel
+                                        .fullName ??
+                                   "Kullanıcı Adı",
                                 style: kTextStyle.copyWith(color: Colors.black, fontSize: 25),
                               ),
                             ),

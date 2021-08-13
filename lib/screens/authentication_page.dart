@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
+import 'package:ayarla/models/model_user.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
 import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_login.dart';
@@ -9,6 +12,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +40,19 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
   }
 
   bool switchValue = false;
+  bool isLoading = false;
+  Widget spinKitSquareCircle;
+
+  @override
+  void initState() {
+    spinKitSquareCircle = SpinKitFoldingCube(
+      color: Colors.white,
+      size: 30.0,
+      controller: AnimationController(vsync: this, duration: const Duration(seconds: 2)),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -168,21 +185,41 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                         RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(20))),
                                   ),
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (_loginFormKey.currentState.validate()) {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      var body = await HttpUserFunctions().getUser(id: 11);
                                       print("Validated");
-                                    } else {
-                                      print("Not Validated");
-                                    }
-                                    Provider.of<LoginService>(context, listen: false).loggedInUser();
+                                      // if (_typedMail == body["result"]["emailAddress"] &&
+                                      //     _typedPassword == body["result"]["password"]) {
+                                      // setState(() {
+                                      // print('deneme : ${body["result"][0]}');
+                                      print(body["result"]);
+                                      print(UserModel.fromJson(body["result"], 0).fullName);
+                                      Provider.of<LoginService>(context, listen: false).userModel =
+                                          UserModel.fromJson(body["result"], 0);
+                                      Provider.of<LoginService>(context, listen: false)
+                                          .loggedInUser();
+                                      isLoading = false;
+                                      // }
+                                      // } else {
+                                      //   print("Not Validated");
+                                      //   isLoading = true;
+                                      // }
 
-                                    ///TODO check and push somewhere
+                                      ///TODO check and push somewhere
+                                    }
                                   },
-                                  child: Text(
-                                    'Giriş',
-                                    style: kTextStyle.copyWith(
-                                        color: Colors.white, fontSize: isSmallScreen ? 15 : 25),
-                                  ),
+                                  child: !isLoading
+                                      ? Text(
+                                          'Giriş',
+                                          style: kTextStyle.copyWith(
+                                              color: Colors.white,
+                                              fontSize: isSmallScreen ? 15 : 25),
+                                        )
+                                      : spinKitSquareCircle,
                                 ),
                               ],
                             ),
@@ -467,7 +504,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                 if (_regFormKey.currentState.validate()) {
                                   print("Form Validated...");
                                   HttpUserFunctions().createUser(
-                                    userName: _typedName,
+                                    userName: _typedMail,
                                     name: _typedName,
                                     surname: _typedSurname,
                                     email: _typedMail,

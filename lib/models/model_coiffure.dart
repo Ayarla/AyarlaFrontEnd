@@ -10,7 +10,6 @@ class CoiffureModel {
   final String district;
   final String time;
   final String text;
-  final int averagePrice;
   final String telephone;
   final String address;
   final int comments;
@@ -19,6 +18,7 @@ class CoiffureModel {
   final bool isPrime;
   final List<EmployeeModel> employeeList;
   final List<ServiceModel> serviceList;
+  final String id;
 
   factory CoiffureModel.fromJson(json, int index) {
     return CoiffureModel(
@@ -29,7 +29,6 @@ class CoiffureModel {
       district: json['İlçe'],
       time: json['Saatler'],
       text: json['Hakkında'],
-      averagePrice: json['Ort Fiyat'],
       telephone: json['Telefon'],
       address: json['Adres'],
       comments: json['Değerl'],
@@ -45,7 +44,6 @@ class CoiffureModel {
     this.index,
     this.star,
     this.text,
-    this.averagePrice,
     this.city,
     this.district,
     this.telephone,
@@ -56,5 +54,6 @@ class CoiffureModel {
     this.isPrime,
     this.employeeList,
     this.serviceList,
+    this.id,
   });
 }

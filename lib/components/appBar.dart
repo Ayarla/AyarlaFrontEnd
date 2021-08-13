@@ -2,6 +2,7 @@ import 'package:ayarla/components/UI/notificationBadge.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/search_page.dart';
+import 'package:ayarla/services/service_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
@@ -417,7 +418,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   .currentList
                                   .sort((a, b) => a.star.compareTo(b.star));
                               Provider.of<AppointmentService>(context, listen: false).setList(
-                                  Provider.of<AppointmentService>(context, listen: false).currentList);
+                                  Provider.of<AppointmentService>(context, listen: false)
+                                      .currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -439,7 +441,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   .currentList
                                   .sort((b, a) => a.star.compareTo(b.star));
                               Provider.of<AppointmentService>(context, listen: false).setList(
-                                  Provider.of<AppointmentService>(context, listen: false).currentList);
+                                  Provider.of<AppointmentService>(context, listen: false)
+                                      .currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -475,7 +478,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   .currentList
                                   .sort((a, b) => a.comments.compareTo(b.comments));
                               Provider.of<AppointmentService>(context, listen: false).setList(
-                                  Provider.of<AppointmentService>(context, listen: false).currentList);
+                                  Provider.of<AppointmentService>(context, listen: false)
+                                      .currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -497,7 +501,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   .currentList
                                   .sort((b, a) => a.comments.compareTo(b.comments));
                               Provider.of<AppointmentService>(context, listen: false).setList(
-                                  Provider.of<AppointmentService>(context, listen: false).currentList);
+                                  Provider.of<AppointmentService>(context, listen: false)
+                                      .currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -549,7 +554,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   .currentList
                                   .sort((a, b) => a.star.compareTo(b.star));
                               Provider.of<AppointmentService>(context, listen: false).setList(
-                                  Provider.of<AppointmentService>(context, listen: false).currentList);
+                                  Provider.of<AppointmentService>(context, listen: false)
+                                      .currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -571,7 +577,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   .currentList
                                   .sort((b, a) => a.star.compareTo(b.star));
                               Provider.of<AppointmentService>(context, listen: false).setList(
-                                  Provider.of<AppointmentService>(context, listen: false).currentList);
+                                  Provider.of<AppointmentService>(context, listen: false)
+                                      .currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -607,7 +614,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   .currentList
                                   .sort((a, b) => a.comments.compareTo(b.comments));
                               Provider.of<AppointmentService>(context, listen: false).setList(
-                                  Provider.of<AppointmentService>(context, listen: false).currentList);
+                                  Provider.of<AppointmentService>(context, listen: false)
+                                      .currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -629,7 +637,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                                   .currentList
                                   .sort((b, a) => a.comments.compareTo(b.comments));
                               Provider.of<AppointmentService>(context, listen: false).setList(
-                                  Provider.of<AppointmentService>(context, listen: false).currentList);
+                                  Provider.of<AppointmentService>(context, listen: false)
+                                      .currentList);
                             });
                             Navigator.pop(context);
                           },
@@ -675,7 +684,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Merhaba Nilsu",
+                Provider.of<LoginService>(context, listen: false).isLoggedIn
+                    ? "Merhaba " + Provider.of<LoginService>(context, listen: false).userModel.name
+                    : "Merhaba",
                 style: kTitleStyle.copyWith(
                     color: Colors.white, fontSize: width < 425 ? width / 19.3 : 22),
               ),

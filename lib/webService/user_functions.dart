@@ -12,9 +12,7 @@ class HttpUserFunctions extends HttpService {
       String password,
       String roleNames}) async {
     await getToken();
-    final String _url =
-        // 'https://ayarlawebhost2021041011510.azurewebsites.net/api/services/app/User/Create';
-        '$baseUrl/api/services/app/User/Create';
+    final String _url = '$baseUrl/api/services/app/User/Create';
 
     Map data = {
       "userName": userName,
@@ -218,7 +216,8 @@ class HttpUserFunctions extends HttpService {
       response: response,
       returnData: jsonDecode(response.body),
     );
-    print(responseBody);
+    print('responseBody: $responseBody');
+    return responseBody;
   }
 
   Future getAllUser() async {

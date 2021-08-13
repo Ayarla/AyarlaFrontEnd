@@ -97,7 +97,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                               waitingAppointments[index]
                                   .appointmentDetails[index2]
                                   .serviceModel
-                                  .name,
+                                  .userName,
                               style: kSmallTextStyle),
                           Spacer(),
                           Text(
@@ -114,7 +114,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                               waitingAppointments[index]
                                   .appointmentDetails[index2]
                                   .employeeModel
-                                  .name,
+                                  .userName,
                               style: kSmallTextStyle),
                           Spacer(),
                           Text('Çalışan:',
