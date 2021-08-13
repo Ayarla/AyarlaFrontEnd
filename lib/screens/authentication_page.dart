@@ -1,8 +1,8 @@
 import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_login.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:ayarla/webService/user_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -401,13 +401,13 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                             children: [
                               Checkbox(
                                   activeColor: Colors.orange[500],
-                                  value: Provider.of<BusinessAndUserData>(context, listen: false)
+                                  value: Provider.of<UserService>(context, listen: false)
                                       .checkBox,
                                   onChanged: (value) {
                                     setState(() {
-                                      Provider.of<BusinessAndUserData>(context, listen: false)
+                                      Provider.of<UserService>(context, listen: false)
                                               .checkBox =
-                                          !Provider.of<BusinessAndUserData>(context, listen: false)
+                                          !Provider.of<UserService>(context, listen: false)
                                               .checkBox;
                                     });
                                   }),

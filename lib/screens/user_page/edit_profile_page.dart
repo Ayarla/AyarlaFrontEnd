@@ -1,7 +1,7 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
@@ -67,14 +67,14 @@ class _EditProfileState extends State<EditProfilePage> {
                           child: CircleAvatar(
                             radius: 55,
                             backgroundColor: Colors.transparent,
-                            child: Provider.of<BusinessAndUserData>(context,
+                            child: Provider.of<UserService>(context,
                                             listen: true)
                                         .userImage !=
                                     null
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child:
-                                      Provider.of<BusinessAndUserData>(context,
+                                      Provider.of<UserService>(context,
                                               listen: true)
                                           .userImage
 

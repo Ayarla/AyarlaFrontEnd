@@ -4,7 +4,7 @@ import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
+import 'package:ayarla/services/service_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import "package:latlong/latlong.dart" as Latlong;
@@ -25,9 +25,9 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
   Widget build(BuildContext context) {
     MapController mapController = MapController();
     Latlong.LatLng markerPoisiton =
-        Provider.of<BusinessAndUserData>(context, listen: true).markerPosition;
+        Provider.of<ManagementService>(context, listen: true).markerPosition;
     Latlong.LatLng currentPosition =
-        Provider.of<BusinessAndUserData>(context, listen: true).currentPosition;
+        Provider.of<ManagementService>(context, listen: true).currentPosition;
 
     _onPositionChanged(mapPosition, b) {
       // Provider.of<BusinessAndUserData>(context, listen: false).setMarkerPosition(LatLng(mapPosition.center.latitude, mapPosition.center.longitude));
@@ -37,7 +37,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
       appBar: DefaultAppBar(
         gradient: functions.decideColor(context),
         backButtonFunction: () {
-          Provider.of<BusinessAndUserData>(context, listen: false).setDefault();
+          Provider.of<ManagementService>(context, listen: false).setDefault();
           Routers.router.pop(context);
         },
         title: Center(
@@ -68,7 +68,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
                       apiKey:
                           "pk.eyJ1Ijoibmlsc3VveiIsImEiOiJja25jOTV6cmExanZrMnhxbmNxdm9nMWZvIn0.FeH5rtpx5yIc3b-0To-XJg",
                       onSelected: (place) {
-                        Provider.of<BusinessAndUserData>(context, listen: false)
+                        Provider.of<ManagementService>(context, listen: false)
                             .setPickedPlace(place);
                         mapController.onReady
                             .then((value) => {
@@ -99,7 +99,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
             gradient: Functions().decideColor(context),
             text: "Kaydet",
             onPressed: () {
-              Provider.of<BusinessAndUserData>(context, listen: false)
+              Provider.of<ManagementService>(context, listen: false)
                   .setCoiffurePosition(LatLng(
                       markerPoisiton.latitude, markerPoisiton.longitude));
               Navigator.of(context).pop();
@@ -112,7 +112,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
         options: MapOptions(
           center: currentPosition,
           onTap: (mapPosition) {
-            Provider.of<BusinessAndUserData>(context, listen: false)
+            Provider.of<ManagementService>(context, listen: false)
                 .setMarkerPosition(
                     LatLng(mapPosition.latitude, mapPosition.longitude));
           },

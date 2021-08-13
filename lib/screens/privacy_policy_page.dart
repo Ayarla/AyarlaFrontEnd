@@ -1,6 +1,6 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +28,7 @@ privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
                 text: 'hayır',
                 onPressed: () {
                   setState(() {
-                    Provider.of<BusinessAndUserData>(context, listen: false).checkBox = false;
+                    Provider.of<UserService>(context, listen: false).checkBox = false;
                   });
                   Navigator.pop(context);
                 },
@@ -43,7 +43,7 @@ privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
                 text: 'Onaylıyorum',
                 onPressed: () {
                   setState(() {
-                    Provider.of<BusinessAndUserData>(context, listen: false).checkBox = true;
+                    Provider.of<UserService>(context, listen: false).checkBox = true;
                   });
                   Navigator.pop(context);
                 },

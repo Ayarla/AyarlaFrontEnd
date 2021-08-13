@@ -18,7 +18,6 @@ class AppointmentService extends ChangeNotifier {
   List<ServiceModel> serviceList = [];
   List<EmployeeModel> employeeList = [];
   List<String> hoursList = [];
-
   appointmentAddHandler() {
     currentAppointment.appointmentDetails.clear();
     for (int i = 0; i < serviceList.length; i++) {

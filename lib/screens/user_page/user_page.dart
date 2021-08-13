@@ -3,6 +3,7 @@ import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/button_generic.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,6 @@ import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/authentication_page.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_login.dart';
 
 class UserPage extends StatefulWidget {
@@ -33,7 +33,7 @@ class _UserPageState extends State<UserPage> {
       appBar: DefaultAppBar(
         showIconButton: false,
         backButtonFunction: () {
-          Provider.of<BusinessAndUserData>(context, listen: false).checkBox = false;
+          Provider.of<UserService>(context, listen: false).checkBox = false;
           Navigator.pop(context);
         },
         color: Colors.transparent,
@@ -71,12 +71,12 @@ class _UserPageState extends State<UserPage> {
                             child: CircleAvatar(
                               radius: 55,
                               backgroundColor: Colors.grey,
-                              child: Provider.of<BusinessAndUserData>(context, listen: true)
+                              child: Provider.of<UserService>(context, listen: true)
                                           .userImage !=
                                       null
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
-                                      child: Provider.of<BusinessAndUserData>(context, listen: true)
+                                      child: Provider.of<UserService>(context, listen: true)
                                           .userImage)
                                   : Container(
                                       decoration: BoxDecoration(

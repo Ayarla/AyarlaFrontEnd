@@ -5,7 +5,6 @@ import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/services/service_appointment.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -29,7 +28,6 @@ class Ayarla extends StatelessWidget {
         ChangeNotifierProvider<UserService>(create: (context) => UserService()),
         ChangeNotifierProvider<GenderService>(create: (context) => GenderService()),
         ChangeNotifierProvider<LoginService>(create: (context) => LoginService()),
-        ChangeNotifierProvider<BusinessAndUserData>(create: (context) => BusinessAndUserData()),
       ],
       child: LoadingScreen(),
     );

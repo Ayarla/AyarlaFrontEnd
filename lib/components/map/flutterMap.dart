@@ -1,4 +1,4 @@
-import 'package:ayarla/services/businessOrUser_data.dart';
+import 'package:ayarla/services/service_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ class FlutterMapCoiffure extends StatelessWidget {
 
     return FlutterMap(
       options: MapOptions(
-        center: Provider.of<BusinessAndUserData>(context, listen: false).currentPosition
+        center: Provider.of<ManagementService>(context, listen: false).currentPosition
       ,
         zoom: 15.0,
       ),
@@ -29,7 +29,7 @@ class FlutterMapCoiffure extends StatelessWidget {
             Marker(
               width: 50.0,
               height: 50.0,
-              point: Provider.of<BusinessAndUserData>(context, listen: false).markerPosition,
+              point: Provider.of<ManagementService>(context, listen: false).markerPosition,
               builder: (ctx) => Container(
                 child: Icon(Icons.location_on_rounded,color: Colors.red,)
               ),
