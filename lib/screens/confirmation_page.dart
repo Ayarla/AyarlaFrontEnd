@@ -203,14 +203,12 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset(
-                        'assets/store_badges/google-play-badge.png',
-                        height: 65,
-                      ),
-                      SvgPicture.asset(
-                        'assets/store_badges/app_store_badge.svg',
-                        height: 45,
-                      ),
+                      Image.asset('assets/store_badges/google-play-badge.png', height: 65),
+                      Image.asset('assets/store_badges/app_store_badge.png', height: 40),
+                      // SvgPicture.asset(
+                      //   'assets/store_badges/app_store_badge.svg',
+                      //   height: 45,
+                      // ),
                     ],
                   ),
                 ],

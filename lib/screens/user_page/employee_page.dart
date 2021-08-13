@@ -3,12 +3,10 @@ import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/timeDropdown.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/services/service_appointment.dart';
 
 class EmployeePage extends StatefulWidget {
   @override

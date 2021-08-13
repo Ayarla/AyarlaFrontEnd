@@ -1,4 +1,5 @@
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/components/button_generic.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
@@ -79,6 +80,12 @@ class WelcomePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          GenericButton(
+                            text: 'Kadın',
+                            backgroundColor: Colors.grey.withOpacity(0.4),
+                            iconColor: Colors.white,
+                            showShadow: false,
+                          ),
                           TextButton(
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),

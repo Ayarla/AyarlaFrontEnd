@@ -186,31 +186,32 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                             borderRadius: BorderRadius.circular(20))),
                                   ),
                                   onPressed: () async {
-                                    if (_loginFormKey.currentState.validate()) {
-                                      setState(() {
-                                        isLoading = true;
-                                      });
-                                      var body = await HttpUserFunctions().getUser(id: 11);
-                                      print("Validated");
-                                      // if (_typedMail == body["result"]["emailAddress"] &&
-                                      //     _typedPassword == body["result"]["password"]) {
-                                      // setState(() {
-                                      // print('deneme : ${body["result"][0]}');
-                                      print(body["result"]);
-                                      print(UserModel.fromJson(body["result"], 0).fullName);
-                                      Provider.of<LoginService>(context, listen: false).userModel =
-                                          UserModel.fromJson(body["result"], 0);
-                                      Provider.of<LoginService>(context, listen: false)
-                                          .loggedInUser();
-                                      isLoading = false;
-                                      // }
-                                      // } else {
-                                      //   print("Not Validated");
-                                      //   isLoading = true;
-                                      // }
-
-                                      ///TODO check and push somewhere
-                                    }
+                                    Provider.of<LoginService>(context, listen: false)
+                                        .loggedInUser();
+                                    // if (_loginFormKey.currentState.validate()) {
+                                    //   setState(() {
+                                    //     isLoading = true;
+                                    //   });
+                                    //   // var body = await HttpUserFunctions().getUser(id: 11);
+                                    //   // print("Validated");
+                                    //   // // if (_typedMail == body["result"]["emailAddress"] &&
+                                    //   // //     _typedPassword == body["result"]["password"]) {
+                                    //   // // setState(() {
+                                    //   // // print('deneme : ${body["result"][0]}');
+                                    //   // print(body["result"]);
+                                    //   // print(UserModel.fromJson(body["result"], 0).fullName);
+                                    //   // Provider.of<LoginService>(context, listen: false).userModel =
+                                    //   //     UserModel.fromJson(body["result"], 0);
+                                    //
+                                    //   isLoading = false;
+                                    //   // }
+                                    //   // } else {
+                                    //   //   print("Not Validated");
+                                    //   //   isLoading = true;
+                                    //   // }
+                                    //
+                                    //   ///TODO check and push somewhere
+                                    // }
                                   },
                                   child: !isLoading
                                       ? Text(

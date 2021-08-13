@@ -4,6 +4,7 @@ import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_comment.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -52,69 +53,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
   @override
   void initState() {
-    generatingList = [
-      CommentModel(
-        userName: 'Fatih Özkan',
-        rating: 2,
-        comment: 'Harika!!',
-        userImage: 'assets/worker_1.png',
-        date: '21.10.2018',
-        like: 5,
-        dislike: 0,
-        expanded: true,
-      ),
-      CommentModel(
-        userName: 'Nixu',
-        rating: 2,
-        comment: 'Merhaba ben çok uzun bir yorum yazmak istiyorum. ',
-        userImage: 'assets/worker_1.png',
-        date: '21.10.2020',
-        like: 9,
-        dislike: 4,
-        expanded: true,
-      ),
-      CommentModel(
-        userName: 'Bahadır İren',
-        rating: 4,
-        comment: 'Daha iyilerini görmüştüm ama idare eder. '
-            'Ben de uzun bir yorum yazmak istiyorum.',
-        userImage: 'assets/worker_2.jpg',
-        date: '21.02.2021',
-        like: 13,
-        dislike: 1,
-        expanded: true,
-      ),
-      CommentModel(
-        userName: 'Fatih Özkan',
-        rating: 4,
-        comment: 'Harika bence.',
-        userImage: 'assets/worker_1.png',
-        date: '21.10.2018',
-        like: 5,
-        dislike: 0,
-        expanded: true,
-      ),
-      CommentModel(
-        userName: 'Nixu',
-        rating: 5,
-        comment: 'Merhaba ben çok uzun bir yorum yazmak istiyorum. ',
-        userImage: 'assets/worker_1.png',
-        date: '21.10.2020',
-        like: 9,
-        dislike: 4,
-        expanded: true,
-      ),
-      CommentModel(
-        userName: 'Bahadır İren',
-        rating: 3,
-        comment: 'Daha iyilerini görmüştüm ama idare eder. ',
-        userImage: 'assets/worker_2.jpg',
-        date: '21.02.2021',
-        like: 13,
-        dislike: 1,
-        expanded: true,
-      ),
-    ];
+    generatingList= commentsList;
     Provider.of<AppointmentService>(context, listen: false).currentList2 = generatingList;
     super.initState();
   }

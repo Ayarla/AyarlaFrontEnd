@@ -49,10 +49,14 @@ class _ManagerHomeState extends State<ManagerHome> {
                 mainAxisSpacing: 10,
                 crossAxisCount: size.width < 650 ? 2 : 4,
                 children: <Widget>[
+                  Image(image: AssetImage(homeIconName2)),
+                  Image(image: AssetImage(employeesIconName2)),
+                  Image(image: AssetImage(notesIconName2)),
+                  Image(image: AssetImage(messageIconName2)),
                   GenericIconButton(
                     iconContext: NewIcon(
                       size: isSmallScreen ? size.width / 6 : 500 / 6,
-                      iconName: homeIconName,
+                      iconName: homeIconName2,
                     ),
                     color: Colors.white.withOpacity(.4),
                     text: 'İşletmem',
@@ -61,7 +65,7 @@ class _ManagerHomeState extends State<ManagerHome> {
                   GenericIconButton(
                     iconContext: NewIcon(
                       size: isSmallScreen ? size.width / 6 : 500 / 6,
-                      iconName: employeesIconName,
+                      iconName: employeesIconName2,
                     ),
                     color: Colors.white.withOpacity(.4),
                     text: 'Çalışanlarım',
@@ -70,7 +74,7 @@ class _ManagerHomeState extends State<ManagerHome> {
                   GenericIconButton(
                     iconContext: NewIcon(
                       size: isSmallScreen ? size.width / 6 : 500 / 6,
-                      iconName: notesIconName,
+                      iconName: notesIconName2,
                     ),
                     color: Colors.white.withOpacity(.4),
                     text: 'Bilgilendirme Mesajlarım',
@@ -79,7 +83,7 @@ class _ManagerHomeState extends State<ManagerHome> {
                   GenericIconButton(
                     iconContext: NewIcon(
                       size: isSmallScreen ? size.width / 6 : 500 / 6,
-                      iconName: messageIconName,
+                      iconName: messageIconName2,
                     ),
                     color: Colors.white.withOpacity(.4),
                     text: 'Mesajlaşma',

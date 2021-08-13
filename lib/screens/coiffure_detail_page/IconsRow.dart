@@ -51,11 +51,11 @@ class _IconsRowState extends State<IconsRow> {
           width: 70,
           onPressed: () {
             setState(() {
-              if (Provider.of<UserService>(context, listen: false).myState.mounted) {
-                Provider.of<UserService>(context, listen: false).myState.setState(() {});
+              // if (Provider.of<UserService>(context, listen: false).myState.mounted) {
+              //   Provider.of<UserService>(context, listen: false).myState.setState(() {});
                 Provider.of<UserService>(context, listen: false)
                     .setOrChangeFav(widget.coiffureModel);
-              }
+              // }
             });
           },
           text: "Favori",

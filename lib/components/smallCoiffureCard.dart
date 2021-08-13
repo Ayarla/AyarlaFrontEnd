@@ -47,12 +47,14 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 onTap: () {
-                  var state = context.findAncestorStateOfType<SearchPageState>();
-                  state.setState(() {});
-                  Provider.of<UserService>(context, listen: false).myState = state;
-                  Provider.of<UserService>(context, listen: false)
-                      .setOrChangeFav(widget.coiffureModel);
-                  if (Provider.of<UserService>(context, listen: true)
+                  // var state = context.findAncestorStateOfType<SearchPageState>();
+                  // state.setState(() {});
+                  // Provider.of<UserService>(context, listen: false).myState = state;
+                  setState(() {
+                    Provider.of<UserService>(context, listen: false)
+                        .setOrChangeFav(widget.coiffureModel);
+                  });
+                  if (Provider.of<UserService>(context, listen: false)
                       .favorites
                       .contains(widget.coiffureModel)) {
                     FirebaseAnalytics().logEvent(
