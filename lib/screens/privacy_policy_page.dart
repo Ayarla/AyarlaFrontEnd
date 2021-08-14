@@ -23,8 +23,6 @@ privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
           Row(
             children: [
               GenericIconButton(
-                height: 75,
-                width: 140,
                 text: 'hayır',
                 onPressed: () {
                   setState(() {
@@ -37,8 +35,6 @@ privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
               Spacer(),
               GenericIconButton(
                 axis: Axis.horizontal,
-                height: 75,
-                width: 156,
                 iconContext: Icon(Icons.check, size: 30, color: Colors.green),
                 text: 'Onaylıyorum',
                 onPressed: () {

@@ -1,7 +1,6 @@
 import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_comment.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
@@ -10,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/services/service_appointment.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:ayarla/models/functions.dart';
 
 class CommentsPage extends StatefulWidget {
@@ -53,7 +51,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
   @override
   void initState() {
-    generatingList= commentsList;
+    generatingList = commentsList;
     Provider.of<AppointmentService>(context, listen: false).currentList2 = generatingList;
     super.initState();
   }
@@ -110,13 +108,14 @@ class _CommentsPageState extends State<CommentsPage> {
                         setState(() {
                           generatingList.sort((a, b) => a.rating.compareTo(b.rating));
                         });
-                        Routers.router.pop(context);
+                        Navigator.pop(context);
+
                       },
                       secondOptionFunction: () {
                         setState(() {
                           generatingList.sort((b, a) => a.rating.compareTo(b.rating));
                         });
-                        Routers.router.pop(context);
+                        Navigator.pop(context);
                       },
                     ),
                     BottomSheetCard(
@@ -125,13 +124,14 @@ class _CommentsPageState extends State<CommentsPage> {
                         setState(() {
                           generatingList.sort((a, b) => a.like.compareTo(b.like));
                         });
-                        Routers.router.pop(context);
+                        Navigator.pop(context);
                       },
                       secondOptionFunction: () {
                         setState(() {
                           generatingList.sort((b, a) => a.like.compareTo(b.like));
                         });
-                        Routers.router.pop(context);
+                        Navigator.pop(context);
+
                       },
                     ),
                     BottomSheetCard(
@@ -140,13 +140,15 @@ class _CommentsPageState extends State<CommentsPage> {
                         setState(() {
                           generatingList.sort((a, b) => a.date.compareTo(b.date));
                         });
-                        Routers.router.pop(context);
+                        Navigator.pop(context);
+
                       },
                       secondOptionFunction: () {
                         setState(() {
                           generatingList.sort((b, a) => a.date.compareTo(b.date));
                         });
-                        Routers.router.pop(context);
+                        Navigator.pop(context);
+
                       },
                     ),
                   ],

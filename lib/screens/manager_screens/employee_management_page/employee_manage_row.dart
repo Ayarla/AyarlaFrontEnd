@@ -447,7 +447,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                                         return Row(
                                                           children: [
                                                             Text(
-                                                              services[index].userName,
+                                                              services[index].name,
                                                               style: kSmallTextStyle.copyWith(
                                                                   fontSize: size.width <= 400
                                                                       ? size.width / 20

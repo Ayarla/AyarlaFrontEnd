@@ -1,7 +1,6 @@
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/button_generic.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -103,7 +102,7 @@ class _UserPageState extends State<UserPage> {
                                 Provider.of<LoginService>(context, listen: false)
                                         .userModel
                                         .fullName ??
-                                   "Kullanıcı Adı",
+                                    "Kullanıcı Adı",
                                 style: kTextStyle.copyWith(color: Colors.black, fontSize: 25),
                               ),
                             ),
@@ -119,37 +118,26 @@ class _UserPageState extends State<UserPage> {
                                     icon: Icons.favorite_border_rounded,
                                     iconColor: Colors.red,
                                     text: 'Favorilerim',
-                                    onPressed: () {
-                                      Routers.router.navigateTo(context, "/Favorilerim",
-                                          clearStack: false, replace: false);
-                                    },
+                                    onPressed: () => Navigator.pushNamed(context, "/Favorilerim"),
                                   ),
                                   GenericButton(
                                     icon: Icons.calendar_today_rounded,
                                     iconColor: Colors.blue,
                                     text: 'Randevularım',
-                                    onPressed: () {
-                                      Routers.router.navigateTo(context, "/Randevularım",
-                                          clearStack: false, replace: false);
-                                    },
+                                    onPressed: () => Navigator.pushNamed(context, "/Randevularim"),
                                   ),
                                   GenericButton(
                                     icon: Icons.message_rounded,
                                     iconColor: Colors.green,
                                     text: 'Mesajlarım',
-                                    onPressed: () {
-                                      Routers.router.navigateTo(context, "/Mesajlarim",
-                                          clearStack: false, replace: false);
-                                    },
+                                    onPressed: () => Navigator.pushNamed(context, "/Randevularim"),
                                   ),
                                   GenericButton(
                                     icon: Icons.business_center_outlined,
                                     iconColor: Colors.green,
                                     text: 'Çalışan Ayarlarım',
-                                    onPressed: () {
-                                      Routers.router.navigateTo(context, "/Ayarlarim",
-                                          clearStack: false, replace: false);
-                                    },
+                                    onPressed: () =>
+                                        Navigator.pushNamed(context, "/CalisanAyarlarim"),
                                   ),
                                   GenericButton(
                                     icon: FontAwesomeIcons.userEdit,
@@ -158,7 +146,7 @@ class _UserPageState extends State<UserPage> {
                                     onPressed: () {
                                       FirebaseAnalytics()
                                           .logEvent(name: 'user_edit_profile', parameters: null);
-                                      Routers.router.navigateTo(context, "/Profilimi Düzenle");
+                                      Navigator.pushNamed(context, "/ProfilimiDuzenle");
                                     },
                                   ),
                                   GenericButton(
@@ -168,8 +156,12 @@ class _UserPageState extends State<UserPage> {
                                     onPressed: () {
                                       Provider.of<LoginService>(context, listen: false)
                                           .loggedInUser();
-                                      Routers.router.navigateTo(context, '/KullaniciSayfasi',
-                                          clearStack: false, replace: true);
+
+                                      /// TODO: fix
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          "/KullaniciSayfasi",
+                                          ModalRoute.withName('/AramaSayfasi'));
                                     },
                                   ),
                                 ],

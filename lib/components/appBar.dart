@@ -1,5 +1,4 @@
 import 'package:ayarla/components/UI/notificationBadge.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/services/service_login.dart';
@@ -59,7 +58,7 @@ class DefaultAppBar extends StatelessWidget {
       flexibleSpace: CircularParent(
         direction: Directions.bottom,
         radius: radius ?? 20,
-        color: color ?? Colors.grey,
+        color: color ?? Colors.orange,
         gradient: gradient ?? null,
       ),
       leading: showBackButton ?? true
@@ -75,9 +74,7 @@ class DefaultAppBar extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10, right: 20),
                 iconSize: 35,
                 icon: NotificationBadge(),
-                onPressed: () {
-                  Routers.router.navigateTo(context, "/KullaniciSayfasi");
-                },
+                onPressed: () => Navigator.pushNamed(context, "/KullaniciSayfasi"),
               )
 
             /// May cause other problems.
@@ -678,14 +675,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
           GestureDetector(
               child: Icon(Icons.arrow_back_sharp,
                   color: Colors.white, size: width <= 375 ? width / 15.6 : 24),
-              onTap: () => Routers.router.pop(context)),
+              onTap: () => Navigator.pop(context)),
           SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 Provider.of<LoginService>(context, listen: false).isLoggedIn
-                    ? "Merhaba " + Provider.of<LoginService>(context, listen: false).userModel.name
+                    ? "Merhaba "
+                    // + Provider.of<LoginService>(context, listen: false).userModel.name
                     : "Merhaba",
                 style: kTitleStyle.copyWith(
                     color: Colors.white, fontSize: width < 425 ? width / 19.3 : 22),
@@ -706,7 +704,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   size: width <= 375 ? width / 10.4 : 36,
                 ),
               ),
-              onTap: () => Routers.router.navigateTo(context, "/KullaniciSayfasi")),
+              onTap: () => Navigator.pushNamed(context, "/KullaniciSayfasi")),
         ],
       ),
       // backgroundColor: Colors.orange,

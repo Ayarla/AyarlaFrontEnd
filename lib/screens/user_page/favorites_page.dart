@@ -1,6 +1,4 @@
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/constants/router.dart';
-import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -77,16 +75,9 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,
                         child: GestureDetector(
-                          onTap: () {
-                            Routers.router.navigateTo(
-                              context,
-                              "/Isletme/:name",
-                              routeSettings: RouteSettings(
-                                name: "/Isletme/${createURL(localList[index].name.toString())}",
-                                arguments: CoiffureDetailPage(coiffureModel: localList[index]),
-                              ),
-                            );
-                          },
+                          onTap: () => Navigator.pushNamed(
+                              context, "/Isletme/${createURL(localList[index].name.toString())}",
+                              arguments: {localList[index]}),
                           child: Card(
                             elevation: 5,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -105,15 +96,6 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
                                   color: Colors.transparent,
                                   icon: Icons.delete,
                                   onTap: () {
-                                    // if (Provider.of<UserService>(context,
-                                    //         listen: false)
-                                    //     .myState
-                                    //     .mounted) {
-                                    //   Provider.of<UserService>(context,
-                                    //           listen: false)
-                                    //       .myState
-                                    //       .setState(() {});
-                                    // }
                                     setState(() {
                                       removeFavorite(index, localList[index]);
                                       Provider.of<UserService>(context, listen: false)
@@ -155,19 +137,9 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
                               Expanded(
                                 flex: 5,
                                 child: GestureDetector(
-                                  onTap: () {
-                                    Routers.router.navigateTo(
-                                      context,
-                                      "/Isletme/:name",
-                                      routeSettings: RouteSettings(
-                                        name:
-                                            "/Isletme/${createURL(localList[index].name.toString())}",
-                                        arguments: CoiffureDetailPage(
-                                          coiffureModel: localList[index],
-                                        ),
-                                      ),
-                                    );
-                                  },
+                                  onTap: () => Navigator.pushNamed(context,
+                                      "/Isletme/${createURL(localList[index].name.toString())}",
+                                      arguments: {localList[index]}),
                                   child: Card(
                                     elevation: 5,
                                     shape: RoundedRectangleBorder(
@@ -188,13 +160,6 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
                                         color: Colors.transparent,
                                         icon: Icons.delete,
                                         onTap: () {
-                                          // if (Provider.of<UserService>(context, listen: false)
-                                          //     .myState
-                                          //     .mounted) {
-                                          //   Provider.of<UserService>(context, listen: false)
-                                          //       .myState
-                                          //       .setState(() {});
-                                          // }
                                           setState(() {
                                             removeFavorite(index, localList[index]);
                                             Provider.of<UserService>(context, listen: false)

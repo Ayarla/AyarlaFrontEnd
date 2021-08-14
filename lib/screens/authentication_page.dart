@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
-import 'package:ayarla/models/model_user.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
 import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_login.dart';

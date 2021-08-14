@@ -4,7 +4,6 @@ import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/overScroll.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -182,7 +181,7 @@ class _CalendarPageState extends State<CalendarPage> {
           children: <Widget>[
             FloatingTextButton(
               text: 'Geri Dön',
-              onPressed: () => Routers.router.pop(context),
+              onPressed: () => Navigator.pop(context),
               gradient: functions.decideColor(context),
             ),
             Spacer(),
@@ -196,7 +195,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   Provider.of<AppointmentService>(context, listen: false).hoursList =
                       selectedHourList;
                   await Provider.of<AppointmentService>(context, listen: false).dateHandler();
-                  Routers.router.navigateTo(context, "/OnaySayfasi");
+                  Navigator.pushNamed(context, "/OnaySayfasi");
                 }
               },
               gradient: functions.decideColor(context),

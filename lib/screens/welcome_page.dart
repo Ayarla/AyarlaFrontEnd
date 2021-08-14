@@ -1,6 +1,4 @@
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/components/button_generic.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
@@ -37,7 +35,7 @@ class WelcomePage extends StatelessWidget {
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      Routers.router.navigateTo(context, "YoneticiAnasayfasi");
+                      Navigator.pushNamed(context, "/YoneticiAnasayfasi");
                       Provider.of<LoginService>(context, listen: false).loggedInManager();
                     },
                     child: Text(
@@ -80,12 +78,6 @@ class WelcomePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          GenericButton(
-                            text: 'Kadın',
-                            backgroundColor: Colors.grey.withOpacity(0.4),
-                            iconColor: Colors.white,
-                            showShadow: false,
-                          ),
                           TextButton(
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
@@ -93,7 +85,7 @@ class WelcomePage extends StatelessWidget {
                             onPressed: () {
                               Provider.of<GenderService>(context, listen: false)
                                   .selectGender(Gender.female);
-                              Routers.router.navigateTo(context, "/AramaSayfasi");
+                              Navigator.pushNamed(context, '/AramaSayfasi');
                               FirebaseAnalytics().logEvent(name: 'female_button', parameters: null);
                             },
                             child: Row(
@@ -124,7 +116,7 @@ class WelcomePage extends StatelessWidget {
                             onPressed: () {
                               Provider.of<GenderService>(context, listen: false)
                                   .selectGender(Gender.male);
-                              Routers.router.navigateTo(context, "/AramaSayfasi");
+                              Navigator.pushNamed(context, '/AramaSayfasi');
                               FirebaseAnalytics().logEvent(name: 'male_button', parameters: null);
                             },
                             child: Row(
@@ -155,7 +147,7 @@ class WelcomePage extends StatelessWidget {
                             onPressed: () {
                               Provider.of<GenderService>(context, listen: false)
                                   .selectGender(Gender.unisex);
-                              Routers.router.navigateTo(context, "/AramaSayfasi");
+                              Navigator.pushNamed(context, '/AramaSayfasi');
                               FirebaseAnalytics().logEvent(name: 'unisex_button', parameters: null);
                             },
                             child: Row(

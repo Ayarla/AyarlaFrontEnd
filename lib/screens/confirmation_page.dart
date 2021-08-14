@@ -2,12 +2,10 @@ import 'dart:ui';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/pop-up.dart';
@@ -54,7 +52,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         leading: IconButton(
           padding: EdgeInsets.only(left: 10),
           icon: isConfirmed ? Icon(Icons.home, color: Colors.white, size: 40.0) : BackButton(),
-          onPressed: () => Routers.router.navigateTo(context, "/Hosgeldiniz", clearStack: true),
+          onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/Hosgeldiniz", (route) => false),
         ),
         title: Center(
             child: Text(
@@ -222,7 +220,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                 children: [
                   FloatingTextButton(
                     text: 'Geri Dön',
-                    onPressed: () => Routers.router.pop(context),
+                    onPressed: () => Navigator.pop(context),
                     gradient: functions.decideColor(context),
                   ),
                   Spacer(),
@@ -245,7 +243,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                         /// TODO: do the reset somewhere else.
                         Provider.of<AppointmentService>(context, listen: false)
                             .resetCurrentAppointment();
-                        Routers.router.navigateTo(context, "/OnaySayfasi");
+                        Navigator.pushNamed(context, "/OnaySayfasi");
                       }
 
                       // for (AppointmentInfo x
@@ -269,9 +267,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   FloatingTextButton(
                     text: 'Profilini Tamamla',
                     gradient: functions.decideColor(context),
-                    onPressed: () {
-                      Routers.router.navigateTo(context, "/Profilimi Düzenle");
-                    },
+                    onPressed: () => Navigator.pushNamed(context, "/ProfilimiDuzenle"),
                   ),
                 ],
               ),
