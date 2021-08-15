@@ -8,7 +8,11 @@ class FlutterMapCoiffure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return FlutterMap(
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+    child: Container(
+    height: 300,
+    child:FlutterMap(
       options: MapOptions(
         center: Provider.of<ManagementService>(context, listen: false).currentPosition
       ,
@@ -37,6 +41,8 @@ class FlutterMapCoiffure extends StatelessWidget {
           ],
         ),
       ],
+    ),
+    ),
     );
   }
 }

@@ -243,3 +243,12 @@ String fixTurkishCharacters(String string) {
     string = string.replaceAll(letter, charList2[charList.indexOf(letter)]);
   return string;
 }
+
+// String reverseTurkishCharacters(String string) {
+//   List charList2 = ['Ö', 'ö', 'ı', 'İ', 'ş', 'Ş', 'Ç', 'ç', 'Ü', 'ü', 'Ğ', 'ğ'];
+//   List charList = ['O', 'o', 'i', 'I', 's', 'S', 'C', 'c', 'U', 'u', 'G', 'g'];
+//   for (String letter in charList)
+//     string = string.replaceAll(letter, charList2[charList.indexOf(letter)]);
+//   return string;
+// }
+

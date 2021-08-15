@@ -3,10 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ayarla/constants/constants.dart';
 
 class CommentModel extends StatelessWidget {
-  final String name;
+  final String userName;
+  final String userImage;
   final int rating;
   final String comment;
-  final String image;
   final String date;
   final int like;
   final int dislike;
@@ -19,9 +19,9 @@ class CommentModel extends StatelessWidget {
 
   CommentModel({
     @required this.rating,
-    @required this.name,
+    @required this.userName,
     @required this.comment,
-    @required this.image,
+    @required this.userImage,
     this.date,
     this.like,
     this.dislike,
@@ -40,7 +40,7 @@ class CommentModel extends StatelessWidget {
       children: [
         Row(
           children: [
-            CircleAvatar(backgroundImage: AssetImage(image)),
+            CircleAvatar(backgroundImage: AssetImage(userImage)),
             SizedBox(width: 5),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +49,7 @@ class CommentModel extends StatelessWidget {
                     ? Row(
                         children: [
                           Text(
-                            name,
+                            userName,
                             style: kSmallTextStyle,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -71,7 +71,7 @@ class CommentModel extends StatelessWidget {
                           ),
                         ],
                       )
-                    : Text(name, style: kSmallTextStyle),
+                    : Text(userName, style: kSmallTextStyle),
                 Row(
                   children: <Widget>[
                     for (int i = 0; i < rating; i++)

@@ -1,6 +1,4 @@
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/constants/router.dart';
-import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +18,7 @@ class FavoritesPage extends StatefulWidget {
   _FavoritesPageState createState() => _FavoritesPageState();
 }
 
-class _FavoritesPageState extends State<FavoritesPage>
-    with SingleTickerProviderStateMixin {
+class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProviderStateMixin {
   Functions functions = Functions();
   List localList = [];
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
@@ -32,16 +29,13 @@ class _FavoritesPageState extends State<FavoritesPage>
       index,
       (BuildContext context, Animation<double> animation) {
         return FadeTransition(
-          opacity:
-              CurvedAnimation(parent: animation, curve: Interval(0.5, 1.0)),
+          opacity: CurvedAnimation(parent: animation, curve: Interval(0.5, 1.0)),
           child: SizeTransition(
-            sizeFactor:
-                CurvedAnimation(parent: animation, curve: Interval(0.2, 1.0)),
+            sizeFactor: CurvedAnimation(parent: animation, curve: Interval(0.2, 1.0)),
             axisAlignment: 0.0,
             child: Card(
               elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               child: CardInfo(coiffureModel: coiffureModel),
             ),
           ),
@@ -72,9 +66,8 @@ class _FavoritesPageState extends State<FavoritesPage>
           child: AnimatedList(
             key: _listKey,
             initialItemCount: localList.length,
-            padding: const EdgeInsets.all(10.0),
-            itemBuilder:
-                (BuildContext buildContext, int index, Animation animation) {
+            padding: EdgeInsets.all(10.0),
+            itemBuilder: (BuildContext buildContext, int index, Animation animation) {
               return FadeTransition(
                 opacity: animation,
                 child: size.width < 700
@@ -82,22 +75,12 @@ class _FavoritesPageState extends State<FavoritesPage>
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,
                         child: GestureDetector(
-                          onTap: () {
-                            Routers.router.navigateTo(
-                              context,
-                              "/Isletme/:name",
-                              routeSettings: RouteSettings(
-                                name:
-                                    "/Isletme/${createURL(localList[index].name.toString())}",
-                                arguments: CoiffureDetailPage(
-                                    coiffureModel: localList[index]),
-                              ),
-                            );
-                          },
+                          onTap: () => Navigator.pushNamed(
+                              context, "/Isletme/${createURL(localList[index].name.toString())}",
+                              arguments: {localList[index]}),
                           child: Card(
                             elevation: 5,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                             child: CardInfo(coiffureModel: localList[index]),
                           ),
                         ),
@@ -113,20 +96,17 @@ class _FavoritesPageState extends State<FavoritesPage>
                                   color: Colors.transparent,
                                   icon: Icons.delete,
                                   onTap: () {
-                                    if (Provider.of<UserService>(context,
-                                            listen: false)
-                                        .myState
-                                        .mounted) {
-                                      Provider.of<UserService>(context,
-                                              listen: false)
-                                          .myState
-                                          .setState(() {});
-                                    }
                                     setState(() {
                                       removeFavorite(index, localList[index]);
+                                      Provider.of<UserService>(context, listen: false)
+                                          .setOrChangeFav(localList[index]);
                                     });
-                                    FirebaseAnalytics().logEvent(name: 'favorites_button',
-                                        parameters:{'coiffeur': localList[index].name, 'state': 'deleted'});
+                                    FirebaseAnalytics().logEvent(
+                                        name: 'favorites_button',
+                                        parameters: {
+                                          'coiffeur': localList[index].name,
+                                          'state': 'deleted'
+                                        });
                                   }),
                             ),
                           ),
@@ -157,24 +137,14 @@ class _FavoritesPageState extends State<FavoritesPage>
                               Expanded(
                                 flex: 5,
                                 child: GestureDetector(
-                                  onTap: () {
-                                    Routers.router.navigateTo(
-                                      context,
-                                      "/Isletme/:name",
-                                      routeSettings: RouteSettings(
-                                        name:
-                                            "/Isletme/${createURL(localList[index].name.toString())}",
-                                        arguments: CoiffureDetailPage(
-                                            coiffureModel: localList[index],
-                                      ),
-                                    ),);
-                                  },
+                                  onTap: () => Navigator.pushNamed(context,
+                                      "/Isletme/${createURL(localList[index].name.toString())}",
+                                      arguments: {localList[index]}),
                                   child: Card(
                                     elevation: 5,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20)),
-                                    child:
-                                        CardInfo(coiffureModel: localList[index]),
+                                    child: CardInfo(coiffureModel: localList[index]),
                                   ),
                                 ),
                               ),
@@ -190,19 +160,10 @@ class _FavoritesPageState extends State<FavoritesPage>
                                         color: Colors.transparent,
                                         icon: Icons.delete,
                                         onTap: () {
-                                          if (Provider.of<UserService>(
-                                                  context,
-                                                  listen: false)
-                                              .myState
-                                              .mounted) {
-                                            Provider.of<UserService>(context,
-                                                    listen: false)
-                                                .myState
-                                                .setState(() {});
-                                          }
                                           setState(() {
-                                            removeFavorite(
-                                                index, localList[index]);
+                                            removeFavorite(index, localList[index]);
+                                            Provider.of<UserService>(context, listen: false)
+                                                .setOrChangeFav(localList[index]);
                                           });
                                         }),
                                   ),

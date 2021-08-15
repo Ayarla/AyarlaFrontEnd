@@ -1,5 +1,6 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
+import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -37,14 +38,11 @@ class _ManagerSendMessageState extends State<ManagerSendMessage> {
               Expanded(
                 child: ListView(
                   reverse: true,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
 
                   /// reverse
-                  children: Provider.of<AppointmentService>(context, listen: false)
-                      .messages
-                      .reversed
-                      .toList(),
+                  children:
+                      Provider.of<ManagerData>(context, listen: false).messages.reversed.toList(),
                 ),
               ),
               Container(
@@ -63,8 +61,7 @@ class _ManagerSendMessageState extends State<ManagerSendMessage> {
                         },
                         style: kSmallTextStyle,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
+                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                           hintText: 'Mesajınızı yazınız...',
                           hintStyle: kSmallTextStyle,
                           border: InputBorder.none,
@@ -76,9 +73,7 @@ class _ManagerSendMessageState extends State<ManagerSendMessage> {
                       onPressed: () {
                         messageTextController.clear();
                         setState(() {
-                          Provider.of<AppointmentService>(context, listen: false)
-                              .messages
-                              .add(
+                          Provider.of<ManagerData>(context, listen: false).messages.add(
                                 MessageBubble(text: message),
                               );
                         });

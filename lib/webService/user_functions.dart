@@ -11,10 +11,7 @@ class HttpUserFunctions extends HttpService {
       String email,
       String password,
       String roleNames}) async {
-    await getToken();
-    final String _url =
-        // 'https://ayarlawebhost2021041011510.azurewebsites.net/api/services/app/User/Create';
-        '$baseUrl/api/services/app/User/Create';
+    final String _url = '$baseUrl/api/services/app/User/Create';
 
     Map data = {
       "userName": userName,
@@ -44,7 +41,6 @@ class HttpUserFunctions extends HttpService {
   /// Update User
   Future updateUser(
       {int id, String userName, String name, String surname, String email, String password}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/User/Update';
 
     Map data = {
@@ -74,7 +70,6 @@ class HttpUserFunctions extends HttpService {
 
   /// Delete User from database
   Future deleteUser({int id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/User/Delete';
 
     http.Response response = await http.delete(
@@ -89,7 +84,6 @@ class HttpUserFunctions extends HttpService {
   }
 
   Future activateUser({int id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/User/Activate';
 
     var data = {"id": id};
@@ -108,7 +102,6 @@ class HttpUserFunctions extends HttpService {
   }
 
   Future deactivateUser({int id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/User/DeActivate';
 
     var data = {"id": id};
@@ -127,7 +120,6 @@ class HttpUserFunctions extends HttpService {
   }
 
   Future getRolesUser() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/User/GetRoles";
 
     http.Response response = await http.get(
@@ -144,7 +136,6 @@ class HttpUserFunctions extends HttpService {
   }
 
   Future changeLanguage({String language}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/User/ChangeLanguage';
 
     var data = {"languageName": language};
@@ -164,7 +155,6 @@ class HttpUserFunctions extends HttpService {
   }
 
   Future changeUserPassword({String newPassword, String currentPassword}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/User/ChangePassword';
 
     var data = {"currentPassword": currentPassword, "newPassword": newPassword};
@@ -183,7 +173,6 @@ class HttpUserFunctions extends HttpService {
   }
 
   Future resetUserPassword({int userId, String newPassword}) async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/User/ResetPassword";
 
     var data = {
@@ -206,7 +195,6 @@ class HttpUserFunctions extends HttpService {
   }
 
   Future getUser({int id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/User/Get';
 
     http.Response response = await http.get(
@@ -218,11 +206,11 @@ class HttpUserFunctions extends HttpService {
       response: response,
       returnData: jsonDecode(response.body),
     );
-    print(responseBody);
+    print('responseBody: $responseBody');
+    return responseBody;
   }
 
   Future getAllUser() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/User/GetAll";
 
     http.Response response = await http.get(

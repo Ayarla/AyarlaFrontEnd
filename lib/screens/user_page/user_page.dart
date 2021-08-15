@@ -1,7 +1,6 @@
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/button_generic.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -30,6 +29,7 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         showIconButton: false,
         backButtonFunction: () {
@@ -52,13 +52,16 @@ class _UserPageState extends State<UserPage> {
             child: OverScroll(
               child: Column(
                 children: [
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) SizedBox(height: 30),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
+                    SizedBox(height: 30),
                   if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) UI.generalLogo,
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) SizedBox(height: 30),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
+                    SizedBox(height: 30),
 
                   ///if the user is not logged in then it opens the authentication
                   ///page for login or sign up
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) AuthenticationPage(),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
+                    AuthenticationPage(),
 
                   ///otherwise it opens the profile of the user
                   if (Provider.of<LoginService>(context, listen: true).isLoggedIn)
@@ -96,7 +99,10 @@ class _UserPageState extends State<UserPage> {
                             child: FittedBox(
                               fit: BoxFit.cover,
                               child: Text(
-                                "Nilsu Öz",
+                                Provider.of<LoginService>(context, listen: false)
+                                        .userModel
+                                        .fullName ??
+                                    "Kullanıcı Adı",
                                 style: kTextStyle.copyWith(color: Colors.black, fontSize: 25),
                               ),
                             ),
@@ -109,40 +115,29 @@ class _UserPageState extends State<UserPage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   GenericButton(
-                                    icon: Icons.business_center_outlined,
-                                    iconColor: Colors.green,
+                                    icon: Icons.favorite_border_rounded,
+                                    iconColor: Colors.red,
                                     text: 'Favorilerim',
-                                    onPressed: () {
-                                      Routers.router.navigateTo(context, "/Favorilerim",
-                                          clearStack: false, replace: false);
-                                    },
+                                    onPressed: () => Navigator.pushNamed(context, "/Favorilerim"),
                                   ),
                                   GenericButton(
-                                    icon: Icons.business_center_outlined,
-                                    iconColor: Colors.green,
+                                    icon: Icons.calendar_today_rounded,
+                                    iconColor: Colors.blue,
                                     text: 'Randevularım',
-                                    onPressed: () {
-                                      Routers.router.navigateTo(context, "/Randevularım",
-                                          clearStack: false, replace: false);
-                                    },
+                                    onPressed: () => Navigator.pushNamed(context, "/Randevularim"),
                                   ),
                                   GenericButton(
-                                    icon: Icons.business_center_outlined,
+                                    icon: Icons.message_rounded,
                                     iconColor: Colors.green,
                                     text: 'Mesajlarım',
-                                    onPressed: () {
-                                      Routers.router.navigateTo(context, "/Mesajlarim",
-                                          clearStack: false, replace: false);
-                                    },
+                                    onPressed: () => Navigator.pushNamed(context, "/Randevularim"),
                                   ),
                                   GenericButton(
                                     icon: Icons.business_center_outlined,
                                     iconColor: Colors.green,
                                     text: 'Çalışan Ayarlarım',
-                                    onPressed: () {
-                                      Routers.router.navigateTo(context, "/Ayarlarim",
-                                          clearStack: false, replace: false);
-                                    },
+                                    onPressed: () =>
+                                        Navigator.pushNamed(context, "/CalisanAyarlarim"),
                                   ),
                                   GenericButton(
                                     icon: FontAwesomeIcons.userEdit,
@@ -151,7 +146,7 @@ class _UserPageState extends State<UserPage> {
                                     onPressed: () {
                                       FirebaseAnalytics()
                                           .logEvent(name: 'user_edit_profile', parameters: null);
-                                      Routers.router.navigateTo(context, "/Profilimi Düzenle");
+                                      Navigator.pushNamed(context, "/ProfilimiDuzenle");
                                     },
                                   ),
                                   GenericButton(
@@ -159,9 +154,14 @@ class _UserPageState extends State<UserPage> {
                                     iconColor: Colors.red,
                                     text: 'Çıkış Yap',
                                     onPressed: () {
-                                      Provider.of<LoginService>(context, listen: false).loggedInUser();
-                                      Routers.router.navigateTo(context, '/KullaniciSayfasi',
-                                          clearStack: false, replace: true);
+                                      Provider.of<LoginService>(context, listen: false)
+                                          .loggedInUser();
+
+                                      /// TODO: fix
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          "/KullaniciSayfasi",
+                                          ModalRoute.withName('/AramaSayfasi'));
                                     },
                                   ),
                                 ],

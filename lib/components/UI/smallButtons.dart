@@ -1,5 +1,4 @@
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 
 class AcceptButton extends StatelessWidget {
@@ -10,8 +9,7 @@ class AcceptButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       child: Text('Onayla',
-          style: kSmallTextStyle.copyWith(
-              color: Colors.blue, fontWeight: FontWeight.bold)),
+          style: kSmallTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.bold)),
       onPressed: acceptCondition,
     );
   }
@@ -22,11 +20,8 @@ class CancelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       child: Text('İptal',
-          style: kSmallTextStyle.copyWith(
-              color: Colors.red, fontWeight: FontWeight.bold)),
-      onPressed: () {
-        Routers.router.pop(context);
-      },
+          style: kSmallTextStyle.copyWith(color: Colors.red, fontWeight: FontWeight.bold)),
+      onPressed: () => Navigator.pop(context),
     );
   }
 }

@@ -120,20 +120,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2+dart2"
-  dependencies:
-    dependency: "direct main"
-    description:
-      name: dependencies
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.5"
-  disposables:
-    dependency: transitive
-    description:
-      name: disposables
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   expandable_widgets:
     dependency: "direct main"
     description:
@@ -286,6 +272,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.7"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.0"
   flutter_svg:
     dependency: "direct main"
     description:

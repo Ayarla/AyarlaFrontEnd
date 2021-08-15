@@ -1,10 +1,8 @@
+import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/components/new_icon.dart';
 import 'package:ayarla/constants/iconNames.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
-import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 
@@ -17,6 +15,7 @@ class _ManagerHomeState extends State<ManagerHome> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    bool isSmallScreen = size.width < 650;
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Color(0xFFeceff1),
@@ -35,59 +34,51 @@ class _ManagerHomeState extends State<ManagerHome> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              SizedBox(height: 80),
+              isSmallScreen ? SizedBox(height: 40) : SizedBox(),
               UI.generalLogo,
               SizedBox(height: 15),
-              Text("İşletme Yönetim Paneli",
-                  textAlign: TextAlign.center, style: kTitleStyle),
-              SizedBox(height: 15),
+              Text("İşletme Yönetim Paneli", textAlign: TextAlign.center, style: kTitleStyle),
+              isSmallScreen ? SizedBox(height: 15) : SizedBox(height: 50),
               GridView.count(
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.all(20),
                 shrinkWrap: true,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+                crossAxisCount: size.width < 650 ? 2 : 4,
                 children: <Widget>[
+                  // Image(image: AssetImage(homeIconName2)),
+                  // Image(image: AssetImage(employeesIconName2)),
+                  // Image(image: AssetImage(notesIconName2)),
+                  // Image(image: AssetImage(messageIconName2)),
                   GenericIconButton(
-                    iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
-                      iconName: homeIconName,
-                    ),
+                    padding: EdgeInsets.all(10),
+                    iconContext: Image.asset(homeIconName2),
                     color: Colors.white.withOpacity(.4),
                     text: 'İşletmem',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/Isletmem"),
+                    onPressed: () => Navigator.pushNamed(context, "/Isletmem"),
                   ),
                   GenericIconButton(
-                    iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
-                      iconName: employeesIconName,
-                    ),
+                    padding: EdgeInsets.all(10),
+                    iconContext: Image(image: AssetImage(employeesIconName2)),
                     color: Colors.white.withOpacity(.4),
                     text: 'Çalışanlarım',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/Calisanlarim"),
+                    onPressed: () => Navigator.pushNamed(context, "/Calisanlarim"),
                   ),
                   GenericIconButton(
-                    iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
-                      iconName: notesIconName,
-                    ),
+                    padding: EdgeInsets.all(10),
+                    iconContext: Image(image: AssetImage(notesIconName2)),
                     color: Colors.white.withOpacity(.4),
-                    text: 'Notlarım',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/Notlarim"),
+                    text: 'Bilgilendirme Mesajlarım',
+                    onPressed: () => Navigator.pushNamed(context, "/BilgilendirmeMesaji"),
                   ),
                   GenericIconButton(
-                    iconContext: NewIcon(
-                      size: size.width < 700 ? size.width / 6 : 700 / 6,
-                      iconName: messageIconName,
-                    ),
+                    padding: EdgeInsets.all(10),
+                    iconContext: Image(image: AssetImage(messageIconName2)),
                     color: Colors.white.withOpacity(.4),
                     text: 'Mesajlaşma',
-                    onPressed: () =>
-                        Routers.router.navigateTo(context, "/MesajYolla"),
+                    onPressed: () => Navigator.pushNamed(context, "/MesajYolla"),
                   ),
                 ],
               ),

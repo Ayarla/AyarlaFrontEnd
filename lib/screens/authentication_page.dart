@@ -9,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +37,19 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
   }
 
   bool switchValue = false;
+  bool isLoading = false;
+  Widget spinKitSquareCircle;
+
+  @override
+  void initState() {
+    spinKitSquareCircle = SpinKitFoldingCube(
+      color: Colors.white,
+      size: 30.0,
+      controller: AnimationController(vsync: this, duration: const Duration(seconds: 2)),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -143,6 +157,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                           SizedBox(height: 10),
                           Container(
                             width: 500,
+                            padding: EdgeInsets.symmetric(horizontal: 12),
                             child: Row(
                               // mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -152,9 +167,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                       _newPassword = true;
                                     });
                                   },
-                                  child: Text('  Şifremi unuttum',
+                                  child: Text('Şifremi unuttum',
                                       style: kSmallTextStyle.copyWith(
-                                          color: Colors.orange[300],
+                                          color: Colors.orange[800],
                                           fontSize: isSmallScreen ? 10 : 15)),
                                 ),
                                 Spacer(),
@@ -168,21 +183,42 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                         RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(20))),
                                   ),
-                                  onPressed: () {
-                                    if (_loginFormKey.currentState.validate()) {
-                                      print("Validated");
-                                    } else {
-                                      print("Not Validated");
-                                    }
-                                    Provider.of<LoginService>(context, listen: false).loggedInUser();
-
-                                    ///TODO check and push somewhere
+                                  onPressed: () async {
+                                    Provider.of<LoginService>(context, listen: false)
+                                        .loggedInUser();
+                                    // if (_loginFormKey.currentState.validate()) {
+                                    //   setState(() {
+                                    //     isLoading = true;
+                                    //   });
+                                    //   // var body = await HttpUserFunctions().getUser(id: 11);
+                                    //   // print("Validated");
+                                    //   // // if (_typedMail == body["result"]["emailAddress"] &&
+                                    //   // //     _typedPassword == body["result"]["password"]) {
+                                    //   // // setState(() {
+                                    //   // // print('deneme : ${body["result"][0]}');
+                                    //   // print(body["result"]);
+                                    //   // print(UserModel.fromJson(body["result"], 0).fullName);
+                                    //   // Provider.of<LoginService>(context, listen: false).userModel =
+                                    //   //     UserModel.fromJson(body["result"], 0);
+                                    //
+                                    //   isLoading = false;
+                                    //   // }
+                                    //   // } else {
+                                    //   //   print("Not Validated");
+                                    //   //   isLoading = true;
+                                    //   // }
+                                    //
+                                    //   ///TODO check and push somewhere
+                                    // }
                                   },
-                                  child: Text(
-                                    'Giriş',
-                                    style: kTextStyle.copyWith(
-                                        color: Colors.white, fontSize: isSmallScreen ? 15 : 25),
-                                  ),
+                                  child: !isLoading
+                                      ? Text(
+                                          'Giriş',
+                                          style: kTextStyle.copyWith(
+                                              color: Colors.white,
+                                              fontSize: isSmallScreen ? 15 : 25),
+                                        )
+                                      : spinKitSquareCircle,
                                 ),
                               ],
                             ),
@@ -190,6 +226,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                           if (_newPassword)
                             Container(
                               width: 500,
+                              padding: EdgeInsets.all(8),
                               child: Column(
                                 children: [
                                   SizedBox(height: 10),
@@ -248,7 +285,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                           ),
                           Center(
                             child: FlutterToggleTab(
-                              width: MediaQuery.of(context).size.width > 1200 ? 20 : 50,
+                              width: MediaQuery.of(context).size.width > 900 ? 20 : 50,
                               borderRadius: 15,
                               initialIndex: 0,
                               selectedBackgroundColors: [Colors.orange[500]],
@@ -289,7 +326,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     color: Colors.orange[500],
                                     validator: (_typed) {
                                       if (_typed.isEmpty) {
-                                        return 'Boş bırakılamaz.';
+                                        return 'Boş bırakılamaz';
                                       } else {
                                         return null;
                                       }
@@ -310,7 +347,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     color: Colors.orange[500],
                                     validator: (_typed) {
                                       if (_typed.isEmpty) {
-                                        return 'Boş bırakılamaz.';
+                                        return 'Boş bırakılamaz';
                                       } else {
                                         return null;
                                       }
@@ -376,12 +413,12 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     color: Colors.orange[500],
                                     validator: (_typed) {
                                       if (_typed.isEmpty) {
-                                        return 'Boş bırakılamaz.';
+                                        return 'Boş bırakılamaz';
                                       } else if (_typed.length < 6) {
-                                        return 'Şifre en az 6 karakter içermelidir.';
+                                        return 'Şifre en az 6 karakter içermelidir';
                                       } else if (_typedPasswordCheck != _typed &&
                                           _typedPasswordCheck != '') {
-                                        return 'Şifreler birbiri ile uyuşmuyor.';
+                                        return 'Şifreler birbiri ile uyuşmuyor';
                                       } else {
                                         return null;
                                       }
@@ -413,39 +450,81 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                   }),
                               SizedBox(width: 10),
                               Flexible(
-                                child: RichText(
-                                  text: TextSpan(
-                                    style: kSmallTextStyle.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
+                                child: Container(
+                                  width: 455,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: kSmallTextStyle.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: "Ayarla ",
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: 'Gizlilik Sözleşmesi',
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              /// Privacy Policy ModalBottomSheet
+                                              createSheet(
+                                                  context,
+                                                  privacyOrAgreementModalBottomSheet(
+                                                    context: context,
+                                                    setState: setState,
+                                                    heading: "Ayarla Gizlilik Sözleşmesi",
+                                                    content: "Ayarla Gizlilik Sözleşmesi",
+                                                  ),
+                                                  size.height * 0.9);
+                                            },
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.orange[800],
+                                            fontStyle: FontStyle.italic,
+                                            decoration: TextDecoration.underline,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: " ve ",
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: 'Kullanıcı Sözleşmesi`ni',
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              /// Privacy Policy ModalBottomSheet
+                                              createSheet(
+                                                  context,
+                                                  privacyOrAgreementModalBottomSheet(
+                                                    context: context,
+                                                    setState: setState,
+                                                    heading: "Ayarla Kullanıcı Sözleşmesi",
+                                                    content: "Ayarla Kullanıcı Sözleşmesi",
+                                                  ),
+                                                  size.height * 0.9);
+                                            },
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.orange[800],
+                                            fontStyle: FontStyle.italic,
+                                            decoration: TextDecoration.underline,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' okudum, onaylıyorum.',
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    children: [
-                                      TextSpan(
-                                        text: 'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            /// Privacy Policy ModalBottomSheet
-                                            createSheet(
-                                                context,
-                                                privacyPolicyModalBottomSheet(
-                                                    context: context, setState: setState),
-                                                600);
-                                          },
-                                        style: kSmallTextStyle.copyWith(
-                                          fontSize: isSmallScreen ? 10 : 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.orange[500],
-                                          fontStyle: FontStyle.italic,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: ' okudum, onaylıyorum.',
-                                        style: kSmallTextStyle.copyWith(
-                                          fontSize: isSmallScreen ? 10 : 14,
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ),
@@ -467,7 +546,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                 if (_regFormKey.currentState.validate()) {
                                   print("Form Validated...");
                                   HttpUserFunctions().createUser(
-                                    userName: _typedName,
+                                    userName: _typedMail,
                                     name: _typedName,
                                     surname: _typedSurname,
                                     email: _typedMail,

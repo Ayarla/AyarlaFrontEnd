@@ -1,5 +1,7 @@
+import 'package:ayarla/services/service_login.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:provider/provider.dart';
 
 /// GENERAL LOGO
 Container generalLogo = Container(
@@ -22,7 +24,9 @@ class AppBarTitleCustomer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Merhaba Nilsu",
+            Provider.of<LoginService>(context, listen: false).isLoggedIn
+                ? "Merhaba " + Provider.of<LoginService>(context, listen: false).userModel.name
+                : "Merhaba",
             style: kTitleStyle.copyWith(
                 color: Colors.white, fontSize: size.width < 425 ? size.width / 19.3 : 22),
           ),

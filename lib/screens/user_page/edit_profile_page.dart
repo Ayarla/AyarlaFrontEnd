@@ -111,7 +111,9 @@ class _EditProfileState extends State<EditProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Nilsu Öz",
+                          Provider.of<LoginService>(context, listen: false)
+                              .userModel
+                              .fullName ?? "Kullanıcı Adı",
                           style: kTextStyle.copyWith(
                               color: Colors.white, fontSize: size.width <= 400 ? size.width / 20 : 25),
                         ),

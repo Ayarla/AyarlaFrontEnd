@@ -21,10 +21,10 @@ class _UserCommentsPageState extends State<UserCommentsPage> {
   void initState() {
     myComments.add(
       CommentModel(
-        name: 'Fatih Özkan',
+        userName: 'Fatih Özkan',
         rating: 5,
         comment: 'Harika!!',
-        image: 'assets/worker_1.png',
+        userImage: 'assets/worker_1.png',
         date: '21.10.2018',
         like: 1,
         dislike: 0,
@@ -117,10 +117,10 @@ class _UserCommentsPageState extends State<UserCommentsPage> {
                             myComments.insert(
                               0,
                               CommentModel(
-                                name: 'Fatih Özkan',
+                                userName: 'Fatih Özkan',
                                 rating: 2,
                                 comment: _typedComment,
-                                image: 'assets/worker_1.png',
+                                userImage: 'assets/worker_1.png',
                                 date: '21.10.2018',
                                 like: 0,
                                 dislike: 0,

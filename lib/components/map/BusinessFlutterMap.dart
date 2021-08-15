@@ -38,7 +38,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
         gradient: functions.decideColor(context),
         backButtonFunction: () {
           Provider.of<ManagementService>(context, listen: false).setDefault();
-          Routers.router.pop(context);
+          Navigator.pop(context);
         },
         title: Center(
             child: Text('Haritadan Bir Konum Seç!',

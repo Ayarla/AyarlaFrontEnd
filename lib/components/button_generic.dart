@@ -6,12 +6,16 @@ class GenericButton extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color iconColor;
+  final Color backgroundColor;
+  final bool showShadow;
 
   GenericButton({
     this.onPressed,
     @required this.text,
-    @required this.icon,
+    this.icon,
     this.iconColor,
+    this.backgroundColor,
+    this.showShadow = true,
   });
 
   @override
@@ -28,9 +32,11 @@ class GenericButton extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.all(6),
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: backgroundColor ?? Colors.grey.shade200,
           borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0.0, 3), blurRadius: 5)],
+          boxShadow: showShadow
+              ? [BoxShadow(color: Colors.black12, offset: Offset(0.0, 3), blurRadius: 5)]
+              : null,
         ),
         child: Row(
           children: [
@@ -44,7 +50,8 @@ class GenericButton extends StatelessWidget {
             ),
             Text(
               text,
-              style: kTextStyle.copyWith(fontSize: size.width <= 400 ? size.width / 20 : 20),
+              style: kTextStyle.copyWith(
+                  color: iconColor, fontSize: size.width <= 400 ? size.width / 20 : 20),
             ),
             Spacer(),
             Padding(
@@ -52,7 +59,7 @@ class GenericButton extends StatelessWidget {
               child: Icon(
                 Icons.keyboard_arrow_right,
                 size: size.width <= 400 ? size.width / 16.6 : 24,
-                color: Colors.black,
+                color: iconColor ?? Colors.black,
               ),
             ),
           ],

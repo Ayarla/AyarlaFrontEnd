@@ -2,12 +2,10 @@ import 'dart:ui';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/map/flutterMap.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/pop-up.dart';
@@ -54,7 +52,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         leading: IconButton(
           padding: EdgeInsets.only(left: 10),
           icon: isConfirmed ? Icon(Icons.home, color: Colors.white, size: 40.0) : BackButton(),
-          onPressed: () => Routers.router.navigateTo(context, "/Hosgeldiniz", clearStack: true),
+          onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/Hosgeldiniz", (route) => false),
         ),
         title: Center(
             child: Text(
@@ -193,10 +191,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
             SizedBox(height: 20),
 
             /// Google Maps integration
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: Container(height: 300, child: FlutterMapCoiffure()),
-            ),
+            FlutterMapCoiffure(),
             if (!Provider.of<LoginService>(context, listen: true).isLoggedIn &&
                 UniversalPlatform.isWeb)
               Column(
@@ -206,14 +201,12 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset(
-                        'assets/store_badges/google-play-badge.png',
-                        height: 65,
-                      ),
-                      SvgPicture.asset(
-                        'assets/store_badges/app_store_badge.svg',
-                        height: 45,
-                      ),
+                      Image.asset('assets/store_badges/google-play-badge.png', height: 65),
+                      Image.asset('assets/store_badges/app_store_badge.png', height: 40),
+                      // SvgPicture.asset(
+                      //   'assets/store_badges/app_store_badge.svg',
+                      //   height: 45,
+                      // ),
                     ],
                   ),
                 ],
@@ -222,42 +215,64 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         ),
       ),
       floatingActionButton: !isConfirmed
-          ? FloatingTextButton(
-              text: 'Onayla',
-              gradient: functions.decideColor(context),
-              onPressed: () {
-                bool check = Provider.of<LoginService>(context, listen: false).isLoggedIn;
-                if (check == false) {
-                  PopUp().mailFieldDialog(context: context);
-                } else if (check == true) {
-                  ///TODO profildeki mail adresine mail gonderilecek
-                  Routers.router.navigateTo(context, "/OnaySayfasi");
-                }
-                Provider.of<UserService>(context, listen: false)
-                    .waitingAppointments
-                    .add(currentAppointment);
-                Provider.of<AppointmentService>(context, listen: false).resetCurrentAppointment();
-                isConfirmed = !isConfirmed;
-                // for (AppointmentInfo x
-                //     in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees) {
-                //   FirebaseAnalytics().logEvent(name: 'selectDate_button', parameters: {
-                //     'service': x.service,
-                //     'employee': x.employee,
-                //     'date': x.dateTime,
-                //     'state': 'confirmed'
-                //   });
-                // }
-              },
+          ? AyarlaPageNoC(
+              child: Row(
+                children: [
+                  FloatingTextButton(
+                    text: 'Geri Dön',
+                    onPressed: () => Navigator.pop(context),
+                    gradient: functions.decideColor(context),
+                  ),
+                  Spacer(),
+                  FloatingTextButton(
+                    text: 'Onayla',
+                    gradient: functions.decideColor(context),
+                    onPressed: () {
+                      bool check = Provider.of<LoginService>(context, listen: false).isLoggedIn;
+                      if (check == false) {
+                        PopUp().mailFieldDialog(context: context);
+                      } else if (check == true) {
+                        ///TODO profildeki mail adresine mail gonderilecek
+                        Provider.of<UserService>(context, listen: false)
+                            .waitingAppointments
+                            .add(currentAppointment);
+                        Provider.of<AppointmentService>(context, listen: false)
+                            .currentAppointment
+                            .isConfirmedByUser = true;
+
+                        /// TODO: do the reset somewhere else.
+                        Provider.of<AppointmentService>(context, listen: false)
+                            .resetCurrentAppointment();
+                        Navigator.pushNamed(context, "/OnaySayfasi");
+                      }
+
+                      // for (AppointmentInfo x
+                      //     in Provider.of<AppointmentData>(context, listen: false).servicesAndEmployees) {
+                      //   FirebaseAnalytics().logEvent(name: 'selectDate_button', parameters: {
+                      //     'service': x.service,
+                      //     'employee': x.employee,
+                      //     'date': x.dateTime,
+                      //     'state': 'confirmed'
+                      //   });
+                      // }
+                    },
+                  ),
+                ],
+              ),
             )
           : AyarlaPageNoC(
-              child: FloatingTextButton(
-                text: 'Profilini Tamamla',
-                gradient: functions.decideColor(context),
-                onPressed: () {
-                  Routers.router.navigateTo(context, "/Profilimi Düzenle");
-                },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FloatingTextButton(
+                    text: 'Profilini Tamamla',
+                    gradient: functions.decideColor(context),
+                    onPressed: () => Navigator.pushNamed(context, "/ProfilimiDuzenle"),
+                  ),
+                ],
               ),
             ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

@@ -4,7 +4,6 @@ import 'dart:convert';
 
 class HttpAppointmentFunctions extends HttpService {
   Future createAppointment({String dayTime}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Appoinment/Create';
 
     var data = {
@@ -27,7 +26,6 @@ class HttpAppointmentFunctions extends HttpService {
   }
 
   Future getAppointment({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Appoinment/Get';
 
     http.Response response = await http.get(
@@ -43,7 +41,6 @@ class HttpAppointmentFunctions extends HttpService {
   }
 
   Future getAllAppointment() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/Appoinment/GetAll";
 
     http.Response response = await http.get(
@@ -60,7 +57,6 @@ class HttpAppointmentFunctions extends HttpService {
   }
 
   Future updateAppointment({int userId, String dayTime}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Appoinment/Update';
 
     var data = {
@@ -84,7 +80,6 @@ class HttpAppointmentFunctions extends HttpService {
   }
 
   Future deleteAppointment({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Appoinment/Delete';
 
     http.Response response = await http.delete(
