@@ -42,7 +42,7 @@ class SearchPageState extends State<SearchPage> {
                     Provider.of<AppointmentService>(context, listen: false).currentList =
                         Provider.of<AppointmentService>(context, listen: false)
                             .currentList
-                            .where((element) => element.name.contains(value))
+                            .where((element) => element.userName.contains(value))
                             .toList();
                   } else
                     Provider.of<AppointmentService>(context, listen: false).currentList =

@@ -4,7 +4,6 @@ import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/overScroll.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,8 +106,9 @@ class _CalendarPageState extends State<CalendarPage> {
   void initState() {
     super.initState();
     selectedDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-    appointmentDetails =
-        Provider.of<AppointmentService>(context, listen: false).currentAppointment.appointmentDetails;
+    appointmentDetails = Provider.of<AppointmentService>(context, listen: false)
+        .currentAppointment
+        .appointmentDetails;
     Provider.of<AppointmentService>(context, listen: false).currentAppointment.date =
         '${selectedDate.day} '
         '${month[selectedDate.month - 1]} '
@@ -133,6 +133,7 @@ class _CalendarPageState extends State<CalendarPage> {
         child: OverScroll(
           child: ListView(
             children: <Widget>[
+              SizedBox(height: 10),
               Text('Gün Seçin', style: kSmallTitleStyle),
               Padding(
                 padding: EdgeInsets.only(bottom: 15.0, top: 12),
@@ -180,7 +181,7 @@ class _CalendarPageState extends State<CalendarPage> {
           children: <Widget>[
             FloatingTextButton(
               text: 'Geri Dön',
-              onPressed: () => Routers.router.pop(context),
+              onPressed: () => Navigator.pop(context),
               gradient: functions.decideColor(context),
             ),
             Spacer(),
@@ -191,10 +192,10 @@ class _CalendarPageState extends State<CalendarPage> {
                   Toast.show("Lütfen Saat Seçiniz", context,
                       duration: 2, backgroundColor: Colors.red[200]);
                 } else if (selectedHourList.length == appointmentDetails.length) {
-                  Provider.of<AppointmentService>(context, listen: false).hoursList = selectedHourList;
+                  Provider.of<AppointmentService>(context, listen: false).hoursList =
+                      selectedHourList;
                   await Provider.of<AppointmentService>(context, listen: false).dateHandler();
-                  print(Provider.of<AppointmentService>(context, listen: false).currentAppointment.appointmentDetails.length);
-                  Routers.router.navigateTo(context, "/OnaySayfasi");
+                  Navigator.pushNamed(context, "/OnaySayfasi");
                 }
               },
               gradient: functions.decideColor(context),
@@ -209,10 +210,12 @@ class _CalendarPageState extends State<CalendarPage> {
 class HourSelection {
   String time;
   bool selected;
+  bool preSelected;
 
   HourSelection({
     this.selected,
     this.time,
+    this.preSelected,
   });
 }
 
@@ -239,7 +242,11 @@ class _HourContainerState extends State<HourContainer> {
   @override
   void initState() {
     for (int i = 0; i < widget.hourTileList.length; i++) {
-      hourTileList.add(HourSelection(time: widget.hourTileList[i], selected: false));
+      hourTileList.add(HourSelection(
+        time: widget.hourTileList[i],
+        selected: false,
+        preSelected: false,
+      ));
     }
     super.initState();
   }
@@ -289,10 +296,19 @@ class _HourContainerState extends State<HourContainer> {
                     String clearTime =
                         '${hourTileList.sublist(0, widget.hourTileList.length - 1)[index].time}' +
                             ' - ' +
-                            '${hourTileList[index + 1].time}';
+                            '${hourTileList[index + 1].time}'.toString();
                     return GestureDetector(
                       onTap: () {
                         setState(() {
+                          for (HourSelection x in hourTileList) {
+                            x.preSelected = false;
+                          }
+                          if (selectedHourList.contains(clearTime)) {
+                            if (clearTime.substring(0, 5) == hourTileList[index].time) {
+                              hourTileList[index].preSelected = true;
+                            } else
+                              hourTileList[index].preSelected = false;
+                          }
                           hourTileList.forEach((element) => element.selected = false);
                           hourTileList[index].selected = !hourTileList[index].selected;
                           if (hourTileList[index].selected == true) {
@@ -303,7 +319,11 @@ class _HourContainerState extends State<HourContainer> {
                           }
                         });
                       },
-                      child: HourTiles(selected: hourTileList[index].selected, time: clearTime),
+                      child: HourTiles(
+                        time: clearTime,
+                        selected: hourTileList[index].selected,
+                        preSelected: hourTileList[index].preSelected,
+                      ),
                     );
                   }),
             ),
@@ -317,9 +337,10 @@ class _HourContainerState extends State<HourContainer> {
 
 class HourTiles extends StatelessWidget {
   bool selected;
+  bool preSelected;
   String time;
 
-  HourTiles({this.selected, this.time});
+  HourTiles({this.selected, this.time, this.preSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -332,7 +353,11 @@ class HourTiles extends StatelessWidget {
           height: 50,
           margin: EdgeInsets.symmetric(vertical: 7, horizontal: 1),
           decoration: BoxDecoration(
-            color: selected ? Colors.green : Colors.grey.shade200,
+            color: preSelected
+                ? Colors.red[300]
+                : selected
+                    ? Colors.green
+                    : Colors.grey.shade200,
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: [BoxShadow(color: Colors.black12, offset: Offset(0.0, 5), blurRadius: 10)],
           ),

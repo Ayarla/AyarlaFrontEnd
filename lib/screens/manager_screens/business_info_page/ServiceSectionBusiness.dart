@@ -199,7 +199,6 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                             // size: 50,
                           ),
                           text: defaultEmployee.name,
-                          width: width <= 400 ? width / 2.75 : 150,
                           textStyle: kTextStyle.copyWith(
                               fontWeight: FontWeight.normal,
                               fontSize: width <= 400 ? width / 30 : 14),
@@ -211,7 +210,6 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                       for (EmployeeModel employeeModel
                           in localServiceList[functions.findIndex(serviceModel, context)].employees)
                         GenericIconButton(
-                          width: width <= 400 ? width / 2.75 : 150,
                           text: employeeModel.name,
                           iconContext: Badge(
                             position: BadgePosition(top: 0, start: 50),

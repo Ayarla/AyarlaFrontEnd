@@ -1,5 +1,4 @@
 import 'package:ayarla/models/model_appointment.dart';
-import 'package:ayarla/screens/search_page.dart';
 import 'package:flutter/material.dart';
 
 class UserService extends ChangeNotifier {
@@ -16,6 +15,4 @@ class UserService extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  State myState = SearchPage().createState();
 }

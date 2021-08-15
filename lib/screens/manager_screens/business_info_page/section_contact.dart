@@ -1,7 +1,6 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,10 +19,8 @@ class ContactSection extends StatelessWidget {
             iconContext: Icon(Icons.map_rounded),
             textStyle: kTextStyle,
             text: "Haritadan Bulunuz",
-            height: 30,
-            width: 250,
             axis: Axis.horizontal,
-            onPressed: () => Routers.router.navigateTo(context, "/Harita"),
+            onPressed: () => Navigator.pushNamed(context, "/Harita"),
           ),
         ),
         Center(child: Text('veya', style: kSmallTextStyle)),

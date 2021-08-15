@@ -199,14 +199,12 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                         children: [
                           //             onTap: () => detailSheet(),
                           GenericIconButton(
-                            height: 100,
-                            width: 100,
+
                             iconContext: NewIcon(iconName: addUserIconName, size: 60),
                             text: 'Çalışan Ekle',
                           ),
                           GenericIconButton(
-                            height: 100,
-                            width: 100,
+
                             iconContext: Badge(
                               badgeColor: Colors.white,
                               badgeContent:
@@ -219,8 +217,6 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                             text: 'Nilsu',
                           ),
                           GenericIconButton(
-                            height: 100,
-                            width: 100,
                             iconContext: Badge(
                               badgeColor: Colors.white,
                               badgeContent:
@@ -232,8 +228,6 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                             text: 'Fatih',
                           ),
                           GenericIconButton(
-                            height: 100,
-                            width: 100,
                             iconContext: Badge(
                               badgeColor: Colors.white,
                               badgeContent:

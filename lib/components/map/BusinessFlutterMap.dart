@@ -1,8 +1,6 @@
 import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +36,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
         gradient: functions.decideColor(context),
         backButtonFunction: () {
           Provider.of<BusinessAndUserData>(context, listen: false).setDefault();
-          Routers.router.pop(context);
+          Navigator.pop(context);
         },
         title: Center(
             child: Text('Haritadan Bir Konum Seç!',

@@ -25,7 +25,6 @@ class EmployeeRow extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: GenericIconButton(
                         color: Colors.white,
-                        width: 150,
                         iconContext: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image(height: 40, image: AssetImage(employeeModel.image)),

@@ -5,7 +5,6 @@ import 'package:ayarla/components/map/flutterMap.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/pop-up.dart';
 import 'package:ayarla/components/textOverFlowHandler.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/screens/coiffure_detail_page/AboutSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/CommentsSection.dart';
@@ -14,8 +13,6 @@ import 'package:ayarla/screens/coiffure_detail_page/IconsRow.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ImageSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/ServicesSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
-import 'package:ayarla/screens/comments_page.dart';
-import 'package:ayarla/screens/manager_screens/manager_info_message_page.dart';
 import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
@@ -119,17 +116,10 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                       TextButton(
                         child: Text('Tümünü Gör',
                             style: kTextStyle.copyWith(fontSize: 12, color: Colors.blue)),
-                        onPressed: () {
-                          Routers.router.navigateTo(
-                            context,
-                            "/Isletme/:name/Yorumlar",
-                            routeSettings: RouteSettings(
-                              name:
-                                  "/Isletme/${createURL(fixTurkishCharacters(widget.coiffureModel.name))}/Yorumlar",
-                              arguments: CommentsPage(),
-                            ),
-                          );
-                        },
+                        onPressed: () => Navigator.pushNamed(
+                          context,
+                          '/Isletme/${fixTurkishCharacters(createURL(coiffureList[0].name))}/Yorumlar',
+                        ),
                       )
                     ],
                   ),
@@ -137,12 +127,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   CommentsSection(),
                   ContactSection(coiffureModel: widget.coiffureModel),
                   SizedBox(height: 5),
-
-                  /// Map
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(height: 320, width: 300, child: FlutterMapCoiffure()),
-                  ),
+                  FlutterMapCoiffure(),
 
                   /// create enough space for map
                   total != 0
@@ -182,7 +167,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                             employeeList;
                         Provider.of<AppointmentService>(context, listen: false)
                             .appointmentAddHandler();
-                        Routers.router.navigateTo(context, 'SaatSayfasi');
+                        Navigator.pushNamed(context, '/SaatSecimi');
                       }
                     },
                   ),

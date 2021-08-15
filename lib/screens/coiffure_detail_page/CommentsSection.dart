@@ -14,16 +14,16 @@ class CommentsSection extends StatelessWidget {
       ),
       items: [
         CommentModel(
-          name: 'Fatih Özkan',
+          userName: 'Fatih Özkan',
           rating: 2,
           comment: 'Harika!!',
-          image: 'assets/worker_1.png',
+          userImage: 'assets/worker_1.png',
           date: '21.10.2018',
           like: 5,
           dislike: 0,
         ),
         CommentModel(
-          name: 'Nixu',
+          userName: 'Nixu',
           rating: 2,
           comment: 'Merhaba ben çok uzun bir yorum yazmak istiyorum. '
               'Uzun uzun anlatayım bir şeylerrrr.'
@@ -31,13 +31,13 @@ class CommentsSection extends StatelessWidget {
               'Uzun uzun anlatayım bir şeylerrrr.'
               'Merhaba ben çok uzun bir yorum yazmak istiyorum. '
               'Uzun uzun anlatayım bir şeylerrrr.',
-          image: 'assets/worker_1.png',
+          userImage: 'assets/worker_1.png',
           date: '21.10.2020',
           like: 9,
           dislike: 4,
         ),
         CommentModel(
-          name: 'Bahadır İren',
+          userName: 'Bahadır İren',
           rating: 3,
           comment: 'Daha iyilerini görmüştüm ama idare eder. '
               'Ben de uzun bir yorum yazmak istiyorum.'
@@ -46,7 +46,7 @@ class CommentsSection extends StatelessWidget {
               'Ben de uzun bir yorum yazmak istiyorum.'
               'Ben de uzun bir yorum yazmak istiyorum.'
               'Ben de uzun bir yorum yazmak istiyorum.',
-          image: 'assets/worker_2.jpg',
+          userImage: 'assets/worker_2.jpg',
           date: '21.02.2021',
           like: 13,
           dislike: 1,
