@@ -159,7 +159,7 @@ class CardInfo extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                              text: ' (${coiffureModel.comments} yorum)',
+                              text: ' (${coiffureModel.totalComment} yorum)',
                               style: kSmallTextStyle.copyWith(
                                 color: Colors.grey.withOpacity(0.8),
                                 fontSize: 13,

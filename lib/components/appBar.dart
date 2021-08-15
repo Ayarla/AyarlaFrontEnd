@@ -341,7 +341,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         setState(() {
                           Provider.of<AppointmentService>(context, listen: false)
                               .currentList
-                              .sort((a, b) => a.comments.compareTo(b.comments));
+                              .sort((a, b) => a.totalComment.compareTo(b.totalComment));
                           Provider.of<AppointmentService>(context, listen: false).setList(
                               Provider.of<AppointmentService>(context, listen: false).currentList);
                         });
@@ -363,7 +363,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                         setState(() {
                           Provider.of<AppointmentService>(context, listen: false)
                               .currentList
-                              .sort((b, a) => a.comments.compareTo(b.comments));
+                              .sort((b, a) => a.totalComment.compareTo(b.totalComment));
                           Provider.of<AppointmentService>(context, listen: false).setList(
                               Provider.of<AppointmentService>(context, listen: false).currentList);
                         });
@@ -473,7 +473,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             setState(() {
                               Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
-                                  .sort((a, b) => a.comments.compareTo(b.comments));
+                                  .sort((a, b) => a.totalComment.compareTo(b.totalComment));
                               Provider.of<AppointmentService>(context, listen: false).setList(
                                   Provider.of<AppointmentService>(context, listen: false)
                                       .currentList);
@@ -496,7 +496,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             setState(() {
                               Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
-                                  .sort((b, a) => a.comments.compareTo(b.comments));
+                                  .sort((b, a) => a.totalComment.compareTo(b.totalComment));
                               Provider.of<AppointmentService>(context, listen: false).setList(
                                   Provider.of<AppointmentService>(context, listen: false)
                                       .currentList);
@@ -609,7 +609,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             setState(() {
                               Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
-                                  .sort((a, b) => a.comments.compareTo(b.comments));
+                                  .sort((a, b) => a.totalComment.compareTo(b.totalComment));
                               Provider.of<AppointmentService>(context, listen: false).setList(
                                   Provider.of<AppointmentService>(context, listen: false)
                                       .currentList);
@@ -632,7 +632,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                             setState(() {
                               Provider.of<AppointmentService>(context, listen: false)
                                   .currentList
-                                  .sort((b, a) => a.comments.compareTo(b.comments));
+                                  .sort((b, a) => a.totalComment.compareTo(b.totalComment));
                               Provider.of<AppointmentService>(context, listen: false).setList(
                                   Provider.of<AppointmentService>(context, listen: false)
                                       .currentList);

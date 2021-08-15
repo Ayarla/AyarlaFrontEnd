@@ -1,5 +1,7 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
+import 'package:ayarla/webService/ayarla_account_functions.dart';
+import 'package:ayarla/webService/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
@@ -18,13 +20,17 @@ class SearchPageState extends State<SearchPage> {
   List generatingList = [];
   List localCoiffureList;
 
+  HttpAyarlaAccountFunctions httpAyarlaAccountFunctions = HttpAyarlaAccountFunctions();
+
+
+
   @override
   initState() {
     super.initState();
     functions.getLocation();
-    localCoiffureList = coiffureList;
+    //localCoiffureList = coiffureList;
     generatingList = localCoiffureList;
-    Provider.of<AppointmentService>(context, listen: false).currentList = generatingList;
+    //Provider.of<AppointmentService>(context, listen: false).currentList = localCoiffureList;
   }
 
   @override
@@ -42,7 +48,7 @@ class SearchPageState extends State<SearchPage> {
                     Provider.of<AppointmentService>(context, listen: false).currentList =
                         Provider.of<AppointmentService>(context, listen: false)
                             .currentList
-                            .where((element) => element.userName.contains(value))
+                            .where((element) => element.name.contains(value))
                             .toList();
                   } else
                     Provider.of<AppointmentService>(context, listen: false).currentList =

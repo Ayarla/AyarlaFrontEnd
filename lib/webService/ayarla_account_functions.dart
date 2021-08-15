@@ -33,6 +33,8 @@ class HttpAyarlaAccountFunctions extends HttpService {
       response: response,
       returnData: jsonDecode(response.body)["result"]["items"],
     );
+    return jsonDecode(response.body)["result"]["items"];
+
   }
 
   Future createAyarlaAccount({CoiffureModel coiffureModel}) async {

@@ -19,7 +19,7 @@ class ManagementService extends ChangeNotifier {
     //index: 0,
     city:'',
     district:'',
-    time:'',
+    time:[],
     text:'',
     //averagePrice: 0,
     telephone:'',

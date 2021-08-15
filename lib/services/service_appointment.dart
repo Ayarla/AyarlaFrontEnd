@@ -1,3 +1,4 @@
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -160,7 +161,7 @@ class AppointmentService extends ChangeNotifier {
   List<MessageBubble> messages = [];
 
   /// for manager pages & trial vers.
-  List currentList;
+  List<CoiffureModel> currentList=[];
   setList(List list) {
     currentList = list;
     notifyListeners();

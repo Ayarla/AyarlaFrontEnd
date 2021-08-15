@@ -30,7 +30,7 @@ class AboutSection extends StatelessWidget {
                 size: size.width <= 400 ? size.width / 25 : 16,
               ),
             Text(
-              '(${coiffureModel.comments} değerlendirme)',
+              '(${coiffureModel.totalComment} değerlendirme)',
               style: kSmallTextStyle.copyWith(
                 color: Colors.grey.withOpacity(0.8),
                 fontSize: size.width <= 400 ? size.width / 25 : 16,
@@ -67,7 +67,7 @@ class AboutSection extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 2.0),
               child: Text(
-                coiffureModel.time,
+                coiffureModel.time[0],
                 style: kSmallTextStyle.copyWith(
                   color: Colors.grey.withOpacity(0.8),
                   fontSize: size.width <= 400 ? size.width / 25 : 16,
