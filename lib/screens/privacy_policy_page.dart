@@ -34,7 +34,7 @@ privacyOrAgreementModalBottomSheet(
                     iconSize: 30,
                     onPressed: () {
                       setState(() {
-                        Provider.of<BusinessAndUserData>(context, listen: false).checkBox = false;
+                        Provider.of<UserService>(context, listen: false).checkBox = false;
                       });
                       Navigator.pop(context);
                     },
@@ -61,7 +61,7 @@ privacyOrAgreementModalBottomSheet(
               text: 'Onaylıyorum',
               onPressed: () {
                 setState(() {
-                  Provider.of<BusinessAndUserData>(context, listen: false).checkBox = true;
+                  Provider.of<UserService>(context, listen: false).checkBox = true;
                 });
                 Navigator.pop(context);
               },

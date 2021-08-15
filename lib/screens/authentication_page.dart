@@ -198,7 +198,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     //   // // print('deneme : ${body["result"][0]}');
                                     //   // print(body["result"]);
                                     //   // print(UserModel.fromJson(body["result"], 0).fullName);
-                                    //   // Provider.of<LoginService>(context, listen: false).userModel =
+                                     Provider.of<LoginService>(context, listen: false).userModel.fullName = 'Bahadır';
                                     //   //     UserModel.fromJson(body["result"], 0);
                                     //
                                     //   isLoading = false;

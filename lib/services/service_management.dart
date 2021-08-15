@@ -1,4 +1,5 @@
 import 'package:ayarla/components/image/imageListItem.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
@@ -12,6 +13,24 @@ class ManagementService extends ChangeNotifier {
   LatLong.LatLng markerPosition = LatLong.LatLng(41.015137, 28.979530);
   LatLong.LatLng currentPosition = LatLong.LatLng(41.015137, 28.979530);
   PickResult pickedResult = PickResult();
+  CoiffureModel currentCoiffure = CoiffureModel(
+    name: '',
+    //star: 0,
+    //index: 0,
+    city:'',
+    district:'',
+    time:'',
+    text:'',
+    //averagePrice: 0,
+    telephone:'',
+    address:'',
+    //comments:0,
+    images:[],
+    //uniqueId:'',
+    //isPrime:false,
+    employeeList:[],
+    serviceList:[]
+  );
 
   removeEmployeeFromService(int serviceIndex, int employeeIndex) {
     fullTimeServices[serviceIndex].employees.removeAt(employeeIndex);

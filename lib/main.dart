@@ -47,7 +47,6 @@ class Ayarla extends StatelessWidget {
         ChangeNotifierProvider<UserService>(create: (context) => UserService()),
         ChangeNotifierProvider<GenderService>(create: (context) => GenderService()),
         ChangeNotifierProvider<LoginService>(create: (context) => LoginService()),
-        ChangeNotifierProvider<BusinessAndUserData>(create: (context) => BusinessAndUserData()),
         ChangeNotifierProvider<ManagerData>(create: (context) => ManagerData()),
       ],
       child: MaterialApp(

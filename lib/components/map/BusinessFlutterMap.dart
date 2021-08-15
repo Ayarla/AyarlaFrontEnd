@@ -2,7 +2,6 @@ import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/constants/router.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/services/service_management.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,6 @@
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_appointment.dart';
+import 'package:ayarla/screens/search_page.dart';
 import 'package:flutter/material.dart';
 
 class UserService extends ChangeNotifier {
@@ -7,7 +8,7 @@ class UserService extends ChangeNotifier {
   List<Appointment> confirmedAppointments = [];
   List favorites = [];
   UserImage userImage;
-  bool checkBox;
+  bool checkBox = false;
   ///adds or deletes the coiffure from favorites
   setOrChangeFav(coiffureModel) {
     if (favorites.contains(coiffureModel)) {
