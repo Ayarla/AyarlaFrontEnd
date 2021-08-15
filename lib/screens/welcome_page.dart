@@ -1,6 +1,7 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
+import 'package:ayarla/webService/http_service.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,19 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:provider/provider.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
+  @override
+  _WelcomePageState createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  @override
+  void initState() {
+    /// TODO gets Token once the application opens
+    // HttpService().getToken();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

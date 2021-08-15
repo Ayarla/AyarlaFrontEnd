@@ -47,7 +47,7 @@ class GenericIconButton extends StatelessWidget {
               axis == Axis.vertical
                   ? SizedBox(height: spaceBetween)
                   : SizedBox(width: spaceBetween),
-              Spacer(),
+              // Spacer(),
               TextOverFlowHandler(
                 child: Text(
                   text,
@@ -58,7 +58,6 @@ class GenericIconButton extends StatelessWidget {
           ),
         ),
       ),
-      onTap: onPressed,
     );
   }
 }

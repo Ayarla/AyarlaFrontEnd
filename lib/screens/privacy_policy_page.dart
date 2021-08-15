@@ -52,19 +52,20 @@ privacyOrAgreementModalBottomSheet(
             ),
           ),
           Spacer(),
-          GenericIconButton(
-            spaceBetween: 10,
-            axis: Axis.horizontal,
-            height: 75,
-            width: 200,
-            iconContext: Icon(Icons.check, size: 30, color: Colors.green),
-            text: 'Onaylıyorum',
-            onPressed: () {
-              setState(() {
-                Provider.of<BusinessAndUserData>(context, listen: false).checkBox = true;
-              });
-              Navigator.pop(context);
-            },
+          Container(
+            width: 190,
+            child: GenericIconButton(
+              spaceBetween: 10,
+              axis: Axis.horizontal,
+              iconContext: Icon(Icons.check, size: 30, color: Colors.green),
+              text: 'Onaylıyorum',
+              onPressed: () {
+                setState(() {
+                  Provider.of<BusinessAndUserData>(context, listen: false).checkBox = true;
+                });
+                Navigator.pop(context);
+              },
+            ),
           ),
         ],
       ),

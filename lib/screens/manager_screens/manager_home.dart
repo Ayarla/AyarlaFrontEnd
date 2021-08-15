@@ -45,7 +45,7 @@ class _ManagerHomeState extends State<ManagerHome> {
                 shrinkWrap: true,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                // childAspectRatio: size.width < 650 ? 0.8 : 0.8,
+                childAspectRatio: 0.8,
                 crossAxisCount: size.width < 650 ? 2 : 4,
                 children: <Widget>[
                   // Image(image: AssetImage(homeIconName2)),
@@ -53,24 +53,28 @@ class _ManagerHomeState extends State<ManagerHome> {
                   // Image(image: AssetImage(notesIconName2)),
                   // Image(image: AssetImage(messageIconName2)),
                   GenericIconButton(
+                    padding: EdgeInsets.all(10),
                     iconContext: Image.asset(homeIconName2),
                     color: Colors.white.withOpacity(.4),
                     text: 'İşletmem',
                     onPressed: () => Navigator.pushNamed(context, "/Isletmem"),
                   ),
                   GenericIconButton(
+                    padding: EdgeInsets.all(10),
                     iconContext: Image(image: AssetImage(employeesIconName2)),
                     color: Colors.white.withOpacity(.4),
                     text: 'Çalışanlarım',
                     onPressed: () => Navigator.pushNamed(context, "/Calisanlarim"),
                   ),
                   GenericIconButton(
+                    padding: EdgeInsets.all(10),
                     iconContext: Image(image: AssetImage(notesIconName2)),
                     color: Colors.white.withOpacity(.4),
                     text: 'Bilgilendirme Mesajlarım',
                     onPressed: () => Navigator.pushNamed(context, "/BilgilendirmeMesaji"),
                   ),
                   GenericIconButton(
+                    padding: EdgeInsets.all(10),
                     iconContext: Image(image: AssetImage(messageIconName2)),
                     color: Colors.white.withOpacity(.4),
                     text: 'Mesajlaşma',

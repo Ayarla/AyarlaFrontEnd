@@ -7,6 +7,7 @@ import 'package:ayarla/screens/confirmation_page.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/screens/manager_screens/employee_management_page/employee_manage_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_home.dart';
+import 'package:ayarla/screens/manager_screens/manager_info_message_page.dart';
 import 'package:ayarla/screens/page_not_found.dart';
 import 'package:ayarla/screens/user_page/appointments_page.dart';
 import 'package:ayarla/screens/user_page/edit_profile_page.dart';
@@ -81,6 +82,7 @@ class Ayarla extends StatelessWidget {
           "/Isletmem": (context) => BusinessInfoPage(),
           "/Calisanlarim": (context) => EmployeeManage(),
           "/Harita": (context) => BusinessFlutterMap(),
+          "/BilgilendirmeMesaji": (context) => ManagerInformationMessagePage(),
         },
         // onUnknownRoute: (settings) => MaterialPageRoute(builder: (context) => NotFoundPage()),
         onGenerateRoute: (settings) {
