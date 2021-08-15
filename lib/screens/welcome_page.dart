@@ -24,8 +24,10 @@ class _WelcomePageState extends State<WelcomePage> {
   getAllAccounts()async{
     List localList;
     await HttpService().getToken();
+
     localList = await httpAyarlaAccountFunctions.getAllAyarlaAccount();
     print(localList.length);
+
     for(int i=0;i< localList.length;i++){
       Provider.of<AppointmentService>(context, listen: false).currentList.add(
       CoiffureModel.fromJson({

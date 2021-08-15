@@ -115,17 +115,18 @@ class Functions {
           covered: true,
           pickedFile: fromPicker,
           isPicked: true,
+          isWeb: true,
         ));
       } else {
         Provider.of<UserService>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: fromPicker));
+            .setUserImage(UserImage(pickedFile: fromPicker,isWeb:true));
       }
     }
   }
 
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
-    PickedFile image = await ImagePicker().getImage(source: ImageSource.camera, imageQuality: 50);
+    PickedFile image = await ImagePicker().getImage(source: ImageSource.camera);
 
     if (image != null) {
       if (Provider.of<LoginService>(context, listen: false).isManager) {
@@ -133,17 +134,18 @@ class Functions {
           covered: true,
           pickedFile: image,
           isPicked: true,
+          isWeb:false
         ));
       } else {
         Provider.of<UserService>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: image));
+            .setUserImage(UserImage(pickedFile: image,isWeb: false,));
       }
     }
   }
 
   ///takes an image from gallery and adds it to the list
   imgFromGallery(context) async {
-    PickedFile image = await ImagePicker().getImage(source: ImageSource.gallery, imageQuality: 50);
+    PickedFile image = await ImagePicker().getImage(source: ImageSource.gallery);
 
     if (image != null) {
       if (Provider.of<LoginService>(context, listen: false).isManager) {
@@ -151,10 +153,11 @@ class Functions {
           covered: true,
           pickedFile: image,
           isPicked: true,
+          isWeb: false
         ));
       } else {
         Provider.of<UserService>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: image));
+            .setUserImage(UserImage(pickedFile: image,isWeb: false));
       }
     }
   }

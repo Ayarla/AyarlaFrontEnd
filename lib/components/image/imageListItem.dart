@@ -10,8 +10,9 @@ class ImageListItem extends StatelessWidget {
   final bool covered;
   final bool isPicked;
   final PickedFile  pickedFile;
+  final bool isWeb;
 /// isFile koşulu imageListItem kullanılan yerlere eklenilecek
-  ImageListItem({this.image,this.covered,this.isPicked=false,this.pickedFile});
+  ImageListItem({this.image,this.covered,this.isPicked=false,this.pickedFile,this.isWeb});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +21,7 @@ class ImageListItem extends StatelessWidget {
         maxScale:  covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
         minScale: covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
         initialScale: covered?PhotoViewComputedScale.covered:PhotoViewComputedScale.contained,
-        imageProvider:isPicked==true?NetworkImage(pickedFile.path):AssetImage(image),
+        imageProvider:isWeb?NetworkImage(pickedFile.path):FileImage(File(pickedFile.path)),
       ),
     );
   }
