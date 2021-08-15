@@ -1,7 +1,6 @@
 import 'package:ayarla/services/analytics_service.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
-import 'package:ayarla/webService/http_service.dart';
 import 'package:flutter/material.dart';
 import 'coiffure_detail_page/coiffure_detail_page.dart';
 

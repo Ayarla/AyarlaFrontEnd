@@ -1,3 +1,4 @@
+import 'package:ayarla/api_services/ayarla_account_api_services.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/image/imageListItem.dart';
@@ -34,7 +35,17 @@ class CoiffureDetailPage extends StatefulWidget {
 class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
   List<ImageListItem> _pages = images;
   ScrollController _listViewController = ScrollController();
+  AyarlaAccountApiServices ayarlaAccountApiServices = AyarlaAccountApiServices();
   int total = 0;
+
+  getData() async {
+    try {
+      print(await ayarlaAccountApiServices.getAyarlaAccount(
+          id: Provider.of<AppointmentService>(context, listen: false).currentList[0].id));
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   void initState() {
@@ -47,6 +58,9 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
       hour: '',
       appointmentDetails: [],
     );
+
+    /// for getAyarlaAccount
+    // getData();
 
     checkManagerInformationMessage();
     super.initState();

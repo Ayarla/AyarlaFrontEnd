@@ -1,8 +1,8 @@
-import 'package:ayarla/webService/http_service.dart';
+import 'package:ayarla/api_services/api_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class HttpEmployeeFunctions extends HttpService {
+class EmployeeApiServices extends ApiServices {
   Future getEmployee({String id}) async {
     final String _url = '$baseUrl/api/services/app/Employee/Get';
 
@@ -11,10 +11,12 @@ class HttpEmployeeFunctions extends HttpService {
       headers: headersWithAdminToken,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'calisan cagirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -27,10 +29,12 @@ class HttpEmployeeFunctions extends HttpService {
     );
 
     ///TODO mesaj icerigini degistir
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: jsonDecode(response.body)["result"]["items"],
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]["items"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -154,10 +158,12 @@ class HttpEmployeeFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'calisan olusturuldu',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -284,10 +290,12 @@ class HttpEmployeeFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'calisan guncellendi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -298,7 +306,7 @@ class HttpEmployeeFunctions extends HttpService {
       '$_url?Id=$id',
       headers: headersWithAdminToken,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'calisan silindi',
       response: response,
       returnData: jsonDecode(response.body),

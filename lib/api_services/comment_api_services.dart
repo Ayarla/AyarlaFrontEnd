@@ -1,9 +1,9 @@
 import 'package:ayarla/models/model_comment.dart';
-import 'package:ayarla/webService/http_service.dart';
+import 'package:ayarla/api_services/api_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class HttpCommentFunctions extends HttpService {
+class CommentApiServices extends ApiServices {
   Future createComment({CommentModel commentModel}) async {
     final String _url = '$baseUrl/api/services/app/Comment/Create';
 
@@ -19,10 +19,12 @@ class HttpCommentFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'yorum olusturuldu',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -34,10 +36,12 @@ class HttpCommentFunctions extends HttpService {
       headers: headersWithAdminToken,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'yorum cagirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -50,10 +54,12 @@ class HttpCommentFunctions extends HttpService {
     );
 
     ///TODO mesaj icerigini degistir
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: jsonDecode(response.body)["result"]["items"],
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]["items"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -73,10 +79,12 @@ class HttpCommentFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'yorum guncellendi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -87,7 +95,7 @@ class HttpCommentFunctions extends HttpService {
       '$_url?Id=$id',
       headers: headersWithAdminToken,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'yorum silindi',
       response: response,
       returnData: jsonDecode(response.body),

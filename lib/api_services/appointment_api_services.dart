@@ -1,8 +1,8 @@
-import 'package:ayarla/webService/http_service.dart';
+import 'package:ayarla/api_services/api_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class HttpAppointmentFunctions extends HttpService {
+class AppointmentApiServices extends ApiServices {
   Future createAppointment({String dayTime}) async {
     final String _url = '$baseUrl/api/services/app/Appoinment/Create';
 
@@ -18,10 +18,12 @@ class HttpAppointmentFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'randevu olusturuldu',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -33,10 +35,12 @@ class HttpAppointmentFunctions extends HttpService {
       headers: headersWithAdminToken,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'randevu cagirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -49,10 +53,12 @@ class HttpAppointmentFunctions extends HttpService {
     );
 
     ///TODO mesaj icerigini degistir
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: jsonDecode(response.body)["result"]["items"],
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]["items"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -72,10 +78,12 @@ class HttpAppointmentFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'randevu guncellendi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -86,7 +94,7 @@ class HttpAppointmentFunctions extends HttpService {
       '$_url?Id=$id',
       headers: headersWithAdminToken,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'randevu silindi',
       response: response,
       returnData: jsonDecode(response.body),

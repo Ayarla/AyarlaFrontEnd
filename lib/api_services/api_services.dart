@@ -20,7 +20,7 @@ Map<String, String> headersWithAccountToken = {
   'Content-type': 'application/json; charset=utf-8',
 };
 
-class HttpService {
+class ApiServices {
   final String baseUrl = 'https://ayarlawebhost2021041011510.azurewebsites.net';
 
   Future getToken() async {
@@ -54,10 +54,9 @@ class HttpService {
       return returnData;
     } else {
       /// server error message
-      var error = jsonDecode(response.body)['error']['message'];
-      print(response.statusCode);
-      print(error);
-      return null;
+      var error = returnData['error']['message'];
+      print(response.statusCode.toString() + " : " + error);
+      return throw Exception(response.statusCode.toString() + " => " + error);
     }
   }
 }

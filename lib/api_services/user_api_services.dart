@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:ayarla/webService/http_service.dart';
+import 'package:ayarla/api_services/api_services.dart';
 import 'package:http/http.dart' as http;
 
-class HttpUserFunctions extends HttpService {
+class UserApiServices extends ApiServices {
   /// Create User
   Future createUser(
       {String userName,
@@ -30,12 +30,13 @@ class HttpUserFunctions extends HttpService {
       body: body,
     );
 
-    var id = await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici olusturuldu',
       response: response,
-      returnData: jsonDecode(response.body)["result"]["id"],
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
-    print('Olusturulan kullanici id: $id');
   }
 
   /// Update User
@@ -61,10 +62,12 @@ class HttpUserFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici guncellendi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -76,7 +79,7 @@ class HttpUserFunctions extends HttpService {
       '$_url?Id=$id',
       headers: headersWithAdminToken,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici silindi',
       response: response,
       returnData: jsonDecode(response.body),
@@ -94,10 +97,12 @@ class HttpUserFunctions extends HttpService {
       headers: headersWithAdminToken,
       body: body,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici aktiflestirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -112,10 +117,12 @@ class HttpUserFunctions extends HttpService {
       headers: headersWithAdminToken,
       body: body,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici pasiflestirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -128,10 +135,12 @@ class HttpUserFunctions extends HttpService {
     );
 
     ///TODO mesaj icerigini degistir
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'GetRoles is successful',
       response: response,
-      returnData: jsonDecode(response.body)["result"]["items"],
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]["items"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -147,10 +156,12 @@ class HttpUserFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'dil degistirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -165,10 +176,12 @@ class HttpUserFunctions extends HttpService {
       headers: headersWithAdminToken,
       body: body,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici sifresi degistirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -187,10 +200,12 @@ class HttpUserFunctions extends HttpService {
       headers: headersWithAdminToken,
       body: body,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici sifresi sifirlandi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -201,13 +216,13 @@ class HttpUserFunctions extends HttpService {
       '$_url?Id=$id',
       headers: headersWithAdminToken,
     );
-    var responseBody = await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici cagirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
-    print('responseBody: $responseBody');
-    return responseBody;
   }
 
   Future getAllUser() async {
@@ -219,10 +234,12 @@ class HttpUserFunctions extends HttpService {
     );
 
     ///TODO mesaj icerigini degistir
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: jsonDecode(response.body)["result"]["items"],
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]["items"]
+          : jsonDecode(response.body),
     );
   }
 }
