@@ -2,6 +2,7 @@ import 'package:ayarla/components/UI/notificationBadge.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/services/service_login.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
@@ -62,10 +63,7 @@ class DefaultAppBar extends StatelessWidget {
         gradient: gradient ?? null,
       ),
       leading: showBackButton ?? true
-          ? BackButton(
-              color: childrenColor,
-              onPressed: backButtonFunction ?? null,
-            )
+          ? BackButton(color: childrenColor, onPressed: backButtonFunction ?? null)
           : InvisibleBackButton(),
       title: title,
       actions: [
@@ -73,7 +71,14 @@ class DefaultAppBar extends StatelessWidget {
             ? IconButton(
                 padding: EdgeInsets.only(left: 10, right: 20),
                 iconSize: 35,
-                icon: NotificationBadge(),
+                icon: NotificationBadge(
+                  showBadge:
+                      Provider.of<UserService>(context, listen: true).notifications.isNotEmpty
+                          ? true
+                          : false,
+                  notificationNumber:
+                      Provider.of<UserService>(context, listen: true).notifications.length,
+                ),
                 onPressed: () => Navigator.pushNamed(context, "/KullaniciSayfasi"),
               )
 
@@ -87,11 +92,7 @@ class DefaultAppBar extends StatelessWidget {
 class InvisibleBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: BackButtonIcon(),
-      disabledColor: Colors.transparent,
-      iconSize: 50,
-    );
+    return IconButton(icon: BackButtonIcon(), disabledColor: Colors.transparent, iconSize: 50);
   }
 }
 

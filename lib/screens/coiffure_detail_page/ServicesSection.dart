@@ -18,22 +18,9 @@ List<ServiceModel> serviceList = [];
 List<EmployeeModel> employeeList = [];
 
 class _ServicesSectionState extends State<ServicesSection> {
-  @override
-  void initState() {
-    serviceList.clear();
-    employeeList.clear();
-    Provider.of<AppointmentService>(context, listen: false).serviceList.clear();
-    Provider.of<AppointmentService>(context, listen: false).employeeList.clear();
-    super.initState();
-  }
-
   /// TODO - test everything.
   @override
   Widget build(BuildContext context) {
-    // print(employeeList.length);
-    // for (EmployeeModel x in employeeList) {
-    //   print(x.name);
-    // }
     final width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,20 +36,19 @@ class _ServicesSectionState extends State<ServicesSection> {
             child: Expandable(
               padding: EdgeInsets.all(5.0),
               onPressed: () {
-                if (!serviceList.contains(serviceModel)) {
-                  serviceList.add(serviceModel);
-                  Provider.of<AppointmentService>(context, listen: false).serviceList = serviceList;
-                } else if (serviceList.contains(serviceModel)) {
-                  setState(() {
-                    serviceModel.employees.forEach((element) => element.selected = false);
+                setState(() {
+                  serviceModel.employees.forEach((element) => element.selected = false);
+                  if (!serviceList.contains(serviceModel)) {
+                    serviceList.add(serviceModel);
+                  } else if (serviceList.contains(serviceModel)) {
                     serviceList.remove(serviceModel);
-                  });
-                }
-                employeeList.length = serviceList.length;
-                Provider.of<AppointmentService>(context, listen: false).priceHandler();
-                FirebaseAnalytics().logEvent(name: 'service_expandable', parameters: {
-                  'name': serviceModel.name,
-                  'state': serviceModel.selected ? 'opened' : 'closed'
+                  }
+                  Provider.of<AppointmentService>(context, listen: false).serviceList = serviceList;
+                  Provider.of<AppointmentService>(context, listen: false).priceHandler();
+                  // FirebaseAnalytics().logEvent(name: 'service_expandable', parameters: {
+                  //   'name': serviceModel.name,
+                  //   'state': serviceModel.selected ? 'opened' : 'closed'
+                  // });
                 });
               },
               elevation: 5,
@@ -135,10 +121,8 @@ class _ServicesSectionState extends State<ServicesSection> {
                                   serviceModel.employees[index].selected =
                                       !serviceModel.employees[index].selected;
                                 });
-                                employeeList.insert(
-                                    serviceList.indexOf(serviceModel), employeesList[index]);
-                                // Provider.of<AppointmentData>(context, listen: false).employeeList =
-                                //     employeeList;
+                                employeeList[serviceList.indexOf(serviceModel)] =
+                                    employeesList[index];
                               }),
                         ),
                       );

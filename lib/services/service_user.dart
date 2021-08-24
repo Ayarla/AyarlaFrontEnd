@@ -5,8 +5,9 @@ class UserService extends ChangeNotifier {
   List<Appointment> waitingAppointments = [];
   List<Appointment> confirmedAppointments = [];
   List favorites = [];
+  List notifications = [];
 
-  ///adds or deletes the coiffure from favorites
+  /// • Adds or deletes the coiffure from favorites
   setOrChangeFav(coiffureModel) {
     if (favorites.contains(coiffureModel)) {
       favorites.remove(coiffureModel);

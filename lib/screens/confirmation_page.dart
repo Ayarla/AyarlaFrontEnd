@@ -38,6 +38,12 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   }
 
   @override
+  void dispose() {
+    Provider.of<AppointmentService>(context, listen: false).resetCurrentAppointment();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     Appointment currentAppointment =
@@ -52,7 +58,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         leading: IconButton(
           padding: EdgeInsets.only(left: 10),
           icon: isConfirmed ? Icon(Icons.home, color: Colors.white, size: 40.0) : BackButton(),
-          onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/Hosgeldiniz", (route) => false),
+          onPressed: () =>
+              Navigator.pushNamedAndRemoveUntil(context, "/Hosgeldiniz", (route) => false),
         ),
         title: Center(
             child: Text(
@@ -240,9 +247,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                             .currentAppointment
                             .isConfirmedByUser = true;
 
-                        /// TODO: do the reset somewhere else.
-                        Provider.of<AppointmentService>(context, listen: false)
-                            .resetCurrentAppointment();
                         Navigator.pushNamed(context, "/OnaySayfasi");
                       }
 

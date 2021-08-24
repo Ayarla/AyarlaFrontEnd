@@ -10,7 +10,7 @@ class FloatingTextButton extends StatelessWidget {
 
   /// • If you are using a [Row] for [floatingActionButton], consider to use
   ///
-  /// [floatingActionButtonLocation]: [FloatingActionButtonLocation.centerFloat]
+  /// • [floatingActionButtonLocation]: [FloatingActionButtonLocation.centerFloat]
   /// for a good alignment in the Scaffold,
   FloatingTextButton({
     this.text,

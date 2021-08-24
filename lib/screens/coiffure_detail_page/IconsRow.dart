@@ -37,7 +37,7 @@ class _IconsRowState extends State<IconsRow> {
           ),
           GenericIconButton(
             iconContext: Icon(
-              Provider.of<UserService>(context, listen: false)
+              Provider.of<UserService>(context, listen: true)
                       .favorites
                       .contains(widget.coiffureModel)
                   ? Icons.favorite

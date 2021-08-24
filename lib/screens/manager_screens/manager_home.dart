@@ -45,8 +45,8 @@ class _ManagerHomeState extends State<ManagerHome> {
                 shrinkWrap: true,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                // childAspectRatio: size.width < 650 ? 0.8 : 0.8,
-                crossAxisCount: size.width < 650 ? 2 : 4,
+                childAspectRatio: 0.8,
+                crossAxisCount: size.width < 500 ? 2 : 4,
                 children: <Widget>[
                   // Image(image: AssetImage(homeIconName2)),
                   // Image(image: AssetImage(employeesIconName2)),

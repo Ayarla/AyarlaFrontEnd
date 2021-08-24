@@ -20,31 +20,34 @@ privacyPolicyModalBottomSheet({BuildContext context, StateSetter setState}) {
               ],
             ),
           ),
-          Row(
-            children: [
-              GenericIconButton(
-                text: 'hayır',
-                onPressed: () {
-                  setState(() {
-                    Provider.of<BusinessAndUserData>(context, listen: false).checkBox = false;
-                  });
-                  Navigator.pop(context);
-                },
-                iconContext: Icon(Icons.cancel_outlined, size: 30, color: Colors.red),
-              ),
-              Spacer(),
-              GenericIconButton(
-                axis: Axis.horizontal,
-                iconContext: Icon(Icons.check, size: 30, color: Colors.green),
-                text: 'Onaylıyorum',
-                onPressed: () {
-                  setState(() {
-                    Provider.of<BusinessAndUserData>(context, listen: false).checkBox = true;
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+          Container(
+            height: 60,
+            child: Row(
+              children: [
+                GenericIconButton(
+                  text: 'hayır',
+                  onPressed: () {
+                    setState(() {
+                      Provider.of<BusinessAndUserData>(context, listen: false).checkBox = false;
+                    });
+                    Navigator.pop(context);
+                  },
+                  iconContext: Icon(Icons.cancel_outlined, size: 30, color: Colors.red),
+                ),
+                Spacer(),
+                GenericIconButton(
+                  axis: Axis.horizontal,
+                  iconContext: Icon(Icons.check, size: 30, color: Colors.green),
+                  text: 'Onaylıyorum',
+                  onPressed: () {
+                    setState(() {
+                      Provider.of<BusinessAndUserData>(context, listen: false).checkBox = true;
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -38,6 +38,11 @@ void main() {
 }
 
 class Ayarla extends StatelessWidget {
+  final ThemeData themeData = ThemeData(
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+  );
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -53,65 +58,63 @@ class Ayarla extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
-        theme: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-        ),
-        routes: {
-          '/': (context) => WelcomePage(),
-          '/Hosgeldiniz': (context) => WelcomePage(),
-          '/AramaSayfasi': (context) => SearchPage(),
-          '/Isletme/:name': (context) => CoiffureDetailPage(),
-          "/Isletme/:name/Yorumlar": (context) => CommentsPage(),
-          "/OnaySayfasi": (context) => ConfirmationPage(),
-          "/SaatSecimi": (context) => CalendarPage(),
-          "/SayfaBulunamadi": (context) => NotFoundPage(),
-
-          /// User pages
-          "/KullaniciSayfasi": (context) => UserPage(),
-          "/Favorilerim": (context) => FavoritesPage(),
-          "/Randevularim": (context) => AppointmentsPage(),
-          "/ProfilimiDuzenle": (context) => EditProfilePage(),
-          "/Yorumlarim": (context) => UserCommentsPage(),
-          "/CalisanAyarlarim": (context) => EmployeePage(),
-
-          /// Manager Pages
-          "/YoneticiAnasayfasi": (context) => ManagerHome(),
-          "/Isletmem": (context) => BusinessInfoPage(),
-          "/Calisanlarim": (context) => EmployeeManage(),
-          "/Harita": (context) => BusinessFlutterMap(),
-        },
-        // onUnknownRoute: (settings) => MaterialPageRoute(builder: (context) => NotFoundPage()),
-        onGenerateRoute: (settings) {
-          /// Handle '/'
-          if (settings.name == '/') {
-            return MaterialPageRoute(builder: (context) => WelcomePage());
-          }
-
-          /// Handle '/isletme/:name'
-          if (settings.name.contains('/Isletme/') && !settings.name.contains('/Yorumlar')) {
-            return MaterialPageRoute(
-              builder: (context) => CoiffureDetailPage(coiffureModel: coiffureList[0]),
-              settings: RouteSettings(
-                name: '/Isletme/${fixTurkishCharacters(createURL(coiffureList[0].name))}',
-              ),
-            );
-          }
-
-          /// Handle '/isletme/:name/Yorumlar'
-          if (settings.name.contains('/Yorumlar')) {
-            return MaterialPageRoute(
-              builder: (context) => CommentsPage(),
-              settings: RouteSettings(
-                name: '/Isletme/${fixTurkishCharacters(createURL(coiffureList[0].name))}/Yorumlar',
-              ),
-            );
-          }
-
-          return MaterialPageRoute(builder: (context) => NotFoundPage());
-        },
+        theme: themeData,
+        routes: ayarlaRoutes,
+        onGenerateRoute: (settings) => onFlyRoute(settings),
+        onUnknownRoute: (settings) => MaterialPageRoute(builder: (context) => NotFoundPage()),
       ),
     );
   }
 }
+
+Route<dynamic> onFlyRoute(settings) {
+  /// Handle '/'
+  if (settings.name == '/') MaterialPageRoute(builder: (context) => WelcomePage());
+
+  /// Handle '/isletme/:name'
+  if (settings.name.contains('/Isletme/') && !settings.name.contains('/Yorumlar')) {
+    return MaterialPageRoute(
+      builder: (context) => CoiffureDetailPage(coiffureModel: coiffureList[0]),
+      settings: RouteSettings(
+        name: '/Isletme/${createURL(coiffureList[0].name)}',
+      ),
+    );
+  }
+
+  /// Handle '/isletme/:name/Yorumlar'
+  if (settings.name.contains('/Yorumlar')) {
+    return MaterialPageRoute(
+      builder: (context) => CommentsPage(),
+      settings: RouteSettings(
+        name: '/Isletme/${createURL(coiffureList[0].name)}/Yorumlar',
+      ),
+    );
+  }
+
+  return MaterialPageRoute(builder: (context) => WelcomePage());
+}
+
+Object ayarlaRoutes = {
+  '/': (context) => WelcomePage(),
+  '/Hosgeldiniz': (context) => WelcomePage(),
+  '/AramaSayfasi': (context) => SearchPage(),
+  '/Isletme/:name': (context) => CoiffureDetailPage(),
+  "/Isletme/:name/Yorumlar": (context) => CommentsPage(),
+  "/OnaySayfasi": (context) => ConfirmationPage(),
+  "/SaatSecimi": (context) => CalendarPage(),
+  "/SayfaBulunamadi": (context) => NotFoundPage(),
+
+  /// User pages
+  "/KullaniciSayfasi": (context) => UserPage(),
+  "/Favorilerim": (context) => FavoritesPage(),
+  "/Randevularim": (context) => AppointmentsPage(),
+  "/ProfilimiDuzenle": (context) => EditProfilePage(),
+  "/Yorumlarim": (context) => UserCommentsPage(),
+  "/CalisanAyarlarim": (context) => EmployeePage(),
+
+  /// Manager Pages
+  "/YoneticiAnasayfasi": (context) => ManagerHome(),
+  "/Isletmem": (context) => BusinessInfoPage(),
+  "/Calisanlarim": (context) => EmployeeManage(),
+  "/Harita": (context) => BusinessFlutterMap(),
+};

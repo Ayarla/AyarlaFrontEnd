@@ -38,15 +38,12 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
 
   @override
   void initState() {
-    Provider.of<AppointmentService>(context, listen: false).currentAppointment = Appointment(
-      coiffureName: '',
-      totalPrice: 0,
-      isConfirmedByUser: false,
-      isConfirmedByCoiffure: false,
-      date: '',
-      hour: '',
-      appointmentDetails: [],
-    );
+    serviceList.clear();
+    employeeList.clear();
+    Provider.of<AppointmentService>(context, listen: false).serviceList.clear();
+    Provider.of<AppointmentService>(context, listen: false).employeeList.clear();
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment =
+        Appointment(appointmentDetails: []);
     super.initState();
   }
 
@@ -62,8 +59,6 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     TextStyle _titleStyle = kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
     TextStyle _textStyle = kTextStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20);
     total = Provider.of<AppointmentService>(context, listen: true).currentAppointment.totalPrice;
-
-    /// if manager sent an information message it will be shown directly once the coiffure page opens
     if (Provider.of<ManagerData>(context).managerInformationMessage?.isNotEmpty ?? false) {
       Future.delayed(
         Duration.zero,
@@ -145,6 +140,8 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                       Provider.of<AppointmentService>(context, listen: false)
                           .currentAppointment
                           .coiffureName = widget.coiffureModel.name;
+
+                      ///
                       if (employeeList.length != serviceList.length ||
                           employeeList.contains(null)) {
                         Toast.show(
@@ -155,7 +152,6 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                         );
                       } else if (employeeList.length == serviceList.length &&
                           !employeeList.contains(null)) {
-                        print(employeeList);
                         Provider.of<AppointmentService>(context, listen: false).employeeList =
                             employeeList;
                         Provider.of<AppointmentService>(context, listen: false)

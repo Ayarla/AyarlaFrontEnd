@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -24,11 +25,11 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   void removeFavorite(int index, CoiffureModel coiffureModel) {
-    localList.removeAt(index);
     _listKey.currentState.removeItem(
       index,
       (BuildContext context, Animation<double> animation) {
         return FadeTransition(
+          key: Key('$index'),
           opacity: CurvedAnimation(parent: animation, curve: Interval(0.5, 1.0)),
           child: SizeTransition(
             sizeFactor: CurvedAnimation(parent: animation, curve: Interval(0.2, 1.0)),
@@ -43,6 +44,7 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
       },
       duration: Duration(milliseconds: 600),
     );
+    Timer(Duration(milliseconds: 800), () => localList.removeAt(index));
   }
 
   @override

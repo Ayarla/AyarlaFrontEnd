@@ -11,12 +11,12 @@ class Appointment {
   List<AppointmentModel> appointmentDetails;
 
   Appointment({
-    this.coiffureName,
-    this.hour,
-    this.date,
-    this.totalPrice,
-    this.isConfirmedByUser,
-    this.isConfirmedByCoiffure,
+    this.coiffureName = '',
+    this.hour = '',
+    this.date = '',
+    this.totalPrice = 0,
+    this.isConfirmedByUser = false,
+    this.isConfirmedByCoiffure = false,
     this.appointmentDetails,
   });
 }

@@ -231,7 +231,7 @@ class Functions {
 }
 
 /// Fixes the coiffure detail page URL for web.
-String createURL(String url) => url.replaceAll(' ', '-');
+String createURL(String url) => fixTurkishCharacters(url.replaceAll(' ', '-'));
 
 // String reverseURL(String url) => url.replaceAll('-', ' ');
 
@@ -250,4 +250,3 @@ String fixTurkishCharacters(String string) {
 //     string = string.replaceAll(letter, charList2[charList.indexOf(letter)]);
 //   return string;
 // }
-

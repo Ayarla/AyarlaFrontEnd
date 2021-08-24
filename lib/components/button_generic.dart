@@ -8,6 +8,7 @@ class GenericButton extends StatelessWidget {
   final Color iconColor;
   final Color backgroundColor;
   final bool showShadow;
+  final Color titleColor;
 
   GenericButton({
     this.onPressed,
@@ -16,6 +17,7 @@ class GenericButton extends StatelessWidget {
     this.iconColor,
     this.backgroundColor,
     this.showShadow = true,
+    this.titleColor,
   });
 
   @override
@@ -51,7 +53,7 @@ class GenericButton extends StatelessWidget {
             Text(
               text,
               style: kTextStyle.copyWith(
-                  color: iconColor, fontSize: size.width <= 400 ? size.width / 20 : 20),
+                  color: titleColor, fontSize: size.width <= 400 ? size.width / 20 : 20),
             ),
             Spacer(),
             Padding(
@@ -59,7 +61,7 @@ class GenericButton extends StatelessWidget {
               child: Icon(
                 Icons.keyboard_arrow_right,
                 size: size.width <= 400 ? size.width / 16.6 : 24,
-                color: iconColor ?? Colors.black,
+                color: titleColor ?? Colors.black,
               ),
             ),
           ],

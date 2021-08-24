@@ -40,9 +40,6 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 onTap: () {
-                  // var state = context.findAncestorStateOfType<SearchPageState>();
-                  // state.setState(() {});
-                  // Provider.of<UserService>(context, listen: false).myState = state;
                   setState(() {
                     Provider.of<UserService>(context, listen: false)
                         .setOrChangeFav(widget.coiffureModel);
@@ -62,8 +59,8 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
                 child: Padding(
                   padding: EdgeInsets.all(7),
                   child: Icon(
-                    Provider.of<UserService>(context, listen: true)
-                            .favorites
+                    Provider.of<UserService>(context, listen: true).
+                            favorites
                             .contains(widget.coiffureModel)
                         ? Icons.favorite
                         : Icons.favorite_border,
