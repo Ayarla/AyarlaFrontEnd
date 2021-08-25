@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/circularParent.dart';
@@ -188,7 +189,28 @@ class _CalendarPageState extends State<CalendarPage> {
             FloatingTextButton(
               text: 'Onayla',
               onPressed: () async {
-                if (selectedHourList.contains(null)) {
+                print(selectedHourList.length);
+                print(selectedHourList.toSet().length);
+                if (selectedHourList.length != selectedHourList.toSet().length) {
+                  print('hi');
+                  return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          title: Text(
+                            'Aynı saat dilimini birden çok kez seçtiniz. Devam etmek istiyor musunuz?',
+                            style: kTextStyle,
+                          ),
+                          actions: [
+                            CancelButton(),
+                            AcceptButton(
+                              acceptCondition: () => Navigator.pushNamed(context, "/OnaySayfasi"),
+                            ),
+                          ],
+                        );
+                      });
+                } else if (selectedHourList.contains(null)) {
                   Toast.show("Lütfen Saat Seçiniz", context,
                       duration: 2, backgroundColor: Colors.red[200]);
                 } else if (selectedHourList.length == appointmentDetails.length) {
@@ -298,27 +320,27 @@ class _HourContainerState extends State<HourContainer> {
                             ' - ' +
                             '${hourTileList[index + 1].time}'.toString();
                     return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          for (HourSelection x in hourTileList) {
-                            x.preSelected = false;
-                          }
-                          if (selectedHourList.contains(clearTime)) {
-                            if (clearTime.substring(0, 5) == hourTileList[index].time) {
-                              hourTileList[index].preSelected = true;
-                            } else
-                              hourTileList[index].preSelected = false;
-                          }
-                          hourTileList.forEach((element) => element.selected = false);
-                          hourTileList[index].selected = !hourTileList[index].selected;
-                          if (hourTileList[index].selected == true) {
-                            if (selectedHourList.isNotEmpty) {
-                              selectedHourList.removeAt(widget.serviceIndex);
+                      onTap: !hourTileList[index].selected
+                          ? () {
+                              setState(() {
+                                hourTileList.forEach((element) => element.selected = false);
+                                hourTileList.forEach((element) => element.preSelected = false);
+                                hourTileList[index].selected = !hourTileList[index].selected;
+                                if (selectedHourList.contains(clearTime)) {
+                                  if (clearTime.substring(0, 5) == hourTileList[index].time) {
+                                    hourTileList[index].preSelected = true;
+                                  } else
+                                    hourTileList[index].preSelected = false;
+                                }
+                                if (hourTileList[index].selected == true) {
+                                  if (selectedHourList.isNotEmpty) {
+                                    selectedHourList.removeAt(widget.serviceIndex);
+                                  }
+                                  selectedHourList.insert(widget.serviceIndex, clearTime);
+                                }
+                              });
                             }
-                            selectedHourList.insert(widget.serviceIndex, clearTime);
-                          }
-                        });
-                      },
+                          : null,
                       child: HourTiles(
                         time: clearTime,
                         selected: hourTileList[index].selected,
