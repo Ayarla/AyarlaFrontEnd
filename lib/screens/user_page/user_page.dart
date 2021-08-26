@@ -1,7 +1,7 @@
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/button_generic.dart';
-import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
+import 'package:ayarla/components/unFocuser.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,7 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.of(context).padding.top;
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -40,7 +41,7 @@ class _UserPageState extends State<UserPage> {
         title: Center(child: Text(" ")),
         childrenColor: Colors.orange,
       ).build(context),
-      body: Unfocuser(
+      body: UnFocuser(
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -52,6 +53,7 @@ class _UserPageState extends State<UserPage> {
             child: OverScroll(
               child: Column(
                 children: [
+                  SizedBox(height: padding),
                   if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
                     SizedBox(height: 30),
                   if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) UI.generalLogo,

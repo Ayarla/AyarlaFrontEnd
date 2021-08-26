@@ -54,6 +54,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     bool isSmallScreen = size.width < 362;
+    final padding = MediaQuery.of(context).padding.top;
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: DefaultTabController(
@@ -90,7 +91,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Container(
-                height: MediaQuery.of(context).size.height - 244,
+                height: MediaQuery.of(context).size.height - 244 - padding,
                 child: TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [

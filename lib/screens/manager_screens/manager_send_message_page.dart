@@ -1,11 +1,10 @@
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
+import 'package:ayarla/components/unFocuser.dart';
+import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/services/service_appointment.dart';
 
 class ManagerSendMessage extends StatefulWidget {
   @override
@@ -29,7 +28,7 @@ class _ManagerSendMessageState extends State<ManagerSendMessage> {
         ),
         // showIconButton: false,
       ).build(context),
-      body: Unfocuser(
+      body: UnFocuser(
         child: AyarlaPage(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

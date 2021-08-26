@@ -10,12 +10,15 @@ class AyarlaTextField extends StatelessWidget {
   final List<TextInputFormatter> inputFormatter;
   final TextInputType keyboardType;
   final Color color;
+  final TextStyle textStyle;
 
   /// TextField for general use.
   ///
   /// • TODO: [inputFormatter] needs test ASAP.
   ///
   /// • TODO: [maxLines] needs fix ASAP.
+  ///
+  /// • add prefix icon
   AyarlaTextField({
     this.hintText,
     this.padding,
@@ -23,6 +26,7 @@ class AyarlaTextField extends StatelessWidget {
     this.inputFormatter,
     this.keyboardType,
     this.color,
+    this.textStyle,
   });
 
   @override
@@ -32,7 +36,7 @@ class AyarlaTextField extends StatelessWidget {
       keyboardType: keyboardType ?? TextInputType.text,
       maxLines: hintText.maxLines ?? 1,
       cursorColor: color ?? Colors.green,
-      style: hintText.style ?? kSmallTextStyle,
+      style: textStyle ?? kSmallTextStyle,
       textAlign: hintText.textAlign ?? TextAlign.start,
       onChanged: onChanged,
       decoration: InputDecoration(

@@ -1,8 +1,7 @@
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ayarla/models/model_appointment.dart';
-import 'package:ayarla/screens/manager_screens/manager_send_message_page.dart';
+import 'package:flutter/material.dart';
 
 class AppointmentService extends ChangeNotifier {
   Appointment currentAppointment = Appointment(
@@ -156,27 +155,6 @@ class AppointmentService extends ChangeNotifier {
   //   return holder;
   // }
 
-  ///
-  List<Notes> managerNotes = [];
-  List<MessageBubble> messages = [];
-
-  /// for manager pages & trial vers.
-  List currentList;
-  setList(List list) {
-    currentList = list;
-    notifyListeners();
-  }
-
-  List currentList2;
-  setList2(List list) {
-    currentList2 = list;
-    notifyListeners();
-  }
-}
-
-class Notes {
-  String notes;
-  final int index;
-
-  Notes({this.notes, this.index});
+  /// • Main coiffure list that is fetched at the start.
+  List mainCoiffureList = [];
 }

@@ -1,5 +1,6 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
+import 'package:ayarla/components/unFocuser.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/AboutSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/ImageSectionBusiness.dart';
@@ -14,47 +15,6 @@ import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-
-class Unfocuser extends StatelessWidget {
-  const Unfocuser({Key key, this.child}) : super(key: key);
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Listener(
-      onPointerUp: (e) {
-        final rb = context.findRenderObject() as RenderBox;
-        final result = BoxHitTestResult();
-        rb.hitTest(result, position: e.position);
-
-        for (final e in result.path) {
-          if (e.target is RenderEditable || e.target is IgnoreUnfocuserRenderBox) {
-            return;
-          }
-        }
-
-        final primaryFocus = FocusManager.instance.primaryFocus;
-
-        if (primaryFocus.context.widget is EditableText) {
-          primaryFocus.unfocus();
-        }
-      },
-      child: child,
-    );
-  }
-}
-
-class IgnoreUnfocuser extends SingleChildRenderObjectWidget {
-  IgnoreUnfocuser({@required this.child}) : super(child: child);
-
-  final Widget child;
-
-  @override
-  IgnoreUnfocuserRenderBox createRenderObject(BuildContext context) => IgnoreUnfocuserRenderBox();
-}
-
-class IgnoreUnfocuserRenderBox extends RenderPointerListener {}
 
 class BusinessInfoPage extends StatefulWidget {
   @override
@@ -246,7 +206,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                           });
                     })
           .build(context),
-      body: Unfocuser(
+      body: UnFocuser(
         child: ListView(
           children: [
             AyarlaPage(

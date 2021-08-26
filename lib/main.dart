@@ -42,7 +42,14 @@ class Ayarla extends StatelessWidget {
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     hoverColor: Colors.transparent,
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        foregroundColor: MaterialStateProperty.all(Colors.orange[300]),
+      ),
+    ),
   );
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

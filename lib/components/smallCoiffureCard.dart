@@ -19,59 +19,64 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return TextButton(
-      style: ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.transparent)),
-      onPressed: () {
-        Navigator.pushNamed(
-          context,
-          '/Isletme/${fixTurkishCharacters(createURL(widget.coiffureModel.name))}',
-        );
-        FirebaseAnalytics()
-            .logEvent(name: 'coiffueur_cart', parameters: {'name': widget.coiffureModel.name});
-      },
-      child: Stack(
-        children: [
-          cardBody(context),
-          Positioned(
-            top: 9,
-            right: 9,
-            child: Material(
-              shape: CircleBorder(),
-              child: InkWell(
-                borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                onTap: () {
-                  setState(() {
-                    Provider.of<UserService>(context, listen: false)
-                        .setOrChangeFav(widget.coiffureModel);
-                  });
-                  if (Provider.of<UserService>(context, listen: false)
-                      .favorites
-                      .contains(widget.coiffureModel)) {
-                    FirebaseAnalytics().logEvent(
-                        name: 'favorites_button',
-                        parameters: {'coiffeur': widget.coiffureModel.name, 'state': 'added'});
-                  } else {
-                    FirebaseAnalytics().logEvent(
-                        name: 'favorites_button',
-                        parameters: {'coiffeur': widget.coiffureModel.name, 'state': 'deleted'});
-                  }
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(7),
-                  child: Icon(
-                    Provider.of<UserService>(context, listen: true).
-                            favorites
-                            .contains(widget.coiffureModel)
-                        ? Icons.favorite
-                        : Icons.favorite_border,
-                    color: Colors.red,
-                    size: width < 700 ? 20 : 25,
+    return Container(
+      padding: EdgeInsets.all(5),
+      /// TODO: maybe fix?
+      constraints: BoxConstraints(maxWidth: width < 475 ? width - 50 : 360),
+      child: TextButton(
+        style: ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.transparent)),
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/Isletme/${fixTurkishCharacters(createURL(widget.coiffureModel.name))}',
+          );
+          FirebaseAnalytics()
+              .logEvent(name: 'coiffueur_cart', parameters: {'name': widget.coiffureModel.name});
+        },
+        child: Stack(
+          children: [
+            cardBody(context),
+            Positioned(
+              top: 9,
+              right: 9,
+              child: Material(
+                shape: CircleBorder(),
+                child: InkWell(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                  onTap: () {
+                    setState(() {
+                      Provider.of<UserService>(context, listen: false)
+                          .setOrChangeFav(widget.coiffureModel);
+                    });
+                    if (Provider.of<UserService>(context, listen: false)
+                        .favorites
+                        .contains(widget.coiffureModel)) {
+                      FirebaseAnalytics().logEvent(
+                          name: 'favorites_button',
+                          parameters: {'coiffeur': widget.coiffureModel.name, 'state': 'added'});
+                    } else {
+                      FirebaseAnalytics().logEvent(
+                          name: 'favorites_button',
+                          parameters: {'coiffeur': widget.coiffureModel.name, 'state': 'deleted'});
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(7),
+                    child: Icon(
+                      Provider.of<UserService>(context, listen: true)
+                              .favorites
+                              .contains(widget.coiffureModel)
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.red,
+                      size: width < 700 ? 20 : 25,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
