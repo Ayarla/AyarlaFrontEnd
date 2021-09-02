@@ -4,7 +4,6 @@ import 'dart:convert';
 
 class HttpEmployeeFunctions extends HttpService {
   Future getEmployee({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Employee/Get';
 
     http.Response response = await http.get(
@@ -20,7 +19,6 @@ class HttpEmployeeFunctions extends HttpService {
   }
 
   Future getAllEmployee() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/Employee/GetAll";
 
     http.Response response = await http.get(
@@ -37,7 +35,6 @@ class HttpEmployeeFunctions extends HttpService {
   }
 
   Future createEmployee() async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Employee/Create';
 
     var data = {
@@ -165,7 +162,6 @@ class HttpEmployeeFunctions extends HttpService {
   }
 
   Future updateEmployee() async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Employee/Update';
 
     var data = {
@@ -296,7 +292,6 @@ class HttpEmployeeFunctions extends HttpService {
   }
 
   Future deleteEmployee({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Employee/Delete';
 
     http.Response response = await http.delete(

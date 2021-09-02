@@ -5,7 +5,6 @@ import 'dart:convert';
 
 class HttpAyarlaAccountFunctions extends HttpService {
   Future getAyarlaAccount({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Get';
 
     http.Response response = await http.get(
@@ -21,7 +20,6 @@ class HttpAyarlaAccountFunctions extends HttpService {
   }
 
   Future getAllAyarlaAccount() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/AyarlaAccount/GetAll";
 
     http.Response response = await http.get(
@@ -35,10 +33,11 @@ class HttpAyarlaAccountFunctions extends HttpService {
       response: response,
       returnData: jsonDecode(response.body)["result"]["items"],
     );
+    return jsonDecode(response.body)["result"]["items"];
+
   }
 
   Future createAyarlaAccount({CoiffureModel coiffureModel}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Create';
 
     /// 1 for male , 2 female (gender)
@@ -83,7 +82,6 @@ class HttpAyarlaAccountFunctions extends HttpService {
   }
 
   Future updateAyarlaAccount({CoiffureModel coiffureModel}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Update';
 
     var data = {
@@ -127,7 +125,6 @@ class HttpAyarlaAccountFunctions extends HttpService {
   }
 
   Future deleteAyarlaAccount({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Delete';
 
     http.Response response = await http.delete(

@@ -5,7 +5,6 @@ import 'dart:convert';
 class HttpFavoriteFunctions extends HttpService {
   /// TODO sonra bakilacak
   Future createFavorite() async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Favorite/Create';
 
     var data = {
@@ -35,7 +34,6 @@ class HttpFavoriteFunctions extends HttpService {
   }
 
   Future getFavorite({int id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Favorite/Get';
 
     http.Response response = await http.get(
@@ -51,7 +49,6 @@ class HttpFavoriteFunctions extends HttpService {
   }
 
   Future getAllFavorite() async {
-    await getToken();
     final String _url = "$baseUrl/api/services/app/Favorite/GetAll";
 
     http.Response response = await http.get(
@@ -68,7 +65,6 @@ class HttpFavoriteFunctions extends HttpService {
   }
 
   Future updateFavorite() async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Favorite/Update';
 
     var data = {
@@ -99,7 +95,6 @@ class HttpFavoriteFunctions extends HttpService {
   }
 
   Future deleteFavorite({String id}) async {
-    await getToken();
     final String _url = '$baseUrl/api/services/app/Favorite/Delete';
 
     http.Response response = await http.delete(

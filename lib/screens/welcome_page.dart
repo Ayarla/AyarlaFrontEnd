@@ -1,6 +1,10 @@
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/models/model_coiffure.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
+import 'package:ayarla/webService/ayarla_account_functions.dart';
+import 'package:ayarla/webService/http_service.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +13,52 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:provider/provider.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
+  @override
+  _WelcomePageState createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  HttpAyarlaAccountFunctions httpAyarlaAccountFunctions = HttpAyarlaAccountFunctions();
+
+  getAllAccounts()async{
+    List localList;
+    await HttpService().getToken();
+
+    localList = await httpAyarlaAccountFunctions.getAllAyarlaAccount();
+    print(localList.length);
+
+    for(int i=0;i< localList.length;i++){
+      Provider.of<AppointmentService>(context, listen: false).currentList.add(
+      CoiffureModel.fromJson({
+        "address": localList[i]['address'],
+        "gender": localList[i]['gender'],
+        "commentNumber": localList[i]['commentNumber'],
+        "accountNotes":localList[i]['accountNotes'],
+        "openCloseTimes": localList[i]['openCloseTimes'],
+        "phone1": localList[i]['phone1'],
+        "id": localList[i]['id'],
+        "meanRating": localList[i]['meanRating'],
+        "city": localList[i]['city'],
+        "district": localList[i]['district'],
+        "accountName": localList[i]['accountName']
+      }, i),
+      );
+    }
+
+    for(CoiffureModel x in Provider.of<AppointmentService>(context, listen: false).currentList){
+      print(x.name);
+    }
+
+  }
+  @override
+  void initState() {
+    /// TODO gets Token once the application opens
+
+    getAllAccounts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

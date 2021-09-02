@@ -25,7 +25,7 @@ class AppBarTitleCustomer extends StatelessWidget {
         children: [
           Text(
             Provider.of<LoginService>(context, listen: false).isLoggedIn
-                ? "Merhaba " + Provider.of<LoginService>(context, listen: false).userModel.name
+                ? "Merhaba " + Provider.of<LoginService>(context, listen: false).userModel.fullName
                 : "Merhaba",
             style: kTitleStyle.copyWith(
                 color: Colors.white, fontSize: size.width < 425 ? size.width / 19.3 : 22),

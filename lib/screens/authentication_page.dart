@@ -1,8 +1,8 @@
 import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_login.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:ayarla/webService/user_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -158,6 +158,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                           SizedBox(height: 10),
                           Container(
                             width: 500,
+                            padding: EdgeInsets.symmetric(horizontal: 12),
                             child: Row(
                               // mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -167,9 +168,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                       _newPassword = true;
                                     });
                                   },
-                                  child: Text('  Şifremi unuttum',
+                                  child: Text('Şifremi unuttum',
                                       style: kSmallTextStyle.copyWith(
-                                          color: Colors.orange[300],
+                                          color: Colors.orange[800],
                                           fontSize: isSmallScreen ? 10 : 15)),
                                 ),
                                 Spacer(),
@@ -198,7 +199,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     //   // // print('deneme : ${body["result"][0]}');
                                     //   // print(body["result"]);
                                     //   // print(UserModel.fromJson(body["result"], 0).fullName);
-                                    //   // Provider.of<LoginService>(context, listen: false).userModel =
+                                     Provider.of<LoginService>(context, listen: false).userModel.fullName = 'Bahadır';
                                     //   //     UserModel.fromJson(body["result"], 0);
                                     //
                                     //   isLoading = false;
@@ -226,6 +227,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                           if (_newPassword)
                             Container(
                               width: 500,
+                              padding: EdgeInsets.all(8),
                               child: Column(
                                 children: [
                                   SizedBox(height: 10),
@@ -284,7 +286,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                           ),
                           Center(
                             child: FlutterToggleTab(
-                              width: MediaQuery.of(context).size.width > 1200 ? 20 : 50,
+                              width: MediaQuery.of(context).size.width > 900 ? 20 : 50,
                               borderRadius: 15,
                               initialIndex: 0,
                               selectedBackgroundColors: [Colors.orange[500]],
@@ -325,7 +327,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     color: Colors.orange[500],
                                     validator: (_typed) {
                                       if (_typed.isEmpty) {
-                                        return 'Boş bırakılamaz.';
+                                        return 'Boş bırakılamaz';
                                       } else {
                                         return null;
                                       }
@@ -346,7 +348,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     color: Colors.orange[500],
                                     validator: (_typed) {
                                       if (_typed.isEmpty) {
-                                        return 'Boş bırakılamaz.';
+                                        return 'Boş bırakılamaz';
                                       } else {
                                         return null;
                                       }
@@ -412,12 +414,12 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     color: Colors.orange[500],
                                     validator: (_typed) {
                                       if (_typed.isEmpty) {
-                                        return 'Boş bırakılamaz.';
+                                        return 'Boş bırakılamaz';
                                       } else if (_typed.length < 6) {
-                                        return 'Şifre en az 6 karakter içermelidir.';
+                                        return 'Şifre en az 6 karakter içermelidir';
                                       } else if (_typedPasswordCheck != _typed &&
                                           _typedPasswordCheck != '') {
-                                        return 'Şifreler birbiri ile uyuşmuyor.';
+                                        return 'Şifreler birbiri ile uyuşmuyor';
                                       } else {
                                         return null;
                                       }
@@ -437,51 +439,93 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                             children: [
                               Checkbox(
                                   activeColor: Colors.orange[500],
-                                  value: Provider.of<BusinessAndUserData>(context, listen: false)
+                                  value: Provider.of<UserService>(context, listen: false)
                                       .checkBox,
                                   onChanged: (value) {
                                     setState(() {
-                                      Provider.of<BusinessAndUserData>(context, listen: false)
+                                      Provider.of<UserService>(context, listen: false)
                                               .checkBox =
-                                          !Provider.of<BusinessAndUserData>(context, listen: false)
+                                          !Provider.of<UserService>(context, listen: false)
                                               .checkBox;
                                     });
                                   }),
                               SizedBox(width: 10),
                               Flexible(
-                                child: RichText(
-                                  text: TextSpan(
-                                    style: kSmallTextStyle.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
+                                child: Container(
+                                  width: 455,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: kSmallTextStyle.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: "Ayarla ",
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: 'Gizlilik Sözleşmesi',
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              /// Privacy Policy ModalBottomSheet
+                                              createSheet(
+                                                  context,
+                                                  privacyOrAgreementModalBottomSheet(
+                                                    context: context,
+                                                    setState: setState,
+                                                    heading: "Ayarla Gizlilik Sözleşmesi",
+                                                    content: "Ayarla Gizlilik Sözleşmesi",
+                                                  ),
+                                                  size.height * 0.9);
+                                            },
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.orange[800],
+                                            fontStyle: FontStyle.italic,
+                                            decoration: TextDecoration.underline,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: " ve ",
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: 'Kullanıcı Sözleşmesi`ni',
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              /// Privacy Policy ModalBottomSheet
+                                              createSheet(
+                                                  context,
+                                                  privacyOrAgreementModalBottomSheet(
+                                                    context: context,
+                                                    setState: setState,
+                                                    heading: "Ayarla Kullanıcı Sözleşmesi",
+                                                    content: "Ayarla Kullanıcı Sözleşmesi",
+                                                  ),
+                                                  size.height * 0.9);
+                                            },
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.orange[800],
+                                            fontStyle: FontStyle.italic,
+                                            decoration: TextDecoration.underline,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' okudum, onaylıyorum.',
+                                          style: kSmallTextStyle.copyWith(
+                                            fontSize: isSmallScreen ? 10 : 14,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    children: [
-                                      TextSpan(
-                                        text: 'Ayarla Gizlilik ve Kullanıcı Sözleşmesi`ni',
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            /// Privacy Policy ModalBottomSheet
-                                            createSheet(
-                                                context,
-                                                privacyPolicyModalBottomSheet(
-                                                    context: context, setState: setState),
-                                                600);
-                                          },
-                                        style: kSmallTextStyle.copyWith(
-                                          fontSize: isSmallScreen ? 10 : 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.orange[500],
-                                          fontStyle: FontStyle.italic,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: ' okudum, onaylıyorum.',
-                                        style: kSmallTextStyle.copyWith(
-                                          fontSize: isSmallScreen ? 10 : 14,
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ),

@@ -4,6 +4,8 @@ import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
+import 'package:ayarla/services/service_management.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +13,6 @@ import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/constants/constants.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_login.dart';
 import '../services/service_gender.dart';
 import 'package:flutter/rendering.dart';
@@ -110,50 +111,53 @@ class Functions {
     PickedFile fromPicker = await ImagePicker().getImage(source: ImageSource.gallery);
     if (fromPicker != null) {
       if (Provider.of<LoginService>(context, listen: false).isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false).addImage(ImageListItem(
+        Provider.of<ManagementService>(context, listen: false).addImage(ImageListItem(
           covered: true,
           pickedFile: fromPicker,
           isPicked: true,
+          isWeb: true,
         ));
       } else {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: fromPicker));
+        Provider.of<UserService>(context, listen: false)
+            .setUserImage(UserImage(pickedFile: fromPicker,isWeb:true));
       }
     }
   }
 
   ///takes an image from camera and adds it to the list
   imgFromCamera(context) async {
-    PickedFile image = await ImagePicker().getImage(source: ImageSource.camera, imageQuality: 50);
+    PickedFile image = await ImagePicker().getImage(source: ImageSource.camera);
 
     if (image != null) {
       if (Provider.of<LoginService>(context, listen: false).isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false).addImage(ImageListItem(
+        Provider.of<ManagementService>(context, listen: false).addImage(ImageListItem(
           covered: true,
           pickedFile: image,
           isPicked: true,
+          isWeb:false
         ));
       } else {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: image));
+        Provider.of<UserService>(context, listen: false)
+            .setUserImage(UserImage(pickedFile: image,isWeb: false,));
       }
     }
   }
 
   ///takes an image from gallery and adds it to the list
   imgFromGallery(context) async {
-    PickedFile image = await ImagePicker().getImage(source: ImageSource.gallery, imageQuality: 50);
+    PickedFile image = await ImagePicker().getImage(source: ImageSource.gallery);
 
     if (image != null) {
       if (Provider.of<LoginService>(context, listen: false).isManager) {
-        Provider.of<BusinessAndUserData>(context, listen: false).addImage(ImageListItem(
+        Provider.of<ManagementService>(context, listen: false).addImage(ImageListItem(
           covered: true,
           pickedFile: image,
           isPicked: true,
+          isWeb: false
         ));
       } else {
-        Provider.of<BusinessAndUserData>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: image));
+        Provider.of<UserService>(context, listen: false)
+            .setUserImage(UserImage(pickedFile: image,isWeb: false));
       }
     }
   }

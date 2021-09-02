@@ -11,7 +11,7 @@ class LoginService extends ChangeNotifier {
   bool isLoggedIn = false;
   bool isManager = false;
 
-  UserModel userModel = UserModel();
+  UserModel userModel=UserModel();
 
   void loggedInUser() {
     isLoggedIn = !isLoggedIn;
