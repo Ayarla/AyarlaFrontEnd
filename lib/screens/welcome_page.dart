@@ -21,41 +21,15 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   HttpAyarlaAccountFunctions httpAyarlaAccountFunctions = HttpAyarlaAccountFunctions();
 
-  getAllAccounts()async{
-    List localList;
-    await HttpService().getToken();
-
-    localList = await httpAyarlaAccountFunctions.getAllAyarlaAccount();
-    print(localList.length);
-
-    for(int i=0;i< localList.length;i++){
-      Provider.of<AppointmentService>(context, listen: false).currentList.add(
-      CoiffureModel.fromJson({
-        "address": localList[i]['address'],
-        "gender": localList[i]['gender'],
-        "commentNumber": localList[i]['commentNumber'],
-        "accountNotes":localList[i]['accountNotes'],
-        "openCloseTimes": localList[i]['openCloseTimes'],
-        "phone1": localList[i]['phone1'],
-        "id": localList[i]['id'],
-        "meanRating": localList[i]['meanRating'],
-        "city": localList[i]['city'],
-        "district": localList[i]['district'],
-        "accountName": localList[i]['accountName']
-      }, i),
-      );
-    }
-
-    for(CoiffureModel x in Provider.of<AppointmentService>(context, listen: false).currentList){
-      print(x.name);
-    }
-
+  getter() async {
+    // await HttpService().getToken();
+    Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
   }
+
   @override
   void initState() {
     /// TODO gets Token once the application opens
-
-    getAllAccounts();
+    getter();
     super.initState();
   }
 

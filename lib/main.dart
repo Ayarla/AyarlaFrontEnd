@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:ayarla/components/map/BusinessFlutterMap.dart';
 import 'package:ayarla/models/functions.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/screens/calendar_page.dart';
 import 'package:ayarla/screens/coiffure_detail_page/coiffure_detail_page.dart';
 import 'package:ayarla/screens/comments_page.dart';
@@ -23,7 +26,6 @@ import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/services/service_appointment.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -59,7 +61,6 @@ class Ayarla extends StatelessWidget {
         ChangeNotifierProvider<UserService>(create: (context) => UserService()),
         ChangeNotifierProvider<GenderService>(create: (context) => GenderService()),
         ChangeNotifierProvider<LoginService>(create: (context) => LoginService()),
-        ChangeNotifierProvider<BusinessAndUserData>(create: (context) => BusinessAndUserData()),
         ChangeNotifierProvider<ManagerData>(create: (context) => ManagerData()),
       ],
       child: MaterialApp(
@@ -74,29 +75,57 @@ class Ayarla extends StatelessWidget {
   }
 }
 
+Future<List> getter(context) async {
+  coiffureList = await Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
+  return coiffureList;
+}
+
 Route<dynamic> onFlyRoute(settings) {
   /// Handle '/'
   if (settings.name == '/') MaterialPageRoute(builder: (context) => WelcomePage());
 
   /// Handle '/isletme/:name'
   if (settings.name.contains('/Isletme/') && !settings.name.contains('/Yorumlar')) {
+    var returnValue;
     return MaterialPageRoute(
-      builder: (context) => CoiffureDetailPage(coiffureModel: coiffureList[0]),
+      builder: (context) {
+        if (coiffureList.isEmpty) {
+          getter(context).then((value) {
+            for (var x in coiffureList) {
+              if ('/Isletme/${createURL(x.name)}' == settings.name) {
+                returnValue = x;
+                // print('Inside ${x.name}');
+                // print('value: ${returnValue.name}');
+              }
+            }
+          });
+        } else
+          for (var x in coiffureList) {
+            if ('/Isletme/${createURL(x.name)}' == settings.name) {
+              returnValue = x;
+              // print('Inside ${x.name}');
+              // print('value: ${returnValue.name}');
+            }
+          }
+
+        return CoiffureDetailPage(coiffureModel: returnValue);
+      },
       settings: RouteSettings(
-        name: '/Isletme/${createURL(coiffureList[0].name)}',
+        name: '${settings.name}',
+        arguments: returnValue,
       ),
     );
   }
 
   /// Handle '/isletme/:name/Yorumlar'
-  if (settings.name.contains('/Yorumlar')) {
-    return MaterialPageRoute(
-      builder: (context) => CommentsPage(),
-      settings: RouteSettings(
-        name: '/Isletme/${createURL(coiffureList[0].name)}/Yorumlar',
-      ),
-    );
-  }
+  // if (settings.name.contains('/Yorumlar')) {
+  //   return MaterialPageRoute(
+  //     builder: (context) => CommentsPage(),
+  //     settings: RouteSettings(
+  //       name: '/Isletme/${createURL(coiffureList[0].name)}/Yorumlar',
+  //     ),
+  //   );
+  // }
 
   return MaterialPageRoute(builder: (context) => WelcomePage());
 }

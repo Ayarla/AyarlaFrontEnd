@@ -3,11 +3,13 @@ import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/unFocuser.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/model_coiffure.dart';
-import 'package:ayarla/virtual_data_base/temporaryLists.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/smallCoiffureCard.dart';
 import 'package:ayarla/models/functions.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class SearchPage extends StatefulWidget {
@@ -29,9 +31,9 @@ class SearchPageState extends State<SearchPage> {
   initState() {
     super.initState();
     functions.getLocation();
+    localCoiffureList = Provider.of<AppointmentService>(context, listen: false).mainCoiffureList;
 
     /// coiffurelist(RHS) will be fetched from provider.
-    localCoiffureList = coiffureList;
     generatingList = localCoiffureList;
   }
 
@@ -45,7 +47,15 @@ class SearchPageState extends State<SearchPage> {
         backgroundColor: Colors.grey.shade200,
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [appBar()],
-          body: body(width),
+          body: Provider.of<AppointmentService>(context, listen: true).mainCoiffureList.isEmpty
+              ? SpinKitDoubleBounce(itemBuilder: (BuildContext context, int index) {
+                  return DecoratedBox(
+                      decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: index.isEven ? Colors.grey : Colors.blueGrey,
+                  ));
+                })
+              : body(width),
         ),
         drawer: leftDrawer(width, padding),
         endDrawer: rightDrawer(width, padding),
@@ -163,7 +173,7 @@ class SearchPageState extends State<SearchPage> {
                         TextButton(
                           child: Center(child: Text('Azdan Çoka', style: kSmallTextStyle)),
                           onPressed: () {
-                            generatingList.sort((a, b) => a.comments.compareTo(b.comments));
+                            // generatingList.sort((a, b) => a.comments.compareTo(b.comments));
                             super.setState(() {});
                             Navigator.pop(context);
                           },
@@ -178,7 +188,7 @@ class SearchPageState extends State<SearchPage> {
                         TextButton(
                           child: Center(child: Text('Çoktan Aza', style: kSmallTextStyle)),
                           onPressed: () {
-                            generatingList.sort((b, a) => a.comments.compareTo(b.comments));
+                            // generatingList.sort((b, a) => a.comments.compareTo(b.comments));
                             super.setState(() {});
                             Navigator.pop(context);
                           },

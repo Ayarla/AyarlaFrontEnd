@@ -2,7 +2,6 @@ import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/components/unFocuser.dart';
-import 'package:ayarla/services/businessOrUser_data.dart';
 import 'package:ayarla/services/service_login.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +52,7 @@ class _EditProfileState extends State<EditProfilePage> {
             children: [
               SizedBox(height: 15),
               Container(
-                width: size.width<=650? size.width/1.5:550,
+                width: size.width <= 650 ? size.width / 1.5 : 550,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.orange[500],
@@ -70,18 +69,11 @@ class _EditProfileState extends State<EditProfilePage> {
                           child: CircleAvatar(
                             radius: 55,
                             backgroundColor: Colors.transparent,
-                            child: Provider.of<UserService>(context,
-                                            listen: true)
-                                        .userImage !=
-                                    null
+                            child: Provider.of<UserService>(context, listen: true).userImage != null
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child:
-                                      Provider.of<UserService>(context,
-                                              listen: true)
-                                          .userImage
-
-                                  )
+                                        Provider.of<UserService>(context, listen: true).userImage)
                                 : Container(
                                     decoration: BoxDecoration(
                                       color: Colors.grey[200],
@@ -114,15 +106,17 @@ class _EditProfileState extends State<EditProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          Provider.of<LoginService>(context, listen: false)
-                              .userModel
-                              .fullName ?? "Kullanıcı Adı",
+                          Provider.of<LoginService>(context, listen: false).userModel.fullName ??
+                              "Kullanıcı Adı",
                           style: kTextStyle.copyWith(
-                              color: Colors.white, fontSize: size.width <= 400 ? size.width / 20 : 25),
+                              color: Colors.white,
+                              fontSize: size.width <= 400 ? size.width / 20 : 25),
                         ),
                         Text(
                           'xx.xx.xxxxden beri üye',
-                          style: kSmallTextStyle.copyWith(color: Colors.white,fontSize: size.width <= 400 ? size.width / 30 : 15),
+                          style: kSmallTextStyle.copyWith(
+                              color: Colors.white,
+                              fontSize: size.width <= 400 ? size.width / 30 : 15),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -132,7 +126,7 @@ class _EditProfileState extends State<EditProfilePage> {
               ),
               SizedBox(height: 20),
               Form(
-                key: _accountFormKey,
+                  key: _accountFormKey,
                   child: Column(
                     children: [
                       Padding(
@@ -143,16 +137,15 @@ class _EditProfileState extends State<EditProfilePage> {
                         padding: EdgeInsets.all(4.0),
                         child: AyarlaTextFormField(
                           hintText: 'Mailimi Güncelle',
-                          style: kSmallTextStyle.copyWith(
-                              fontSize: isSmallScreen ? 10 : 14),
+                          style: kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                           padding: EdgeInsets.all(20.0),
                           color: Colors.orange[500],
                           validator: (_typedValue) {
                             return (_typedValue.isEmpty)
                                 ? 'Boş bırakılamaz'
                                 : isValidEmail()
-                                ? null
-                                : "Lütfen geçerli bir mail adresi giriniz";
+                                    ? null
+                                    : "Lütfen geçerli bir mail adresi giriniz";
                           },
                           onChanged: (typed) {
                             _typedMail = typed;
@@ -163,14 +156,11 @@ class _EditProfileState extends State<EditProfilePage> {
                         padding: EdgeInsets.all(4.0),
                         child: AyarlaTextFormField(
                           hintText: 'Telefonunuzu Giriniz (Opsiyonel)',
-                          style: kSmallTextStyle.copyWith(
-                              fontSize: isSmallScreen ? 10 : 14),
+                          style: kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                           padding: EdgeInsets.all(20.0),
                           color: Colors.orange[500],
                           validator: (_typedValue) {
-                            return (_typedValue.isEmpty)
-                                ? 'Boş bırakılamaz'
-                                : null;
+                            return (_typedValue.isEmpty) ? 'Boş bırakılamaz' : null;
                           },
                           onChanged: (typed) {
                             _typedPhone = typed;
@@ -184,18 +174,13 @@ class _EditProfileState extends State<EditProfilePage> {
                             children: [
                               TextButton(
                                 style: ButtonStyle(
-                                  padding: MaterialStateProperty.all<
-                                      EdgeInsetsGeometry>(
-                                      EdgeInsets.symmetric(
-                                          vertical: 12, horizontal: 35)),
+                                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                      EdgeInsets.symmetric(vertical: 12, horizontal: 35)),
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.orange[500]),
-                                  shape:
-                                  MaterialStateProperty.all<OutlinedBorder>(
+                                      MaterialStateProperty.all<Color>(Colors.orange[500]),
+                                  shape: MaterialStateProperty.all<OutlinedBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(20))),
+                                          borderRadius: BorderRadius.circular(20))),
                                 ),
                                 onPressed: () {
                                   if (_accountFormKey.currentState.validate()) {
@@ -208,47 +193,42 @@ class _EditProfileState extends State<EditProfilePage> {
                                 child: Text(
                                   'Kaydet',
                                   style: kTextStyle.copyWith(
-                                      color: Colors.white,
-                                      fontSize: isSmallScreen ? 15 : 20),
+                                      color: Colors.white, fontSize: isSmallScreen ? 15 : 20),
                                 ),
                               ),
                             ],
-                          )
-                      ),
+                          )),
                     ],
-                  )
-              ),
+                  )),
               SizedBox(height: 15),
               Form(
-                key: _passwordFormKey,
+                  key: _passwordFormKey,
                   child: Column(
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Text('Şifrem', style: kSmallTitleStyle,
+                        child: Text(
+                          'Şifrem',
+                          style: kSmallTitleStyle,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(4.0),
                         child: AyarlaTextFormField(
-                            hintText: 'Eski Şifrenizi Giriniz',
-                          style: kSmallTextStyle.copyWith(
-                              fontSize: isSmallScreen ? 10 : 14),
+                          hintText: 'Eski Şifrenizi Giriniz',
+                          style: kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                           padding: EdgeInsets.all(20.0),
                           color: Colors.orange[500],
                           validator: (_typedValue) {
-                            return (_typedValue.isEmpty)
-                                ? 'Boş bırakılamaz'
-                                : null;
+                            return (_typedValue.isEmpty) ? 'Boş bırakılamaz' : null;
                           },
                           onChanged: (typed) {
-                              setState(() {
-                                _typedOldPassword = typed;
-                              });
+                            setState(() {
+                              _typedOldPassword = typed;
+                            });
                           },
                         ),
                       ),
-
                       if (_typedOldPassword != null)
                         Column(
                           children: [
@@ -256,14 +236,11 @@ class _EditProfileState extends State<EditProfilePage> {
                               padding: EdgeInsets.all(4.0),
                               child: AyarlaTextFormField(
                                 hintText: 'Yeni Şifrenizi Giriniz',
-                                style: kSmallTextStyle.copyWith(
-                                    fontSize: isSmallScreen ? 10 : 14),
+                                style: kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                 padding: EdgeInsets.all(20.0),
                                 color: Colors.orange[500],
                                 validator: (_typedValue) {
-                                  return (_typedValue.isEmpty)
-                                      ? 'Boş bırakılamaz'
-                                      : null;
+                                  return (_typedValue.isEmpty) ? 'Boş bırakılamaz' : null;
                                 },
                                 onChanged: (typed) {
                                   _typedPassword = typed;
@@ -274,8 +251,7 @@ class _EditProfileState extends State<EditProfilePage> {
                               padding: EdgeInsets.all(4.0),
                               child: AyarlaTextFormField(
                                 hintText: 'Yeni Şifrenizi Tekrar Giriniz',
-                                style: kSmallTextStyle.copyWith(
-                                    fontSize: isSmallScreen ? 10 : 14),
+                                style: kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                 padding: EdgeInsets.all(20.0),
                                 color: Colors.orange[500],
                                 validator: (_typedValue) {
@@ -301,18 +277,13 @@ class _EditProfileState extends State<EditProfilePage> {
                                   children: [
                                     TextButton(
                                       style: ButtonStyle(
-                                        padding: MaterialStateProperty.all<
-                                            EdgeInsetsGeometry>(
-                                            EdgeInsets.symmetric(
-                                                vertical: 12, horizontal: 35)),
+                                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                            EdgeInsets.symmetric(vertical: 12, horizontal: 35)),
                                         backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.orange[500]),
-                                        shape:
-                                        MaterialStateProperty.all<OutlinedBorder>(
+                                            MaterialStateProperty.all<Color>(Colors.orange[500]),
+                                        shape: MaterialStateProperty.all<OutlinedBorder>(
                                             RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(20))),
+                                                borderRadius: BorderRadius.circular(20))),
                                       ),
                                       onPressed: () {
                                         if (_passwordFormKey.currentState.validate()) {
@@ -325,19 +296,15 @@ class _EditProfileState extends State<EditProfilePage> {
                                       child: Text(
                                         'Kaydet',
                                         style: kTextStyle.copyWith(
-                                            color: Colors.white,
-                                            fontSize: isSmallScreen ? 15 : 20),
+                                            color: Colors.white, fontSize: isSmallScreen ? 15 : 20),
                                       ),
                                     ),
                                   ],
-                                )
-                            ),
+                                )),
                           ],
                         )
                     ],
-                  )
-              ),
-
+                  )),
 
               // Form(
               //   key: _formKey,

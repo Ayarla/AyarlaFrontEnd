@@ -1,6 +1,10 @@
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/models/model_appointment.dart';
+import 'package:ayarla/virtual_data_base/temporaryLists.dart';
+import 'package:ayarla/webService/ayarla_account_functions.dart';
+import 'package:ayarla/webService/http_service.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentService extends ChangeNotifier {
@@ -156,5 +160,31 @@ class AppointmentService extends ChangeNotifier {
   // }
 
   /// • Main coiffure list that is fetched at the start.
-  List mainCoiffureList = [];
+  List<CoiffureModel> mainCoiffureList = [];
+
+  Future<List> getAllCoiffures() async {
+    List localList;
+
+    localList = await HttpAyarlaAccountFunctions().getAllAyarlaAccount();
+    // print(localList.length);
+
+    for (int i = 0; i < localList.length; i++) {
+      mainCoiffureList.add(CoiffureModel.fromJson({
+        "address": localList[i]['address'],
+        "gender": localList[i]['gender'],
+        "commentNumber": localList[i]['commentNumber'],
+        "accountNotes": localList[i]['accountNotes'],
+        "openCloseTimes": localList[i]['openCloseTimes'],
+        "phone1": localList[i]['phone1'],
+        "id": localList[i]['id'],
+        "meanRating": localList[i]['meanRating'],
+        "city": localList[i]['city'],
+        "district": localList[i]['district'],
+        "accountName": localList[i]['accountName']
+      }, i));
+    }
+    notifyListeners();
+    coiffureList = mainCoiffureList;
+    return mainCoiffureList;
+  }
 }

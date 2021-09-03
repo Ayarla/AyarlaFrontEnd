@@ -21,15 +21,14 @@ class _SmallCoiffureCardState extends State<SmallCoiffureCard> {
     final width = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.all(5),
+
       /// TODO: maybe fix?
       constraints: BoxConstraints(maxWidth: width < 475 ? width - 50 : 360),
       child: TextButton(
         style: ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.transparent)),
         onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/Isletme/${fixTurkishCharacters(createURL(widget.coiffureModel.name))}',
-          );
+          Navigator.pushNamed(context, '/Isletme/${createURL(widget.coiffureModel.name)}');
+          // arguments: RouteSettings(arguments: widget.coiffureModel));
           FirebaseAnalytics()
               .logEvent(name: 'coiffueur_cart', parameters: {'name': widget.coiffureModel.name});
         },
@@ -137,7 +136,15 @@ class CardInfo extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    Text('${coiffureModel.time}', style: kTextStyle.copyWith(fontSize: 13)),
+                    SizedBox(
+                      width: 120,
+                      child: Text(
+                        '${coiffureModel.time}',
+                        textAlign: TextAlign.right,
+                        style: kTextStyle.copyWith(fontSize: 13),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                     SizedBox(width: 1),
                   ],
                 ),

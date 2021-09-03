@@ -38,7 +38,7 @@ class HttpService {
     );
 
     _adminToken = 'Bearer ' + jsonDecode(response.body)['result']['accessToken'];
-    print('ADMIN TOKEN : $_adminToken');
+    // print('ADMIN TOKEN : $_adminToken');
 
     await checkResponseStatus(
       successMessage: 'Token Çekildi!',

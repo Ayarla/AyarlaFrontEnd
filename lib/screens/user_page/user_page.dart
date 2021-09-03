@@ -1,6 +1,7 @@
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/button_generic.dart';
+import 'package:ayarla/components/unFocuser.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -40,7 +41,7 @@ class _UserPageState extends State<UserPage> {
         title: Center(child: Text(" ")),
         childrenColor: Colors.orange,
       ).build(context),
-      body: Unfocuser(
+      body: UnFocuser(
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -74,13 +75,12 @@ class _UserPageState extends State<UserPage> {
                             child: CircleAvatar(
                               radius: 55,
                               backgroundColor: Colors.grey,
-                              child: Provider.of<UserService>(context, listen: true)
-                                          .userImage !=
+                              child: Provider.of<UserService>(context, listen: true).userImage !=
                                       null
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
-                                      child: Provider.of<UserService>(context, listen: true)
-                                          .userImage)
+                                      child:
+                                          Provider.of<UserService>(context, listen: true).userImage)
                                   : Container(
                                       decoration: BoxDecoration(
                                           color: Colors.grey[200],

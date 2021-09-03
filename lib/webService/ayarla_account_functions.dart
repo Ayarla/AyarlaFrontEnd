@@ -22,6 +22,8 @@ class HttpAyarlaAccountFunctions extends HttpService {
   Future getAllAyarlaAccount() async {
     final String _url = "$baseUrl/api/services/app/AyarlaAccount/GetAll";
 
+    /// TODO - fix.
+    await HttpService().getToken();
     http.Response response = await http.get(
       _url,
       headers: headersWithAdminToken,
@@ -33,8 +35,8 @@ class HttpAyarlaAccountFunctions extends HttpService {
       response: response,
       returnData: jsonDecode(response.body)["result"]["items"],
     );
+    // print(jsonDecode(response.body)["result"]["items"]);
     return jsonDecode(response.body)["result"]["items"];
-
   }
 
   Future createAyarlaAccount({CoiffureModel coiffureModel}) async {
