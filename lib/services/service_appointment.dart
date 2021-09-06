@@ -162,7 +162,7 @@ class AppointmentService extends ChangeNotifier {
   /// • Main coiffure list that is fetched at the start.
   List<CoiffureModel> mainCoiffureList = [];
 
-  Future<List> getAllCoiffures() async {
+  Future<List<CoiffureModel>> getAllCoiffures() async {
     List localList;
 
     localList = await HttpAyarlaAccountFunctions().getAllAyarlaAccount();
@@ -184,7 +184,7 @@ class AppointmentService extends ChangeNotifier {
       }, i));
     }
     notifyListeners();
-    coiffureList = mainCoiffureList;
+    // coiffureList = mainCoiffureList;
     return mainCoiffureList;
   }
 }

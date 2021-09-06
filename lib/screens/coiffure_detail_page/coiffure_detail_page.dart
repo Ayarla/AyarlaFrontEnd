@@ -15,6 +15,7 @@ import 'package:ayarla/screens/coiffure_detail_page/ServicesSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +80,14 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                   color: index.isEven ? Colors.grey : Colors.blueGrey,
                 ));
               }),
-              Text('İstediğiniz Sayfayı Hazırlıyoruz!', style: kTextStyle),
+              Text(
+                'İstediğiniz Sayfayı Hazırlıyoruz!',
+                style: kTextStyle.copyWith(decoration: TextDecoration.none),
+              ),
+              TextButton(
+                child: Text('Anasayfaya Dön', style: kTextStyle),
+                onPressed: () => Navigator.pushNamed(context, '/Hosgeldiniz'),
+              )
             ],
           )
         : Scaffold(

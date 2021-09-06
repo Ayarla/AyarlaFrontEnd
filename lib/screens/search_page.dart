@@ -27,14 +27,19 @@ class SearchPageState extends State<SearchPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double _value = 0;
 
+  getter() async {
+    Provider.of<AppointmentService>(context, listen: false).mainCoiffureList.clear();
+    localCoiffureList.clear();
+    localCoiffureList =
+        await Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
+    generatingList = localCoiffureList;
+  }
+
   @override
   initState() {
     super.initState();
     functions.getLocation();
-    localCoiffureList = Provider.of<AppointmentService>(context, listen: false).mainCoiffureList;
-
-    /// coiffurelist(RHS) will be fetched from provider.
-    generatingList = localCoiffureList;
+    getter();
   }
 
   @override

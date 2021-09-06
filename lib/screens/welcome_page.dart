@@ -21,18 +21,6 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   HttpAyarlaAccountFunctions httpAyarlaAccountFunctions = HttpAyarlaAccountFunctions();
 
-  getter() async {
-    // await HttpService().getToken();
-    Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
-  }
-
-  @override
-  void initState() {
-    /// TODO gets Token once the application opens
-    getter();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
