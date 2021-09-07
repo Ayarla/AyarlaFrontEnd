@@ -99,6 +99,7 @@ class AyarlaTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onEditingComplete: onEditingComplete ?? () {},
       textAlign: textAlign ?? TextAlign.start,
       obscureText: obscureText ?? false,
       initialValue: initialValue,

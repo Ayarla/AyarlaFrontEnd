@@ -1,4 +1,5 @@
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/unFocuser.dart';
 import 'package:ayarla/models/model_employee.dart';
@@ -13,7 +14,6 @@ import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class BusinessInfoPage extends StatefulWidget {
@@ -22,11 +22,8 @@ class BusinessInfoPage extends StatefulWidget {
 }
 
 class _BusinessInfoPageState extends State<BusinessInfoPage> {
-  final ScrollController _photoController = ScrollController();
-
+  ScrollController _photoController = ScrollController();
   Functions functions = Functions();
-  bool editService = false;
-  bool editEmployee = false;
   bool isChanged = false;
 
   ///popup to add employee
@@ -129,110 +126,64 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   }
 
   @override
+  void didUpdateWidget(covariant BusinessInfoPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    isChanged = true;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(
-              title: Center(
-                child: TextField(
-                  focusNode: FocusNode(),
-                  onEditingComplete: () {},
-                  style: kTitleStyle.copyWith(color: Colors.white),
-                  textAlign: TextAlign.left,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Kuaför Adı",
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(right: 15.0),
-                      child: Icon(Icons.edit, color: Colors.white),
-                    ),
-                    hintStyle: kTitleStyle.copyWith(color: Colors.white),
-                  ),
+        title: Center(
+          child: AyarlaTextFormField(
+            initialValue:
+                Provider.of<ManagementService>(context, listen: false).currentCoiffure.name,
+            onChanged: (value) {
+              setState(() {
+                Provider.of<ManagementService>(context, listen: false).currentCoiffure.name = value;
+              });
+            },
+            style: kTitleStyle.copyWith(color: Colors.black, fontSize: 18),
+            textAlign: TextAlign.justify,
+            hintText: 'İşletmenizin İsmini Giriniz',
+          ),
+        ),
+        gradient: functions.decideColor(context),
+      ).build(context),
+      body: UnFocuser(
+        child: WillPopScope(
+          onWillPop: () {
+            return Future.value(true);
+          },
+          child: ListView(
+            children: [
+              AyarlaPage(
+                child: ListView(
+                  shrinkWrap: true,
+                  controller: _photoController,
+                  children: <Widget>[
+                    SizedBox(height: 10),
+                    ImageSectionBusiness(),
+                    SizedBox(height: 10),
+
+                    ///Hakkında
+                    AboutSectionBusiness(),
+                    SizedBox(height: 10),
+
+                    ///Hizmetler
+                    ServiceSectionBusiness(),
+
+                    ///İletişim
+                    ContactSection(),
+                    SizedBox(height: 60),
+                  ],
                 ),
               ),
-              gradient: functions.decideColor(context),
-              backButtonFunction: !isChanged
-                  ? null
-                  : () {
-                      return showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: Color(0xFFE5EBEE),
-                              title: Center(
-                                child: Text(
-                                  "Değişiklikleri kaydetmek istiyor musunuz?",
-                                  style: kSmallTitleStyle,
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(25.0),
-                                ),
-                              ),
-                              content: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextButton(
-                                      child: Text(
-                                        'Hayır',
-                                        style: kSmallTextStyle.copyWith(
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                      }),
-                                  SizedBox(width: 30),
-                                  TextButton(
-                                      child: Text(
-                                        'Evet',
-                                        style: kSmallTextStyle.copyWith(
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                      }),
-                                ],
-                              ),
-                            );
-                          });
-                    })
-          .build(context),
-      body: UnFocuser(
-        child: ListView(
-          children: [
-            AyarlaPage(
-              child: ListView(
-                shrinkWrap: true,
-                controller: _photoController,
-                children: <Widget>[
-                  /// Fotoğraf Ekleme/Çıkartma
-                  /// TODO - File drag area for web.
-                  SizedBox(height: 10),
-                  ImageSectionBusiness(),
-                  SizedBox(height: 10),
-
-                  ///Hakkında
-                  AboutSectionBusiness(),
-                  SizedBox(height: 10),
-
-                  ///Hizmetler
-                  ServiceSectionBusiness(),
-
-                  ///İletişim
-                  ContactSection(),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: isChanged
@@ -240,11 +191,9 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
               text: 'Kaydet',
               onPressed: () {
                 setState(() {
-                  // isSaved = true;
                   isChanged = false;
                 });
               },
-              // isGradient: true,
             )
           : null,
     );

@@ -18,20 +18,26 @@ class ServiceSectionBusiness extends StatefulWidget {
 }
 
 class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
-  bool editService = false;
   Functions functions = Functions();
   int price = 0;
   String serviceName = '';
   List localServiceList = [];
+  final _serviceController = TextEditingController();
+  final _priceController = TextEditingController();
 
   @override
   void initState() {
-    localServiceList = fullTimeServices;
+    localServiceList =
+        Provider.of<ManagementService>(context, listen: false).currentCoiffure.serviceList;
     super.initState();
   }
 
-  final _serviceController = TextEditingController();
-  final _priceController = TextEditingController();
+  @override
+  void dispose() {
+    Provider.of<ManagementService>(context, listen: false).currentCoiffure.serviceList =
+        localServiceList;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,11 +192,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                       Badge(
                         position: BadgePosition(top: 15, start: 80),
                         badgeColor: Colors.green.shade700,
-                        badgeContent: Icon(
-                          Icons.add_rounded,
-                          color: Colors.white,
-                          size: 12,
-                        ),
+                        badgeContent: Icon(Icons.add_rounded, color: Colors.white, size: 12),
                         child: GenericIconButton(
                           iconContext: Icon(
                             Icons.account_circle_rounded,
@@ -207,45 +209,42 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                           onPressed: () => openAlertBox(0),
                         ),
                       ),
-                      for (EmployeeModel employeeModel
-                          in localServiceList[functions.findIndex(serviceModel, context)].employees)
-                        GenericIconButton(
-                          text: employeeModel.name,
-                          iconContext: Badge(
-                            position: BadgePosition(top: 0, start: 50),
-                            badgeContent: GestureDetector(
-                              child: Icon(
-                                Icons.remove_rounded,
-                                color: Colors.white,
-                                size: 12,
-                              ),
-                              onTap: () {
-                                /// TODO - does not work
-                                setState(() {
-                                  localServiceList[functions.findIndex(serviceModel, context)]
-                                      .employees
-                                      .remove(employeeModel);
-                                });
-                              },
-                            ),
-                            child: Image(
-                              image: AssetImage(employeeModel.image),
-                              fit: BoxFit.scaleDown,
-                              height: width <= 400 ? width / 8 : 50,
-                            ),
-                          ),
-                          textStyle: kTextStyle.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: width <= 400 ? width / 30 : 14),
-                        ),
+                      // for (EmployeeModel employeeModel
+                      //     in localServiceList[functions.findIndex(serviceModel, context)]
+                      //         .employees)
+                      //   GenericIconButton(
+                      //     text: employeeModel.name,
+                      //     iconContext: Badge(
+                      //       position: BadgePosition(top: 0, start: 50),
+                      //       badgeContent: GestureDetector(
+                      //         child: Icon(
+                      //           Icons.remove_rounded,
+                      //           color: Colors.white,
+                      //           size: 12,
+                      //         ),
+                      //         onTap: () {
+                      //           /// TODO - does not work
+                      //           setState(() {
+                      //             localServiceList[functions.findIndex(serviceModel, context)]
+                      //                 .employees
+                      //                 .remove(employeeModel);
+                      //           });
+                      //         },
+                      //       ),
+                      //       child: Image(
+                      //         image: AssetImage(employeeModel.image),
+                      //         fit: BoxFit.scaleDown,
+                      //         height: width <= 400 ? width / 8 : 50,
+                      //       ),
+                      //     ),
+                      //     textStyle: kTextStyle.copyWith(
+                      //         fontWeight: FontWeight.normal,
+                      //         fontSize: width <= 400 ? width / 30 : 14),
+                      //   ),
                     ],
                   ),
                 ),
-                Positioned(
-                  right: 0,
-                  top: 30,
-                  child: Icon(Icons.keyboard_arrow_right),
-                )
+                Positioned(right: 0, top: 30, child: Icon(Icons.keyboard_arrow_right))
               ]),
             ),
           ),
@@ -322,11 +321,9 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                           ),
                           onPressed: () {
                             setState(() {
-                              localServiceList.add(ServiceModel(
-                                name: serviceName,
-                                price: price,
-                                employees: [],
-                              ));
+                              localServiceList.add(
+                                ServiceModel(name: serviceName, price: price, employees: []),
+                              );
                               _serviceController.clear();
                               _priceController.clear();
                             });

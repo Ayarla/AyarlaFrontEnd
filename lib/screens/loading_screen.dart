@@ -4,7 +4,6 @@ import 'package:ayarla/screens/page_not_found.dart';
 import 'package:ayarla/services/analytics_service.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:ayarla/services/service_appointment.dart';
-import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'coiffure_detail_page/coiffure_detail_page.dart';
@@ -25,7 +24,25 @@ import 'package:ayarla/screens/user_page/user_page.dart';
 import 'package:ayarla/screens/search_page.dart';
 import 'package:ayarla/screens/welcome_page.dart';
 
-class LoadingScreen extends StatelessWidget {
+class LoadingScreen extends StatefulWidget {
+  @override
+  _LoadingScreenState createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends State<LoadingScreen> {
+  @override
+  void initState() {
+    getter(context);
+    super.initState();
+  }
+
+  Future<List> getter(context) async {
+    Provider.of<AppointmentService>(context, listen: false).mainCoiffureList.clear();
+    Provider.of<AppointmentService>(context, listen: false).mainCoiffureList =
+        await Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
+    return Provider.of<AppointmentService>(context, listen: false).mainCoiffureList;
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = ThemeData(
@@ -35,28 +52,21 @@ class LoadingScreen extends StatelessWidget {
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
           overlayColor: MaterialStateProperty.all(Colors.transparent),
-          foregroundColor: MaterialStateProperty.all(Colors.orange[300]),
+          foregroundColor: MaterialStateProperty.all(Colors.black),
         ),
       ),
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
-      theme: themeData,
-      routes: ayarlaRoutes,
-      onGenerateRoute: (settings) => onFlyRoute(settings, context),
-      onUnknownRoute: (settings) => MaterialPageRoute(builder: (context) => NotFoundPage()),
-    );
+    return Provider.of<AppointmentService>(context, listen: false).mainCoiffureList.length <= 0
+        ? Container()
+        : MaterialApp(
+            debugShowCheckedModeBanner: false,
+            navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
+            theme: themeData,
+            routes: ayarlaRoutes,
+            onGenerateRoute: (settings) => onFlyRoute(settings, context),
+            onUnknownRoute: (settings) => MaterialPageRoute(builder: (context) => NotFoundPage()),
+          );
   }
-}
-
-List localList = [];
-Future<List> getter(context) async {
-  Provider.of<AppointmentService>(context, listen: false).mainCoiffureList.clear();
-  Provider.of<AppointmentService>(context, listen: false).mainCoiffureList =
-      await Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
-  localList = Provider.of<AppointmentService>(context, listen: false).mainCoiffureList;
-  return coiffureList;
 }
 
 Route<dynamic> onFlyRoute(settings, context) {
@@ -64,40 +74,43 @@ Route<dynamic> onFlyRoute(settings, context) {
   if (settings.name == '/') MaterialPageRoute(builder: (context) => WelcomePage());
 
   /// Handle '/isletme/:name'
-  if (settings.name.contains('/Isletme/') && !settings.name.contains('/Yorumlar')) {
-    var returnValue;
-    // if (localList.isEmpty) {
-    print(settings.name);
-    getter(context).whenComplete(() {
-      print('vol1');
-      for (var x in localList) {
-        if ('/Isletme/${createURL(x.name)}' == settings.name) {
-          returnValue = x;
-        }
+  if (settings.name.toString().contains('/Isletme/') &&
+      !settings.name.toString().contains('/Yorumlar')) {
+    CoiffureModel _coiffureModel;
+
+    for (CoiffureModel x
+        in Provider.of<AppointmentService>(context, listen: false).mainCoiffureList) {
+      // print(createURL(x.name));
+      // print(settings.name.toString());
+      if ('/Isletme/${createURL(x.name)}' == settings.name.toString()) {
+        _coiffureModel = x;
+        // print(_coiffureModel.name);
       }
-      print('vol3');
-      // }
-      // } else
-      //   for (var x in localList) {
-      //     if ('/Isletme/${createURL(x.name)}' == settings.name) {
-      //       returnValue = x;
-      //     }
-      //   }
-      print(returnValue.name);
-    }).whenComplete(() => MaterialPageRoute(
-          builder: (context) => CoiffureDetailPage(),
-          settings: RouteSettings(
-            name: '/Isletme/${createURL(returnValue.name)}',
-            arguments: returnValue,
-          ),
-        ));
+    }
+
+    return MaterialPageRoute(
+      builder: (bc) => CoiffureDetailPage(coiffureModel: _coiffureModel),
+      settings: RouteSettings(
+        name: '/Isletme/${createURL(_coiffureModel.name)}',
+        arguments: _coiffureModel,
+      ),
+    );
   }
 
   /// Handle '/isletme/:name/Yorumlar'
-  if (settings.name.contains('/Yorumlar')) {
+  if (settings.name.toString().contains('/Yorumlar')) {
+    CoiffureModel _coiffureModel;
+    for (CoiffureModel x
+        in Provider.of<AppointmentService>(context, listen: false).mainCoiffureList) {
+      // print(createURL(x.name));
+      // print(settings.name.toString());
+      if ('/Isletme/${createURL(x.name)}/Yorumlar' == settings.name.toString()) {
+        _coiffureModel = x;
+      }
+    }
     return MaterialPageRoute(
       builder: (context) => CommentsPage(),
-      settings: RouteSettings(name: '${settings.name}'),
+      settings: RouteSettings(name: '/Isletme/${createURL(_coiffureModel.name)}/Yorumlar'),
     );
   }
 

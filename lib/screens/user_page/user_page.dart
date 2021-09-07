@@ -159,9 +159,10 @@ class _UserPageState extends State<UserPage> {
 
                                       /// TODO: fix
                                       Navigator.pushNamedAndRemoveUntil(
-                                          context,
-                                          "/KullaniciSayfasi",
-                                          ModalRoute.withName('/AramaSayfasi'));
+                                        context,
+                                        "/KullaniciSayfasi",
+                                        ModalRoute.withName('/'),
+                                      );
                                     },
                                   ),
                                 ],

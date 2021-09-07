@@ -13,23 +13,24 @@ class ManagementService extends ChangeNotifier {
   LatLong.LatLng markerPosition = LatLong.LatLng(41.015137, 28.979530);
   LatLong.LatLng currentPosition = LatLong.LatLng(41.015137, 28.979530);
   PickResult pickedResult = PickResult();
+
   CoiffureModel currentCoiffure = CoiffureModel(
     name: '',
     //star: 0,
     //index: 0,
-    city:'',
-    district:'',
-    time:[],
-    text:'',
+    city: '',
+    district: '',
+    time: ['00.00', '00.00'],
+    text: '',
     //averagePrice: 0,
-    telephone:'',
-    address:'',
+    telephone: '',
+    address: '',
     //comments:0,
-    images:[],
+    images: [],
     //uniqueId:'',
     //isPrime:false,
-    employeeList:[],
-    serviceList:[]
+    employeeList: [],
+    serviceList: [],
   );
 
   removeEmployeeFromService(int serviceIndex, int employeeIndex) {
@@ -53,7 +54,7 @@ class ManagementService extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeEmployee(int employeeIndex){
+  removeEmployee(int employeeIndex) {
     employeesList.removeAt(employeeIndex);
     notifyListeners();
   }
@@ -81,10 +82,8 @@ class ManagementService extends ChangeNotifier {
 
   ///map functions
   setPickedPlace(place) {
-    currentPosition = LatLong.LatLng(
-        place.geometry.coordinates[1], place.geometry.coordinates[0]);
-    markerPosition = LatLong.LatLng(
-        place.geometry.coordinates[1], place.geometry.coordinates[0]);
+    currentPosition = LatLong.LatLng(place.geometry.coordinates[1], place.geometry.coordinates[0]);
+    markerPosition = LatLong.LatLng(place.geometry.coordinates[1], place.geometry.coordinates[0]);
     setInfo(place);
     print("Koordinatlar ${place.geometry.coordinates}");
     notifyListeners();
@@ -114,9 +113,11 @@ class ManagementService extends ChangeNotifier {
     print('as');
     markerPosition = LatLong.LatLng(41.015137, 28.979530);
     print(markerPosition);
+
     /// from database
     currentPosition = LatLong.LatLng(41.015137, 28.979530);
     print(currentPosition);
+
     /// from database
     notifyListeners();
   }
@@ -126,5 +127,4 @@ class ManagementService extends ChangeNotifier {
     print(pickedResult.formattedPhoneNumber);
     notifyListeners();
   }
-
 }

@@ -83,8 +83,8 @@ class SearchPageState extends State<SearchPage> {
           generatingList = localCoiffureList;
       });
 
-  final Color small = Color(0xFFccb274);
-  final Color title = Color(0xFFc1a96e);
+  final Color small = Colors.black;
+  final Color title = Colors.black;
 
   body(double width) => OverScroll(
         child: ListView(
@@ -110,7 +110,7 @@ class SearchPageState extends State<SearchPage> {
           padding: EdgeInsets.all(10),
           children: [
             SizedBox(height: padding),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             Center(child: Text('Sıralama', style: kTitleStyle.copyWith(color: title))),
             Card(
               elevation: 5,
@@ -120,14 +120,13 @@ class SearchPageState extends State<SearchPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Yıldıza göre sırala',
-                        style: kSmallTitleStyle.copyWith(color: Color(0xffaa9460))),
+                    Text('Yıldıza göre sırala', style: kSmallTitleStyle),
                     SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         TextButton(
-                          child: Text('Azdan Çoka', style: kSmallTextStyle.copyWith(color: small)),
+                          child: Text('Azdan Çoka', style: kSmallTextStyle),
                           onPressed: () {
                             generatingList.sort((a, b) => a.star.compareTo(b.star));
                             super.setState(() {});
@@ -144,7 +143,7 @@ class SearchPageState extends State<SearchPage> {
 
                         /// MORE TO LESS ACC STARS
                         TextButton(
-                          child: Text('Çoktan Aza', style: kSmallTextStyle.copyWith(color: small)),
+                          child: Text('Çoktan Aza', style: kSmallTextStyle),
                           onPressed: () {
                             generatingList.sort((b, a) => a.star.compareTo(b.star));
                             super.setState(() {});
@@ -206,9 +205,16 @@ class SearchPageState extends State<SearchPage> {
               ),
             ),
             SizedBox(height: 10),
-            TextButton(
-              child: Text('Sekmeyi Kapat', style: kTextStyle.copyWith(color: Colors.red[300])),
-              onPressed: () => Navigator.pop(context),
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextButton(
+                  child: Text('Sekmeyi Kapat', style: kTextStyle.copyWith(color: Colors.red[300])),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
             ),
           ],
         ),
@@ -219,7 +225,7 @@ class SearchPageState extends State<SearchPage> {
           padding: EdgeInsets.all(10),
           children: [
             SizedBox(height: padding),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             Center(child: Text('Filtreleme', style: kTitleStyle.copyWith(color: title))),
             Card(
               elevation: 5,
@@ -241,7 +247,7 @@ class SearchPageState extends State<SearchPage> {
                       enableTooltip: true,
                       tooltipShape: SfPaddleTooltipShape(),
                       minorTicksPerInterval: 0,
-                      activeColor: Colors.deepPurple,
+                      activeColor: Colors.blueGrey,
                       onChanged: (value) {
                         setState(() {
                           _value = value;
@@ -252,6 +258,17 @@ class SearchPageState extends State<SearchPage> {
                       },
                     ),
                   ],
+                ),
+              ),
+            ),
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextButton(
+                  child: Text('Sekmeyi Kapat', style: kTextStyle.copyWith(color: Colors.red[300])),
+                  onPressed: () => Navigator.pop(context),
                 ),
               ),
             ),

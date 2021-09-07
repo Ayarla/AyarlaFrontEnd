@@ -129,7 +129,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                                   style: kTextStyle.copyWith(fontSize: 12, color: Colors.blue)),
                               onPressed: () => Navigator.pushNamed(
                                 context,
-                                '/Isletme/${fixTurkishCharacters(createURL(coiffureList[0].name))}/Yorumlar',
+                                '/Isletme/${createURL(widget.coiffureModel.name)}/Yorumlar',
                               ),
                             )
                           ],

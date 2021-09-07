@@ -77,11 +77,7 @@ class _CommentsPageState extends State<CommentsPage> {
                 context,
                 ListView(
                   shrinkWrap: true,
-                  children: [
-                    BottomSheetCard(
-                      title: 'Yıldıza göre filtrele',
-                    ),
-                  ],
+                  children: [BottomSheetCard(title: 'Yıldıza göre filtrele')],
                 ),
                 400),
           ),

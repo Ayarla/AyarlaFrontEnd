@@ -1,10 +1,17 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:ayarla/services/service_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-class ContactSection extends StatelessWidget {
+class ContactSection extends StatefulWidget {
+  @override
+  _ContactSectionState createState() => _ContactSectionState();
+}
+
+class _ContactSectionState extends State<ContactSection> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,6 +36,11 @@ class ContactSection extends StatelessWidget {
           hintText: 'Adres giriniz',
           keyboardType: TextInputType.multiline,
           maxLines: 3,
+          onChanged: (value) {
+            setState(() {
+              Provider.of<ManagementService>(context, listen: true).currentCoiffure.address = value;
+            });
+          },
         ),
         SizedBox(height: 30),
 
@@ -39,6 +51,12 @@ class ContactSection extends StatelessWidget {
           hintText: 'Telefon Giriniz - 555-555 555 55 55',
           keyboardType: TextInputType.number,
           inputFormatter: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
+          onChanged: (value) {
+            setState(() {
+              Provider.of<ManagementService>(context, listen: true).currentCoiffure.telephone =
+                  value;
+            });
+          },
         ),
         SizedBox(height: 10),
       ],

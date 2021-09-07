@@ -4,10 +4,14 @@ import 'package:menu_button/menu_button.dart';
 class TimeDropdown extends StatefulWidget {
   final String defaultValue;
   final List<String> timeList;
+  final Function onSelect;
+
   TimeDropdown({
     this.defaultValue,
     this.timeList,
+    this.onSelect,
   });
+
   @override
   _TimeDropdownState createState() => _TimeDropdownState();
 }
@@ -87,8 +91,9 @@ class _TimeDropdownState extends State<TimeDropdown> {
       onItemSelected: (String value) {
         setState(() {
           selected = value;
+          widget.onSelect(value);
         });
-        print(selected);
+        // print(selected);
       },
 
       ///onMenuButtonToggle fonksiyonunu kaldırma
