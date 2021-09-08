@@ -1,34 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:menu_button/menu_button.dart';
 
-class TimeDropdown extends StatefulWidget {
-  final String defaultValue;
+class TimeDropdown extends StatelessWidget {
+  String defaultValue;
   final List<String> timeList;
-  final Function onSelect;
+  final Function onItemSelected;
 
   TimeDropdown({
     this.defaultValue,
     this.timeList,
-    this.onSelect,
+    this.onItemSelected,
   });
-
-  @override
-  _TimeDropdownState createState() => _TimeDropdownState();
-}
-
-class _TimeDropdownState extends State<TimeDropdown> {
-  String selected = ' ';
-
-  @override
-  void initState() {
-    selected = widget.defaultValue ?? '00.00';
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return MenuButton<String>(
-      selectedItem: selected,
+      selectedItem: defaultValue,
       itemBackgroundColor: Colors.transparent,
       menuButtonBackgroundColor: Colors.transparent,
       decoration: BoxDecoration(
@@ -45,7 +32,7 @@ class _TimeDropdownState extends State<TimeDropdown> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Flexible(child: Text(selected, overflow: TextOverflow.ellipsis)),
+              Flexible(child: Text(defaultValue, overflow: TextOverflow.ellipsis)),
               SizedBox(
                 width: 12,
                 height: 17,
@@ -58,8 +45,8 @@ class _TimeDropdownState extends State<TimeDropdown> {
           ),
         ),
       ),
-      items: widget.timeList,
-      itemBuilder: (String value) => Container(
+      items: timeList,
+      itemBuilder: (value) => Container(
         height: 40,
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 16),
@@ -74,7 +61,7 @@ class _TimeDropdownState extends State<TimeDropdown> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Flexible(child: Text(selected, overflow: TextOverflow.ellipsis)),
+                Flexible(child: Text(defaultValue, overflow: TextOverflow.ellipsis)),
                 SizedBox(
                   width: 12,
                   height: 17,
@@ -88,13 +75,7 @@ class _TimeDropdownState extends State<TimeDropdown> {
           ),
         ),
       ),
-      onItemSelected: (String value) {
-        setState(() {
-          selected = value;
-          widget.onSelect(value);
-        });
-        // print(selected);
-      },
+      onItemSelected: (value) => onItemSelected(value),
 
       ///onMenuButtonToggle fonksiyonunu kaldırma
       onMenuButtonToggle: (bool isToggle) {},

@@ -48,13 +48,9 @@ class _ManagerHomeState extends State<ManagerHome> {
                 childAspectRatio: 0.8,
                 crossAxisCount: size.width < 650 ? 2 : 4,
                 children: <Widget>[
-                  // Image(image: AssetImage(homeIconName2)),
-                  // Image(image: AssetImage(employeesIconName2)),
-                  // Image(image: AssetImage(notesIconName2)),
-                  // Image(image: AssetImage(messageIconName2)),
                   GenericIconButton(
                     padding: EdgeInsets.all(20),
-                    spaceBetween: 15,
+                    spaceBetween: 12,
                     iconContext: Image.asset(homeIconName2),
                     color: Colors.white.withOpacity(.4),
                     text: 'İşletmem',
@@ -62,7 +58,7 @@ class _ManagerHomeState extends State<ManagerHome> {
                   ),
                   GenericIconButton(
                     padding: EdgeInsets.all(20),
-                    spaceBetween: 15,
+                    spaceBetween: 12,
                     iconContext: Image(image: AssetImage(employeesIconName2)),
                     color: Colors.white.withOpacity(.4),
                     text: 'Çalışanlarım',
@@ -70,7 +66,7 @@ class _ManagerHomeState extends State<ManagerHome> {
                   ),
                   GenericIconButton(
                     padding: EdgeInsets.all(20),
-                    spaceBetween: 15,
+                    spaceBetween: 12,
                     iconContext: Image(image: AssetImage(notesIconName2)),
                     color: Colors.white.withOpacity(.4),
                     text: 'Bilgilendirme Mesajlarım',
@@ -78,7 +74,7 @@ class _ManagerHomeState extends State<ManagerHome> {
                   ),
                   GenericIconButton(
                     padding: EdgeInsets.all(20),
-                    spaceBetween: 15,
+                    spaceBetween: 12,
                     iconContext: Image(image: AssetImage(messageIconName2)),
                     color: Colors.white.withOpacity(.4),
                     text: 'Mesajlaşma',

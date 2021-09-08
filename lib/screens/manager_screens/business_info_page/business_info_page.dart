@@ -1,3 +1,4 @@
+import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
@@ -24,7 +25,26 @@ class BusinessInfoPage extends StatefulWidget {
 class _BusinessInfoPageState extends State<BusinessInfoPage> {
   ScrollController _photoController = ScrollController();
   Functions functions = Functions();
-  bool isChanged = false;
+  bool willPop = true;
+
+  popDialog() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Değişiklikleri kaydetmek istiyor musunuz?', style: kSmallTitleStyle),
+          content: Text('Kaydetmediğiniz değişiklikler kaybolabilirler!', style: kSmallTextStyle),
+          actions: <Widget>[
+            AcceptButton(
+                acceptCondition: () => Navigator.pushNamed(context, '/YoneticiAnasayfasi')),
+            CancelButton(),
+          ],
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        );
+      },
+    );
+  }
 
   ///popup to add employee
   openAlertBox(int serviceIndex) {
@@ -126,38 +146,41 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   }
 
   @override
-  void didUpdateWidget(covariant BusinessInfoPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    isChanged = true;
+  void initState() {
+    willPop = true;
+    Provider.of<ManagementService>(context, listen: false).willPop = true;
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: DefaultAppBar(
-        title: Center(
-          child: AyarlaTextFormField(
-            initialValue:
-                Provider.of<ManagementService>(context, listen: false).currentCoiffure.name,
-            onChanged: (value) {
-              setState(() {
-                Provider.of<ManagementService>(context, listen: false).currentCoiffure.name = value;
-              });
-            },
-            style: kTitleStyle.copyWith(color: Colors.black, fontSize: 18),
-            textAlign: TextAlign.justify,
-            hintText: 'İşletmenizin İsmini Giriniz',
+    willPop = Provider.of<ManagementService>(context, listen: true).willPop;
+    return WillPopScope(
+      onWillPop: () async {
+        if (!willPop) popDialog();
+        return willPop;
+      },
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: DefaultAppBar(
+          title: Center(
+            child: AyarlaTextFormField(
+              initialValue:
+                  Provider.of<ManagementService>(context, listen: false).currentCoiffure.name,
+              onChanged: (value) {
+                setState(() {
+                  Provider.of<ManagementService>(context, listen: false).currentCoiffure.name =
+                      value;
+                });
+              },
+              style: kTitleStyle.copyWith(color: Colors.black, fontSize: 18),
+              textAlign: TextAlign.justify,
+              hintText: 'İşletmenizin İsmini Giriniz',
+            ),
           ),
-        ),
-        gradient: functions.decideColor(context),
-      ).build(context),
-      body: UnFocuser(
-        child: WillPopScope(
-          onWillPop: () {
-            return Future.value(true);
-          },
+          gradient: functions.decideColor(context),
+        ).build(context),
+        body: UnFocuser(
           child: ListView(
             children: [
               AyarlaPage(
@@ -185,17 +208,17 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
             ],
           ),
         ),
+        floatingActionButton: !willPop
+            ? FloatingTextButton(
+                text: 'Kaydet',
+                onPressed: () {
+                  setState(() {
+                    willPop = !willPop;
+                  });
+                },
+              )
+            : null,
       ),
-      floatingActionButton: isChanged
-          ? FloatingTextButton(
-              text: 'Kaydet',
-              onPressed: () {
-                setState(() {
-                  isChanged = false;
-                });
-              },
-            )
-          : null,
     );
   }
 }

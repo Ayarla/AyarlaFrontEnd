@@ -40,7 +40,7 @@ class GenericIconButton extends StatelessWidget {
         child: Padding(
           padding: padding,
           child: Flex(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             direction: axis,
             children: [
               iconContext,

@@ -3,35 +3,62 @@ import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
+import 'package:ayarla/webService/ayarla_account_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import "package:latlong/latlong.dart" as LatLong;
 import 'package:mapbox_search/mapbox_search.dart';
 
 class ManagementService extends ChangeNotifier {
+  HttpAyarlaAccountFunctions _httpAyarlaAccountFunctions = HttpAyarlaAccountFunctions();
   List<ImageListItem> pages = [];
   LatLong.LatLng markerPosition = LatLong.LatLng(41.015137, 28.979530);
   LatLong.LatLng currentPosition = LatLong.LatLng(41.015137, 28.979530);
   PickResult pickedResult = PickResult();
+  bool willPop = true;
 
+  /// TODO: RHS has to be static
   CoiffureModel currentCoiffure = CoiffureModel(
-    name: '',
-    //star: 0,
-    //index: 0,
-    city: '',
-    district: '',
+    name: null,
+    city: null,
+    district: null,
     time: ['00.00', '00.00'],
-    text: '',
-    //averagePrice: 0,
-    telephone: '',
-    address: '',
-    //comments:0,
+    text: null,
+    telephone: null,
+    address: null,
     images: [],
-    //uniqueId:'',
-    //isPrime:false,
     employeeList: [],
     serviceList: [],
   );
+
+  /// Backup model for not saving changes.
+  CoiffureModel decoyModel = CoiffureModel(
+    name: null,
+    city: null,
+    district: null,
+    time: ['00.00', '00.00'],
+    text: null,
+    telephone: null,
+    address: null,
+    images: [],
+    employeeList: [],
+    serviceList: [],
+  );
+
+  changeWillPop() {
+    willPop = false;
+    notifyListeners();
+  }
+
+  getCoiffure(id) async {
+    currentCoiffure = await _httpAyarlaAccountFunctions.getAyarlaAccount(id: id);
+    decoyModel = currentCoiffure;
+  }
+
+  updateCoiffure(id) async {
+    _httpAyarlaAccountFunctions.updateAyarlaAccount(coiffureModel: currentCoiffure);
+    decoyModel = currentCoiffure;
+  }
 
   removeEmployeeFromService(int serviceIndex, int employeeIndex) {
     fullTimeServices[serviceIndex].employees.removeAt(employeeIndex);

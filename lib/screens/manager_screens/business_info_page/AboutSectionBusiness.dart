@@ -12,13 +12,9 @@ class AboutSectionBusiness extends StatefulWidget {
 }
 
 class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
-  String selectedStart = '00:00';
-  String selectedEnd = '00:00';
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    print(Provider.of<ManagementService>(context, listen: false).currentCoiffure.district);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,6 +34,8 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
             SizedBox(
               width: 120,
               child: AyarlaTextFormField(
+                  initialValue:
+                      Provider.of<ManagementService>(context, listen: false).currentCoiffure.city,
                   hintText: 'İl Giriniz',
                   onChanged: (value) {
                     setState(() {
@@ -50,6 +48,9 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
             SizedBox(
               width: 120,
               child: AyarlaTextFormField(
+                  initialValue: Provider.of<ManagementService>(context, listen: false)
+                      .currentCoiffure
+                      .district,
                   hintText: 'İlçe Giriniz',
                   onChanged: (value) {
                     setState(() {
@@ -78,7 +79,9 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
               SizedBox(width: 10),
               TimeDropdown(
                 timeList: dividedHours,
-                onSelect: (value) {
+                defaultValue:
+                    Provider.of<ManagementService>(context, listen: false).currentCoiffure.time[0],
+                onItemSelected: (value) {
                   setState(() {
                     Provider.of<ManagementService>(context, listen: false).currentCoiffure.time[0] =
                         value;
@@ -88,7 +91,9 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
               Text(" - ", style: kSmallTextStyle.copyWith(color: Colors.grey.withOpacity(0.8))),
               TimeDropdown(
                 timeList: dividedHours,
-                onSelect: (value) {
+                defaultValue:
+                    Provider.of<ManagementService>(context, listen: false).currentCoiffure.time[1],
+                onItemSelected: (value) {
                   setState(() {
                     Provider.of<ManagementService>(context, listen: false).currentCoiffure.time[1] =
                         value;
@@ -103,18 +108,9 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
           children: [
             Text('Randevu aralığı belirleyiniz: ',
                 style: kSmallTextStyle.copyWith(color: Colors.black.withOpacity(0.8))),
-            TimeDropdown(
-              defaultValue: '0',
-              timeList: dividedMinutes,
 
-              /// TODO: TEST
-              onSelect: (value) {
-                setState(() {
-                  // Provider.of<ManagementService>(context, listen: false).currentCoiffure.district =
-                  //     value;
-                });
-              },
-            ),
+            /// TODO: TEST - We need smth on model for this.
+            TimeDropdown(defaultValue: '0', timeList: dividedMinutes),
             Text(' dk', style: kSmallTextStyle.copyWith(color: Colors.black.withOpacity(0.8))),
           ],
         ),
@@ -122,7 +118,9 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
 
         /// About text
         AyarlaTextFormField(
-            hintText: 'Kuaför hakkındaki bilgileri giriniz',
+            initialValue:
+                Provider.of<ManagementService>(context, listen: false).currentCoiffure.text,
+            hintText: 'İşletmeniz hakkındaki bilgileri giriniz',
             keyboardType: TextInputType.multiline,
             maxLines: 3,
             onChanged: (value) {

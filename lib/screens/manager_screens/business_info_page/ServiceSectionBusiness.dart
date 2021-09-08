@@ -33,13 +33,6 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
   }
 
   @override
-  void dispose() {
-    Provider.of<ManagementService>(context, listen: false).currentCoiffure.serviceList =
-        localServiceList;
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     TextStyle responsiveTextStyle = kTextStyle.copyWith(
@@ -144,6 +137,8 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
           });
     }
 
+    Provider.of<ManagementService>(context, listen: false).currentCoiffure.serviceList =
+        localServiceList;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -320,6 +315,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                             size: width <= 400 ? width / 18.2 : 22,
                           ),
                           onPressed: () {
+                            Provider.of<ManagementService>(context, listen: false).changeWillPop();
                             setState(() {
                               localServiceList.add(
                                 ServiceModel(name: serviceName, price: price, employees: []),

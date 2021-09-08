@@ -24,14 +24,6 @@ const kTextStyle = TextStyle(
   letterSpacing: 1,
 );
 
-const kTextStylewoSize = TextStyle(
-  // fontSize: 20.0,
-  color: Colors.white,
-  fontWeight: FontWeight.w900,
-  fontFamily: 'Round_Regular',
-  letterSpacing: 1,
-);
-
 const kSmallTextStyle = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.normal,
@@ -57,8 +49,7 @@ const kCardShadow = BoxDecoration(
   color: Color(0xFFE5EBEE),
 );
 
-const roundedShape =
-    RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)));
+const roundedShape = RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)));
 
 enum Directions {
   top,
@@ -86,15 +77,7 @@ List<String> month = [
   "Aralık"
 ];
 
-List<String> week = [
-  "Pazartesi",
-  "Salı",
-  "Çarşamba",
-  "Perşembe",
-  "Cuma",
-  "Cumartesi",
-  "Pazar"
-];
+List<String> week = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
 
 List<String> dividedHours = <String>[
   '00:00',

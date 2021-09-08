@@ -56,7 +56,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         ),
       ),
     );
-    return Provider.of<AppointmentService>(context, listen: false).mainCoiffureList.length <= 0
+    return Provider.of<AppointmentService>(context, listen: true).mainCoiffureList.length <= 0
         ? Container()
         : MaterialApp(
             debugShowCheckedModeBanner: false,
