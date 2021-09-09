@@ -1,6 +1,7 @@
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/services/service_user.dart';
+import 'package:ayarla/webService/appointment_functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -143,14 +144,17 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                 padding: EdgeInsets.all(8),
                 decoration:
                     BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(15)),
-                child: Text('Bu Randevumu İptal Et',
-                    style: kTitleStyle.copyWith(color: Colors.white))),
+                child:
+                    Text('Randevumu İptal Et', style: kTitleStyle.copyWith(color: Colors.white))),
             onPressed: () {
               setState(() {
                 Provider.of<UserService>(context, listen: false)
                     .waitingAppointments
                     .remove(waitingAppointments[index]);
                 waitingAppointments.remove(index);
+
+                /// TODO: need id
+                Provider.of<UserService>(context, listen: false).deleteAppointment(id: ' ');
               });
             }),
       ],

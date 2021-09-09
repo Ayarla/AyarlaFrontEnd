@@ -32,7 +32,7 @@ class TimeDropdown extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Flexible(child: Text(defaultValue, overflow: TextOverflow.ellipsis)),
+              Flexible(child: Text(defaultValue ?? '00.00', overflow: TextOverflow.ellipsis)),
               SizedBox(
                 width: 12,
                 height: 17,
@@ -61,7 +61,7 @@ class TimeDropdown extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Flexible(child: Text(defaultValue, overflow: TextOverflow.ellipsis)),
+                Flexible(child: Text(defaultValue ?? '00.00', overflow: TextOverflow.ellipsis)),
                 SizedBox(
                   width: 12,
                   height: 17,

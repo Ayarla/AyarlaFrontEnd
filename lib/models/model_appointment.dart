@@ -10,6 +10,17 @@ class Appointment {
   bool isConfirmedByCoiffure;
   List<AppointmentModel> appointmentDetails;
 
+  /// TODO: fix dates.
+  factory Appointment.fromJSON(json, index) {
+    return Appointment(
+      coiffureName: ' ',
+      date: json["dayTime"],
+      hour: json["dayTime"],
+      totalPrice: json["totalPrice"],
+      appointmentDetails: json["services"],
+    );
+  }
+
   Appointment({
     this.coiffureName = '',
     this.hour = '',
@@ -25,6 +36,15 @@ class AppointmentModel {
   ServiceModel serviceModel;
   EmployeeModel employeeModel;
   String hour;
+
+  /// TODO: need fix.
+  factory AppointmentModel.fromJSON(json, index) {
+    return AppointmentModel(
+      serviceModel: json["serviceName"],
+      employeeModel: json["employeeId"],
+      hour: json["dayTime"],
+    );
+  }
 
   AppointmentModel({
     this.employeeModel,

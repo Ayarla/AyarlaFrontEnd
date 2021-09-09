@@ -135,6 +135,13 @@ class _UserPageState extends State<UserPage> {
                                   GenericButton(
                                     icon: Icons.business_center_outlined,
                                     iconColor: Colors.green,
+                                    text: 'İşletme Ayarlarım',
+                                    onPressed: () =>
+                                        Navigator.pushNamed(context, "/YoneticiAnasayfasi"),
+                                  ),
+                                  GenericButton(
+                                    icon: Icons.assignment_ind_outlined,
+                                    iconColor: Colors.green,
                                     text: 'Çalışan Ayarlarım',
                                     onPressed: () =>
                                         Navigator.pushNamed(context, "/CalisanAyarlarim"),

@@ -1,5 +1,6 @@
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/models/model_coiffure.dart';
+import 'package:ayarla/screens/manager_screens/manager_info_message_page.dart';
 import 'package:ayarla/screens/page_not_found.dart';
 import 'package:ayarla/services/analytics_service.dart';
 import 'package:ayarla/services/locator.dart';
@@ -80,11 +81,8 @@ Route<dynamic> onFlyRoute(settings, context) {
 
     for (CoiffureModel x
         in Provider.of<AppointmentService>(context, listen: false).mainCoiffureList) {
-      // print(createURL(x.name));
-      // print(settings.name.toString());
       if ('/Isletme/${createURL(x.name)}' == settings.name.toString()) {
         _coiffureModel = x;
-        // print(_coiffureModel.name);
       }
     }
 
@@ -102,8 +100,6 @@ Route<dynamic> onFlyRoute(settings, context) {
     CoiffureModel _coiffureModel;
     for (CoiffureModel x
         in Provider.of<AppointmentService>(context, listen: false).mainCoiffureList) {
-      // print(createURL(x.name));
-      // print(settings.name.toString());
       if ('/Isletme/${createURL(x.name)}/Yorumlar' == settings.name.toString()) {
         _coiffureModel = x;
       }
@@ -140,4 +136,5 @@ Object ayarlaRoutes = {
   "/Isletmem": (context) => BusinessInfoPage(),
   "/Calisanlarim": (context) => EmployeeManage(),
   "/Harita": (context) => BusinessFlutterMap(),
+  "/BilgilendirmeMesaji": (context) => ManagerInformationMessagePage(),
 };

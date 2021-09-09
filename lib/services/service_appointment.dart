@@ -2,21 +2,13 @@ import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/models/model_appointment.dart';
-import 'package:ayarla/virtual_data_base/temporaryLists.dart';
+import 'package:ayarla/webService/appointment_functions.dart';
 import 'package:ayarla/webService/ayarla_account_functions.dart';
-import 'package:ayarla/webService/http_service.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentService extends ChangeNotifier {
-  Appointment currentAppointment = Appointment(
-    coiffureName: '',
-    date: '',
-    hour: '',
-    totalPrice: 0,
-    appointmentDetails: [],
-    isConfirmedByUser: false,
-    isConfirmedByCoiffure: false,
-  );
+  HttpAppointmentFunctions _httpAppointmentFunctions = HttpAppointmentFunctions();
+  Appointment currentAppointment = Appointment(appointmentDetails: []);
 
   List<ServiceModel> serviceList = [];
   List<EmployeeModel> employeeList = [];
@@ -34,9 +26,7 @@ class AppointmentService extends ChangeNotifier {
 
   priceHandler() {
     currentAppointment.totalPrice = 0;
-    for (ServiceModel x in serviceList) {
-      currentAppointment.totalPrice += x.price;
-    }
+    for (ServiceModel x in serviceList) currentAppointment.totalPrice += x.price;
     notifyListeners();
   }
 
@@ -55,17 +45,10 @@ class AppointmentService extends ChangeNotifier {
     currentAppointment.hour = currentAppointment.appointmentDetails[0].hour.substring(0, 5);
   }
 
-  resetCurrentAppointment() {
-    currentAppointment = Appointment(
-      coiffureName: '',
-      totalPrice: 0,
-      isConfirmedByUser: false,
-      isConfirmedByCoiffure: false,
-      date: '',
-      hour: '',
-      appointmentDetails: [],
-    );
-  }
+  resetCurrentAppointment() => currentAppointment = Appointment(appointmentDetails: []);
+
+  createAppointment() async =>
+      await _httpAppointmentFunctions.createAppointment(dayTime: 'dateTime');
 
   /// mail
   // /// Send mail v2

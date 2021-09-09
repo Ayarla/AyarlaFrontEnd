@@ -6,8 +6,6 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
 
 class ManagerInformationMessagePage extends StatefulWidget {
-  static const String id = "ManagerInformationMessagePage";
-
   @override
   _ManagerNotesPageState createState() => _ManagerNotesPageState();
 }
