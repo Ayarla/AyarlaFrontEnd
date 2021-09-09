@@ -1,10 +1,10 @@
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/models/model_coiffure.dart';
-import 'package:ayarla/services/service_appointment.dart';
+import 'package:ayarla/models/model_appointment.dart';
+import 'package:ayarla/models/model_employee.dart';
+import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
 import 'package:ayarla/webService/ayarla_account_functions.dart';
-import 'package:ayarla/webService/http_service.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +42,47 @@ class _WelcomePageState extends State<WelcomePage> {
           padding: EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  AppointmentModel decoy = AppointmentModel(
+                    serviceModel: ServiceModel(name: 'test', price: 30, selected: false),
+                    employeeModel: EmployeeModel(name: 'tester', gender: 'Female'),
+                    hour: '00.00',
+                    dateTime: DateTime.now(),
+                  );
+
+                  print(decoy.appointmentModelToJson());
+                },
+                child: Text('AppointmentModel TEST!'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Appointment decoy = Appointment(
+                    coiffureName: 'Test',
+                    hour: '01.00',
+                    date: '00.00.0000',
+                    totalPrice: 20,
+                    dateTime: DateTime.now(),
+                    appointmentDetails: [
+                      AppointmentModel(
+                        serviceModel: ServiceModel(name: 'test', price: 30, selected: false),
+                        employeeModel: EmployeeModel(name: 'tester', gender: 'Female'),
+                        hour: '00.00',
+                        dateTime: DateTime.now(),
+                      ),
+                      AppointmentModel(
+                        serviceModel: ServiceModel(name: 'test2', price: 30, selected: false),
+                        employeeModel: EmployeeModel(name: 'tester2', gender: 'Male'),
+                        hour: '01.00',
+                        dateTime: DateTime.now(),
+                      ),
+                    ],
+                  );
+
+                  print(decoy.appointmentToJson());
+                },
+                child: Text('Hit me!'),
+              ),
               Center(
                 child: TextButton(
                   onPressed: () {

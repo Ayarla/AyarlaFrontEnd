@@ -14,7 +14,7 @@ class EmployeeManage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
     Functions functions = Functions();
     String _typedMail;
     String _typedPassword;

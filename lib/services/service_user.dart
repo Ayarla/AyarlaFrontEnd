@@ -8,6 +8,7 @@ class UserService extends ChangeNotifier {
   List<Appointment> waitingAppointments = [];
   List<Appointment> confirmedAppointments = [];
   List favorites = [];
+  List notifications = [];
   UserImage userImage;
   bool checkBox = false;
 

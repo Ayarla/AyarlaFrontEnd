@@ -8,7 +8,7 @@ class UserMessagePage extends StatelessWidget {
   final Functions functions = Functions();
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: DefaultAppBar(
         showIconButton: false,
@@ -77,8 +77,7 @@ class MessageCard extends StatelessWidget {
   final String sender;
   final bool fromAyarla;
 
-  MessageCard(
-      {this.fromAyarla, this.message, this.backgroundColor, this.sender});
+  MessageCard({this.fromAyarla, this.message, this.backgroundColor, this.sender});
   @override
   Widget build(BuildContext context) {
     /// TODO yazilan mesaji yollama kismi yapilacak
@@ -86,8 +85,8 @@ class MessageCard extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        typedMessage = UserMessagePopUp().userMessagePopUp(
-            context: context, message: message, fromAyarla: fromAyarla);
+        typedMessage = UserMessagePopUp()
+            .userMessagePopUp(context: context, message: message, fromAyarla: fromAyarla);
       },
       child: Padding(
         padding: EdgeInsets.all(10),
@@ -144,8 +143,7 @@ class MessageCard extends StatelessWidget {
 }
 
 class UserMessagePopUp {
-  String userMessagePopUp(
-      {BuildContext context, String message, bool fromAyarla}) {
+  String userMessagePopUp({BuildContext context, String message, bool fromAyarla}) {
     String _typedMessage;
     showDialog<void>(
       context: context,
@@ -213,8 +211,8 @@ class UserMessagePopUp {
                     },
                     child: Text(
                       "Tamam",
-                      style: kSmallTextStyle.copyWith(
-                          color: Colors.blue, fontWeight: FontWeight.bold),
+                      style:
+                          kSmallTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
                   )
                 : Row(

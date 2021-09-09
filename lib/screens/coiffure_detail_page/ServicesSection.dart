@@ -5,7 +5,6 @@ import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/services/service_appointment.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

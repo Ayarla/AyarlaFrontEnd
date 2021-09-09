@@ -20,6 +20,7 @@ class CoiffureModel {
   String id;
   int gender;
   String location;
+  String timePeriod;
 
   factory CoiffureModel.fromJson(json, int index) {
     return CoiffureModel(
@@ -38,6 +39,7 @@ class CoiffureModel {
       id: json['id'],
       gender: json['gender'],
       location: json['location'],
+      timePeriod: json["timePeriod"],
     );
   }
 
@@ -59,5 +61,6 @@ class CoiffureModel {
     this.id,
     this.gender,
     this.location,
+    this.timePeriod,
   });
 }

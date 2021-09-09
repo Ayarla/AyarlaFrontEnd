@@ -1,5 +1,4 @@
 import 'package:ayarla/components/image/imageListItem.dart';
-import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/services/service_management.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -19,8 +18,7 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
 
   @override
   Widget build(BuildContext context) {
-    final List<ImageListItem> _pages =
-        Provider.of<ManagementService>(context, listen: true).pages;
+    final List<ImageListItem> _pages = Provider.of<ManagementService>(context, listen: true).pages;
     final size = MediaQuery.of(context).size;
 
     return Column(
@@ -56,8 +54,7 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
                           items: _pages,
                           options: CarouselOptions(
                               viewportFraction: 1,
-                              autoPlayInterval:
-                                  Duration(seconds: autoChangeSeconds),
+                              autoPlayInterval: Duration(seconds: autoChangeSeconds),
                               autoPlay: true,
                               enableInfiniteScroll: false,
                               aspectRatio: 1.6,
@@ -98,12 +95,10 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
                           ),
                           onTap: () {
                             if (_pages.length == 1) {
-                              Provider.of<ManagementService>(context,
-                                      listen: false)
+                              Provider.of<ManagementService>(context, listen: false)
                                   .deleteImage(_pages[0]);
                             } else {
-                              Provider.of<ManagementService>(context,
-                                      listen: false)
+                              Provider.of<ManagementService>(context, listen: false)
                                   .deleteImage(_pages[_currentPage]);
                             }
                           },

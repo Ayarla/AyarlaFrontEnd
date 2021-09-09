@@ -1,6 +1,6 @@
 import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/appBar.dart';
-import 'package:ayarla/components/circularParent.dart';
+import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/services/service_management.dart';
@@ -40,8 +40,9 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
           Navigator.pop(context);
         },
         title: Center(
-            child: Text('Haritadan Bir Konum Seç!',
-                style: kTitleStyle.copyWith(color: Colors.white))),
+            child: TextOverFlowHandler(
+                child: Text('Haritadan Bir Konum Seç!',
+                    style: kTitleStyle.copyWith(color: Colors.white)))),
       ).build(context),
       extendBodyBehindAppBar: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -72,8 +73,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
                         mapController.onReady
                             .then((value) => {
                                   mapController.move(
-                                      Latlong.LatLng(
-                                          place.geometry.coordinates[1],
+                                      Latlong.LatLng(place.geometry.coordinates[1],
                                           place.geometry.coordinates[0]),
                                       15)
                                 })
@@ -99,8 +99,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
             text: "Kaydet",
             onPressed: () {
               Provider.of<ManagementService>(context, listen: false)
-                  .setCoiffurePosition(LatLng(
-                      markerPoisiton.latitude, markerPoisiton.longitude));
+                  .setCoiffurePosition(LatLng(markerPoisiton.latitude, markerPoisiton.longitude));
               Navigator.of(context).pop();
             },
           ),
@@ -112,8 +111,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
           center: currentPosition,
           onTap: (mapPosition) {
             Provider.of<ManagementService>(context, listen: false)
-                .setMarkerPosition(
-                    LatLng(mapPosition.latitude, mapPosition.longitude));
+                .setMarkerPosition(LatLng(mapPosition.latitude, mapPosition.longitude));
           },
           zoom: 15.0,
         ),

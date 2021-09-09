@@ -29,6 +29,10 @@ class ManagementService extends ChangeNotifier {
     images: [],
     employeeList: [],
     serviceList: [],
+    // gender:
+
+    /// TODO: We need this on API
+    timePeriod: null,
   );
 
   /// Backup model for not saving changes.
@@ -45,6 +49,7 @@ class ManagementService extends ChangeNotifier {
     serviceList: [],
   );
 
+  /// WillPop handler for manager page when any changes are made.
   changeWillPop() {
     willPop = false;
     notifyListeners();

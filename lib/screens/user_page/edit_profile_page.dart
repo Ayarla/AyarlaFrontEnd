@@ -1,6 +1,5 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
-import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/components/unFocuser.dart';
 import 'package:ayarla/services/service_login.dart';
 import 'package:ayarla/services/service_user.dart';

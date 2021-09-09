@@ -69,13 +69,13 @@ class DefaultAppBar extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10, right: 20),
                 iconSize: 35,
                 icon: NotificationBadge(
-                    // showBadge:
-                    //     Provider.of<UserService>(context, listen: true).notifications.isNotEmpty
-                    //         ? true
-                    //         : false,
-                    // notificationNumber:
-                    //     Provider.of<UserService>(context, listen: true).notifications.length,
-                    ),
+                  showBadge:
+                      Provider.of<UserService>(context, listen: true).notifications.isNotEmpty
+                          ? true
+                          : false,
+                  notificationNumber:
+                      Provider.of<UserService>(context, listen: true).notifications.length,
+                ),
                 onPressed: () => Navigator.pushNamed(context, "/KullaniciSayfasi"),
               )
 

@@ -1,14 +1,23 @@
+import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/webService/http_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class HttpAppointmentFunctions extends HttpService {
-  Future createAppointment({String dayTime}) async {
+  Future createAppointment({Appointment appointment}) async {
     final String _url = '$baseUrl/api/services/app/Appoinment/Create';
 
     var data = {
-      "dayTime": dayTime,
-      // "dayTime": "2021-04-24T10:14:39.160Z",
+      /// Olds
+      // "dayTime": dayTime,
+      // // "dayTime": "2021-04-24T10:14:39.160Z",
+      /// TODO: fix
+      // "userId": 0,
+      // "accountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      // "employeeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "dayTime": appointment.dateTime.toString(),
+      "services": appointment.appointmentDetails.map((e) => e.appointmentModelToJson()),
+      "totalPrice": appointment.totalPrice,
     };
     var body = jsonEncode(data);
 

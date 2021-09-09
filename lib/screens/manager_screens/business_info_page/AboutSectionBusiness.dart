@@ -108,9 +108,20 @@ class _AboutSectionBusinessState extends State<AboutSectionBusiness> {
           children: [
             Text('Randevu aralığı belirleyiniz: ',
                 style: kSmallTextStyle.copyWith(color: Colors.black.withOpacity(0.8))),
-
-            /// TODO: TEST - We need smth on model for this.
-            TimeDropdown(defaultValue: '0', timeList: dividedMinutes),
+            TimeDropdown(
+              defaultValue: Provider.of<ManagementService>(context, listen: false)
+                      .currentCoiffure
+                      .timePeriod ??
+                  '0',
+              timeList: dividedMinutes,
+              onItemSelected: (value) {
+                setState(() {
+                  Provider.of<ManagementService>(context, listen: false)
+                      .currentCoiffure
+                      .timePeriod = value;
+                });
+              },
+            ),
             Text(' dk', style: kSmallTextStyle.copyWith(color: Colors.black.withOpacity(0.8))),
           ],
         ),

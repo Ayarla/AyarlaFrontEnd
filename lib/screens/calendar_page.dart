@@ -39,6 +39,8 @@ class _CalendarPageState extends State<CalendarPage> {
     setState(() {
       selectedDate = data;
     });
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment.dateTime =
+        selectedDate;
     Provider.of<AppointmentService>(context, listen: false).currentAppointment.date =
         '${selectedDate.day} '
         '${month[selectedDate.month - 1]} '

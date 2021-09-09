@@ -48,7 +48,7 @@ class AppointmentService extends ChangeNotifier {
   resetCurrentAppointment() => currentAppointment = Appointment(appointmentDetails: []);
 
   createAppointment() async =>
-      await _httpAppointmentFunctions.createAppointment(dayTime: 'dateTime');
+      await _httpAppointmentFunctions.createAppointment(appointment: currentAppointment);
 
   /// mail
   // /// Send mail v2

@@ -2,7 +2,6 @@ import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/button_generic.dart';
 import 'package:ayarla/components/unFocuser.dart';
-import 'package:ayarla/screens/manager_screens/business_info_page/business_info_page.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
