@@ -8,15 +8,15 @@ class EmployeeApiServices extends ApiServices {
 
     http.Response response = await http.get(
       '$_url?Id=$id',
+
+      /// TODO headers hangisi olacak
       headers: headersWithAdminToken,
     );
 
     return await checkResponseStatus(
       successMessage: 'calisan cagirildi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -25,6 +25,8 @@ class EmployeeApiServices extends ApiServices {
 
     http.Response response = await http.get(
       _url,
+
+      /// TODO headers hangisi olacak
       headers: headersWithAdminToken,
     );
 
@@ -32,9 +34,7 @@ class EmployeeApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]["items"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
     );
   }
 
@@ -154,16 +154,14 @@ class EmployeeApiServices extends ApiServices {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
     return await checkResponseStatus(
       successMessage: 'calisan olusturuldu',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -286,16 +284,14 @@ class EmployeeApiServices extends ApiServices {
 
     http.Response response = await http.put(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
     return await checkResponseStatus(
       successMessage: 'calisan guncellendi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -304,7 +300,7 @@ class EmployeeApiServices extends ApiServices {
 
     http.Response response = await http.delete(
       '$_url?Id=$id',
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
     return await checkResponseStatus(
       successMessage: 'calisan silindi',

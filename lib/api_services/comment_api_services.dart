@@ -15,16 +15,14 @@ class CommentApiServices extends ApiServices {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
     return await checkResponseStatus(
       successMessage: 'yorum olusturuldu',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -33,15 +31,15 @@ class CommentApiServices extends ApiServices {
 
     http.Response response = await http.get(
       '$_url?Id=$id',
+
+      /// TODO hangi headers kullanilacak
       headers: headersWithAdminToken,
     );
 
     return await checkResponseStatus(
       successMessage: 'yorum cagirildi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -50,6 +48,8 @@ class CommentApiServices extends ApiServices {
 
     http.Response response = await http.get(
       _url,
+
+      /// TODO headers hangisi olacak?
       headers: headersWithAdminToken,
     );
 
@@ -57,9 +57,7 @@ class CommentApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]["items"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
     );
   }
 
@@ -75,16 +73,14 @@ class CommentApiServices extends ApiServices {
 
     http.Response response = await http.put(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
     return await checkResponseStatus(
       successMessage: 'yorum guncellendi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -93,7 +89,7 @@ class CommentApiServices extends ApiServices {
 
     http.Response response = await http.delete(
       '$_url?Id=$id',
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
     return await checkResponseStatus(
       successMessage: 'yorum silindi',

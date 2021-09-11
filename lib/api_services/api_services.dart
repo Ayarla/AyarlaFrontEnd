@@ -1,29 +1,23 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-String _userToken;
+String _token;
 String _adminToken;
-String _accountToken;
 
 Map<String, String> headersWithAdminToken = {
   'Authorization': _adminToken,
   'Content-type': 'application/json; charset=utf-8',
 };
 
-Map<String, String> headersWithUserToken = {
-  'Authorization': _userToken,
-  'Content-type': 'application/json; charset=utf-8',
-};
-
-Map<String, String> headersWithAccountToken = {
-  'Authorization': _accountToken,
+Map<String, String> headersWithToken = {
+  'Authorization': _token,
   'Content-type': 'application/json; charset=utf-8',
 };
 
 class ApiServices {
   final String baseUrl = 'https://ayarlawebhost2021041011510.azurewebsites.net';
 
-  Future getToken() async {
+  Future getAdminToken() async {
     final String _url = '$baseUrl/api/TokenAuth/Authenticate';
 
     Map data = {"userNameOrEmailAddress": "admin", "password": "123qwe", "rememberClient": true};
@@ -40,10 +34,42 @@ class ApiServices {
     _adminToken = 'Bearer ' + jsonDecode(response.body)['result']['accessToken'];
     print('ADMIN TOKEN : $_adminToken');
 
-    await checkResponseStatus(
-      successMessage: 'Token Çekildi!',
+    return await checkResponseStatus(
+      successMessage: 'Admin Token cekildi!',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
+    );
+  }
+
+  Future authenticate({String userNameOrEmailAddress, String password, bool rememberClient}) async {
+    final String _url = '$baseUrl/api/TokenAuth/Authenticate';
+
+    Map data = {
+      "userNameOrEmailAddress": userNameOrEmailAddress,
+      "password": password,
+      "rememberClient": rememberClient
+    };
+    var body = json.encode(data);
+
+    http.Response response = await http.post(
+      _url,
+      headers: {
+        'Content-type': 'application/json; charset=utf-8',
+      },
+      body: body,
+    );
+
+    _token = 'Bearer ' + jsonDecode(response.body)['result']['accessToken'];
+    print('TOKEN : $_token');
+
+    return await checkResponseStatus(
+      successMessage: 'Giris yapildi!',
+      response: response,
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:ayarla/api_services/api_services.dart';
 import 'package:ayarla/components/ayarla_bottom_sheet.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
@@ -48,6 +49,34 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
       controller: AnimationController(vsync: this, duration: const Duration(seconds: 2)),
     );
     super.initState();
+  }
+
+  login() async {
+    if (_loginFormKey.currentState.validate()) {
+      print("Validated");
+
+      try {
+        setState(() {
+          isLoading = true;
+        });
+
+        /// TODO geriye donen veriyi kaydet
+        await ApiServices().authenticate(
+            userNameOrEmailAddress: _typedMail, password: _typedPassword, rememberClient: false);
+
+        Provider.of<LoginService>(context, listen: false).userModel.fullName = "Bahadir";
+        Provider.of<LoginService>(context, listen: false).loggedInUser();
+      } catch (e) {
+        print(e);
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } else {
+      ///TODO check and push somewhere
+      print("Not Validated");
+    }
   }
 
   @override
@@ -184,34 +213,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                             borderRadius: BorderRadius.circular(20))),
                                   ),
                                   onPressed: () async {
-                                    Provider.of<LoginService>(context, listen: false)
-                                        .loggedInUser();
-                                    // if (_loginFormKey.currentState.validate()) {
-                                    //   setState(() {
-                                    //     isLoading = true;
-                                    //   });
-                                    //   // var body = await HttpUserFunctions().getUser(id: 11);
-                                    //   // print("Validated");
-                                    //   // // if (_typedMail == body["result"]["emailAddress"] &&
-                                    //   // //     _typedPassword == body["result"]["password"]) {
-                                    //   // // setState(() {
-                                    //   // // print('deneme : ${body["result"][0]}');
-                                    //   // print(body["result"]);
-                                    //   // print(UserModel.fromJson(body["result"], 0).fullName);
-                                    Provider.of<LoginService>(context, listen: false)
-                                        .userModel
-                                        .fullName = 'Bahadır';
-                                    //   //     UserModel.fromJson(body["result"], 0);
-                                    //
-                                    //   isLoading = false;
-                                    //   // }
-                                    //   // } else {
-                                    //   //   print("Not Validated");
-                                    //   //   isLoading = true;
-                                    //   // }
-                                    //
-                                    //   ///TODO check and push somewhere
-                                    // }
+                                    await login();
                                   },
                                   child: !isLoading
                                       ? Text(

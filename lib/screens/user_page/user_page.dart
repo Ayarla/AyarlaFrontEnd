@@ -52,16 +52,13 @@ class _UserPageState extends State<UserPage> {
             child: OverScroll(
               child: Column(
                 children: [
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
-                    SizedBox(height: 30),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) SizedBox(height: 30),
                   if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) UI.generalLogo,
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
-                    SizedBox(height: 30),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) SizedBox(height: 30),
 
                   ///if the user is not logged in then it opens the authentication
                   ///page for login or sign up
-                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn)
-                    AuthenticationPage(),
+                  if (!Provider.of<LoginService>(context, listen: true).isLoggedIn) AuthenticationPage(),
 
                   ///otherwise it opens the profile of the user
                   if (Provider.of<LoginService>(context, listen: true).isLoggedIn)
@@ -74,17 +71,13 @@ class _UserPageState extends State<UserPage> {
                             child: CircleAvatar(
                               radius: 55,
                               backgroundColor: Colors.grey,
-                              child: Provider.of<UserService>(context, listen: true)
-                                          .userImage !=
-                                      null
+                              child: Provider.of<UserService>(context, listen: true).userImage != null
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
-                                      child: Provider.of<UserService>(context, listen: true)
-                                          .userImage)
+                                      child: Provider.of<UserService>(context, listen: true).userImage)
                                   : Container(
                                       decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(50)),
+                                          color: Colors.grey[200], borderRadius: BorderRadius.circular(50)),
                                       width: 100,
                                       height: 100,
                                       child: Icon(
@@ -99,10 +92,7 @@ class _UserPageState extends State<UserPage> {
                             child: FittedBox(
                               fit: BoxFit.cover,
                               child: Text(
-                                Provider.of<LoginService>(context, listen: false)
-                                        .userModel
-                                        .fullName ??
-                                    "Kullanıcı Adı",
+                                Provider.of<LoginService>(context, listen: false).userModel.fullName ?? "Kullanıcı Adı",
                                 style: kTextStyle.copyWith(color: Colors.black, fontSize: 25),
                               ),
                             ),
@@ -136,16 +126,14 @@ class _UserPageState extends State<UserPage> {
                                     icon: Icons.business_center_outlined,
                                     iconColor: Colors.green,
                                     text: 'Çalışan Ayarlarım',
-                                    onPressed: () =>
-                                        Navigator.pushNamed(context, "/CalisanAyarlarim"),
+                                    onPressed: () => Navigator.pushNamed(context, "/CalisanAyarlarim"),
                                   ),
                                   GenericButton(
                                     icon: FontAwesomeIcons.userEdit,
                                     text: 'Profilimi Düzenle',
                                     iconColor: Colors.blueGrey,
                                     onPressed: () {
-                                      FirebaseAnalytics()
-                                          .logEvent(name: 'user_edit_profile', parameters: null);
+                                      FirebaseAnalytics().logEvent(name: 'user_edit_profile', parameters: null);
                                       Navigator.pushNamed(context, "/ProfilimiDuzenle");
                                     },
                                   ),
@@ -154,14 +142,11 @@ class _UserPageState extends State<UserPage> {
                                     iconColor: Colors.red,
                                     text: 'Çıkış Yap',
                                     onPressed: () {
-                                      Provider.of<LoginService>(context, listen: false)
-                                          .loggedInUser();
+                                      Provider.of<LoginService>(context, listen: false).loggedInUser();
 
                                       /// TODO: fix
                                       Navigator.pushNamedAndRemoveUntil(
-                                          context,
-                                          "/KullaniciSayfasi",
-                                          ModalRoute.withName('/AramaSayfasi'));
+                                          context, "/KullaniciSayfasi", ModalRoute.withName('/AramaSayfasi'));
                                     },
                                   ),
                                 ],
