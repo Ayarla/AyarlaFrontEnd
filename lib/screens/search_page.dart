@@ -30,8 +30,7 @@ class SearchPageState extends State<SearchPage> {
   getter() async {
     Provider.of<AppointmentService>(context, listen: false).mainCoiffureList.clear();
     localCoiffureList.clear();
-    localCoiffureList =
-        await Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
+    localCoiffureList = await Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
     generatingList = localCoiffureList;
   }
 
@@ -55,10 +54,7 @@ class SearchPageState extends State<SearchPage> {
           body: Provider.of<AppointmentService>(context, listen: true).mainCoiffureList.isEmpty
               ? SpinKitDoubleBounce(itemBuilder: (BuildContext context, int index) {
                   return DecoratedBox(
-                      decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: index.isEven ? Colors.grey : Colors.blueGrey,
-                  ));
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: index.isEven ? Colors.grey : Colors.blueGrey));
                 })
               : body(width),
         ),
@@ -76,8 +72,7 @@ class SearchPageState extends State<SearchPage> {
           generatingList = localCoiffureList;
         } else if (value.toString().isNotEmpty) {
           generatingList = generatingList
-              .where((element) =>
-                  element.name.contains(value) || element.name.toLowerCase().contains(value))
+              .where((element) => element.name.contains(value) || element.name.toLowerCase().contains(value))
               .toList();
         } else
           generatingList = localCoiffureList;
@@ -96,8 +91,7 @@ class SearchPageState extends State<SearchPage> {
                 spacing: 0,
                 alignment: WrapAlignment.center,
                 children: [
-                  for (CoiffureModel coiffureModel in generatingList)
-                    SmallCoiffureCard(coiffureModel: coiffureModel)
+                  for (CoiffureModel coiffureModel in generatingList) SmallCoiffureCard(coiffureModel: coiffureModel)
                 ],
               ),
             ),
@@ -136,8 +130,7 @@ class SearchPageState extends State<SearchPage> {
                         Transform(
                           alignment: Alignment.center,
                           transform: Matrix4.rotationY(pi),
-                          child: Icon(Icons.stacked_bar_chart,
-                              size: width <= 400 ? width / 16 : 25, color: small),
+                          child: Icon(Icons.stacked_bar_chart, size: width <= 400 ? width / 16 : 25, color: small),
                         ),
                         SizedBox(width: 5),
 
@@ -150,8 +143,7 @@ class SearchPageState extends State<SearchPage> {
                             Navigator.pop(context);
                           },
                         ),
-                        Icon(Icons.stacked_bar_chart,
-                            size: width <= 400 ? width / 16 : 25, color: small),
+                        Icon(Icons.stacked_bar_chart, size: width <= 400 ? width / 16 : 25, color: small),
                       ],
                     ),
                   ],
@@ -185,8 +177,7 @@ class SearchPageState extends State<SearchPage> {
                         Transform(
                           alignment: Alignment.center,
                           transform: Matrix4.rotationY(pi),
-                          child:
-                              Icon(Icons.stacked_bar_chart, size: width <= 400 ? width / 16 : 25),
+                          child: Icon(Icons.stacked_bar_chart, size: width <= 400 ? width / 16 : 25),
                         ),
                         SizedBox(width: 5),
                         TextButton(
@@ -234,10 +225,7 @@ class SearchPageState extends State<SearchPage> {
                 padding: EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Center(
-                        child: FittedBox(
-                            fit: BoxFit.cover,
-                            child: Text('Yıldıza göre filtrele', style: kSmallTitleStyle))),
+                    Center(child: FittedBox(fit: BoxFit.cover, child: Text('Yıldıza göre filtrele', style: kSmallTitleStyle))),
                     SizedBox(height: 10),
                     SfSlider(
                       min: 0.0,
@@ -251,8 +239,7 @@ class SearchPageState extends State<SearchPage> {
                       onChanged: (value) {
                         setState(() {
                           _value = value;
-                          generatingList =
-                              generatingList.where((element) => element.star >= value).toList();
+                          generatingList = generatingList.where((element) => element.star >= value).toList();
                           super.setState(() {});
                         });
                       },

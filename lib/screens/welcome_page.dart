@@ -33,11 +33,8 @@ class _WelcomePageState extends State<WelcomePage> {
       ).build(context),
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [Color(0xFF6CC4D7), Color(0xFFFEEDA8)]),
-        ),
+            gradient: LinearGradient(
+                begin: Alignment.bottomCenter, end: Alignment.topCenter, colors: [Color(0xFF6CC4D7), Color(0xFFFEEDA8)])),
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: ListView(
@@ -84,8 +81,7 @@ class _WelcomePageState extends State<WelcomePage> {
               TextButton(
                 child: Text('Appointment Second Test'),
                 onPressed: () async {
-                  Map decoy = await HttpAppointmentFunctions()
-                      .getAppointment(id: "7bb43a3c-ac29-4c3a-69be-08d96078a7bb");
+                  Map decoy = await HttpAppointmentFunctions().getAppointment(id: "7bb43a3c-ac29-4c3a-69be-08d96078a7bb");
                   print(decoy);
                   Appointment _app = Appointment.fromJSON(decoy, 0);
                   print('Total price: ${_app.totalPrice}');
@@ -99,17 +95,13 @@ class _WelcomePageState extends State<WelcomePage> {
                     Navigator.pushNamed(context, "/YoneticiAnasayfasi");
                     Provider.of<LoginService>(context, listen: false).loggedInManager();
                   },
-                  child: Text(
-                    'Manager Girişi',
-                    style: kTextStyle.copyWith(color: Colors.black, fontSize: 25),
-                  ),
+                  child: Text('Manager Girişi', style: kTextStyle.copyWith(color: Colors.black, fontSize: 25)),
                 ),
               ),
               SizedBox(height: 20),
               UI.generalLogo,
               SizedBox(height: 30),
-              Text("Yeni Nesil, Akıllı Randevu Danışmanı",
-                  textAlign: TextAlign.center, style: kTitleStyle),
+              Text("Yeni Nesil, Akıllı Randevu Danışmanı", textAlign: TextAlign.center, style: kTitleStyle),
               SizedBox(height: 15),
               AyarlaPage(
                 child: Expandable(
@@ -140,30 +132,19 @@ class _WelcomePageState extends State<WelcomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TextButton(
-                          style: ButtonStyle(
-                            overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                          ),
+                          style: ButtonStyle(overlayColor: MaterialStateProperty.all<Color>(Colors.transparent)),
                           onPressed: () {
-                            Provider.of<GenderService>(context, listen: false)
-                                .selectGender(Gender.female);
+                            Provider.of<GenderService>(context, listen: false).selectGender(Gender.female);
                             Navigator.pushNamed(context, '/AramaSayfasi');
                             FirebaseAnalytics().logEvent(name: 'female_button', parameters: null);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                'Kadın',
-                                softWrap: true,
-                                style: kTextStyle.copyWith(color: Colors.white),
-                              ),
+                              Text('Kadın', softWrap: true, style: kTextStyle.copyWith(color: Colors.white)),
                               Container(
                                 alignment: Alignment.center,
-                                child: Icon(
-                                  Icons.arrow_right_rounded,
-                                  color: Colors.white,
-                                  size: 25,
-                                ),
+                                child: Icon(Icons.arrow_right_rounded, color: Colors.white, size: 25),
                               ),
                             ],
                           ),
@@ -175,26 +156,17 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
                           ),
                           onPressed: () {
-                            Provider.of<GenderService>(context, listen: false)
-                                .selectGender(Gender.male);
+                            Provider.of<GenderService>(context, listen: false).selectGender(Gender.male);
                             Navigator.pushNamed(context, '/AramaSayfasi');
                             FirebaseAnalytics().logEvent(name: 'male_button', parameters: null);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                'Erkek',
-                                softWrap: true,
-                                style: kTextStyle.copyWith(color: Colors.white),
-                              ),
+                              Text('Erkek', softWrap: true, style: kTextStyle.copyWith(color: Colors.white)),
                               Container(
                                 alignment: Alignment.center,
-                                child: Icon(
-                                  Icons.arrow_right_rounded,
-                                  color: Colors.white,
-                                  size: 25,
-                                ),
+                                child: Icon(Icons.arrow_right_rounded, color: Colors.white, size: 25),
                               ),
                             ],
                           ),
@@ -206,26 +178,17 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
                           ),
                           onPressed: () {
-                            Provider.of<GenderService>(context, listen: false)
-                                .selectGender(Gender.unisex);
+                            Provider.of<GenderService>(context, listen: false).selectGender(Gender.unisex);
                             Navigator.pushNamed(context, '/AramaSayfasi');
                             FirebaseAnalytics().logEvent(name: 'unisex_button', parameters: null);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                'Unisex',
-                                softWrap: true,
-                                style: kTextStyle.copyWith(color: Colors.white),
-                              ),
+                              Text('Unisex', softWrap: true, style: kTextStyle.copyWith(color: Colors.white)),
                               Container(
                                 alignment: Alignment.center,
-                                child: Icon(
-                                  Icons.arrow_right_rounded,
-                                  color: Colors.white,
-                                  size: 25,
-                                ),
+                                child: Icon(Icons.arrow_right_rounded, color: Colors.white, size: 25),
                               ),
                             ],
                           ),
@@ -234,11 +197,8 @@ class _WelcomePageState extends State<WelcomePage> {
                       ],
                     ),
                   ),
-                  backgroundImage: DecorationImage(
-                    image: AssetImage('assets/new/cfr2.png'),
-                    repeat: ImageRepeat.repeatX,
-                    scale: 1.4,
-                  ),
+                  backgroundImage:
+                      DecorationImage(image: AssetImage('assets/new/cfr2.png'), repeat: ImageRepeat.repeatX, scale: 1.4),
                 ),
               ),
               SizedBox(height: 30),

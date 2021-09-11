@@ -126,9 +126,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Expanded(
-                              flex: 1,
-                              child: Image.asset('assets/worker_1.png', fit: BoxFit.contain)),
+                          Expanded(flex: 1, child: Image.asset('assets/worker_1.png', fit: BoxFit.contain)),
                           Expanded(
                             flex: 4,
 
@@ -140,8 +138,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
 
                                 Text(
                                   widget.name,
-                                  style: kTextStyle.copyWith(
-                                      fontSize: size.width <= 400 ? size.width / 20 : 20),
+                                  style: kTextStyle.copyWith(fontSize: size.width <= 400 ? size.width / 20 : 20),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(height: 5),
@@ -217,8 +214,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Çalıştığı Günler",
-                              style: kSmallTextStyle.copyWith(
-                                  color: Colors.green.shade700, fontWeight: FontWeight.bold)),
+                              style: kSmallTextStyle.copyWith(color: Colors.green.shade700, fontWeight: FontWeight.bold)),
                           SizedBox(width: 5),
                           Padding(
                             padding: EdgeInsets.only(bottom: 4.0),
@@ -306,13 +302,9 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                                             color: Colors.transparent,
                                                             child: Row(
                                                               children: [
-                                                                TimeDropdown(
-                                                                    defaultValue: '00.00',
-                                                                    timeList: dividedHours),
+                                                                TimeDropdown(defaultValue: '00.00', timeList: dividedHours),
                                                                 Text(' - '),
-                                                                TimeDropdown(
-                                                                    defaultValue: '00.00',
-                                                                    timeList: dividedHours),
+                                                                TimeDropdown(defaultValue: '00.00', timeList: dividedHours),
                                                               ],
                                                             ),
                                                           ),
@@ -321,15 +313,13 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                                               value: weekBoolList[index],
                                                               onChanged: (value) {
                                                                 setState(() {
-                                                                  weekBoolList[index] =
-                                                                      !weekBoolList[index];
+                                                                  weekBoolList[index] = !weekBoolList[index];
                                                                 });
                                                               }),
                                                         ],
                                                       );
                                                     },
-                                                    separatorBuilder:
-                                                        (BuildContext context, int index) {
+                                                    separatorBuilder: (BuildContext context, int index) {
                                                       return Divider(thickness: 1);
                                                     },
                                                   ),
@@ -376,11 +366,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                           ),
                         ],
                       ),
-                      Day(
-                        day: "Pazartesi",
-                        time: "09:00 - 17:00",
-                        size: size,
-                      ),
+                      Day(day: "Pazartesi", time: "09:00 - 17:00", size: size),
                       Day(day: "Salı", time: "09:00 - 12:00", size: size),
                       Day(day: "Çarşamba", time: "12:00 - 17:00", size: size),
                       Day(day: "Perşembe", time: "09:00 - 17:00", size: size),
@@ -393,8 +379,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Verdiği Hizmetler",
-                              style: kSmallTextStyle.copyWith(
-                                  color: Colors.green.shade700, fontWeight: FontWeight.bold)),
+                              style: kSmallTextStyle.copyWith(color: Colors.green.shade700, fontWeight: FontWeight.bold)),
                           SizedBox(width: 5),
                           Padding(
                             padding: EdgeInsets.only(bottom: 4.0),
@@ -427,9 +412,7 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                                       Text(
                                                         'Hizmetler',
                                                         style: kTitleStyle.copyWith(
-                                                            fontSize: size.width <= 400
-                                                                ? size.width / 20
-                                                                : 20),
+                                                            fontSize: size.width <= 400 ? size.width / 20 : 20),
                                                       ),
                                                     ],
                                                   ),
@@ -438,20 +421,16 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                                     height: size.height / 2,
                                                     width: size.width,
                                                     child: ListView.separated(
-                                                      padding: const EdgeInsets.symmetric(
-                                                          horizontal: 20.0),
+                                                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                                       physics: BouncingScrollPhysics(),
                                                       itemCount: services.length,
-                                                      itemBuilder:
-                                                          (BuildContext context, int index) {
+                                                      itemBuilder: (BuildContext context, int index) {
                                                         return Row(
                                                           children: [
                                                             Text(
                                                               services[index].name,
                                                               style: kSmallTextStyle.copyWith(
-                                                                  fontSize: size.width <= 400
-                                                                      ? size.width / 20
-                                                                      : 20),
+                                                                  fontSize: size.width <= 400 ? size.width / 20 : 20),
                                                             ),
                                                             Spacer(),
                                                             Checkbox(
@@ -459,16 +438,14 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                                                               value: serviceBoolList[index],
                                                               onChanged: (value) {
                                                                 setState(() {
-                                                                  serviceBoolList[index] =
-                                                                      !serviceBoolList[index];
+                                                                  serviceBoolList[index] = !serviceBoolList[index];
                                                                 });
                                                               },
                                                             ),
                                                           ],
                                                         );
                                                       },
-                                                      separatorBuilder:
-                                                          (BuildContext context, int index) {
+                                                      separatorBuilder: (BuildContext context, int index) {
                                                         return Divider(thickness: 1);
                                                       },
                                                     ),
@@ -516,18 +493,9 @@ class _EmployeeManageRowState extends State<EmployeeManageRow> {
                           ),
                         ],
                       ),
-                      Text(
-                        "Manikür",
-                        style: kSmallTextStyle,
-                      ),
-                      Text(
-                        "Pedikür",
-                        style: kSmallTextStyle,
-                      ),
-                      Text(
-                        "Saç Kesim",
-                        style: kSmallTextStyle,
-                      )
+                      Text("Manikür", style: kSmallTextStyle),
+                      Text("Pedikür", style: kSmallTextStyle),
+                      Text("Saç Kesim", style: kSmallTextStyle)
                     ],
                   )
                 ],
@@ -588,18 +556,11 @@ class Day extends StatelessWidget {
     return Container(
       width: 200,
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Wrap(crossAxisAlignment: WrapCrossAlignment.start, children: [
-          Text(
-            day,
-            style: kSmallTextStyle,
-          )
-        ]),
+        Wrap(crossAxisAlignment: WrapCrossAlignment.start, children: [Text(day, style: kSmallTextStyle)]),
         Spacer(),
         Padding(
           padding: EdgeInsets.only(left: 8.0),
-          child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.end,
-              children: [Text(time, style: kSmallTextStyle)]),
+          child: Wrap(crossAxisAlignment: WrapCrossAlignment.end, children: [Text(time, style: kSmallTextStyle)]),
         ),
       ]),
     );

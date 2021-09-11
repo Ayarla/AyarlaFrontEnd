@@ -29,7 +29,6 @@ class _EmployeePageState extends State<EmployeePage> {
     for (ServiceModel x in services) {
       serviceBoolList.add(false);
     }
-
     super.initState();
   }
 
@@ -54,9 +53,8 @@ class _EmployeePageState extends State<EmployeePage> {
               SizedBox(height: 10),
               Expandable(
                 showArrowIcon: true,
-                primaryWidget: Container(
-                    height: 30,
-                    child: Center(child: Text('Çalışma Günlerinizi Seçiniz', style: kTextStyle))),
+                primaryWidget:
+                    Container(height: 30, child: Center(child: Text('Çalışma Günlerinizi Seçiniz', style: kTextStyle))),
                 secondaryWidget: Column(
                   children: [
                     Container(
@@ -153,9 +151,7 @@ class _EmployeePageState extends State<EmployeePage> {
               Expandable(
                 showArrowIcon: true,
                 centralizePrimaryWidget: true,
-                primaryWidget: Container(
-                    height: 30,
-                    child: Center(child: Text('Hizmet Belirleyiniz', style: kTextStyle))),
+                primaryWidget: Container(height: 30, child: Center(child: Text('Hizmet Belirleyiniz', style: kTextStyle))),
                 secondaryWidget: Column(
                   children: [
                     SizedBox(height: 15),
@@ -164,8 +160,7 @@ class _EmployeePageState extends State<EmployeePage> {
                         SizedBox(width: 20),
                         Text(
                           'Hizmetler',
-                          style: kTitleStyle.copyWith(
-                              fontSize: size.width <= 400 ? size.width / 20 : 20),
+                          style: kTitleStyle.copyWith(fontSize: size.width <= 400 ? size.width / 20 : 20),
                         ),
                       ],
                     ),
@@ -182,8 +177,7 @@ class _EmployeePageState extends State<EmployeePage> {
                             children: [
                               Text(
                                 services[index].userName,
-                                style: kSmallTextStyle.copyWith(
-                                    fontSize: size.width <= 400 ? size.width / 20 : 20),
+                                style: kSmallTextStyle.copyWith(fontSize: size.width <= 400 ? size.width / 20 : 20),
                               ),
                               Spacer(),
                               Checkbox(
