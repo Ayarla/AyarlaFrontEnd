@@ -12,6 +12,7 @@ class GenericIconButton extends StatelessWidget {
   final double spaceBetween;
   final Axis axis;
   final EdgeInsets padding;
+  final double width;
 
   /// • [axis] is vertical by default. [Axis.vertical], namely.
   ///
@@ -26,6 +27,7 @@ class GenericIconButton extends StatelessWidget {
     this.spaceBetween = 5,
     this.axis = Axis.vertical,
     this.padding = const EdgeInsets.all(8.0),
+    this.width,
   });
 
   @override
@@ -36,7 +38,8 @@ class GenericIconButton extends StatelessWidget {
         color: color,
         shape: roundedShape,
         elevation: 0,
-        child: Padding(
+        child: Container(
+          width: width ?? null,
           padding: padding,
           child: Flex(
             mainAxisSize: MainAxisSize.max,

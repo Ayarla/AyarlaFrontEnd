@@ -9,7 +9,7 @@ class Appointment {
   int totalPrice;
   bool isConfirmedByUser;
   bool isConfirmedByCoiffure;
-  List<AppointmentModel> appointmentDetails;
+  List<dynamic> appointmentDetails;
 
   Appointment({
     this.coiffureName = '',
@@ -22,24 +22,16 @@ class Appointment {
     this.dateTime,
   });
 
-  /// TODO: fix dates.
+  /// TODO: need fixes.
   factory Appointment.fromJSON(json, index) {
     return Appointment(
       coiffureName: ' ',
-      date: json["dayTime"],
-      hour: json["dayTime"],
+      date: json["dayTime"].toString().substring(0, 10),
+      hour: json["dayTime"].toString().substring(11, 19),
       totalPrice: json["totalPrice"],
       appointmentDetails: json["services"],
     );
   }
-
-  Map<dynamic, String> appointmentFromJson() => {
-        coiffureName: '',
-        date: "dayTime".substring(0, 9),
-        hour: "dayTime".substring(10, 16),
-        totalPrice: "totalPrice",
-        appointmentDetails: "services",
-      };
 
   Map<String, dynamic> appointmentToJson() => {
         // "userId": 0,

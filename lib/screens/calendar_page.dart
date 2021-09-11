@@ -1,7 +1,6 @@
 import 'package:ayarla/components/UI/smallButtons.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/calendar/calendar.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/overScroll.dart';
@@ -39,10 +38,8 @@ class _CalendarPageState extends State<CalendarPage> {
     setState(() {
       selectedDate = data;
     });
-    Provider.of<AppointmentService>(context, listen: false).currentAppointment.dateTime =
-        selectedDate;
-    Provider.of<AppointmentService>(context, listen: false).currentAppointment.date =
-        '${selectedDate.day} '
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment.dateTime = selectedDate;
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment.date = '${selectedDate.day} '
         '${month[selectedDate.month - 1]} '
         '${week[selectedDate.weekday - 1]}';
   }
@@ -62,11 +59,8 @@ class _CalendarPageState extends State<CalendarPage> {
         fit: BoxFit.cover,
         child: Text(
           monthName,
-          style: kTextStyle.copyWith(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-              fontStyle: FontStyle.italic),
+          style:
+              kTextStyle.copyWith(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white, fontStyle: FontStyle.italic),
         ),
       ),
       padding: EdgeInsets.only(top: 8, bottom: 0),
@@ -76,7 +70,6 @@ class _CalendarPageState extends State<CalendarPage> {
   ///calender strip packages, builds date timeline
   dateTileBuilder(date, selectedDate, rowIndex, dayName, isDateMarked, isDateOutOfRange) {
     bool isSelectedDate = date.compareTo(selectedDate) == 0;
-
     Color fontColor = isDateOutOfRange ? Colors.grey.shade400 : Colors.white;
     TextStyle normalStyle = kTextStyle.copyWith(fontWeight: FontWeight.normal, color: fontColor);
     TextStyle selectedStyle = kTextStyle.copyWith(fontWeight: FontWeight.bold, color: Colors.white);
@@ -94,11 +87,7 @@ class _CalendarPageState extends State<CalendarPage> {
       alignment: Alignment.center,
       padding: EdgeInsets.all(9.0),
       decoration: BoxDecoration(
-        border: Border.all(
-          width: 1.7,
-          color: !isSelectedDate ? Colors.transparent : Colors.white70,
-          style: BorderStyle.solid,
-        ),
+        border: Border.all(width: 1.7, color: !isSelectedDate ? Colors.transparent : Colors.white70, style: BorderStyle.solid),
         borderRadius: BorderRadius.all(Radius.circular(30)),
       ),
       child: Column(children: _children),
@@ -109,11 +98,8 @@ class _CalendarPageState extends State<CalendarPage> {
   void initState() {
     super.initState();
     selectedDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-    appointmentDetails = Provider.of<AppointmentService>(context, listen: false)
-        .currentAppointment
-        .appointmentDetails;
-    Provider.of<AppointmentService>(context, listen: false).currentAppointment.date =
-        '${selectedDate.day} '
+    appointmentDetails = Provider.of<AppointmentService>(context, listen: false).currentAppointment.appointmentDetails;
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment.date = '${selectedDate.day} '
         '${month[selectedDate.month - 1]} '
         '${week[selectedDate.weekday - 1]}';
     for (AppointmentModel x in appointmentDetails) {
@@ -191,10 +177,9 @@ class _CalendarPageState extends State<CalendarPage> {
             FloatingTextButton(
               text: 'Onayla',
               onPressed: () async {
-                print(selectedHourList.length);
-                print(selectedHourList.toSet().length);
+                // print(selectedHourList.length);
+                // print(selectedHourList.toSet().length);
                 if (selectedHourList.length != selectedHourList.toSet().length) {
-                  print('hi');
                   return showDialog(
                       context: context,
                       builder: (context) {
@@ -206,18 +191,18 @@ class _CalendarPageState extends State<CalendarPage> {
                           ),
                           actions: [
                             CancelButton(),
-                            AcceptButton(
-                              acceptCondition: () => Navigator.pushNamed(context, "/OnaySayfasi"),
-                            ),
+                            AcceptButton(acceptCondition: () async {
+                              Provider.of<AppointmentService>(context, listen: false).hoursList = selectedHourList;
+                              await Provider.of<AppointmentService>(context, listen: false).dateHandler();
+                              Navigator.pushNamed(context, "/OnaySayfasi");
+                            }),
                           ],
                         );
                       });
                 } else if (selectedHourList.contains(null)) {
-                  Toast.show("Lütfen Saat Seçiniz", context,
-                      duration: 2, backgroundColor: Colors.red[200]);
+                  Toast.show("Lütfen Saat Seçiniz", context, duration: 2, backgroundColor: Colors.red[200]);
                 } else if (selectedHourList.length == appointmentDetails.length) {
-                  Provider.of<AppointmentService>(context, listen: false).hoursList =
-                      selectedHourList;
+                  Provider.of<AppointmentService>(context, listen: false).hoursList = selectedHourList;
                   await Provider.of<AppointmentService>(context, listen: false).dateHandler();
                   Navigator.pushNamed(context, "/OnaySayfasi");
                 }
@@ -236,11 +221,7 @@ class HourSelection {
   bool selected;
   bool preSelected;
 
-  HourSelection({
-    this.selected,
-    this.time,
-    this.preSelected,
-  });
+  HourSelection({this.selected, this.time, this.preSelected});
 }
 
 class HourContainer extends StatefulWidget {
@@ -249,12 +230,7 @@ class HourContainer extends StatefulWidget {
   int serviceIndex;
   List hourTileList;
 
-  HourContainer({
-    this.serviceName,
-    this.employeeName,
-    this.serviceIndex,
-    this.hourTileList,
-  });
+  HourContainer({this.serviceName, this.employeeName, this.serviceIndex, this.hourTileList});
 
   @override
   _HourContainerState createState() => _HourContainerState();
@@ -265,13 +241,8 @@ class _HourContainerState extends State<HourContainer> {
 
   @override
   void initState() {
-    for (int i = 0; i < widget.hourTileList.length; i++) {
-      hourTileList.add(HourSelection(
-        time: widget.hourTileList[i],
-        selected: false,
-        preSelected: false,
-      ));
-    }
+    for (int i = 0; i < widget.hourTileList.length; i++)
+      hourTileList.add(HourSelection(time: widget.hourTileList[i], selected: false, preSelected: false));
     super.initState();
   }
 
@@ -294,63 +265,57 @@ class _HourContainerState extends State<HourContainer> {
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 12.0),
-          child: CircularParent(
-            direction: Directions.all,
-            radius: 20,
-            color: Colors.white,
-            child: Container(
-              width: size.width,
-              height: 200,
-              color: Colors.transparent,
-              child: GridView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: widget.hourTileList.length - 1,
-                  gridDelegate: size.width < 700
-                      ? SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: 0.2,
-                          mainAxisExtent: 100,
-                        )
-                      : SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 3,
-                          mainAxisExtent: 100,
-                        ),
-                  itemBuilder: (BuildContext context, int index) {
-                    String clearTime =
-                        '${hourTileList.sublist(0, widget.hourTileList.length - 1)[index].time}' +
-                            ' - ' +
-                            '${hourTileList[index + 1].time}'.toString();
-                    return GestureDetector(
-                      onTap: !hourTileList[index].selected
-                          ? () {
-                              setState(() {
-                                hourTileList.forEach((element) => element.selected = false);
-                                hourTileList.forEach((element) => element.preSelected = false);
-                                hourTileList[index].selected = !hourTileList[index].selected;
-                                if (selectedHourList.contains(clearTime)) {
-                                  if (clearTime.substring(0, 5) == hourTileList[index].time) {
-                                    hourTileList[index].preSelected = true;
-                                  } else
-                                    hourTileList[index].preSelected = false;
-                                }
-                                if (hourTileList[index].selected == true) {
-                                  if (selectedHourList.isNotEmpty) {
-                                    selectedHourList.removeAt(widget.serviceIndex);
-                                  }
-                                  selectedHourList.insert(widget.serviceIndex, clearTime);
-                                }
-                              });
-                            }
-                          : null,
-                      child: HourTiles(
-                        time: clearTime,
-                        selected: hourTileList[index].selected,
-                        preSelected: hourTileList[index].preSelected,
+          child: Container(
+            height: 200,
+            width: size.width,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
+            child: GridView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: widget.hourTileList.length - 1,
+                gridDelegate: size.width < 700
+                    ? SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200,
+                        childAspectRatio: 0.2,
+                        mainAxisExtent: 100,
+                      )
+                    : SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: 3,
+                        mainAxisExtent: 100,
                       ),
-                    );
-                  }),
-            ),
+                itemBuilder: (BuildContext context, int index) {
+                  String clearTime = '${hourTileList.sublist(0, widget.hourTileList.length - 1)[index].time}' +
+                      ' - ' +
+                      '${hourTileList[index + 1].time}'.toString();
+                  return GestureDetector(
+                    onTap: !hourTileList[index].selected
+                        ? () {
+                            setState(() {
+                              hourTileList.forEach((element) => element.selected = false);
+                              hourTileList.forEach((element) => element.preSelected = false);
+                              hourTileList[index].selected = !hourTileList[index].selected;
+                              if (selectedHourList.contains(clearTime)) {
+                                if (clearTime.substring(0, 5) == hourTileList[index].time) {
+                                  hourTileList[index].preSelected = true;
+                                } else
+                                  hourTileList[index].preSelected = false;
+                              }
+                              if (hourTileList[index].selected == true) {
+                                if (selectedHourList.isNotEmpty) {
+                                  selectedHourList.removeAt(widget.serviceIndex);
+                                }
+                                selectedHourList.insert(widget.serviceIndex, clearTime);
+                              }
+                            });
+                          }
+                        : null,
+                    child: HourTiles(
+                      time: clearTime,
+                      selected: hourTileList[index].selected,
+                      preSelected: hourTileList[index].preSelected,
+                    ),
+                  );
+                }),
           ),
         ),
         SizedBox(height: 10),
@@ -387,10 +352,7 @@ class HourTiles extends StatelessWidget {
           ),
           child: Center(
             child: FittedBox(
-              child: Text(
-                time,
-                style: kTextStyle.copyWith(color: selected ? Colors.white : Colors.black),
-              ),
+              child: Text(time, style: kTextStyle.copyWith(color: selected ? Colors.white : Colors.black)),
             ),
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
+import 'package:ayarla/webService/appointment_functions.dart';
 import 'package:ayarla/webService/ayarla_account_functions.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -20,7 +21,6 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   HttpAyarlaAccountFunctions httpAyarlaAccountFunctions = HttpAyarlaAccountFunctions();
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -43,6 +43,7 @@ class _WelcomePageState extends State<WelcomePage> {
           child: ListView(
             children: <Widget>[
               TextButton(
+                child: Text('AppointmentModel TEST!'),
                 onPressed: () {
                   AppointmentModel decoy = AppointmentModel(
                     serviceModel: ServiceModel(name: 'test', price: 30, selected: false),
@@ -50,12 +51,11 @@ class _WelcomePageState extends State<WelcomePage> {
                     hour: '00.00',
                     dateTime: DateTime.now(),
                   );
-
                   print(decoy.appointmentModelToJson());
                 },
-                child: Text('AppointmentModel TEST!'),
               ),
               TextButton(
+                child: Text('Appointment Test!'),
                 onPressed: () {
                   Appointment decoy = Appointment(
                     coiffureName: 'Test',
@@ -78,10 +78,20 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                     ],
                   );
-
                   print(decoy.appointmentToJson());
                 },
-                child: Text('Hit me!'),
+              ),
+              TextButton(
+                child: Text('Appointment Second Test'),
+                onPressed: () async {
+                  Map decoy = await HttpAppointmentFunctions()
+                      .getAppointment(id: "7bb43a3c-ac29-4c3a-69be-08d96078a7bb");
+                  print(decoy);
+                  Appointment _app = Appointment.fromJSON(decoy, 0);
+                  print('Total price: ${_app.totalPrice}');
+                  print(_app.date);
+                  print(_app.hour);
+                },
               ),
               Center(
                 child: TextButton(
