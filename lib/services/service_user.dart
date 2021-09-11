@@ -1,10 +1,10 @@
+import 'package:ayarla/api_services/appointment_api_services.dart';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_appointment.dart';
-import 'package:ayarla/webService/appointment_functions.dart';
 import 'package:flutter/material.dart';
 
 class UserService extends ChangeNotifier {
-  HttpAppointmentFunctions _httpAppointmentFunctions = HttpAppointmentFunctions();
+  AppointmentApiServices _httpAppointmentFunctions = AppointmentApiServices();
   List<Appointment> waitingAppointments = [];
   List<Appointment> confirmedAppointments = [];
   List favorites = [];

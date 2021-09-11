@@ -1,12 +1,13 @@
+import 'package:ayarla/api_services/appointment_api_services.dart';
 import 'package:ayarla/api_services/ayarla_account_api_services.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/models/model_appointment.dart';
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
+import 'package:ayarla/services/service_appointment.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
-import 'package:ayarla/webService/appointment_functions.dart';
-import 'package:ayarla/webService/ayarla_account_functions.dart';
 import 'package:ayarla/api_services/api_services.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -32,30 +33,30 @@ class _WelcomePageState extends State<WelcomePage> {
       localList = await ayarlaAccountApiServices.getAllAyarlaAccount();
       print(localList.length);
 
-      for (int i = 0; i < localList.length; i++) {
-        Provider.of<AppointmentService>(context, listen: false).currentList.add(
-              CoiffureModel.fromJson({
-                "address": localList[i]['address'],
-                "gender": localList[i]['gender'],
-                "commentNumber": localList[i]['commentNumber'],
-                "accountNotes": localList[i]['accountNotes'],
-                "openCloseTimes": localList[i]['openCloseTimes'],
-                "phone1": localList[i]['phone1'],
-                "id": localList[i]['id'],
-                "meanRating": localList[i]['meanRating'],
-                "city": localList[i]['city'],
-                "district": localList[i]['district'],
-                "accountName": localList[i]['accountName']
-              }, i),
-            );
-      }
+      // for (int i = 0; i < localList.length; i++) {
+      //   Provider.of<AppointmentService>(context, listen: false).currentList.add(
+      //         CoiffureModel.fromJson({
+      //           "address": localList[i]['address'],
+      //           "gender": localList[i]['gender'],
+      //           "commentNumber": localList[i]['commentNumber'],
+      //           "accountNotes": localList[i]['accountNotes'],
+      //           "openCloseTimes": localList[i]['openCloseTimes'],
+      //           "phone1": localList[i]['phone1'],
+      //           "id": localList[i]['id'],
+      //           "meanRating": localList[i]['meanRating'],
+      //           "city": localList[i]['city'],
+      //           "district": localList[i]['district'],
+      //           "accountName": localList[i]['accountName']
+      //         }, i),
+      //       );
+      // }
     } catch (e) {
       print(e);
     }
-
-    for (CoiffureModel x in Provider.of<AppointmentService>(context, listen: false).currentList) {
-      print("id: " + x.id + " kuafor adi: " + x.name);
-    }
+    //
+    // for (CoiffureModel x in Provider.of<AppointmentService>(context, listen: false).currentList) {
+    //   print("id: " + x.id + " kuafor adi: " + x.name);
+    // }
   }
 
   @override
@@ -125,7 +126,7 @@ class _WelcomePageState extends State<WelcomePage> {
               TextButton(
                 child: Text('Appointment Second Test'),
                 onPressed: () async {
-                  Map decoy = await HttpAppointmentFunctions().getAppointment(id: "7bb43a3c-ac29-4c3a-69be-08d96078a7bb");
+                  Map decoy = await AppointmentApiServices().getAppointment(id: "7bb43a3c-ac29-4c3a-69be-08d96078a7bb");
                   print(decoy);
                   Appointment _app = Appointment.fromJSON(decoy, 0);
                   print('Total price: ${_app.totalPrice}');

@@ -1,9 +1,10 @@
 import 'package:ayarla/api_services/api_services.dart';
+import 'package:ayarla/models/model_appointment.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AppointmentApiServices extends ApiServices {
-  Future createAppointment({String dayTime}) async {
+  Future createAppointment({Appointment appointment}) async {
     final String _url = '$baseUrl/api/services/app/Appoinment/Create';
 
     /// TODO: fix & test.
@@ -19,9 +20,7 @@ class AppointmentApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'randevu olusturuldu',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -36,9 +35,7 @@ class AppointmentApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'randevu cagirildi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -54,9 +51,7 @@ class AppointmentApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]["items"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
     );
   }
 
@@ -79,9 +74,7 @@ class AppointmentApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'randevu guncellendi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 

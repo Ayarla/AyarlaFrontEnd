@@ -15,9 +15,7 @@ class AyarlaAccountApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'Ayarla hesabi cagirildi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
     // if (response.statusCode == 200) {
     //   return content;
@@ -30,7 +28,7 @@ class AyarlaAccountApiServices extends ApiServices {
     final String _url = "$baseUrl/api/services/app/AyarlaAccount/GetAll";
 
     /// TODO - fix.
-    await HttpService().getToken();
+    await ApiServices().getToken();
     http.Response response = await http.get(
       _url,
       headers: headersWithAdminToken,
@@ -40,9 +38,7 @@ class AyarlaAccountApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]["items"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
     );
     // print(jsonDecode(response.body)["result"]["items"]);
     return jsonDecode(response.body)["result"]["items"];
@@ -88,9 +84,7 @@ class AyarlaAccountApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'Ayarla hesabi olusturuldu',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -133,9 +127,7 @@ class AyarlaAccountApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'Ayarla hesabi guncellendi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -147,8 +139,6 @@ class AyarlaAccountApiServices extends ApiServices {
       headers: headersWithAdminToken,
     );
     return await checkResponseStatus(
-        successMessage: 'Ayarla hesabi silindi',
-        response: response,
-        returnData: jsonDecode(response.body));
+        successMessage: 'Ayarla hesabi silindi', response: response, returnData: jsonDecode(response.body));
   }
 }

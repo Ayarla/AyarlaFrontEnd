@@ -1,16 +1,16 @@
+import 'package:ayarla/api_services/ayarla_account_api_services.dart';
 import 'package:ayarla/components/image/imageListItem.dart';
 import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
-import 'package:ayarla/webService/ayarla_account_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import "package:latlong/latlong.dart" as LatLong;
 import 'package:mapbox_search/mapbox_search.dart';
 
 class ManagementService extends ChangeNotifier {
-  HttpAyarlaAccountFunctions _httpAyarlaAccountFunctions = HttpAyarlaAccountFunctions();
+  AyarlaAccountApiServices _httpAyarlaAccountFunctions = AyarlaAccountApiServices();
   List<ImageListItem> pages = [];
   LatLong.LatLng markerPosition = LatLong.LatLng(41.015137, 28.979530);
   LatLong.LatLng currentPosition = LatLong.LatLng(41.015137, 28.979530);
@@ -71,8 +71,7 @@ class ManagementService extends ChangeNotifier {
   }
 
   addService(serviceName, price) {
-    fullTimeServices.add(ServiceModel(
-        name: serviceName, price: price, selected: false, employees: defaultService.employees));
+    fullTimeServices.add(ServiceModel(name: serviceName, price: price, selected: false, employees: defaultService.employees));
     notifyListeners();
   }
 

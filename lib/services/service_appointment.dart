@@ -1,13 +1,13 @@
+import 'package:ayarla/api_services/appointment_api_services.dart';
+import 'package:ayarla/api_services/ayarla_account_api_services.dart';
 import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/models/model_appointment.dart';
-import 'package:ayarla/webService/appointment_functions.dart';
-import 'package:ayarla/webService/ayarla_account_functions.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentService extends ChangeNotifier {
-  HttpAppointmentFunctions _httpAppointmentFunctions = HttpAppointmentFunctions();
+  AppointmentApiServices _httpAppointmentFunctions = AppointmentApiServices();
   Appointment currentAppointment = Appointment(appointmentDetails: []);
 
   List<ServiceModel> serviceList = [];
@@ -47,8 +47,7 @@ class AppointmentService extends ChangeNotifier {
 
   resetCurrentAppointment() => currentAppointment = Appointment(appointmentDetails: []);
 
-  createAppointment() async =>
-      await _httpAppointmentFunctions.createAppointment(appointment: currentAppointment);
+  createAppointment() async => await _httpAppointmentFunctions.createAppointment(appointment: currentAppointment);
 
   /// mail
   // /// Send mail v2
@@ -148,7 +147,7 @@ class AppointmentService extends ChangeNotifier {
   Future<List<CoiffureModel>> getAllCoiffures() async {
     List localList;
 
-    localList = await HttpAyarlaAccountFunctions().getAllAyarlaAccount();
+    localList = await AyarlaAccountApiServices().getAllAyarlaAccount();
     // print(localList.length);
 
     for (int i = 0; i < localList.length; i++) {

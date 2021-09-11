@@ -1,3 +1,4 @@
+import 'package:ayarla/api_services/ayarla_account_api_services.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/floatingTextButton.dart';
 import 'package:ayarla/components/image/imageListItem.dart';
@@ -16,6 +17,7 @@ import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
@@ -39,8 +41,8 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
 
   getData() async {
     try {
-      print(await ayarlaAccountApiServices.getAyarlaAccount(
-          id: Provider.of<AppointmentService>(context, listen: false).currentList[0].id));
+      // print(await ayarlaAccountApiServices.getAyarlaAccount(
+      //     id: Provider.of<AppointmentService>(context, listen: false).currentList[0].id));
     } catch (e) {
       print(e);
     }
@@ -66,21 +68,18 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     employeeList.clear();
     Provider.of<AppointmentService>(context, listen: false).serviceList.clear();
     Provider.of<AppointmentService>(context, listen: false).employeeList.clear();
-    Provider.of<AppointmentService>(context, listen: false).currentAppointment =
-        Appointment(appointmentDetails: []);
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment = Appointment(appointmentDetails: []);
     super.initState();
   }
 
   /// if manager sent an information message it will be shown directly once the coiffure page opens
   void checkManagerInformationMessage() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (Provider.of<ManagerData>(context, listen: false).managerInformationMessage?.isNotEmpty ??
-          false) {
+      if (Provider.of<ManagerData>(context, listen: false).managerInformationMessage?.isNotEmpty ?? false) {
         Future.delayed(
           Duration.zero,
           () => PopUp().managerInformationMessagePopUp(
-              context: context,
-              message: Provider.of<ManagerData>(context, listen: false).managerInformationMessage),
+              context: context, message: Provider.of<ManagerData>(context, listen: false).managerInformationMessage),
         );
       }
     });
@@ -102,8 +101,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
       Future.delayed(
         Duration.zero,
         () => PopUp().managerInformationMessagePopUp(
-            context: context,
-            message: Provider.of<ManagerData>(context, listen: false).managerInformationMessage),
+            context: context, message: Provider.of<ManagerData>(context, listen: false).managerInformationMessage),
       );
     }
     return widget.coiffureModel == null
@@ -133,8 +131,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
               gradient: Functions().decideColor(context),
               title: Center(
                 child: TextOverFlowHandler(
-                    child: Text(widget.coiffureModel.name,
-                        style: kTitleStyle.copyWith(color: Colors.white))),
+                    child: Text(widget.coiffureModel.name, style: kTitleStyle.copyWith(color: Colors.white))),
               ),
             ).build(context),
             body: ListView(
@@ -162,8 +159,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                             Text('Yorumlar', style: _textStyle),
                             Spacer(),
                             TextButton(
-                              child: Text('Tümünü Gör',
-                                  style: kTextStyle.copyWith(fontSize: 12, color: Colors.blue)),
+                              child: Text('Tümünü Gör', style: kTextStyle.copyWith(fontSize: 12, color: Colors.blue)),
                               onPressed: () => Navigator.pushNamed(
                                 context,
                                 '/Isletme/${createURL(widget.coiffureModel.name)}/Yorumlar',
@@ -178,9 +174,7 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                         FlutterMapCoiffure(),
 
                         /// create enough space for map
-                        total != 0
-                            ? SizedBox(height: MediaQuery.of(context).size.width / 7)
-                            : SizedBox(height: 20),
+                        total != 0 ? SizedBox(height: MediaQuery.of(context).size.width / 7) : SizedBox(height: 20),
                       ],
                     ),
                   ),
@@ -197,25 +191,20 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
                         FloatingTextButton(
                           text: "Saati Belirle",
                           onPressed: () async {
-                            Provider.of<AppointmentService>(context, listen: false)
-                                .currentAppointment
-                                .coiffureName = widget.coiffureModel.name;
+                            Provider.of<AppointmentService>(context, listen: false).currentAppointment.coiffureName =
+                                widget.coiffureModel.name;
 
                             ///
-                            if (employeeList.length != serviceList.length ||
-                                employeeList.contains(null)) {
+                            if (employeeList.length != serviceList.length || employeeList.contains(null)) {
                               Toast.show(
                                 "Lütfen Çalışan Seçiniz",
                                 context,
                                 duration: 2,
                                 backgroundColor: Colors.red[200],
                               );
-                            } else if (employeeList.length == serviceList.length &&
-                                !employeeList.contains(null)) {
-                              Provider.of<AppointmentService>(context, listen: false).employeeList =
-                                  employeeList;
-                              Provider.of<AppointmentService>(context, listen: false)
-                                  .appointmentAddHandler();
+                            } else if (employeeList.length == serviceList.length && !employeeList.contains(null)) {
+                              Provider.of<AppointmentService>(context, listen: false).employeeList = employeeList;
+                              Provider.of<AppointmentService>(context, listen: false).appointmentAddHandler();
                               Navigator.pushNamed(context, '/SaatSecimi');
                             }
                           },
