@@ -75,12 +75,10 @@ Route<dynamic> onFlyRoute(settings, context) {
   if (settings.name == '/') MaterialPageRoute(builder: (context) => WelcomePage());
 
   /// Handle '/isletme/:name'
-  if (settings.name.toString().contains('/Isletme/') &&
-      !settings.name.toString().contains('/Yorumlar')) {
+  if (settings.name.toString().contains('/Isletme/') && !settings.name.toString().contains('/Yorumlar')) {
     CoiffureModel _coiffureModel;
 
-    for (CoiffureModel x
-        in Provider.of<AppointmentService>(context, listen: false).mainCoiffureList) {
+    for (CoiffureModel x in Provider.of<AppointmentService>(context, listen: false).mainCoiffureList) {
       if ('/Isletme/${createURL(x.name)}' == settings.name.toString()) {
         _coiffureModel = x;
       }
@@ -98,8 +96,7 @@ Route<dynamic> onFlyRoute(settings, context) {
   /// Handle '/isletme/:name/Yorumlar'
   if (settings.name.toString().contains('/Yorumlar')) {
     CoiffureModel _coiffureModel;
-    for (CoiffureModel x
-        in Provider.of<AppointmentService>(context, listen: false).mainCoiffureList) {
+    for (CoiffureModel x in Provider.of<AppointmentService>(context, listen: false).mainCoiffureList) {
       if ('/Isletme/${createURL(x.name)}/Yorumlar' == settings.name.toString()) {
         _coiffureModel = x;
       }

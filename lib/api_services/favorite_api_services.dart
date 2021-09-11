@@ -1,8 +1,8 @@
-import 'package:ayarla/webService/http_service.dart';
+import 'package:ayarla/api_services/api_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class HttpFavoriteFunctions extends HttpService {
+class FavoriteApiServices extends ApiServices {
   /// TODO sonra bakilacak
   Future createFavorite() async {
     final String _url = '$baseUrl/api/services/app/Favorite/Create';
@@ -26,10 +26,12 @@ class HttpFavoriteFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'favori olusturuldu',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -41,10 +43,12 @@ class HttpFavoriteFunctions extends HttpService {
       headers: headersWithAdminToken,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'favori cagirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -57,10 +61,12 @@ class HttpFavoriteFunctions extends HttpService {
     );
 
     ///TODO mesaj icerigini degistir
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: jsonDecode(response.body)["result"]["items"],
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]["items"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -87,10 +93,12 @@ class HttpFavoriteFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'favori guncellendi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -101,7 +109,7 @@ class HttpFavoriteFunctions extends HttpService {
       '$_url?Id=$id',
       headers: headersWithAdminToken,
     );
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'kullanici silindi',
       response: response,
       returnData: jsonDecode(response.body),

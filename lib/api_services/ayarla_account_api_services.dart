@@ -1,22 +1,29 @@
 import 'package:ayarla/models/model_coiffure.dart';
-import 'package:ayarla/webService/http_service.dart';
+import 'package:ayarla/api_services/api_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class HttpAyarlaAccountFunctions extends HttpService {
+class AyarlaAccountApiServices extends ApiServices {
   Future getAyarlaAccount({String id}) async {
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Get';
-
+    var content;
     http.Response response = await http.get(
       '$_url?Id=$id',
       headers: headersWithAdminToken,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'Ayarla hesabi cagirildi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
+    // if (response.statusCode == 200) {
+    //   return content;
+    // } else {
+    //   return null;
+    // }
   }
 
   Future getAllAyarlaAccount() async {
@@ -30,10 +37,12 @@ class HttpAyarlaAccountFunctions extends HttpService {
     );
 
     ///TODO mesaj icerigini degistir
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: jsonDecode(response.body)["result"]["items"],
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]["items"]
+          : jsonDecode(response.body),
     );
     // print(jsonDecode(response.body)["result"]["items"]);
     return jsonDecode(response.body)["result"]["items"];
@@ -76,10 +85,12 @@ class HttpAyarlaAccountFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'Ayarla hesabi olusturuldu',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -119,10 +130,12 @@ class HttpAyarlaAccountFunctions extends HttpService {
       body: body,
     );
 
-    await checkResponseStatus(
+    return await checkResponseStatus(
       successMessage: 'Ayarla hesabi guncellendi',
       response: response,
-      returnData: jsonDecode(response.body),
+      returnData: response.statusCode == 200
+          ? jsonDecode(response.body)["result"]
+          : jsonDecode(response.body),
     );
   }
 
@@ -133,10 +146,9 @@ class HttpAyarlaAccountFunctions extends HttpService {
       '$_url?Id=$id',
       headers: headersWithAdminToken,
     );
-    await checkResponseStatus(
-      successMessage: 'Ayarla hesabi silindi',
-      response: response,
-      returnData: jsonDecode(response.body),
-    );
+    return await checkResponseStatus(
+        successMessage: 'Ayarla hesabi silindi',
+        response: response,
+        returnData: jsonDecode(response.body));
   }
 }

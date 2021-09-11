@@ -3,7 +3,7 @@ import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
 import 'package:ayarla/services/service_login.dart';
 import 'package:ayarla/services/service_user.dart';
-import 'package:ayarla/webService/user_functions.dart';
+import 'package:ayarla/api_services/user_api_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -199,7 +199,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                     //   // // print('deneme : ${body["result"][0]}');
                                     //   // print(body["result"]);
                                     //   // print(UserModel.fromJson(body["result"], 0).fullName);
-                                     Provider.of<LoginService>(context, listen: false).userModel.fullName = 'Bahadır';
+                                    Provider.of<LoginService>(context, listen: false)
+                                        .userModel
+                                        .fullName = 'Bahadır';
                                     //   //     UserModel.fromJson(body["result"], 0);
                                     //
                                     //   isLoading = false;
@@ -439,12 +441,10 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                             children: [
                               Checkbox(
                                   activeColor: Colors.orange[500],
-                                  value: Provider.of<UserService>(context, listen: false)
-                                      .checkBox,
+                                  value: Provider.of<UserService>(context, listen: false).checkBox,
                                   onChanged: (value) {
                                     setState(() {
-                                      Provider.of<UserService>(context, listen: false)
-                                              .checkBox =
+                                      Provider.of<UserService>(context, listen: false).checkBox =
                                           !Provider.of<UserService>(context, listen: false)
                                               .checkBox;
                                     });
@@ -546,7 +546,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                               onPressed: () {
                                 if (_regFormKey.currentState.validate()) {
                                   print("Form Validated...");
-                                  HttpUserFunctions().createUser(
+                                  UserApiServices().createUser(
                                     userName: _typedMail,
                                     name: _typedName,
                                     surname: _typedSurname,

@@ -15,9 +15,7 @@ import 'package:ayarla/screens/coiffure_detail_page/ServicesSection.dart';
 import 'package:ayarla/screens/coiffure_detail_page/EmployeeRow.dart';
 import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
@@ -36,10 +34,34 @@ class CoiffureDetailPage extends StatefulWidget {
 class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
   List<ImageListItem> _pages = images;
   ScrollController _listViewController = ScrollController();
+  AyarlaAccountApiServices ayarlaAccountApiServices = AyarlaAccountApiServices();
   int total = 0;
+
+  getData() async {
+    try {
+      print(await ayarlaAccountApiServices.getAyarlaAccount(
+          id: Provider.of<AppointmentService>(context, listen: false).currentList[0].id));
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   void initState() {
+    Provider.of<AppointmentService>(context, listen: false).currentAppointment = Appointment(
+      coiffureName: '',
+      totalPrice: 0,
+      isConfirmedByUser: false,
+      isConfirmedByCoiffure: false,
+      date: '',
+      hour: '',
+      appointmentDetails: [],
+    );
+
+    /// for getAyarlaAccount
+    // getData();
+
+    checkManagerInformationMessage();
     serviceList.clear();
     employeeList.clear();
     Provider.of<AppointmentService>(context, listen: false).serviceList.clear();
@@ -47,6 +69,21 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
     Provider.of<AppointmentService>(context, listen: false).currentAppointment =
         Appointment(appointmentDetails: []);
     super.initState();
+  }
+
+  /// if manager sent an information message it will be shown directly once the coiffure page opens
+  void checkManagerInformationMessage() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (Provider.of<ManagerData>(context, listen: false).managerInformationMessage?.isNotEmpty ??
+          false) {
+        Future.delayed(
+          Duration.zero,
+          () => PopUp().managerInformationMessagePopUp(
+              context: context,
+              message: Provider.of<ManagerData>(context, listen: false).managerInformationMessage),
+        );
+      }
+    });
   }
 
   @override
