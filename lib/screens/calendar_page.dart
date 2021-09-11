@@ -177,8 +177,6 @@ class _CalendarPageState extends State<CalendarPage> {
             FloatingTextButton(
               text: 'Onayla',
               onPressed: () async {
-                // print(selectedHourList.length);
-                // print(selectedHourList.toSet().length);
                 if (selectedHourList.length != selectedHourList.toSet().length) {
                   return showDialog(
                       context: context,

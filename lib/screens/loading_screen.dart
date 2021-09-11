@@ -1,5 +1,7 @@
+import 'package:ayarla/api_services/api_services.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/models/model_coiffure.dart';
+import 'package:ayarla/screens/authentication_page.dart';
 import 'package:ayarla/screens/manager_screens/manager_info_message_page.dart';
 import 'package:ayarla/screens/page_not_found.dart';
 import 'package:ayarla/services/analytics_service.dart';
@@ -38,6 +40,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Future<List> getter(context) async {
+    await ApiServices().getAdminToken();
     Provider.of<AppointmentService>(context, listen: false).mainCoiffureList.clear();
     Provider.of<AppointmentService>(context, listen: false).mainCoiffureList =
         await Provider.of<AppointmentService>(context, listen: false).getAllCoiffures();
@@ -121,6 +124,7 @@ Object ayarlaRoutes = {
   "/SayfaBulunamadi": (context) => NotFoundPage(),
 
   /// User pages
+  "/GirisYapmaSayfasi": (context) => AuthenticationPage(),
   "/KullaniciSayfasi": (context) => UserPage(),
   "/Favorilerim": (context) => FavoritesPage(),
   "/Randevularim": (context) => AppointmentsPage(),

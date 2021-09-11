@@ -25,10 +25,9 @@ class AppBarTitleCustomer extends StatelessWidget {
         children: [
           Text(
             Provider.of<LoginService>(context, listen: false).isLoggedIn
-                ? "Merhaba " + Provider.of<LoginService>(context, listen: false).userModel.fullName
+                ? "Merhaba " + Provider.of<LoginService>(context, listen: false).currentUser.fullName
                 : "Merhaba",
-            style: kTitleStyle.copyWith(
-                color: Colors.white, fontSize: size.width < 425 ? size.width / 19.3 : 22),
+            style: kTitleStyle.copyWith(color: Colors.white, fontSize: size.width < 425 ? size.width / 19.3 : 22),
           ),
           Text(
             "Haydi randevunu ayarlayalım!",
@@ -50,8 +49,7 @@ class AppBarTitleManager extends StatelessWidget {
         children: [
           Text(
             "Merhaba Nilsu",
-            style: kTitleStyle.copyWith(
-                color: Colors.white, fontSize: size.width < 425 ? size.width / 19.3 : 22),
+            style: kTitleStyle.copyWith(color: Colors.white, fontSize: size.width < 425 ? size.width / 19.3 : 22),
           ),
           Text(
             "Haydi işletmeni ayarlayalım!",

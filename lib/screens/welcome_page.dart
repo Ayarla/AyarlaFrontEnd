@@ -25,7 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   getAllAccounts() async {
     List localList;
-    await ApiServices().getAdminToken();
+    // await ApiServices().getAdminToken();
 
     try {
       await ApiServices().getAdminToken();
@@ -60,8 +60,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   void initState() {
-    getAllAccounts();
-
+    // getAllAccounts();
     super.initState();
   }
 
@@ -132,15 +131,6 @@ class _WelcomePageState extends State<WelcomePage> {
                   print(_app.date);
                   print(_app.hour);
                 },
-              ),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/YoneticiAnasayfasi");
-                    Provider.of<LoginService>(context, listen: false).loggedInManager();
-                  },
-                  child: Text('Manager Girişi', style: kTextStyle.copyWith(color: Colors.black, fontSize: 25)),
-                ),
               ),
               SizedBox(height: 20),
               UI.generalLogo,

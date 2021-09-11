@@ -69,14 +69,12 @@ class DefaultAppBar extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10, right: 20),
                 iconSize: 35,
                 icon: NotificationBadge(
-                  showBadge:
-                      Provider.of<UserService>(context, listen: true).notifications.isNotEmpty
-                          ? true
-                          : false,
-                  notificationNumber:
-                      Provider.of<UserService>(context, listen: true).notifications.length,
+                  showBadge: Provider.of<UserService>(context, listen: true).notifications.isNotEmpty ? true : false,
+                  notificationNumber: Provider.of<UserService>(context, listen: true).notifications.length,
                 ),
-                onPressed: () => Navigator.pushNamed(context, "/KullaniciSayfasi"),
+                onPressed: () => Provider.of<UserService>(context, listen: false).currentUser.isActive
+                    ? Navigator.pushNamed(context, "/KullaniciSayfasi")
+                    : Navigator.pushNamed(context, "/GirisYapmaSayfasi"),
               )
 
             /// May cause other problems.
@@ -129,8 +127,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
-              child: Icon(Icons.arrow_back_sharp,
-                  color: Colors.white, size: width <= 375 ? width / 15.6 : 24),
+              child: Icon(Icons.arrow_back_sharp, color: Colors.white, size: width <= 375 ? width / 15.6 : 24),
               onTap: () => Navigator.pop(context)),
           SizedBox(width: 8),
           Column(
@@ -141,34 +138,34 @@ class _SearchAppBarState extends State<SearchAppBar> {
                     ? "Merhaba "
                     // + Provider.of<LoginService>(context, listen: false).userModel.name
                     : "Merhaba",
-                style: kTitleStyle.copyWith(
-                    color: Colors.white, fontSize: width < 425 ? width / 19.3 : 22),
+                style: kTitleStyle.copyWith(color: Colors.white, fontSize: width < 425 ? width / 19.3 : 22),
               ),
               Text(
                 "Haydi randevunu ayarlayalım!",
-                style: kSmallTextStyle.copyWith(
-                    color: Colors.white, fontSize: width < 425 ? width / 30.3 : 14),
+                style: kSmallTextStyle.copyWith(color: Colors.white, fontSize: width < 425 ? width / 30.3 : 14),
               )
             ],
           ),
           Spacer(),
           GestureDetector(
-              child: NotificationBadge(
-                child: Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
-                  size: width <= 375 ? width / 10.4 : 36,
-                ),
+            child: NotificationBadge(
+              child: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+                size: width <= 375 ? width / 10.4 : 36,
               ),
-              onTap: () => Navigator.pushNamed(context, "/KullaniciSayfasi")),
+            ),
+            onTap: () => Provider.of<UserService>(context, listen: false).currentUser.isActive
+                ? Navigator.pushNamed(context, "/KullaniciSayfasi")
+                : Navigator.pushNamed(context, "/GirisYapmaSayfasi"),
+          ),
         ],
       ),
       // backgroundColor: Colors.orange,
       elevation: 0,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-            gradient: Functions().decideColor(context),
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
+            gradient: Functions().decideColor(context), borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
         child: FlexibleSpaceBar(
           background: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -179,9 +176,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 AyarlaTextField(
                   hintText: Text(
                     "Lütfen işletme adı veya kodu giriniz",
-                    style: kSmallTextStyle.copyWith(
-                        color: Colors.grey.withOpacity(0.8),
-                        fontSize: width < 425 ? width / 30 : 14),
+                    style:
+                        kSmallTextStyle.copyWith(color: Colors.grey.withOpacity(0.8), fontSize: width < 425 ? width / 30 : 14),
                     overflow: TextOverflow.ellipsis,
                   ),
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
@@ -238,13 +234,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                     children: [
                       TextButton(
                         child: Row(children: [
-                          Icon(Icons.filter_alt_outlined,
-                              color: Colors.white, size: width <= 375 ? width / 20 : 25),
+                          Icon(Icons.filter_alt_outlined, color: Colors.white, size: width <= 375 ? width / 20 : 25),
                           SizedBox(width: 5),
                           Text(
                             'Filtrele',
-                            style: kSmallTextStyle.copyWith(
-                                color: Colors.white, fontSize: width <= 375 ? width / 22 : 18),
+                            style: kSmallTextStyle.copyWith(color: Colors.white, fontSize: width <= 375 ? width / 22 : 18),
                           ),
                         ]),
                         onPressed: () => widget.openDrawer(),
@@ -252,13 +246,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                       SizedBox(width: 20),
                       TextButton(
                         child: Row(children: [
-                          Icon(Icons.sort,
-                              color: Colors.white, size: width <= 375 ? width / 20 : 25),
+                          Icon(Icons.sort, color: Colors.white, size: width <= 375 ? width / 20 : 25),
                           SizedBox(width: 5),
                           Text(
                             'Sırala',
-                            style: kSmallTextStyle.copyWith(
-                                color: Colors.white, fontSize: width <= 375 ? width / 22 : 18),
+                            style: kSmallTextStyle.copyWith(color: Colors.white, fontSize: width <= 375 ? width / 22 : 18),
                           ),
                         ]),
                         onPressed: () => widget.openEndDrawer(),

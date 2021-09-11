@@ -14,18 +14,18 @@ class UserModel {
   List appointments;
   int id;
 
-  factory UserModel.fromJson(json, int index) {
+  factory UserModel.fromJson(json) {
     return UserModel(
       userName: json["userName"],
       name: json["name"],
       surname: json["surname"],
-      emailAddress: json["emailAddress"],
+      // emailAddress: json["emailAddress"],
       isActive: json["isActive"],
       fullName: json["fullName"],
-      lastLoginTime: json["lastLoginTime"],
-      creationTime: json["creationTime"],
+      // lastLoginTime: json["lastLoginTime"],
+      // creationTime: json["creationTime"],
       roleNames: json["roleNames"],
-      password: json["password"],
+      // password: json["password"],
       comments: json["comments"],
       favorites: json["favorites"],
       appointments: json["appoinments"],

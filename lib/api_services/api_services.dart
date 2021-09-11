@@ -37,20 +37,14 @@ class ApiServices {
     return await checkResponseStatus(
       successMessage: 'Admin Token cekildi!',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
   Future authenticate({String userNameOrEmailAddress, String password, bool rememberClient}) async {
     final String _url = '$baseUrl/api/TokenAuth/Authenticate';
 
-    Map data = {
-      "userNameOrEmailAddress": userNameOrEmailAddress,
-      "password": password,
-      "rememberClient": rememberClient
-    };
+    Map data = {"userNameOrEmailAddress": userNameOrEmailAddress, "password": password, "rememberClient": rememberClient};
     var body = json.encode(data);
 
     http.Response response = await http.post(
@@ -62,19 +56,16 @@ class ApiServices {
     );
 
     _token = 'Bearer ' + jsonDecode(response.body)['result']['accessToken'];
-    print('TOKEN : $_token');
+    // print('TOKEN : $_token');
 
     return await checkResponseStatus(
       successMessage: 'Giris yapildi!',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
-  Future checkResponseStatus(
-      {String successMessage, http.Response response, var returnData}) async {
+  Future checkResponseStatus({String successMessage, http.Response response, var returnData}) async {
     if (response.statusCode == 200) {
       print(successMessage);
       return returnData;

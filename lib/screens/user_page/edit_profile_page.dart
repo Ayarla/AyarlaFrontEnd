@@ -71,8 +71,7 @@ class _EditProfileState extends State<EditProfilePage> {
                             child: Provider.of<UserService>(context, listen: true).userImage != null
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child:
-                                        Provider.of<UserService>(context, listen: true).userImage)
+                                    child: Provider.of<UserService>(context, listen: true).userImage)
                                 : Container(
                                     decoration: BoxDecoration(
                                       color: Colors.grey[200],
@@ -105,17 +104,13 @@ class _EditProfileState extends State<EditProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          Provider.of<LoginService>(context, listen: false).userModel.fullName ??
-                              "Kullanıcı Adı",
-                          style: kTextStyle.copyWith(
-                              color: Colors.white,
-                              fontSize: size.width <= 400 ? size.width / 20 : 25),
+                          Provider.of<LoginService>(context, listen: false).currentUser.fullName ?? "Kullanıcı Adı",
+                          style: kTextStyle.copyWith(color: Colors.white, fontSize: size.width <= 400 ? size.width / 20 : 25),
                         ),
                         Text(
                           'xx.xx.xxxxden beri üye',
                           style: kSmallTextStyle.copyWith(
-                              color: Colors.white,
-                              fontSize: size.width <= 400 ? size.width / 30 : 15),
+                              color: Colors.white, fontSize: size.width <= 400 ? size.width / 30 : 15),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -175,11 +170,9 @@ class _EditProfileState extends State<EditProfilePage> {
                                 style: ButtonStyle(
                                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                                       EdgeInsets.symmetric(vertical: 12, horizontal: 35)),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(Colors.orange[500]),
+                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.orange[500]),
                                   shape: MaterialStateProperty.all<OutlinedBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20))),
+                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                                 ),
                                 onPressed: () {
                                   if (_accountFormKey.currentState.validate()) {
@@ -191,8 +184,7 @@ class _EditProfileState extends State<EditProfilePage> {
                                 },
                                 child: Text(
                                   'Kaydet',
-                                  style: kTextStyle.copyWith(
-                                      color: Colors.white, fontSize: isSmallScreen ? 15 : 20),
+                                  style: kTextStyle.copyWith(color: Colors.white, fontSize: isSmallScreen ? 15 : 20),
                                 ),
                               ),
                             ],
@@ -278,11 +270,9 @@ class _EditProfileState extends State<EditProfilePage> {
                                       style: ButtonStyle(
                                         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                                             EdgeInsets.symmetric(vertical: 12, horizontal: 35)),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(Colors.orange[500]),
+                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.orange[500]),
                                         shape: MaterialStateProperty.all<OutlinedBorder>(
-                                            RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(20))),
+                                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                                       ),
                                       onPressed: () {
                                         if (_passwordFormKey.currentState.validate()) {
@@ -294,8 +284,7 @@ class _EditProfileState extends State<EditProfilePage> {
                                       },
                                       child: Text(
                                         'Kaydet',
-                                        style: kTextStyle.copyWith(
-                                            color: Colors.white, fontSize: isSmallScreen ? 15 : 20),
+                                        style: kTextStyle.copyWith(color: Colors.white, fontSize: isSmallScreen ? 15 : 20),
                                       ),
                                     ),
                                   ],
