@@ -1,7 +1,9 @@
+import 'package:ayarla/api_services/appointment_api_services.dart';
 import 'package:ayarla/api_services/ayarla_account_api_services.dart';
 import 'package:ayarla/components/ayarla_page.dart';
-import 'package:ayarla/models/model_coiffure.dart';
-import 'package:ayarla/services/service_appointment.dart';
+import 'package:ayarla/models/model_appointment.dart';
+import 'package:ayarla/models/model_employee.dart';
+import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/services/service_gender.dart';
 import 'package:ayarla/services/service_login.dart';
 import 'package:ayarla/api_services/api_services.dart';
@@ -23,7 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   getAllAccounts() async {
     List localList;
-    await ApiServices().getToken();
+    await ApiServices().getAdminToken();
 
     try {
       await ApiServices().getAdminToken();

@@ -44,9 +44,7 @@ class _UserPageState extends State<UserPage> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [Color(0xFF6CC4D7), Color(0xFFFEEDA8)]),
+                begin: Alignment.bottomCenter, end: Alignment.topCenter, colors: [Color(0xFF6CC4D7), Color(0xFFFEEDA8)]),
           ),
           child: AyarlaPage(
             child: OverScroll(
@@ -76,8 +74,8 @@ class _UserPageState extends State<UserPage> {
                                       borderRadius: BorderRadius.circular(50),
                                       child: Provider.of<UserService>(context, listen: true).userImage)
                                   : Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[200], borderRadius: BorderRadius.circular(50)),
+                                      decoration:
+                                          BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(50)),
                                       width: 100,
                                       height: 100,
                                       child: Icon(
@@ -126,8 +124,7 @@ class _UserPageState extends State<UserPage> {
                                     icon: Icons.business_center_outlined,
                                     iconColor: Colors.green,
                                     text: 'İşletme Ayarlarım',
-                                    onPressed: () =>
-                                        Navigator.pushNamed(context, "/YoneticiAnasayfasi"),
+                                    onPressed: () => Navigator.pushNamed(context, "/YoneticiAnasayfasi"),
                                   ),
                                   GenericButton(
                                     icon: Icons.assignment_ind_outlined,
@@ -153,11 +150,7 @@ class _UserPageState extends State<UserPage> {
 
                                       /// TODO: fix
                                       Navigator.pushNamedAndRemoveUntil(
-                                          context, "/KullaniciSayfasi", ModalRoute.withName('/AramaSayfasi'));
-                                        context,
-                                        "/KullaniciSayfasi",
-                                        ModalRoute.withName('/'),
-                                      );
+                                          context, "/KullaniciSayfasi", ModalRoute.withName('/'));
                                     },
                                   ),
                                 ],
