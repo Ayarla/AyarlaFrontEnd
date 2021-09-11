@@ -2,6 +2,7 @@ import 'package:ayarla/api_services/appointment_api_services.dart';
 import 'package:ayarla/components/image/userImage.dart';
 import 'package:ayarla/models/model_appointment.dart';
 import 'package:ayarla/models/model_user.dart';
+import 'package:ayarla/screens/authentication_page.dart';
 import 'package:flutter/material.dart';
 
 class UserService extends ChangeNotifier {
@@ -14,7 +15,12 @@ class UserService extends ChangeNotifier {
   UserImage userImage;
   bool checkBox = false;
 
-  ///adds or deletes the coiffure from favorites
+  redirect(context) {
+    if (currentUser.isActive == false)
+      WidgetsBinding.instance.addPostFrameCallback((_) => Navigator.pushNamed(context, "/GirisYapmaSayfasi"));
+  }
+
+  /// adds or deletes the coiffure from favorites
   setOrChangeFav(coiffureModel) {
     if (favorites.contains(coiffureModel)) {
       favorites.remove(coiffureModel);

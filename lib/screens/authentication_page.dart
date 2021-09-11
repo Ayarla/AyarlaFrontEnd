@@ -76,7 +76,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     bool isSmallScreen = size.width < 362;
     final padding = MediaQuery.of(context).padding.top;
     return Material(
@@ -491,9 +491,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                             ),
                                             TextSpan(
                                               text: ' okudum, onaylıyorum.',
-                                              style: kSmallTextStyle.copyWith(
-                                                fontSize: isSmallScreen ? 10 : 14,
-                                              ),
+                                              style: kSmallTextStyle.copyWith(fontSize: isSmallScreen ? 10 : 14),
                                             ),
                                           ],
                                         ),
@@ -523,10 +521,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                         password: _typedPassword,
                                         roleNames: 'USER',
                                       );
-                                      // Provider.of<Login>(context, listen: false)
-                                      //     .loggedInUser();
-
                                     } else {
+                                      /// TODO: Toast maybe?
                                       print("Not Validated!");
                                     }
 

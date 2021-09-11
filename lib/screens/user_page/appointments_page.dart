@@ -43,13 +43,13 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return Scaffold(
       appBar: DefaultAppBar(
         showIconButton: false,
         gradient: functions.decideColor(context),
         title: Center(
-          child: Text("Randevularım",
-              style: kTitleStyle.copyWith(color: Colors.white, letterSpacing: 2, fontSize: 25)),
+          child: Text("Randevularım", style: kTitleStyle.copyWith(color: Colors.white, letterSpacing: 2, fontSize: 25)),
         ),
       ).build(context),
       body: AyarlaPage(
@@ -64,9 +64,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                 ),
 
                 /// TODO - need index & proper height
-                items: waitingAppointments
-                    .map((element) => body(width, waitingAppointments.indexOf(element)))
-                    .toList(),
+                items: waitingAppointments.map((element) => body(width, waitingAppointments.indexOf(element))).toList(),
               ),
       ),
     );
@@ -80,8 +78,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
             initiallyExpanded: false,
             padding: EdgeInsets.all(10),
             elevation: 5,
-            additionalWidget:
-                Text('Randevu Detay', textAlign: TextAlign.center, style: kTitleStyle),
+            additionalWidget: Text('Randevu Detay', textAlign: TextAlign.center, style: kTitleStyle),
             primaryWidget: Container(
               width: width < 600 ? width / 2 : width / 3,
               child: Column(
@@ -138,11 +135,9 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                           children: [
                             Text('Saat:', style: kSmallTextStyle),
                             Spacer(),
-                            Text(waitingAppointments[index].appointmentDetails[index2].hour,
-                                style: kSmallTextStyle),
+                            Text(waitingAppointments[index].appointmentDetails[index2].hour, style: kSmallTextStyle),
                             Spacer(),
-                            Text('Saat:',
-                                style: kSmallTextStyle.copyWith(color: Colors.transparent)),
+                            Text('Saat:', style: kSmallTextStyle.copyWith(color: Colors.transparent)),
                           ],
                         ),
                         Row(
@@ -150,15 +145,10 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                           children: [
                             Text('Hizmet:', style: kSmallTextStyle),
                             Spacer(),
-                            Text(
-                                waitingAppointments[index]
-                                    .appointmentDetails[index2]
-                                    .serviceModel
-                                    .name,
+                            Text(waitingAppointments[index].appointmentDetails[index2].serviceModel.name,
                                 style: kSmallTextStyle),
                             Spacer(),
-                            Text(
-                                '${waitingAppointments[index].appointmentDetails[index2].serviceModel.price} TL',
+                            Text('${waitingAppointments[index].appointmentDetails[index2].serviceModel.price} TL',
                                 style: kSmallTextStyle),
                           ],
                         ),
@@ -167,15 +157,10 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                           children: [
                             Text('Çalışan:', style: kSmallTextStyle),
                             Spacer(),
-                            Text(
-                                waitingAppointments[index]
-                                    .appointmentDetails[index2]
-                                    .employeeModel
-                                    .name,
+                            Text(waitingAppointments[index].appointmentDetails[index2].employeeModel.name,
                                 style: kSmallTextStyle),
                             Spacer(),
-                            Text('Çalışan:',
-                                style: kSmallTextStyle.copyWith(color: Colors.transparent)),
+                            Text('Çalışan:', style: kSmallTextStyle.copyWith(color: Colors.transparent)),
                           ],
                         ),
                       ],
@@ -198,15 +183,11 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
           TextButton(
               child: Container(
                   padding: EdgeInsets.all(8),
-                  decoration:
-                      BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(15)),
-                  child:
-                      Text('Randevumu İptal Et', style: kTitleStyle.copyWith(color: Colors.white))),
+                  decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(15)),
+                  child: Text('Randevumu İptal Et', style: kTitleStyle.copyWith(color: Colors.white))),
               onPressed: () {
                 setState(() {
-                  Provider.of<UserService>(context, listen: false)
-                      .waitingAppointments
-                      .remove(waitingAppointments[index]);
+                  Provider.of<UserService>(context, listen: false).waitingAppointments.remove(waitingAppointments[index]);
                   waitingAppointments.remove(index);
 
                   /// TODO: need id

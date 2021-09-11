@@ -1,8 +1,10 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/models/functions.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:provider/provider.dart';
 
 class UserMessagePage extends StatelessWidget {
   final Functions functions = Functions();
@@ -83,10 +85,10 @@ class MessageCard extends StatelessWidget {
     /// TODO yazilan mesaji yollama kismi yapilacak
     String typedMessage;
     final Size size = MediaQuery.of(context).size;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return GestureDetector(
       onTap: () {
-        typedMessage = UserMessagePopUp()
-            .userMessagePopUp(context: context, message: message, fromAyarla: fromAyarla);
+        typedMessage = UserMessagePopUp().userMessagePopUp(context: context, message: message, fromAyarla: fromAyarla);
       },
       child: Padding(
         padding: EdgeInsets.all(10),
@@ -211,8 +213,7 @@ class UserMessagePopUp {
                     },
                     child: Text(
                       "Tamam",
-                      style:
-                          kSmallTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.bold),
+                      style: kSmallTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
                   )
                 : Row(
@@ -223,8 +224,7 @@ class UserMessagePopUp {
                         },
                         child: Text(
                           "Geri Dön",
-                          style: kSmallTextStyle.copyWith(
-                              color: Colors.red, fontWeight: FontWeight.bold),
+                          style: kSmallTextStyle.copyWith(color: Colors.red, fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(width: 20),
@@ -235,8 +235,7 @@ class UserMessagePopUp {
                         },
                         child: Text(
                           "Gönder",
-                          style: kSmallTextStyle.copyWith(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
+                          style: kSmallTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.bold),
                         ),
                       )
                     ],

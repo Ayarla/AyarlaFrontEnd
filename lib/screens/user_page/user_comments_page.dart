@@ -4,8 +4,10 @@ import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/models/model_comment.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserCommentsPage extends StatefulWidget {
   @override
@@ -43,6 +45,7 @@ class _UserCommentsPageState extends State<UserCommentsPage> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return Scaffold(
       appBar: DefaultAppBar(
         showIconButton: false,
@@ -90,8 +93,7 @@ class _UserCommentsPageState extends State<UserCommentsPage> {
                             Row(
                               children: [
                                 SizedBox(width: 5),
-                                for (int i = 0; i < 5; i++)
-                                  Icon(Icons.star_border, color: Colors.yellow.shade700, size: 20),
+                                for (int i = 0; i < 5; i++) Icon(Icons.star_border, color: Colors.yellow.shade700, size: 20),
                               ],
                             ),
                             SizedBox(height: 10),

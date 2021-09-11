@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -53,9 +54,15 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
     super.initState();
   }
 
+  // var url = window.location.href;
+  // var s = window.location.pathname;
+  // print(url);
+  // print(s);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return Scaffold(
       appBar: DefaultAppBar(
         title: UI.AppBarTitleFavorites(),
@@ -77,8 +84,7 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,
                         child: GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                              context, "/Isletme/${createURL(localList[index].name.toString())}",
+                          onTap: () => Navigator.pushNamed(context, "/Isletme/${createURL(localList[index].name.toString())}",
                               arguments: {localList[index]}),
                           child: Card(
                             elevation: 5,
@@ -100,15 +106,11 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
                                   onTap: () {
                                     setState(() {
                                       removeFavorite(index, localList[index]);
-                                      Provider.of<UserService>(context, listen: false)
-                                          .setOrChangeFav(localList[index]);
+                                      Provider.of<UserService>(context, listen: false).setOrChangeFav(localList[index]);
                                     });
                                     FirebaseAnalytics().logEvent(
                                         name: 'favorites_button',
-                                        parameters: {
-                                          'coiffeur': localList[index].name,
-                                          'state': 'deleted'
-                                        });
+                                        parameters: {'coiffeur': localList[index].name, 'state': 'deleted'});
                                   }),
                             ),
                           ),
@@ -139,13 +141,12 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
                               Expanded(
                                 flex: 5,
                                 child: GestureDetector(
-                                  onTap: () => Navigator.pushNamed(context,
-                                      "/Isletme/${createURL(localList[index].name.toString())}",
+                                  onTap: () => Navigator.pushNamed(
+                                      context, "/Isletme/${createURL(localList[index].name.toString())}",
                                       arguments: {localList[index]}),
                                   child: Card(
                                     elevation: 5,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20)),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                     child: CardInfo(coiffureModel: localList[index]),
                                   ),
                                 ),
@@ -164,8 +165,7 @@ class _FavoritesPageState extends State<FavoritesPage> with SingleTickerProvider
                                         onTap: () {
                                           setState(() {
                                             removeFavorite(index, localList[index]);
-                                            Provider.of<UserService>(context, listen: false)
-                                                .setOrChangeFav(localList[index]);
+                                            Provider.of<UserService>(context, listen: false).setOrChangeFav(localList[index]);
                                           });
                                         }),
                                   ),

@@ -16,20 +16,20 @@ class UserModel {
 
   factory UserModel.fromJson(json) {
     return UserModel(
-      userName: json["userName"],
+      id: json["id"],
       name: json["name"],
       surname: json["surname"],
-      // emailAddress: json["emailAddress"],
       isActive: json["isActive"],
       fullName: json["fullName"],
-      // lastLoginTime: json["lastLoginTime"],
-      // creationTime: json["creationTime"],
       roleNames: json["roleNames"],
-      // password: json["password"],
       comments: json["comments"],
       favorites: json["favorites"],
       appointments: json["appoinments"],
-      id: json["id"],
+      userName: json["userName"],
+      // emailAddress: json["emailAddress"],
+      // lastLoginTime: json["lastLoginTime"],
+      // creationTime: json["creationTime"],
+      // password: json["password"],
     );
   }
 

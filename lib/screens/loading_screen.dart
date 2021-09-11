@@ -7,6 +7,7 @@ import 'package:ayarla/screens/page_not_found.dart';
 import 'package:ayarla/services/analytics_service.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:ayarla/services/service_appointment.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'coiffure_detail_page/coiffure_detail_page.dart';

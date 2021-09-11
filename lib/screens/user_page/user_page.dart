@@ -25,15 +25,15 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         showIconButton: false,
-        backButtonFunction: () {
-          Provider.of<UserService>(context, listen: false).checkBox = false;
-          Navigator.pop(context);
-        },
+
+        /// TODO: fix
+        // Provider.of<UserService>(context, listen: false).checkBox = false;
         color: Colors.transparent,
         title: Center(child: Text(" ")),
         childrenColor: Colors.orange,
@@ -66,10 +66,7 @@ class _UserPageState extends State<UserPage> {
                                         BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(50)),
                                     width: 100,
                                     height: 100,
-                                    child: Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.grey[800],
-                                    ),
+                                    child: Icon(Icons.camera_alt, color: Colors.grey[800]),
                                   ),
                           ),
                         ),
@@ -87,7 +84,6 @@ class _UserPageState extends State<UserPage> {
                         Flexible(
                           child: SingleChildScrollView(
                             child: Column(
-                              // mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 GenericButton(

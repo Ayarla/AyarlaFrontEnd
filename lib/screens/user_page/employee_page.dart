@@ -1,5 +1,6 @@
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/models/model_service.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/timeDropdown.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:provider/provider.dart';
 
 class EmployeePage extends StatefulWidget {
   @override
@@ -35,6 +37,7 @@ class _EmployeePageState extends State<EmployeePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return Scaffold(
       backgroundColor: Colors.grey[350],
       appBar: DefaultAppBar(

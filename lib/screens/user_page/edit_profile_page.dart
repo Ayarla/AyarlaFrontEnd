@@ -33,7 +33,8 @@ class _EditProfileState extends State<EditProfilePage> {
   //
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     bool isSmallScreen = size.width < 362;
     return Scaffold(
       appBar: DefaultAppBar(

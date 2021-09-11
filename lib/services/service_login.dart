@@ -18,7 +18,7 @@ class LoginService extends ChangeNotifier {
 
   /// Seems fine rn.
   ///
-  /// I removed some properties of UserModel for security.
+  /// I removed some properties from UserModel for security.
   ///
   /// Also i added a button on user page in order to switch to the manager view.
   ///
@@ -27,8 +27,6 @@ class LoginService extends ChangeNotifier {
     var data = await _userApiServices.getUser(id: userID);
     currentUser = UserModel.fromJson(data);
     Provider.of<UserService>(context, listen: false).currentUser = currentUser;
-    print(currentUser.isActive);
-    print(Provider.of<UserService>(context, listen: false).currentUser.isActive);
     notifyListeners();
   }
 
