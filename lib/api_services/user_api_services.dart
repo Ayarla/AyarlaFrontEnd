@@ -5,12 +5,7 @@ import 'package:http/http.dart' as http;
 class UserApiServices extends ApiServices {
   /// Create User
   Future createUser(
-      {String userName,
-      String name,
-      String surname,
-      String email,
-      String password,
-      String roleNames}) async {
+      {String userName, String name, String surname, String email, String password, String roleNames}) async {
     final String _url = '$baseUrl/api/services/app/User/Create';
 
     Map data = {
@@ -26,22 +21,19 @@ class UserApiServices extends ApiServices {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
     return await checkResponseStatus(
       successMessage: 'kullanici olusturuldu',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
   /// Update User
-  Future updateUser(
-      {int id, String userName, String name, String surname, String email, String password}) async {
+  Future updateUser({int id, String userName, String name, String surname, String email, String password}) async {
     final String _url = '$baseUrl/api/services/app/User/Update';
 
     Map data = {
@@ -58,16 +50,14 @@ class UserApiServices extends ApiServices {
 
     http.Response response = await http.put(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
     return await checkResponseStatus(
       successMessage: 'kullanici guncellendi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -77,7 +67,7 @@ class UserApiServices extends ApiServices {
 
     http.Response response = await http.delete(
       '$_url?Id=$id',
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
     return await checkResponseStatus(
       successMessage: 'kullanici silindi',
@@ -86,84 +76,76 @@ class UserApiServices extends ApiServices {
     );
   }
 
-  Future activateUser({int id}) async {
-    final String _url = '$baseUrl/api/services/app/User/Activate';
+  // Future activateUser({int id}) async {
+  //   final String _url = '$baseUrl/api/services/app/User/Activate';
 
-    var data = {"id": id};
-    var body = json.encode(data);
+  //   var data = {"id": id};
+  //   var body = json.encode(data);
 
-    http.Response response = await http.post(
-      _url,
-      headers: headersWithAdminToken,
-      body: body,
-    );
-    return await checkResponseStatus(
-      successMessage: 'kullanici aktiflestirildi',
-      response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
-    );
-  }
+  //   http.Response response = await http.post(
+  //     _url,
+  //     headers: headersWithToken,
+  //     body: body,
+  //   );
+  //   return await checkResponseStatus(
+  //     successMessage: 'kullanici aktiflestirildi',
+  //     response: response,
+  //     returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
+  //   );
+  // }
 
-  Future deactivateUser({int id}) async {
-    final String _url = '$baseUrl/api/services/app/User/DeActivate';
+  // Future deactivateUser({int id}) async {
+  //   final String _url = '$baseUrl/api/services/app/User/DeActivate';
 
-    var data = {"id": id};
-    var body = json.encode(data);
+  //   var data = {"id": id};
+  //   var body = json.encode(data);
 
-    http.Response response = await http.post(
-      _url,
-      headers: headersWithAdminToken,
-      body: body,
-    );
-    return await checkResponseStatus(
-      successMessage: 'kullanici pasiflestirildi',
-      response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
-    );
-  }
+  //   http.Response response = await http.post(
+  //     _url,
+  //     headers: headersWithToken,
+  //     body: body,
+  //   );
+  //   return await checkResponseStatus(
+  //     successMessage: 'kullanici pasiflestirildi',
+  //     response: response,
+  //     returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
+  //   );
+  // }
 
-  Future getRolesUser() async {
-    final String _url = "$baseUrl/api/services/app/User/GetRoles";
+  // Future getRolesUser() async {
+  //   final String _url = "$baseUrl/api/services/app/User/GetRoles";
 
-    http.Response response = await http.get(
-      _url,
-      headers: headersWithAdminToken,
-    );
+  //   http.Response response = await http.get(
+  //     _url,
+  //     headers: headersWithToken,
+  //   );
 
-    ///TODO mesaj icerigini degistir
-    return await checkResponseStatus(
-      successMessage: 'GetRoles is successful',
-      response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]["items"]
-          : jsonDecode(response.body),
-    );
-  }
+  //   ///TODO mesaj icerigini degistir
+  //   return await checkResponseStatus(
+  //     successMessage: 'GetRoles is successful',
+  //     response: response,
+  //     returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
+  //   );
+  // }
 
-  Future changeLanguage({String language}) async {
-    final String _url = '$baseUrl/api/services/app/User/ChangeLanguage';
+  // Future changeLanguage({String language}) async {
+  //   final String _url = '$baseUrl/api/services/app/User/ChangeLanguage';
 
-    var data = {"languageName": language};
-    var body = json.encode(data);
+  //   var data = {"languageName": language};
+  //   var body = json.encode(data);
 
-    http.Response response = await http.post(
-      _url,
-      headers: headersWithAdminToken,
-      body: body,
-    );
+  //   http.Response response = await http.post(
+  //     _url,
+  //     headers: headersWithToken,
+  //     body: body,
+  //   );
 
-    return await checkResponseStatus(
-      successMessage: 'dil degistirildi',
-      response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
-    );
-  }
+  //   return await checkResponseStatus(
+  //     successMessage: 'dil degistirildi',
+  //     response: response,
+  //     returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
+  //   );
+  // }
 
   Future changeUserPassword({String newPassword, String currentPassword}) async {
     final String _url = '$baseUrl/api/services/app/User/ChangePassword';
@@ -173,15 +155,13 @@ class UserApiServices extends ApiServices {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
     return await checkResponseStatus(
       successMessage: 'kullanici sifresi degistirildi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -197,15 +177,13 @@ class UserApiServices extends ApiServices {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
     return await checkResponseStatus(
       successMessage: 'kullanici sifresi sifirlandi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -214,14 +192,14 @@ class UserApiServices extends ApiServices {
 
     http.Response response = await http.get(
       '$_url?Id=$id',
+
+      /// TODO hangi headers kullanilacak
       headers: headersWithAdminToken,
     );
     return await checkResponseStatus(
       successMessage: 'kullanici cagirildi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -230,6 +208,8 @@ class UserApiServices extends ApiServices {
 
     http.Response response = await http.get(
       _url,
+
+      /// TODO hangi headers kullanilacak
       headers: headersWithAdminToken,
     );
 
@@ -237,9 +217,7 @@ class UserApiServices extends ApiServices {
     return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]["items"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
     );
   }
 }

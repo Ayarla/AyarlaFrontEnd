@@ -13,7 +13,7 @@ class AppointmentApiServices extends ApiServices {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
@@ -29,7 +29,7 @@ class AppointmentApiServices extends ApiServices {
 
     http.Response response = await http.get(
       '$_url?Id=$id',
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
 
     return await checkResponseStatus(
@@ -44,7 +44,7 @@ class AppointmentApiServices extends ApiServices {
 
     http.Response response = await http.get(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
 
     ///TODO mesaj icerigini degistir
@@ -67,7 +67,7 @@ class AppointmentApiServices extends ApiServices {
 
     http.Response response = await http.put(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
@@ -83,7 +83,7 @@ class AppointmentApiServices extends ApiServices {
 
     http.Response response = await http.delete(
       '$_url?Id=$id',
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
     return await checkResponseStatus(
       successMessage: 'randevu silindi',

@@ -22,16 +22,14 @@ class FavoriteApiServices extends ApiServices {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
     return await checkResponseStatus(
       successMessage: 'favori olusturuldu',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -40,15 +38,13 @@ class FavoriteApiServices extends ApiServices {
 
     http.Response response = await http.get(
       '$_url?Id=$id',
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
 
     return await checkResponseStatus(
       successMessage: 'favori cagirildi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -57,16 +53,14 @@ class FavoriteApiServices extends ApiServices {
 
     http.Response response = await http.get(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
 
     ///TODO mesaj icerigini degistir
     return await checkResponseStatus(
       successMessage: 'GetAll is successful',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]["items"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
     );
   }
 
@@ -89,16 +83,14 @@ class FavoriteApiServices extends ApiServices {
 
     http.Response response = await http.put(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
     return await checkResponseStatus(
       successMessage: 'favori guncellendi',
       response: response,
-      returnData: response.statusCode == 200
-          ? jsonDecode(response.body)["result"]
-          : jsonDecode(response.body),
+      returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
   }
 
@@ -107,7 +99,7 @@ class FavoriteApiServices extends ApiServices {
 
     http.Response response = await http.delete(
       '$_url?Id=$id',
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
     return await checkResponseStatus(
       successMessage: 'kullanici silindi',

@@ -9,6 +9,8 @@ class AyarlaAccountApiServices extends ApiServices {
     var content;
     http.Response response = await http.get(
       '$_url?Id=$id',
+
+      /// TODO headersWithAdminToken mi yoksa headersWithToken mi?
       headers: headersWithAdminToken,
     );
 
@@ -27,10 +29,10 @@ class AyarlaAccountApiServices extends ApiServices {
   Future getAllAyarlaAccount() async {
     final String _url = "$baseUrl/api/services/app/AyarlaAccount/GetAll";
 
-    /// TODO - fix.
-    await ApiServices().getToken();
     http.Response response = await http.get(
       _url,
+
+      /// TODO headersWithAdminToken mi yoksa headersWithToken mi?
       headers: headersWithAdminToken,
     );
 
@@ -40,7 +42,6 @@ class AyarlaAccountApiServices extends ApiServices {
       response: response,
       returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
     );
-    // print(jsonDecode(response.body)["result"]["items"]);
     return jsonDecode(response.body)["result"]["items"];
   }
 
@@ -77,7 +78,7 @@ class AyarlaAccountApiServices extends ApiServices {
 
     http.Response response = await http.post(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
@@ -120,7 +121,7 @@ class AyarlaAccountApiServices extends ApiServices {
 
     http.Response response = await http.put(
       _url,
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
       body: body,
     );
 
@@ -136,7 +137,7 @@ class AyarlaAccountApiServices extends ApiServices {
 
     http.Response response = await http.delete(
       '$_url?Id=$id',
-      headers: headersWithAdminToken,
+      headers: headersWithToken,
     );
     return await checkResponseStatus(
         successMessage: 'Ayarla hesabi silindi', response: response, returnData: jsonDecode(response.body));
