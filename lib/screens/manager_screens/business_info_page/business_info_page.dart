@@ -9,6 +9,7 @@ import 'package:ayarla/screens/manager_screens/business_info_page/ImageSectionBu
 import 'package:ayarla/screens/manager_screens/business_info_page/ServiceSectionBusiness.dart';
 import 'package:ayarla/screens/manager_screens/business_info_page/section_contact.dart';
 import 'package:ayarla/services/service_management.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:ayarla/virtual_data_base/temporaryLists.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,8 +37,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
           title: Text('Değişiklikleri kaydetmek istiyor musunuz?', style: kSmallTitleStyle),
           content: Text('Kaydetmediğiniz değişiklikler kaybolabilirler!', style: kSmallTextStyle),
           actions: <Widget>[
-            AcceptButton(
-                acceptCondition: () => Navigator.pushNamed(context, '/YoneticiAnasayfasi')),
+            AcceptButton(acceptCondition: () => Navigator.pushNamed(context, '/YoneticiAnasayfasi')),
             CancelButton(),
           ],
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -78,12 +78,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                          "Personel Seçiniz",
-                          style: TextStyle(fontSize: 24.0),
-                        ),
-                      ],
+                      children: <Widget>[Text("Personel Seçiniz", style: TextStyle(fontSize: 24.0))],
                     ),
                     SizedBox(height: 5.0),
                     Divider(color: Colors.grey, height: 4.0),
@@ -101,8 +96,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                             value: boolList[employeesList.indexOf(x)],
                                             onChanged: (value) {
                                               setState1(() {
-                                                boolList[employeesList.indexOf(x)] =
-                                                    !boolList[employeesList.indexOf(x)];
+                                                boolList[employeesList.indexOf(x)] = !boolList[employeesList.indexOf(x)];
                                               });
                                             })
                                       ],
@@ -123,15 +117,11 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
                                     Navigator.of(context, rootNavigator: true).pop();
                                   },
                                   style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12.0),
                                       )),
                                       backgroundColor: MaterialStateProperty.all(Colors.grey)),
-                                  child: Text(
-                                    "Onayla",
-                                    style: kTextStyle.copyWith(color: Colors.white),
-                                  ),
+                                  child: Text("Onayla", style: kTextStyle.copyWith(color: Colors.white)),
                                 )
                               ],
                             )
@@ -155,6 +145,7 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
   @override
   Widget build(BuildContext context) {
     willPop = Provider.of<ManagementService>(context, listen: true).willPop;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return WillPopScope(
       onWillPop: () async {
         if (!willPop) popDialog();
@@ -165,13 +156,9 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
         appBar: DefaultAppBar(
           title: Center(
             child: AyarlaTextFormField(
-              initialValue:
-                  Provider.of<ManagementService>(context, listen: false).currentCoiffure.name,
+              initialValue: Provider.of<ManagementService>(context, listen: false).currentCoiffure.name,
               onChanged: (value) {
-                setState(() {
-                  Provider.of<ManagementService>(context, listen: false).currentCoiffure.name =
-                      value;
-                });
+                setState(() => Provider.of<ManagementService>(context, listen: false).currentCoiffure.name = value);
               },
               style: kTitleStyle.copyWith(color: Colors.black, fontSize: 18),
               textAlign: TextAlign.justify,
@@ -208,16 +195,8 @@ class _BusinessInfoPageState extends State<BusinessInfoPage> {
             ],
           ),
         ),
-        floatingActionButton: !willPop
-            ? FloatingTextButton(
-                text: 'Kaydet',
-                onPressed: () {
-                  setState(() {
-                    willPop = !willPop;
-                  });
-                },
-              )
-            : null,
+        floatingActionButton:
+            !willPop ? FloatingTextButton(text: 'Kaydet', onPressed: () => setState(() => willPop = !willPop)) : null,
       ),
     );
   }

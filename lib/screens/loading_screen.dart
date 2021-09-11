@@ -7,7 +7,6 @@ import 'package:ayarla/screens/page_not_found.dart';
 import 'package:ayarla/services/analytics_service.dart';
 import 'package:ayarla/services/locator.dart';
 import 'package:ayarla/services/service_appointment.dart';
-import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'coiffure_detail_page/coiffure_detail_page.dart';
@@ -34,11 +33,17 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  @override
-  void initState() {
-    getter(context);
-    super.initState();
-  }
+  final ThemeData themeData = ThemeData(
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        foregroundColor: MaterialStateProperty.all(Colors.black),
+      ),
+    ),
+  );
 
   Future<List> getter(context) async {
     await ApiServices().getAdminToken();
@@ -49,18 +54,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   @override
+  void initState() {
+    getter(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = ThemeData(
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      textButtonTheme: TextButtonThemeData(
-        style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
-          foregroundColor: MaterialStateProperty.all(Colors.black),
-        ),
-      ),
-    );
     return Provider.of<AppointmentService>(context, listen: true).mainCoiffureList.length <= 0
         ? Container()
         : MaterialApp(
@@ -134,6 +134,7 @@ Object ayarlaRoutes = {
   "/CalisanAyarlarim": (context) => EmployeePage(),
 
   /// Manager Pages
+  /// TODO: Redirect functions.
   "/YoneticiAnasayfasi": (context) => ManagerHome(),
   "/Isletmem": (context) => BusinessInfoPage(),
   "/Calisanlarim": (context) => EmployeeManage(),

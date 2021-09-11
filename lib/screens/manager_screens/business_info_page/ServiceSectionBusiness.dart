@@ -27,16 +27,15 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
 
   @override
   void initState() {
-    localServiceList =
-        Provider.of<ManagementService>(context, listen: false).currentCoiffure.serviceList;
+    localServiceList = Provider.of<ManagementService>(context, listen: false).currentCoiffure.serviceList;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    TextStyle responsiveTextStyle = kTextStyle.copyWith(
-        fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 20 : 20);
+    TextStyle responsiveTextStyle =
+        kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 20 : 20);
 
     openAlertBox(int serviceIndex) {
       List boolList = [];
@@ -57,8 +56,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
           builder: (BuildContext context) {
             return StatefulBuilder(builder: (BuildContext context, StateSetter setState1) {
               return AlertDialog(
-                shape:
-                    RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
                 contentPadding: EdgeInsets.only(top: 10.0),
                 content: Container(
                   width: 300.0,
@@ -71,10 +69,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Text(
-                            "Personel Seçiniz",
-                            style: TextStyle(fontSize: 24.0),
-                          ),
+                          Text("Personel Seçiniz", style: TextStyle(fontSize: 24.0)),
                         ],
                       ),
                       SizedBox(height: 5.0),
@@ -93,8 +88,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                                               value: boolList[employeesList.indexOf(x)],
                                               onChanged: (value) {
                                                 setState1(() {
-                                                  boolList[employeesList.indexOf(x)] =
-                                                      !boolList[employeesList.indexOf(x)];
+                                                  boolList[employeesList.indexOf(x)] = !boolList[employeesList.indexOf(x)];
                                                 });
                                               })
                                         ],
@@ -115,15 +109,11 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                                       Navigator.of(context, rootNavigator: true).pop();
                                     },
                                     style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(12.0),
                                         )),
                                         backgroundColor: MaterialStateProperty.all(Colors.grey)),
-                                    child: Text(
-                                      "Onayla",
-                                      style: kTextStyle.copyWith(color: Colors.white),
-                                    ),
+                                    child: Text("Onayla", style: kTextStyle.copyWith(color: Colors.white)),
                                   )
                                 ],
                               )
@@ -137,8 +127,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
           });
     }
 
-    Provider.of<ManagementService>(context, listen: false).currentCoiffure.serviceList =
-        localServiceList;
+    Provider.of<ManagementService>(context, listen: false).currentCoiffure.serviceList = localServiceList;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -154,8 +143,7 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                 child: Row(
                   children: [
                     SizedBox(width: 10),
-                    Text(serviceModel.name,
-                        overflow: TextOverflow.ellipsis, style: responsiveTextStyle),
+                    Text(serviceModel.name, overflow: TextOverflow.ellipsis, style: responsiveTextStyle),
                     Spacer(),
                     Text(serviceModel.price.toString(), style: responsiveTextStyle),
                     Text(" ₺", style: TextStyle(fontSize: width <= 400 ? width / 20 : 20)),
@@ -196,9 +184,8 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                             // size: 50,
                           ),
                           text: defaultEmployee.name,
-                          textStyle: kTextStyle.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: width <= 400 ? width / 30 : 14),
+                          textStyle:
+                              kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 30 : 14),
 
                           /// TODO - Not working. We need better expandable.
                           onPressed: () => openAlertBox(0),
@@ -280,20 +267,17 @@ class _ServiceSectionBusinessState extends State<ServiceSectionBusiness> {
                   Container(
                     width: width <= 517 ? null : 227,
                     child: Row(
-                      mainAxisAlignment:
-                          width <= 517 ? MainAxisAlignment.end : MainAxisAlignment.start,
+                      mainAxisAlignment: width <= 517 ? MainAxisAlignment.end : MainAxisAlignment.start,
                       children: [
                         Container(
                           width: 150,
                           child: AyarlaTextFormField(
                             textAlign: TextAlign.end,
                             hintText: 'Fiyat Giriniz',
-                            style: kTextStyle.copyWith(
-                                fontWeight: FontWeight.normal,
-                                fontSize: width <= 400 ? width / 20 : 20),
-                            hintStyle: kTextStyle.copyWith(
-                                fontWeight: FontWeight.normal,
-                                fontSize: width <= 400 ? width / 20 : 20),
+                            style:
+                                kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 20 : 20),
+                            hintStyle:
+                                kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 20 : 20),
                             padding: EdgeInsets.only(top: 14, bottom: 14, right: 15),
                             onChanged: (value) {
                               setState(() {

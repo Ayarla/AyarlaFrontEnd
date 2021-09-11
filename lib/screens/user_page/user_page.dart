@@ -31,9 +31,6 @@ class _UserPageState extends State<UserPage> {
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         showIconButton: false,
-
-        /// TODO: fix
-        // Provider.of<UserService>(context, listen: false).checkBox = false;
         color: Colors.transparent,
         title: Center(child: Text(" ")),
         childrenColor: Colors.orange,

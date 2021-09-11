@@ -2,6 +2,7 @@ import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/new_icon.dart';
 import 'package:ayarla/constants/iconNames.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/circularParent.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:provider/provider.dart';
 
 class EmployeeManagement extends StatefulWidget {
   @override
@@ -54,9 +56,7 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                                 // _typedMail = typed;
                               },
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(40))),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
                                 prefixIconConstraints: BoxConstraints(
                                   maxHeight: 20.0,
                                   maxWidth: 45.0,
@@ -91,9 +91,7 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                                 // _typedMail = typed;
                               },
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(40))),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
                                 prefixIconConstraints: BoxConstraints(
                                   maxHeight: 20.0,
                                   maxWidth: 45.0,
@@ -128,9 +126,7 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                                 // _typedMail = typed;
                               },
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(40))),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
                                 prefixIconConstraints: BoxConstraints(
                                   maxHeight: 20.0,
                                   maxWidth: 45.0,
@@ -164,15 +160,11 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return Scaffold(
       appBar: DefaultAppBar(
         color: Colors.grey,
-        title: Center(
-          child: Text(
-            'Çalışan Yönetim Sayfası',
-            style: kSmallTitleStyle.copyWith(color: Colors.white),
-          ),
-        ),
+        title: Center(child: Text('Çalışan Yönetim Sayfası', style: kSmallTitleStyle.copyWith(color: Colors.white))),
       ).build(context),
       body: AyarlaPage(
         child: Padding(
@@ -198,31 +190,21 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                       Row(
                         children: [
                           //             onTap: () => detailSheet(),
+                          GenericIconButton(iconContext: NewIcon(iconName: addUserIconName, size: 60), text: 'Çalışan Ekle'),
                           GenericIconButton(
-
-                            iconContext: NewIcon(iconName: addUserIconName, size: 60),
-                            text: 'Çalışan Ekle',
-                          ),
-                          GenericIconButton(
-
                             iconContext: Badge(
                               badgeColor: Colors.white,
-                              badgeContent:
-                                  NewIcon(iconName: settingsIconName, size: 25),
-                              position:
-                                  BadgePosition.topEnd(top: -10, end: -20),
-                              child:
-                                  NewIcon(iconName: femaleIconName, size: 60),
+                              badgeContent: NewIcon(iconName: settingsIconName, size: 25),
+                              position: BadgePosition.topEnd(top: -10, end: -20),
+                              child: NewIcon(iconName: femaleIconName, size: 60),
                             ),
                             text: 'Nilsu',
                           ),
                           GenericIconButton(
                             iconContext: Badge(
                               badgeColor: Colors.white,
-                              badgeContent:
-                                  NewIcon(iconName: settingsIconName, size: 25),
-                              position:
-                                  BadgePosition.topEnd(top: -10, end: -20),
+                              badgeContent: NewIcon(iconName: settingsIconName, size: 25),
+                              position: BadgePosition.topEnd(top: -10, end: -20),
                               child: NewIcon(iconName: maleIconName, size: 60),
                             ),
                             text: 'Fatih',
@@ -230,10 +212,8 @@ class _EmployeeManagementState extends State<EmployeeManagement> {
                           GenericIconButton(
                             iconContext: Badge(
                               badgeColor: Colors.white,
-                              badgeContent:
-                                  NewIcon(iconName: settingsIconName, size: 25),
-                              position:
-                                  BadgePosition.topEnd(top: -10, end: -20),
+                              badgeContent: NewIcon(iconName: settingsIconName, size: 25),
+                              position: BadgePosition.topEnd(top: -10, end: -20),
                               child: NewIcon(iconName: maleIconName, size: 60),
                             ),
                             text: 'Bahadır',

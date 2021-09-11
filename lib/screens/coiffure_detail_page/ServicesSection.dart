@@ -24,10 +24,7 @@ class _ServicesSectionState extends State<ServicesSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Hizmetler',
-          style: kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20),
-        ),
+        Text('Hizmetler', style: kTitleStyle.copyWith(fontSize: width <= 400 ? width / 20 : 20)),
         SizedBox(height: 10),
         for (ServiceModel serviceModel in fullTimeServices)
           Padding(
@@ -59,14 +56,10 @@ class _ServicesSectionState extends State<ServicesSection> {
                     SizedBox(width: 10),
                     Text(serviceModel.name,
                         overflow: TextOverflow.ellipsis,
-                        style: kTextStyle.copyWith(
-                            fontWeight: FontWeight.normal,
-                            fontSize: width <= 400 ? width / 20 : 20)),
+                        style: kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 20 : 20)),
                     Spacer(),
                     Text(serviceModel.price.toString(),
-                        style: kTextStyle.copyWith(
-                            fontWeight: FontWeight.normal,
-                            fontSize: width <= 400 ? width / 20 : 20)),
+                        style: kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 20 : 20)),
                     Text(" ₺", style: TextStyle(fontSize: width <= 400 ? width / 20 : 20)),
                     SizedBox(width: 10),
                     Icon(
@@ -89,8 +82,7 @@ class _ServicesSectionState extends State<ServicesSection> {
                         child: Container(
                           width: 120,
                           child: GenericIconButton(
-                              color: serviceList.contains(serviceModel) &&
-                                      serviceModel.employees[index].selected
+                              color: serviceList.contains(serviceModel) && serviceModel.employees[index].selected
                                   ? serviceModel.employees[index].gender == 'female'
                                       ? Colors.pink[200]
                                       : Colors.blue[400]
@@ -102,26 +94,20 @@ class _ServicesSectionState extends State<ServicesSection> {
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image(
-                                          height: 40,
-                                          image: AssetImage(employeesList[index].image)),
+                                      child: Image(height: 40, image: AssetImage(employeesList[index].image)),
                                     ),
                                   ],
                                 ),
                               ),
-                              textStyle: kTextStyle.copyWith(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: width <= 400 ? width / 30 : 14),
+                              textStyle:
+                                  kTextStyle.copyWith(fontWeight: FontWeight.normal, fontSize: width <= 400 ? width / 30 : 14),
                               text: employeesList[index].name,
                               onPressed: () {
                                 setState(() {
-                                  serviceModel.employees
-                                      .forEach((element) => element.selected = false);
-                                  serviceModel.employees[index].selected =
-                                      !serviceModel.employees[index].selected;
+                                  serviceModel.employees.forEach((element) => element.selected = false);
+                                  serviceModel.employees[index].selected = !serviceModel.employees[index].selected;
                                 });
-                                employeeList[serviceList.indexOf(serviceModel)] =
-                                    employeesList[index];
+                                employeeList[serviceList.indexOf(serviceModel)] = employeesList[index];
                               }),
                         ),
                       );

@@ -18,20 +18,9 @@ class _ImageSectionState extends State<ImageSection> {
     return Column(
       children: [
         ResponsiveWidget(
-            smallScreen: Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: imageBody(),
-            ),
-            mediumScreen: Padding(
-              padding: EdgeInsets.only(
-                  left: size.width / 10, right: size.width / 10),
-              child: imageBody(),
-            ),
-            largeScreen: Padding(
-              padding:
-                  EdgeInsets.only(left: size.width / 5, right: size.width / 5),
-              child: imageBody(),
-            )),
+            smallScreen: Padding(padding: const EdgeInsets.all(0.0), child: imageBody()),
+            mediumScreen: Padding(padding: EdgeInsets.only(left: size.width / 10, right: size.width / 10), child: imageBody()),
+            largeScreen: Padding(padding: EdgeInsets.only(left: size.width / 5, right: size.width / 5), child: imageBody())),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: widget.pages.map((url) {
@@ -42,9 +31,7 @@ class _ImageSectionState extends State<ImageSection> {
               margin: EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 0.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: _currentPage == index
-                    ? Color.fromRGBO(0, 0, 0, 0.9)
-                    : Color.fromRGBO(0, 0, 0, 0.4),
+                color: _currentPage == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
               ),
             );
           }).toList(),
@@ -58,13 +45,8 @@ class _ImageSectionState extends State<ImageSection> {
       child: CarouselSlider(
         items: widget.pages
             .map(
-              (element) => ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image.asset(
-                  element.image,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              (element) =>
+                  ClipRRect(borderRadius: BorderRadius.circular(20.0), child: Image.asset(element.image, fit: BoxFit.cover)),
             )
             .toList(),
         options: CarouselOptions(

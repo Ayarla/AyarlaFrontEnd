@@ -1,5 +1,7 @@
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:provider/provider.dart';
 import '../user_page/user_page.dart';
 
 class EmployeeWorkPage extends StatefulWidget {
@@ -10,6 +12,7 @@ class EmployeeWorkPage extends StatefulWidget {
 class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
   @override
   Widget build(BuildContext context) {
+    Provider.of<UserService>(context, listen: false).redirect(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.grey[350],
@@ -32,24 +35,14 @@ class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
           },
         ),
         title: Center(
-          child: Text(
-            "ayarla",
-            style: kTitleStyle.copyWith(
-                color: Colors.white, letterSpacing: 2, fontSize: 30),
-          ),
+          child: Text("ayarla", style: kTitleStyle.copyWith(color: Colors.white, letterSpacing: 2, fontSize: 30)),
         ),
         actions: <Widget>[
           IconButton(
             padding: EdgeInsets.only(right: 10),
-            icon: Icon(
-              Icons.account_circle,
-              color: Colors.white,
-              //color: Color(0xFF2d3b4a),
-              size: 40.0,
-            ),
+            icon: Icon(Icons.account_circle, color: Colors.white, size: 40.0),
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => UserPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserPage()));
             },
           ),
         ],
@@ -62,113 +55,109 @@ class _EmployeeWorkPageState extends State<EmployeeWorkPage> {
           child: ListView(
             children: [
               SizedBox(height: 10),
+
               /// bunu detay sayfasındakiyle değiştir.
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: Container(
                     width: size.width,
-                    child: Text(
-                      'Çalışanlar',
-                      style: kTitleStyle,
-                    ),
+                    child: Text('Çalışanlar', style: kTitleStyle),
                   ),
                 ),
               ),
               SizedBox(height: 20),
               _getRow(
-                size,
-                'Çalışan İsmi',
+                  size,
+                  'Çalışan İsmi',
                   TextButton(
-                  onPressed: null,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Randevular',
-                          style: kTextStyle,
+                    onPressed: null,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            'Randevular',
+                            style: kTextStyle,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ),
+                  )),
               _getRow(
-                size,
-                'Çalışan İsmi',
-                TextButton(
-                  onPressed: null,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Randevular',
-                          style: kTextStyle,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ),
-              _getRow(
-                size,
-                'Çalışan İsmi',
+                  size,
+                  'Çalışan İsmi',
                   TextButton(
-                  onPressed: null,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Randevular',
-                          style: kTextStyle,
+                    onPressed: null,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            'Randevular',
+                            style: kTextStyle,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ),
+                  )),
               _getRow(
-                size,
-                'Çalışan İsmi',
+                  size,
+                  'Çalışan İsmi',
                   TextButton(
-                  onPressed: null,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Randevular',
-                          style: kTextStyle,
+                    onPressed: null,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            'Randevular',
+                            style: kTextStyle,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
+                  )),
+              _getRow(
+                  size,
+                  'Çalışan İsmi',
+                  TextButton(
+                    onPressed: null,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            'Randevular',
+                            style: kTextStyle,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )),
+              SizedBox(
+                height: 50,
               ),
-              SizedBox(height: 50,),
               Row(
                 children: [
                   Spacer(),
@@ -210,7 +199,9 @@ Padding _getRow(Size size, String text, TextButton flatButton) {
         color: Colors.white,
         child: Row(
           children: [
-            SizedBox(width: 30,),
+            SizedBox(
+              width: 30,
+            ),
             Center(
               child: Text(
                 text,

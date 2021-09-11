@@ -24,45 +24,27 @@ class _IconsRowState extends State<IconsRow> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           GenericIconButton(
-            iconContext: Icon(
-              Icons.call,
-              color: Colors.green,
-              size: 45,
-            ),
-            onPressed: () {
-              launch("tel://${widget.coiffureModel.telephone}");
-            },
+            iconContext: Icon(Icons.call, color: Colors.green, size: 45),
+            onPressed: () => launch("tel://${widget.coiffureModel.telephone}"),
             text: "Ara",
             textStyle: kSmallTextStyle.copyWith(color: Colors.green),
           ),
           GenericIconButton(
             iconContext: Icon(
-              Provider.of<UserService>(context, listen: true)
-                      .favorites
-                      .contains(widget.coiffureModel)
+              Provider.of<UserService>(context, listen: true).favorites.contains(widget.coiffureModel)
                   ? Icons.favorite
                   : Icons.favorite_border,
               color: Colors.red,
               size: 45,
             ),
             onPressed: () {
-              setState(() {
-                // if (Provider.of<UserService>(context, listen: false).myState.mounted) {
-                //   Provider.of<UserService>(context, listen: false).myState.setState(() {});
-                Provider.of<UserService>(context, listen: false)
-                    .setOrChangeFav(widget.coiffureModel);
-                // }
-              });
+              setState(() => Provider.of<UserService>(context, listen: false).setOrChangeFav(widget.coiffureModel));
             },
             text: "Favori",
             textStyle: kSmallTextStyle.copyWith(color: Colors.red),
           ),
           GenericIconButton(
-            iconContext: Icon(
-              Icons.ios_share,
-              color: Colors.blue,
-              size: 45,
-            ),
+            iconContext: Icon(Icons.ios_share, color: Colors.blue, size: 45),
             text: 'Paylaş',
             textStyle: kSmallTextStyle.copyWith(color: Colors.blue),
             onPressed: () {},

@@ -110,15 +110,9 @@ class _CoiffureDetailPageState extends State<CoiffureDetailPage> {
             children: [
               SpinKitDoubleBounce(itemBuilder: (BuildContext context, int index) {
                 return DecoratedBox(
-                    decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: index.isEven ? Colors.grey : Colors.blueGrey,
-                ));
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: index.isEven ? Colors.grey : Colors.blueGrey));
               }),
-              Text(
-                'İstediğiniz Sayfayı Hazırlıyoruz!',
-                style: kTextStyle.copyWith(decoration: TextDecoration.none),
-              ),
+              Text('İstediğiniz Sayfayı Hazırlıyoruz!', style: kTextStyle.copyWith(decoration: TextDecoration.none)),
               TextButton(
                 child: Text('Anasayfaya Dön', style: kTextStyle),
                 onPressed: () => Navigator.pushNamed(context, '/Hosgeldiniz'),

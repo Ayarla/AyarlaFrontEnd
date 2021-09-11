@@ -1,4 +1,5 @@
 import 'package:ayarla/components/ayarla_page.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:ayarla/virtual_data_base/manager_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,17 +16,14 @@ class _ManagerNotesPageState extends State<ManagerInformationMessagePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return Scaffold(
       appBar: DefaultAppBar(
         centerTitle: true,
         showIconButton: false,
         color: Colors.grey,
         childrenColor: Colors.white,
-        title: Text(
-          'Bilgilendirme Mesajı',
-          textAlign: TextAlign.center,
-          style: kTextStyle.copyWith(color: Colors.white),
-        ),
+        title: Text('Bilgilendirme Mesajı', textAlign: TextAlign.center, style: kTextStyle.copyWith(color: Colors.white)),
         // showIconButton: false,
       ).build(context),
       body: AyarlaPage(
@@ -52,8 +50,7 @@ class _ManagerNotesPageState extends State<ManagerInformationMessagePage> {
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    Provider.of<ManagerData>(context, listen: false)
-                                        .managerInformationMessage,
+                                    Provider.of<ManagerData>(context, listen: false).managerInformationMessage,
                                     style: kSmallTextStyle,
                                   ),
                                 ],
@@ -68,8 +65,7 @@ class _ManagerNotesPageState extends State<ManagerInformationMessagePage> {
                           color: Colors.red,
                           onPressed: () {
                             setState(() {
-                              Provider.of<ManagerData>(context, listen: false)
-                                  .managerInformationMessage = null;
+                              Provider.of<ManagerData>(context, listen: false).managerInformationMessage = null;
                             });
                           },
                         ),
@@ -92,9 +88,7 @@ class _ManagerNotesPageState extends State<ManagerInformationMessagePage> {
                   TextFormField(
                     maxLength: 260,
                     style: kSmallTextStyle,
-                    initialValue: Provider.of<ManagerData>(context, listen: false)
-                            .managerInformationMessage ??
-                        messageContent,
+                    initialValue: Provider.of<ManagerData>(context, listen: false).managerInformationMessage ?? messageContent,
                     onChanged: (value) {
                       setState(() {
                         messageContent = value;
@@ -106,10 +100,7 @@ class _ManagerNotesPageState extends State<ManagerInformationMessagePage> {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
+                        borderSide: BorderSide(width: 0, style: BorderStyle.none),
                       ),
                       filled: true,
                       hintStyle: kSmallTextStyle,
@@ -129,8 +120,7 @@ class _ManagerNotesPageState extends State<ManagerInformationMessagePage> {
                           color: Colors.grey,
                           onPressed: () {
                             setState(() {
-                              Provider.of<ManagerData>(context, listen: false)
-                                      .managerInformationMessage =
+                              Provider.of<ManagerData>(context, listen: false).managerInformationMessage =
 
                                   /// in order to remove whitespace in the text
                                   messageContent.trimLeft();
@@ -166,21 +156,13 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(15),
-      ),
+      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(15)),
       width: size.width < 650 ? size.width / 3 : 200,
       child: TextButton(
         onPressed: onPressed,
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(4.0),
-            child: Text(
-              buttonContent,
-              style: kTextStyle.copyWith(color: Colors.white),
-            ),
-          ),
+              padding: EdgeInsets.all(4.0), child: Text(buttonContent, style: kTextStyle.copyWith(color: Colors.white))),
         ),
       ),
     );

@@ -1,17 +1,16 @@
+import 'package:ayarla/models/model_coiffure.dart';
 import 'package:ayarla/models/model_comment.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 /// TODO - Make necessary implementations for relevant coiffure.
 class CommentsSection extends StatelessWidget {
+  // final CoiffureModel coiffureModel;
+  // CommentsSection({this.coiffureModel});
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options: CarouselOptions(
-        enableInfiniteScroll: false,
-        enlargeCenterPage: false,
-        height: 160,
-      ),
+      options: CarouselOptions(enableInfiniteScroll: false, enlargeCenterPage: false, height: 160),
       items: [
         CommentModel(
           userName: 'Fatih Özkan',

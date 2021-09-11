@@ -38,10 +38,7 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
                           height: size.height * 0.35,
                           width: size.width,
                           child: IconButton(
-                            icon: Icon(
-                              Icons.add_a_photo,
-                              color: Colors.green.shade700,
-                            ),
+                            icon: Icon(Icons.add_a_photo, color: Colors.green.shade700),
                             onPressed: () {
                               functions.showPicker(context);
                               setState(() {
@@ -71,15 +68,11 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
                   right: 0,
                   top: 0,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: EdgeInsets.only(left: 8.0),
                     child: Column(
                       children: [
                         GestureDetector(
-                          child: Icon(
-                            Icons.add_circle,
-                            color: Colors.green,
-                            size: 40,
-                          ),
+                          child: Icon(Icons.add_circle, color: Colors.green, size: 40),
                           onTap: () {
                             functions.showPicker(context);
                             setState(() {
@@ -88,18 +81,12 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
                           },
                         ),
                         GestureDetector(
-                          child: Icon(
-                            Icons.remove_circle,
-                            color: Colors.red,
-                            size: 40,
-                          ),
+                          child: Icon(Icons.remove_circle, color: Colors.red, size: 40),
                           onTap: () {
                             if (_pages.length == 1) {
-                              Provider.of<ManagementService>(context, listen: false)
-                                  .deleteImage(_pages[0]);
+                              Provider.of<ManagementService>(context, listen: false).deleteImage(_pages[0]);
                             } else {
-                              Provider.of<ManagementService>(context, listen: false)
-                                  .deleteImage(_pages[_currentPage]);
+                              Provider.of<ManagementService>(context, listen: false).deleteImage(_pages[_currentPage]);
                             }
                           },
                         ),
@@ -111,16 +98,8 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
           ),
 
           ///stops passing the pages automatically
-          onLongPress: () {
-            setState(() {
-              pressed = true;
-            });
-          },
-          onLongPressUp: () {
-            setState(() {
-              pressed = false;
-            });
-          },
+          onLongPress: () => setState(() => pressed = true),
+          onLongPressUp: () => setState(() => pressed = false),
         ),
 
         /// dot indicator
@@ -134,9 +113,7 @@ class _ImageSectionBusinessState extends State<ImageSectionBusiness> {
               margin: EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 0.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: _currentPage == index
-                    ? Color.fromRGBO(0, 0, 0, 0.9)
-                    : Color.fromRGBO(0, 0, 0, 0.4),
+                color: _currentPage == index ? Color.fromRGBO(0, 0, 0, 0.9) : Color.fromRGBO(0, 0, 0, 0.4),
               ),
             );
           }).toList(),

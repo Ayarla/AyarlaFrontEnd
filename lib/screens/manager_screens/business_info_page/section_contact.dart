@@ -33,17 +33,12 @@ class _ContactSectionState extends State<ContactSection> {
         Center(child: Text('veya', style: kSmallTextStyle)),
         SizedBox(height: 10),
         AyarlaTextFormField(
-          initialValue:
-              Provider.of<ManagementService>(context, listen: false).currentCoiffure.address,
+          initialValue: Provider.of<ManagementService>(context, listen: false).currentCoiffure.address,
           hintText: 'Adres giriniz',
           keyboardType: TextInputType.multiline,
           maxLines: 3,
-          onChanged: (value) {
-            setState(() {
-              Provider.of<ManagementService>(context, listen: false).currentCoiffure.address =
-                  value;
-            });
-          },
+          onChanged: (value) =>
+              setState(() => Provider.of<ManagementService>(context, listen: false).currentCoiffure.address = value),
         ),
         SizedBox(height: 30),
 
@@ -51,17 +46,12 @@ class _ContactSectionState extends State<ContactSection> {
         Text('Telefon', style: kTextStyle),
         SizedBox(height: 10),
         AyarlaTextFormField(
-          initialValue:
-              Provider.of<ManagementService>(context, listen: false).currentCoiffure.telephone,
+          initialValue: Provider.of<ManagementService>(context, listen: false).currentCoiffure.telephone,
           hintText: 'Telefon Giriniz - 555-555 555 55 55',
           keyboardType: TextInputType.number,
           inputFormatter: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
-          onChanged: (value) {
-            setState(() {
-              Provider.of<ManagementService>(context, listen: true).currentCoiffure.telephone =
-                  value;
-            });
-          },
+          onChanged: (value) =>
+              setState(() => Provider.of<ManagementService>(context, listen: true).currentCoiffure.telephone = value),
         ),
         SizedBox(height: 10),
       ],

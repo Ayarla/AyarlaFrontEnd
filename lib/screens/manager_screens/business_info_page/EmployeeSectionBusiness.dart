@@ -32,27 +32,18 @@ class _EmployeeSectionBusinessState extends State<EmployeeSectionBusiness> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image(
-                                height: size.height / 20,
-                                image: AssetImage(employeesList[index].image),
-                              ),
+                              child: Image(height: size.height / 20, image: AssetImage(employeesList[index].image)),
                             ),
                             Spacer(),
                             FittedBox(
-                                child: Text(
-                                  employeesList[index].name,
-                                  style: kSmallTextStyle.copyWith(color: Colors.black),
-                                ),
+                                child: Text(employeesList[index].name, style: kSmallTextStyle.copyWith(color: Colors.black)),
                                 fit: BoxFit.cover)
                           ],
                         ),
                       ),
                     ),
                   ),
-                  Positioned(
-                      top: -12,
-                      right: 5,
-                      child: IconButton(icon: Icon(Icons.remove_circle, color: Colors.red)))
+                  Positioned(top: -12, right: 5, child: IconButton(icon: Icon(Icons.remove_circle, color: Colors.red)))
                 ],
               );
             }),
