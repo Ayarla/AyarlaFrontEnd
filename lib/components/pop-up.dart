@@ -1,5 +1,5 @@
 import 'package:ayarla/screens/privacy_policy_page.dart';
-import 'package:ayarla/services/service_user.dart';
+import 'package:ayarla/services/service_login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -405,14 +405,11 @@ class PopUp {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                  value: Provider.of<UserService>(context, listen: false)
-                                      .checkBox,
+                                  value: Provider.of<LoginService>(context, listen: false).checkBox,
                                   onChanged: (value) {
                                     setState(() {
-                                      Provider.of<UserService>(context, listen: false)
-                                              .checkBox =
-                                          !Provider.of<UserService>(context, listen: false)
-                                              .checkBox;
+                                      Provider.of<LoginService>(context, listen: false).checkBox =
+                                          !Provider.of<LoginService>(context, listen: false).checkBox;
                                     });
                                   }),
                             ),
@@ -488,18 +485,16 @@ class PopUp {
                   // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   // padding: EdgeInsets.only(right: 10.0, bottom: 5.0, left: 10.0),
                   child: Text(
-                    Provider.of<UserService>(context, listen: false).checkBox
+                    Provider.of<LoginService>(context, listen: false).checkBox
                         ? 'Kayıt Ol ve Devam'
                         : 'Kayıt olmak için Sözleşmeyi onayla',
                     style: kSmallTextStyle.copyWith(
-                      color: Provider.of<UserService>(context, listen: false).checkBox
-                          ? Colors.blue
-                          : Colors.grey,
+                      color: Provider.of<LoginService>(context, listen: false).checkBox ? Colors.blue : Colors.grey,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   onPressed: () {
-                    if (Provider.of<UserService>(context, listen: false).checkBox) {
+                    if (Provider.of<LoginService>(context, listen: false).checkBox) {
                       if (_formKey.currentState.validate()) {
                         /// TODO kayit olmayi burada yapacagiz
                         // Navigator.popUntil(context, ModalRoute.withName(SearchPage.id));

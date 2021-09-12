@@ -5,7 +5,6 @@ import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/components/ayarla_textfield.dart';
 import 'package:ayarla/screens/privacy_policy_page.dart';
 import 'package:ayarla/services/service_login.dart';
-import 'package:ayarla/services/service_user.dart';
 import 'package:ayarla/api_services/user_api_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -45,16 +44,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
   bool isLoading = false;
   Widget spinKitSquareCircle;
 
-  @override
-  void initState() {
-    spinKitSquareCircle = SpinKitFoldingCube(
-      color: Colors.white,
-      size: 30.0,
-      controller: AnimationController(vsync: this, duration: const Duration(seconds: 2)),
-    );
-    super.initState();
-  }
-
   login() async {
     if (_loginFormKey.currentState.validate()) {
       try {
@@ -80,6 +69,11 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
     final size = MediaQuery.of(context).size;
     bool isSmallScreen = size.width < 362;
     final padding = MediaQuery.of(context).padding.top;
+    spinKitSquareCircle = SpinKitFoldingCube(
+      color: Colors.white,
+      size: 30.0,
+      controller: AnimationController(vsync: this, duration: const Duration(seconds: 2)),
+    );
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: DefaultAppBar(
@@ -89,7 +83,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
           childrenColor: Colors.orange,
           backButtonFunction: () {
             setState(() {
-              Provider.of<UserService>(context, listen: false).checkBox = false;
+              Provider.of<LoginService>(context, listen: false).checkBox = false;
               Navigator.pop(context);
             });
           }).build(context),
@@ -427,11 +421,11 @@ class _AuthenticationPageState extends State<AuthenticationPage> with TickerProv
                                   children: [
                                     Checkbox(
                                         activeColor: Colors.orange[500],
-                                        value: Provider.of<UserService>(context, listen: false).checkBox,
+                                        value: Provider.of<LoginService>(context, listen: false).checkBox,
                                         onChanged: (value) {
                                           setState(() {
-                                            Provider.of<UserService>(context, listen: false).checkBox =
-                                                !Provider.of<UserService>(context, listen: false).checkBox;
+                                            Provider.of<LoginService>(context, listen: false).checkBox =
+                                                !Provider.of<LoginService>(context, listen: false).checkBox;
                                           });
                                         }),
                                     SizedBox(width: 10),

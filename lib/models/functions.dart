@@ -51,9 +51,7 @@ class Functions {
 
     _serviceEnabled = await location.serviceEnabled();
     _permissionGranted = await location.hasPermission();
-    if ((!_serviceEnabled) &&
-        _permissionGranted != PermissionStatus.denied &&
-        _serviceGranted != PermissionStatus.denied) {
+    if ((!_serviceEnabled) && _permissionGranted != PermissionStatus.denied && _serviceGranted != PermissionStatus.denied) {
       print(_permissionGranted);
       _serviceEnabled = await location.requestService();
       _serviceGranted = PermissionStatus.deniedForever;
@@ -85,9 +83,7 @@ class Functions {
     Functions functions = Functions();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: size.width / 10),
-      decoration: BoxDecoration(
-          gradient: functions.decideColor(context),
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+      decoration: BoxDecoration(gradient: functions.decideColor(context), borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Padding(
         padding: EdgeInsets.all(5.0),
         child: Center(
@@ -110,17 +106,16 @@ class Functions {
     ///    outputType: ImageType.widget);
     PickedFile fromPicker = await ImagePicker().getImage(source: ImageSource.gallery);
     if (fromPicker != null) {
-      if (Provider.of<LoginService>(context, listen: false).isManager) {
-        Provider.of<ManagementService>(context, listen: false).addImage(ImageListItem(
-          covered: true,
-          pickedFile: fromPicker,
-          isPicked: true,
-          isWeb: true,
-        ));
-      } else {
-        Provider.of<UserService>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: fromPicker,isWeb:true));
-      }
+      // if (Provider.of<LoginService>(context, listen: false).isManager) {
+      //   Provider.of<ManagementService>(context, listen: false).addImage(ImageListItem(
+      //     covered: true,
+      //     pickedFile: fromPicker,
+      //     isPicked: true,
+      //     isWeb: true,
+      //   ));
+      // } else {
+      //   Provider.of<UserService>(context, listen: false).setUserImage(UserImage(pickedFile: fromPicker, isWeb: true));
+      // }
     }
   }
 
@@ -129,17 +124,15 @@ class Functions {
     PickedFile image = await ImagePicker().getImage(source: ImageSource.camera);
 
     if (image != null) {
-      if (Provider.of<LoginService>(context, listen: false).isManager) {
-        Provider.of<ManagementService>(context, listen: false).addImage(ImageListItem(
-          covered: true,
-          pickedFile: image,
-          isPicked: true,
-          isWeb:false
-        ));
-      } else {
-        Provider.of<UserService>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: image,isWeb: false,));
-      }
+      // if (Provider.of<LoginService>(context, listen: false).isManager) {
+      //   Provider.of<ManagementService>(context, listen: false)
+      //       .addImage(ImageListItem(covered: true, pickedFile: image, isPicked: true, isWeb: false));
+      // } else {
+      //   Provider.of<UserService>(context, listen: false).setUserImage(UserImage(
+      //     pickedFile: image,
+      //     isWeb: false,
+      //   ));
+      // }
     }
   }
 
@@ -148,17 +141,12 @@ class Functions {
     PickedFile image = await ImagePicker().getImage(source: ImageSource.gallery);
 
     if (image != null) {
-      if (Provider.of<LoginService>(context, listen: false).isManager) {
-        Provider.of<ManagementService>(context, listen: false).addImage(ImageListItem(
-          covered: true,
-          pickedFile: image,
-          isPicked: true,
-          isWeb: false
-        ));
-      } else {
-        Provider.of<UserService>(context, listen: false)
-            .setUserImage(UserImage(pickedFile: image,isWeb: false));
-      }
+      // if (Provider.of<LoginService>(context, listen: false).isManager) {
+      //   Provider.of<ManagementService>(context, listen: false)
+      //       .addImage(ImageListItem(covered: true, pickedFile: image, isPicked: true, isWeb: false));
+      // } else {
+      //   Provider.of<UserService>(context, listen: false).setUserImage(UserImage(pickedFile: image, isWeb: false));
+      // }
     }
   }
 
@@ -242,8 +230,7 @@ String createURL(String url) => fixTurkishCharacters(url.replaceAll(' ', '-'));
 String fixTurkishCharacters(String string) {
   List charList = ['Ö', 'ö', 'ı', 'İ', 'ş', 'Ş', 'Ç', 'ç', 'Ü', 'ü', 'Ğ', 'ğ'];
   List charList2 = ['O', 'o', 'i', 'I', 's', 'S', 'C', 'c', 'U', 'u', 'G', 'g'];
-  for (String letter in charList)
-    string = string.replaceAll(letter, charList2[charList.indexOf(letter)]);
+  for (String letter in charList) string = string.replaceAll(letter, charList2[charList.indexOf(letter)]);
   return string;
 }
 

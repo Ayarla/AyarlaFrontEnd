@@ -1,5 +1,7 @@
 import 'package:ayarla/models/model_employee.dart';
 import 'package:ayarla/models/model_service.dart';
+import 'package:ayarla/services/service_user.dart';
+import 'package:provider/provider.dart';
 
 class Appointment {
   String coiffureName;
@@ -34,12 +36,12 @@ class Appointment {
   }
 
   Map<String, dynamic> appointmentToJson() => {
-        // "userId": 0,
-        // "accountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        // "employeeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        // "userId": Provider.of<UserService>(context, listen: false).currentUser.id,
         "dayTime": dateTime.toString(),
         "services": appointmentDetails.map((e) => e.appointmentModelToJson()).toList(),
         "totalPrice": totalPrice,
+        // "accountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        // "employeeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       };
 }
 

@@ -1,4 +1,3 @@
-import 'package:ayarla/components/ayarla_page.dart';
 import 'dart:math';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/components/unFocuser.dart';

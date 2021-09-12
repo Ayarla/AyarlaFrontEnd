@@ -12,9 +12,7 @@ enum UserType {
 
 class LoginService extends ChangeNotifier {
   UserApiServices _userApiServices = UserApiServices();
-  UserModel currentUser = UserModel();
-  bool isLoggedIn = false;
-  bool isManager = false;
+  bool checkBox = false;
 
   /// Seems fine rn.
   ///
@@ -24,8 +22,10 @@ class LoginService extends ChangeNotifier {
   ///
   /// We need a if statement there.
   login({int userID, BuildContext context}) async {
+    UserModel currentUser = UserModel();
     var data = await _userApiServices.getUser(id: userID);
     currentUser = UserModel.fromJson(data);
+    currentUser.isLoggedIn = true;
     Provider.of<UserService>(context, listen: false).currentUser = currentUser;
     notifyListeners();
   }

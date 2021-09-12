@@ -1,4 +1,6 @@
+import 'package:ayarla/models/model_service.dart';
 import 'package:ayarla/services/service_login.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:provider/provider.dart';
@@ -24,8 +26,8 @@ class AppBarTitleCustomer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            Provider.of<LoginService>(context, listen: false).isLoggedIn
-                ? "Merhaba " + Provider.of<LoginService>(context, listen: false).currentUser.fullName
+            Provider.of<UserService>(context, listen: false).currentUser.isLoggedIn
+                ? "Merhaba " + Provider.of<UserService>(context, listen: false).currentUser.fullName
                 : "Merhaba",
             style: kTitleStyle.copyWith(color: Colors.white, fontSize: size.width < 425 ? size.width / 19.3 : 22),
           ),

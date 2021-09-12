@@ -83,6 +83,12 @@ class _WelcomePageState extends State<WelcomePage> {
           child: ListView(
             children: <Widget>[
               TextButton(
+                  onPressed: () async {
+                    var data = await AyarlaAccountApiServices().getAyarlaAccount(id: '525217a2-5332-2c78-824c-39fe51e59a0d');
+                    print(data);
+                  },
+                  child: Text('Test')),
+              TextButton(
                 child: Text('AppointmentModel TEST!'),
                 onPressed: () {
                   AppointmentModel decoy = AppointmentModel(

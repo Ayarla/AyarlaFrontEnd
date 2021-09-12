@@ -12,7 +12,6 @@ import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/components/overScroll.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
-import 'package:ayarla/services/service_login.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -72,7 +71,7 @@ class _UserPageState extends State<UserPage> {
                           child: FittedBox(
                             fit: BoxFit.cover,
                             child: Text(
-                              Provider.of<LoginService>(context, listen: false).currentUser.fullName ?? "Kullanıcı Adı",
+                              Provider.of<UserService>(context, listen: false).currentUser.fullName ?? "Kullanıcı Adı",
                               style: kTextStyle.copyWith(color: Colors.black, fontSize: 25),
                             ),
                           ),
@@ -101,18 +100,25 @@ class _UserPageState extends State<UserPage> {
                                   text: 'Mesajlarım',
                                   onPressed: () => Navigator.pushNamed(context, "/Randevularim"),
                                 ),
-                                GenericButton(
-                                  icon: Icons.business_center_outlined,
-                                  iconColor: Colors.green,
-                                  text: 'İşletme Ayarlarım',
-                                  onPressed: () => Navigator.pushNamed(context, "/YoneticiAnasayfasi"),
-                                ),
-                                GenericButton(
-                                  icon: Icons.assignment_ind_outlined,
-                                  iconColor: Colors.green,
-                                  text: 'Çalışan Ayarlarım',
-                                  onPressed: () => Navigator.pushNamed(context, "/CalisanAyarlarim"),
-                                ),
+
+                                /// TODO: We need a role.
+                                if (Provider.of<UserService>(context, listen: false).currentUser.roleNames.contains('Manager'))
+                                  GenericButton(
+                                    icon: Icons.business_center_outlined,
+                                    iconColor: Colors.green,
+                                    text: 'İşletme Ayarlarım',
+                                    onPressed: () => Navigator.pushNamed(context, "/YoneticiAnasayfasi"),
+                                  ),
+                                if (Provider.of<UserService>(context, listen: false)
+                                    .currentUser
+                                    .roleNames
+                                    .contains('Employee'))
+                                  GenericButton(
+                                    icon: Icons.assignment_ind_outlined,
+                                    iconColor: Colors.green,
+                                    text: 'Çalışan Ayarlarım',
+                                    onPressed: () => Navigator.pushNamed(context, "/CalisanAyarlarim"),
+                                  ),
                                 GenericButton(
                                   icon: FontAwesomeIcons.userEdit,
                                   text: 'Profilimi Düzenle',
@@ -128,7 +134,7 @@ class _UserPageState extends State<UserPage> {
                                   text: 'Çıkış Yap',
                                   onPressed: () {
                                     /// TODO: fix - Done, try now.
-                                    Navigator.pushNamedAndRemoveUntil(context, "/KullaniciSayfasi", ModalRoute.withName('/'));
+                                    Navigator.pushNamedAndRemoveUntil(context, "/GirisYapmaSayfasi", ModalRoute.withName('/'));
                                   },
                                 ),
                               ],

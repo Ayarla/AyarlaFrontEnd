@@ -29,12 +29,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   @override
   void initState() {
     super.initState();
-    isConfirmed = Provider.of<AppointmentService>(context, listen: false)
-        .currentAppointment
-        .isConfirmedByUser;
-    localList = Provider.of<AppointmentService>(context, listen: false)
-        .currentAppointment
-        .appointmentDetails;
+    isConfirmed = Provider.of<AppointmentService>(context, listen: false).currentAppointment.isConfirmedByUser;
+    localList = Provider.of<AppointmentService>(context, listen: false).currentAppointment.appointmentDetails;
   }
 
   @override
@@ -46,20 +42,17 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    Appointment currentAppointment =
-        Provider.of<AppointmentService>(context, listen: false).currentAppointment;
+    Appointment currentAppointment = Provider.of<AppointmentService>(context, listen: false).currentAppointment;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        flexibleSpace: CircularParent(
-            radius: 20, gradient: functions.decideColor(context), direction: Directions.bottom),
+        flexibleSpace: CircularParent(radius: 20, gradient: functions.decideColor(context), direction: Directions.bottom),
         leading: IconButton(
           padding: EdgeInsets.only(left: 10),
           icon: isConfirmed ? Icon(Icons.home, color: Colors.white, size: 40.0) : BackButton(),
-          onPressed: () =>
-              Navigator.pushNamedAndRemoveUntil(context, "/Hosgeldiniz", (route) => false),
+          onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/Hosgeldiniz", (route) => false),
         ),
         title: Center(
             child: Text(
@@ -92,8 +85,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                 initiallyExpanded: isConfirmed ? false : true,
                 padding: EdgeInsets.all(10),
                 elevation: 5,
-                additionalWidget:
-                    Text('Randevu Detay', textAlign: TextAlign.center, style: kTitleStyle),
+                additionalWidget: Text('Randevu Detay', textAlign: TextAlign.center, style: kTitleStyle),
                 primaryWidget: Container(
                   width: size.width < 600 ? size.width / 2 : size.width / 2.4,
                   child: Column(
@@ -152,8 +144,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                 Spacer(),
                                 Text(localList[index].hour, style: kSmallTextStyle),
                                 Spacer(),
-                                Text('Saat:',
-                                    style: kSmallTextStyle.copyWith(color: Colors.transparent)),
+                                Text('Saat:', style: kSmallTextStyle.copyWith(color: Colors.transparent)),
                               ],
                             ),
                             Row(
@@ -163,8 +154,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                 Spacer(),
                                 Text(localList[index].serviceModel.name, style: kSmallTextStyle),
                                 Spacer(),
-                                Text('${localList[index].serviceModel.price} TL',
-                                    style: kSmallTextStyle),
+                                Text('${localList[index].serviceModel.price} TL', style: kSmallTextStyle),
                               ],
                             ),
                             Row(
@@ -174,8 +164,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                 Spacer(),
                                 Text(localList[index].employeeModel.name, style: kSmallTextStyle),
                                 Spacer(),
-                                Text('Çalışan:',
-                                    style: kSmallTextStyle.copyWith(color: Colors.transparent)),
+                                Text('Çalışan:', style: kSmallTextStyle.copyWith(color: Colors.transparent)),
                               ],
                             ),
                           ],
@@ -199,8 +188,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
 
             /// Google Maps integration
             FlutterMapCoiffure(),
-            if (!Provider.of<LoginService>(context, listen: true).isLoggedIn &&
-                UniversalPlatform.isWeb)
+            if (!Provider.of<UserService>(context, listen: true).currentUser.isLoggedIn && UniversalPlatform.isWeb)
               Column(
                 children: [
                   Divider(),
@@ -210,10 +198,6 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                     children: [
                       Image.asset('assets/store_badges/google-play-badge.png', height: 65),
                       Image.asset('assets/store_badges/app_store_badge.png', height: 40),
-                      // SvgPicture.asset(
-                      //   'assets/store_badges/app_store_badge.svg',
-                      //   height: 45,
-                      // ),
                     ],
                   ),
                 ],
@@ -226,27 +210,19 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
               child: Row(
                 children: [
                   FloatingTextButton(
-                    text: 'Geri Dön',
-                    onPressed: () => Navigator.pop(context),
-                    gradient: functions.decideColor(context),
-                  ),
+                      text: 'Geri Dön', onPressed: () => Navigator.pop(context), gradient: functions.decideColor(context)),
                   Spacer(),
                   FloatingTextButton(
                     text: 'Onayla',
                     gradient: functions.decideColor(context),
                     onPressed: () {
-                      bool check = Provider.of<LoginService>(context, listen: false).isLoggedIn;
+                      bool check = Provider.of<UserService>(context, listen: false).currentUser.isLoggedIn;
                       if (check == false) {
                         PopUp().mailFieldDialog(context: context);
                       } else if (check == true) {
                         ///TODO profildeki mail adresine mail gonderilecek
-                        Provider.of<UserService>(context, listen: false)
-                            .waitingAppointments
-                            .add(currentAppointment);
-                        Provider.of<AppointmentService>(context, listen: false)
-                            .currentAppointment
-                            .isConfirmedByUser = true;
-
+                        Provider.of<UserService>(context, listen: false).waitingAppointments.add(currentAppointment);
+                        Provider.of<AppointmentService>(context, listen: false).currentAppointment.isConfirmedByUser = true;
                         Navigator.pushNamed(context, "/OnaySayfasi");
                       }
 

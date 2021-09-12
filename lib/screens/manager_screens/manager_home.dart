@@ -1,10 +1,12 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/components/ayarla_page.dart';
 import 'package:ayarla/constants/iconNames.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:ayarla/components/UI/logos&icons&texts.dart' as UI;
 import 'package:ayarla/components/appBar.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:provider/provider.dart';
 
 class ManagerHome extends StatefulWidget {
   @override
@@ -16,6 +18,7 @@ class _ManagerHomeState extends State<ManagerHome> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     bool isSmallScreen = size.width < 650;
+    Provider.of<UserService>(context, listen: false).redirect(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Color(0xFFeceff1),

@@ -4,6 +4,7 @@ import 'package:ayarla/components/textOverFlowHandler.dart';
 import 'package:ayarla/constants/constants.dart';
 import 'package:ayarla/models/functions.dart';
 import 'package:ayarla/services/service_management.dart';
+import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import "package:latlong/latlong.dart" as Latlong;
@@ -22,11 +23,10 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<UserService>(context, listen: false).redirect(context);
     MapController mapController = MapController();
-    Latlong.LatLng markerPoisiton =
-        Provider.of<ManagementService>(context, listen: true).markerPosition;
-    Latlong.LatLng currentPosition =
-        Provider.of<ManagementService>(context, listen: true).currentPosition;
+    Latlong.LatLng markerPoisiton = Provider.of<ManagementService>(context, listen: true).markerPosition;
+    Latlong.LatLng currentPosition = Provider.of<ManagementService>(context, listen: true).currentPosition;
 
     _onPositionChanged(mapPosition, b) {
       // Provider.of<BusinessAndUserData>(context, listen: false).setMarkerPosition(LatLng(mapPosition.center.latitude, mapPosition.center.longitude));
@@ -41,8 +41,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
         },
         title: Center(
             child: TextOverFlowHandler(
-                child: Text('Haritadan Bir Konum Seç!',
-                    style: kTitleStyle.copyWith(color: Colors.white)))),
+                child: Text('Haritadan Bir Konum Seç!', style: kTitleStyle.copyWith(color: Colors.white)))),
       ).build(context),
       extendBodyBehindAppBar: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -65,17 +64,13 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
                       // fontSize: 24,
                       searchHint: 'Adresinizi Giriniz',
                       popOnSelect: false,
-                      apiKey:
-                          "pk.eyJ1Ijoibmlsc3VveiIsImEiOiJja25jOTV6cmExanZrMnhxbmNxdm9nMWZvIn0.FeH5rtpx5yIc3b-0To-XJg",
+                      apiKey: "pk.eyJ1Ijoibmlsc3VveiIsImEiOiJja25jOTV6cmExanZrMnhxbmNxdm9nMWZvIn0.FeH5rtpx5yIc3b-0To-XJg",
                       onSelected: (place) {
-                        Provider.of<ManagementService>(context, listen: false)
-                            .setPickedPlace(place);
+                        Provider.of<ManagementService>(context, listen: false).setPickedPlace(place);
                         mapController.onReady
                             .then((value) => {
                                   mapController.move(
-                                      Latlong.LatLng(place.geometry.coordinates[1],
-                                          place.geometry.coordinates[0]),
-                                      15)
+                                      Latlong.LatLng(place.geometry.coordinates[1], place.geometry.coordinates[0]), 15)
                                 })
                             .then((value) => Navigator.of(context).pop());
                       },
@@ -120,8 +115,7 @@ class _BusinessFlutterMapState extends State<BusinessFlutterMap> {
             urlTemplate:
                 "https://api.mapbox.com/styles/v1/nilsuoz/ckncausp71d9z17r1wpcxss8p/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoibmlsc3VveiIsImEiOiJja25jOHhiNWoxNTdnMnhsY2sxOGx4MnRsIn0.P8ZkwtMfptFGZE2y2KoEgw",
             additionalOptions: {
-              'accessToken':
-                  'pk.eyJ1Ijoibmlsc3VveiIsImEiOiJja25jOHhiNWoxNTdnMnhsY2sxOGx4MnRsIn0.P8ZkwtMfptFGZE2y2KoEgw',
+              'accessToken': 'pk.eyJ1Ijoibmlsc3VveiIsImEiOiJja25jOHhiNWoxNTdnMnhsY2sxOGx4MnRsIn0.P8ZkwtMfptFGZE2y2KoEgw',
               'id': 'mapbox.streets',
             },
           ),

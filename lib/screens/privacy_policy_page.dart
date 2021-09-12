@@ -1,11 +1,11 @@
 import 'package:ayarla/components/UI/genericIconButton.dart';
 import 'package:ayarla/constants/constants.dart';
+import 'package:ayarla/services/service_login.dart';
 import 'package:ayarla/services/service_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-privacyOrAgreementModalBottomSheet(
-    {BuildContext context, StateSetter setState, String heading, String content}) {
+privacyOrAgreementModalBottomSheet({BuildContext context, StateSetter setState, String heading, String content}) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
     child: Container(
@@ -34,7 +34,7 @@ privacyOrAgreementModalBottomSheet(
                     iconSize: 30,
                     onPressed: () {
                       setState(() {
-                        Provider.of<UserService>(context, listen: false).checkBox = false;
+                        Provider.of<LoginService>(context, listen: false).checkBox = false;
                       });
                       Navigator.pop(context);
                     },
@@ -61,7 +61,7 @@ privacyOrAgreementModalBottomSheet(
               text: 'Onaylıyorum',
               onPressed: () {
                 setState(() {
-                  Provider.of<UserService>(context, listen: false).checkBox = true;
+                  Provider.of<LoginService>(context, listen: false).checkBox = true;
                 });
                 Navigator.pop(context);
               },

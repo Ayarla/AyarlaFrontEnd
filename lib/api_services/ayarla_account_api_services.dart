@@ -6,7 +6,6 @@ import 'dart:convert';
 class AyarlaAccountApiServices extends ApiServices {
   Future getAyarlaAccount({String id}) async {
     final String _url = '$baseUrl/api/services/app/AyarlaAccount/Get';
-    var content;
     http.Response response = await http.get(
       '$_url?Id=$id',
 
@@ -19,11 +18,6 @@ class AyarlaAccountApiServices extends ApiServices {
       response: response,
       returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"] : jsonDecode(response.body),
     );
-    // if (response.statusCode == 200) {
-    //   return content;
-    // } else {
-    //   return null;
-    // }
   }
 
   Future getAllAyarlaAccount() async {
@@ -42,7 +36,6 @@ class AyarlaAccountApiServices extends ApiServices {
       response: response,
       returnData: response.statusCode == 200 ? jsonDecode(response.body)["result"]["items"] : jsonDecode(response.body),
     );
-    return jsonDecode(response.body)["result"]["items"];
   }
 
   Future createAyarlaAccount({CoiffureModel coiffureModel}) async {

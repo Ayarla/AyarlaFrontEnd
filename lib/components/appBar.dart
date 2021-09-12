@@ -134,7 +134,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                Provider.of<LoginService>(context, listen: false).isLoggedIn
+                Provider.of<UserService>(context, listen: false).currentUser.isLoggedIn
                     ? "Merhaba "
                     // + Provider.of<LoginService>(context, listen: false).userModel.name
                     : "Merhaba",

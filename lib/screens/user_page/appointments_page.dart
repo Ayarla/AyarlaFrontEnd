@@ -26,6 +26,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
     super.initState();
   }
 
+  /// TODO: Rework
   void getHeight() {
     final State state = _key.currentState;
     final BuildContext context = _key.currentContext;

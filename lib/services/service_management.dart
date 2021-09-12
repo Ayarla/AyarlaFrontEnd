@@ -10,7 +10,7 @@ import "package:latlong/latlong.dart" as LatLong;
 import 'package:mapbox_search/mapbox_search.dart';
 
 class ManagementService extends ChangeNotifier {
-  AyarlaAccountApiServices _httpAyarlaAccountFunctions = AyarlaAccountApiServices();
+  AyarlaAccountApiServices _ayarlaAccountApiServices = AyarlaAccountApiServices();
   List<ImageListItem> pages = [];
   LatLong.LatLng markerPosition = LatLong.LatLng(41.015137, 28.979530);
   LatLong.LatLng currentPosition = LatLong.LatLng(41.015137, 28.979530);
@@ -36,18 +36,7 @@ class ManagementService extends ChangeNotifier {
   );
 
   /// Backup model for not saving changes.
-  CoiffureModel decoyModel = CoiffureModel(
-    name: null,
-    city: null,
-    district: null,
-    time: ['00.00', '00.00'],
-    text: null,
-    telephone: null,
-    address: null,
-    images: [],
-    employeeList: [],
-    serviceList: [],
-  );
+  CoiffureModel decoyModel = CoiffureModel();
 
   /// WillPop handler for manager page when any changes are made.
   changeWillPop() {
@@ -55,16 +44,22 @@ class ManagementService extends ChangeNotifier {
     notifyListeners();
   }
 
+  createCoiffure() async {
+    currentCoiffure = await _ayarlaAccountApiServices.createAyarlaAccount(coiffureModel: currentCoiffure);
+    decoyModel = currentCoiffure;
+  }
+
   getCoiffure(id) async {
-    currentCoiffure = await _httpAyarlaAccountFunctions.getAyarlaAccount(id: id);
+    currentCoiffure = await _ayarlaAccountApiServices.getAyarlaAccount(id: id);
     decoyModel = currentCoiffure;
   }
 
-  updateCoiffure(id) async {
-    _httpAyarlaAccountFunctions.updateAyarlaAccount(coiffureModel: currentCoiffure);
+  updateCoiffure(CoiffureModel coiffureModel) async {
+    _ayarlaAccountApiServices.updateAyarlaAccount(coiffureModel: currentCoiffure);
     decoyModel = currentCoiffure;
   }
 
+  /// Manager Page functions. TODO: Rework
   removeEmployeeFromService(int serviceIndex, int employeeIndex) {
     fullTimeServices[serviceIndex].employees.removeAt(employeeIndex);
     notifyListeners();

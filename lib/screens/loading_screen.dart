@@ -134,7 +134,7 @@ Object ayarlaRoutes = {
   "/CalisanAyarlarim": (context) => EmployeePage(),
 
   /// Manager Pages
-  /// TODO: Redirect functions.
+  /// TODO: Redirect functions - Done.
   "/YoneticiAnasayfasi": (context) => ManagerHome(),
   "/Isletmem": (context) => BusinessInfoPage(),
   "/Calisanlarim": (context) => EmployeeManage(),

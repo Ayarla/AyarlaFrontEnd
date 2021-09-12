@@ -8,7 +8,7 @@ class CoiffureModel {
   int index;
   String city;
   String district;
-  List time;
+  List<dynamic> time;
   String text;
   String telephone;
   String address;
